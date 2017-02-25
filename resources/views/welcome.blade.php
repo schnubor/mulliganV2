@@ -74,50 +74,7 @@
                 </div>
             </section>
 
-            <section id="quicksearch" class="section is-medium has-text-centered">
-                <div class="container">
-                    <div class="columns">
-                        <div class="column is-half is-offset-one-quarter">
-                            <p class="control has-icon has-icon-right">
-                                <input class="input is-large is-expanded" type="text" placeholder="Find a card">
-                                <span class="icon">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </p>
-                            <div class="box">
-                                <table class="table" style="margin-bottom: 0">
-                                    <tbody>
-                                        <tr>
-                                            <th>KLD</th>
-                                            <td><a href="">Veteran Motorist</a></td>
-                                            <td>
-                                                <i class="ms ms-r ms-cost"></i>
-                                                <i class="ms ms-w ms-cost"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>KLD</th>
-                                            <td><a href="">Veteran Motorist</a></td>
-                                            <td>
-                                                <i class="ms ms-1 ms-cost"></i>
-                                                <i class="ms ms-w ms-cost"></i>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th>KLD</th>
-                                            <td><a href="">Veteran Motorist</a></td>
-                                            <td>
-                                                <i class="ms ms-g ms-cost"></i>
-                                                <i class="ms ms-u ms-cost"></i>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <Quicksearch></Quicksearch>
 
             <footer class="footer">
                 <div class="container">
