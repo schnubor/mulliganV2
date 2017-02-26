@@ -1931,7 +1931,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             results: [],
             showBox: false,
             isLoading: false,
-            previewImg: ''
+            previewImg: '',
+            previewImgRarity: ''
         };
     },
 
@@ -2001,6 +2002,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         showPreview: function showPreview(result) {
             this.previewImg = result.imageUrl;
+            switch (result.rarity) {
+                case 'Mythic Rare':
+                    this.previewImgRarity = 'mythic';
+                    break;
+                case 'Rare':
+                    this.previewImgRarity = 'rare';
+                    break;
+                case 'Uncommon':
+                    this.previewImgRarity = 'uncommon';
+                    break;
+                default:
+                    this.previewImgRarity = 'common';
+                    break;
+            }
         },
         hidePreview: function hidePreview() {
             this.previewImg = '';
@@ -19174,7 +19189,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* styles */
-__webpack_require__(57)
+__webpack_require__(63)
 
 var Component = __webpack_require__(8)(
   /* script */
@@ -19330,9 +19345,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "box"
   }, [_c('img', {
+    staticClass: "card",
+    class: _vm.previewImgRarity,
     attrs: {
       "src": _vm.previewImg,
-      "alt": ""
+      "alt": "card preview"
     }
   })])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -28034,39 +28051,8 @@ module.exports = function() {
 /* 53 */,
 /* 54 */,
 /* 55 */,
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(41)();
-exports.push([module.i, "\n.control.has-icon .input.is-large + .icon {\n    top: 1.65rem;\n}\n", ""]);
-
-/***/ }),
-/* 57 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(56);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(58)("1fdc0f0b", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-910c1144!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue", function() {
-     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-910c1144!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 56 */,
+/* 57 */,
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28334,6 +28320,41 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+/* 60 */,
+/* 61 */,
+/* 62 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(41)();
+exports.push([module.i, "\n.control.has-icon .input.is-large + .icon {\n  top: 1.65rem;\n}\n.card {\n  border-radius: 16px;\n  background-color: #F3F3F3;\n}\n.card.common {\n    border: 6px solid #545454;\n}\n.card.uncommon {\n    border: 6px solid #d4d3e6;\n}\n.card.rare {\n    border: 6px solid #f5cb7c;\n}\n.card.mythic {\n    border: 6px solid #ff8555;\n}\n", ""]);
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(62);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(58)("2f76c666", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-910c1144!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-910c1144!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

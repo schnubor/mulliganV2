@@ -26,7 +26,7 @@
                 </div>
                 <div class="column" v-if="previewImg.length">
                     <div class="box">
-                        <img :src="previewImg" alt="">
+                        <img :src="previewImg" alt="card preview" class="card" :class="previewImgRarity">
                     </div>
                 </div>
             </div>
@@ -46,7 +46,8 @@
                 results : [],
                 showBox : false,
                 isLoading : false,
-                previewImg : ''
+                previewImg : '',
+                previewImgRarity : ''
             }
         },
         computed : {
@@ -96,6 +97,20 @@
 
             showPreview( result ) {
                 this.previewImg = result.imageUrl;
+                switch( result.rarity ) {
+                    case 'Mythic Rare': 
+                        this.previewImgRarity = 'mythic';
+                        break;
+                    case 'Rare': 
+                        this.previewImgRarity = 'rare';
+                        break;
+                    case 'Uncommon': 
+                        this.previewImgRarity = 'uncommon';
+                        break;
+                    default: 
+                        this.previewImgRarity = 'common';
+                        break;
+                }
             },
 
             hidePreview() {
@@ -106,8 +121,29 @@
     }
 </script>
 
-<style>
+<style lang="scss">
+    @import "./../../sass/variables";
+
     .control.has-icon .input.is-large + .icon {
         top: 1.65rem;
     }
+
+    .card {
+        border-radius: 16px;
+        background-color: #F3F3F3;
+
+        &.common {
+            border: 6px solid $common;
+        }
+        &.uncommon {
+            border: 6px solid $uncommon;
+        }
+        &.rare {
+            border: 6px solid $rare;
+        }
+        &.mythic {
+            border: 6px solid $mythic;
+        }
+    }
+    
 </style>
