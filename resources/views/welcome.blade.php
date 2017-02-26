@@ -50,12 +50,12 @@
                 <!-- Hero content: will be in the middle -->
                 <div class="hero-body">
                     <div class="container has-text-centered">
-                        <h1 class="title">
-                            Mulligan
-                        </h1>
-                        <h2 class="subtitle">
-                            An MTG Catalog and Deck Builder
+                        <h2 class="title">
+                            Find Cards. Build Decks.
                         </h2>
+                        <h3 class="subtitle">
+                            Magic the Gathering
+                        </h3>
                     </div>
                 </div>
 
