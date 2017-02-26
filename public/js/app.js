@@ -1910,6 +1910,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -1921,7 +1930,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             searchQuery: '',
             results: [],
             showBox: false,
-            isLoading: false
+            isLoading: false,
+            previewImg: ''
         };
     },
 
@@ -1935,8 +1945,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     methods: {
         getSearchDebounced: __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.debounce(function () {
-            var _this = this;
-
             var self = this;
 
             // Fetch search results
@@ -1978,17 +1986,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     self.showBox = true;
 
                     // set loading state
-                    this.isLoading = false;
+                    self.isLoading = false;
                 }).catch(function (error) {
                     console.warn(error);
 
                     // set loading state
-                    _this.isLoading = false;
+                    self.isLoading = false;
                 });
             } else {
                 this.showBox = false;
+                this.hidePreview();
             }
-        }, 200)
+        }, 200),
+
+        showPreview: function showPreview(result) {
+            this.previewImg = result.imageUrl;
+        },
+        hidePreview: function hidePreview() {
+            this.previewImg = '';
+        }
     }
 
 };
@@ -19294,17 +19310,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), (_vm.showBox) ? _c('div', {
     staticClass: "box"
   }, [(_vm.results.length == 0) ? _c('p', [_vm._v("No results.")]) : _vm._e(), _vm._v(" "), (_vm.results.length) ? _c('table', {
-    staticClass: "table",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('tbody', [_vm._l((_vm.results), function(result) {
+    staticClass: "table is-marginless"
+  }, [_c('tbody', [_vm._l((_vm.results), function(result, index) {
     return [_c('QuicksearchResult', {
       attrs: {
         "result": result
+      },
+      nativeOn: {
+        "mouseenter": function($event) {
+          _vm.showPreview(result)
+        },
+        "mouseleave": function($event) {
+          _vm.hidePreview($event)
+        }
       }
     })]
-  })], 2)]) : _vm._e()]) : _vm._e()])])])])
+  })], 2)]) : _vm._e()]) : _vm._e()]), _vm._v(" "), (_vm.previewImg.length) ? _c('div', {
+    staticClass: "column"
+  }, [_c('div', {
+    staticClass: "box"
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.previewImg,
+      "alt": ""
+    }
+  })])]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"

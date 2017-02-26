@@ -11,13 +11,22 @@
                     </p>
                     <div class="box" v-if="showBox">
                         <p v-if="results.length == 0">No results.</p>
-                        <table class="table" style="margin-bottom: 0" v-if="results.length">
+                        <table class="table is-marginless" v-if="results.length">
                             <tbody>
-                                <template v-for="result in results">
-                                    <QuicksearchResult :result="result"></QuicksearchResult>
+                                <template v-for="(result, index) in results">
+                                    <QuicksearchResult 
+                                    :result="result" 
+                                    v-on:mouseenter.native="showPreview( result )"
+                                    v-on:mouseleave.native="hidePreview">
+                                    </QuicksearchResult>
                                 </template>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="column" v-if="previewImg.length">
+                    <div class="box">
+                        <img :src="previewImg" alt="">
                     </div>
                 </div>
             </div>
@@ -36,7 +45,8 @@
                 searchQuery : '',
                 results : [],
                 showBox : false,
-                isLoading : false
+                isLoading : false,
+                previewImg : ''
             }
         },
         computed : {
@@ -69,19 +79,28 @@
                         self.showBox = true;
 
                         // set loading state
-                        this.isLoading = false;
+                        self.isLoading = false;
                     } )
                     .catch( ( error ) => {
                         console.warn( error );
 
                         // set loading state
-                        this.isLoading = false;
+                        self.isLoading = false;
                     } );
                 }
                 else {
                     this.showBox = false;
+                    this.hidePreview();
                 }
-            }, 200 )
+            }, 200 ),
+
+            showPreview( result ) {
+                this.previewImg = result.imageUrl;
+            },
+
+            hidePreview() {
+                this.previewImg = '';
+            }
         }
         
     }
