@@ -4,7 +4,7 @@
             {{ result.set }}
         </th>
         <td>
-            <a href="">{{ result.name }}</a>
+            <a :href="'/card/' + cardTitle + '-' + result.multiverseid">{{ result.name }}</a>
         </td>
         <td>
             <template v-for="manaCost in manaCosts">
@@ -15,8 +15,15 @@
 </template>
 
 <script>
+    import slug from 'slug';
+
     export default {
         props: ['result'],
+        data() {
+            return {
+                cardTitle: slug( this.result.name )
+            }
+        },
         computed : {
             manaCosts() {
                 const manaString = this.result.manaCost;
