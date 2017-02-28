@@ -12,7 +12,7 @@
             <section class="hero is-primary is-bold is-medium">
                 <!-- Hero header: will stick at the top -->
                 <div class="hero-head">
-                    @include('partials.navigation');
+                    @include('partials.navigation')
                 </div>
 
                 <!-- Hero content: will be in the middle -->
