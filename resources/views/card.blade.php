@@ -39,9 +39,15 @@
                         <p class="has-text-left">Artist: {{ $card->artist }}</p>
                     </div>
                     <div class="column content">
-                        @if( isset( $text ) )
+                        @if( isset( $card->manaCost ) )
+                            <p class="title">
+                                {!! Helper::replaceManaIcons( $card->manaCost, false, true ) !!}
+                            </p>
+                            <hr>
+                        @endif
+                        @if( isset( $card->text ) )
                             <p class="subtitle" style="line-height: 2em;">
-                                {!! nl2br($text) !!}
+                                {!! nl2br(Helper::replaceManaIcons( $card->text ) ) !!}
                             </p>
                         @endif
                         @if( isset( $card->flavor ) )
