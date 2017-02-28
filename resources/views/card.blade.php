@@ -26,6 +26,7 @@
                     <h1 class="title">
                         {{ $card->name }} <span style="opacity: .5;">#{{ $card->multiverseid }}</span>
                     </h1>
+                    <p class="subtitle">{{ $card->type }}</p>
                 </div>
             </div>
         </section>
@@ -38,11 +39,31 @@
                         <p class="has-text-left">Artist: {{ $card->artist }}</p>
                     </div>
                     <div class="column content">
-                        <p class="subtitle">{!! nl2br(e($card->text)) !!}</p>
+                        @if( isset( $text ) )
+                            <p class="subtitle" style="line-height: 2em;">
+                                {!! nl2br($text) !!}
+                            </p>
+                        @endif
                         @if( isset( $card->flavor ) )
                             <blockquote><em>{{ $card->flavor }}</em></blockquote>
                         @endif
+                        @if( isset( $card->power ) && isset( $card->toughness ) )
+                            <p>
+                                <span class="title" style="padding-right: 10px;">
+                                    <span class="icon is-medium">
+                                        <i class="fa fa-gavel"></i>
+                                    </span>
+                                    <strong>{{ $card->power }}</strong>
+                                </span>
 
+                                <span class="title">
+                                    <span class="icon is-medium">
+                                        <i class="fa fa-shield"></i>
+                                    </span>
+                                    <strong>{{ $card->toughness }}</strong>
+                                </span>
+                            </p>
+                        @endif
                         <hr>
 
                         @if( isset( $card->legalities ) )

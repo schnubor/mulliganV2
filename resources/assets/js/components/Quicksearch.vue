@@ -9,6 +9,10 @@
                             <i class="fa fa-search"></i>
                         </span>
                     </p>
+                    <div class="notification is-warning" v-if="showError">
+                        <button class="delete" v-on:click="hideError"></button>
+                        Whoops, seems like my <a :href="searchUrl" target="_blank"><strong>source of data</strong></a> is very slow or offline.
+                    </div>
                     <div class="box" v-if="showBox">
                         <p v-if="results.length == 0">No results.</p>
                         <table class="table is-marginless" v-if="results.length">
@@ -42,12 +46,13 @@
     export default {
         data() {
             return {
-                searchQuery : '',
-                results : [],
-                showBox : false,
-                isLoading : false,
-                previewImg : '',
-                previewImgRarity : ''
+                searchQuery         : '',
+                results             : [],
+                showBox             : false,
+                showError           : false,
+                isLoading           : false,
+                previewImg          : '',
+                previewImgRarity    : ''
             }
         },
         computed : {
@@ -67,7 +72,10 @@
                     // set loading state
                     this.isLoading = true;
 
-                    axios.get( this.searchUrl )
+                    // hide error message
+                    self.showError = false;
+
+                    axios.get( this.searchUrl, { timeout : 10000 } )
                     .then( function( response ) {
                         self.results = [];
                         for( const card of response.data.cards ) {
@@ -84,6 +92,9 @@
                     } )
                     .catch( ( error ) => {
                         console.warn( error );
+
+                        // show error message
+                        self.showError = true;
 
                         // set loading state
                         self.isLoading = false;
@@ -115,6 +126,10 @@
 
             hidePreview() {
                 this.previewImg = '';
+            },
+
+            hideError() {
+                this.showError = false;
             }
         }
         
