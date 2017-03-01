@@ -19,12 +19,10 @@
 
     export default {
         props: ['result'],
-        data() {
-            return {
-                cardTitle: slug( this.result.name )
-            }
-        },
         computed : {
+            cardTitle() {
+                return slug( this.result.name );
+            },
             manaCosts() {
                 const manaString = this.result.manaCost;
                 const re = /(\{.*?\})/g;

@@ -2067,13 +2067,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = {
     props: ['result'],
-    data: function data() {
-        return {
-            cardTitle: __WEBPACK_IMPORTED_MODULE_0_slug___default()(this.result.name)
-        };
-    },
-
     computed: {
+        cardTitle: function cardTitle() {
+            return __WEBPACK_IMPORTED_MODULE_0_slug___default()(this.result.name);
+        },
         manaCosts: function manaCosts() {
             var manaString = this.result.manaCost;
             var re = /(\{.*?\})/g;
