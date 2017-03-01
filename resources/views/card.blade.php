@@ -31,7 +31,7 @@
             </div>
         </section>
 
-        <section class="section">
+        <section class="section is-medium">
             <div class="container">
                 <div class="columns">
                     <div class="column is-one-quarter">

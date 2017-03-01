@@ -4,7 +4,7 @@ namespace App\Helpers;
 
 class Helper
 {
-    public static function replaceManaIcons(string $text, $big = false, $shadow = false ) {
+    public static function replaceManaIcons($text = "", $big = false, $shadow = false ) {
         $pattern = array();
         $pattern[0] = '/{T}/';
         $pattern[1] = '/{R}/';
