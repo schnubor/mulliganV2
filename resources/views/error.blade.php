@@ -13,9 +13,18 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    Whoops, seems like my <a href="{{ $url }}" target="_blank"><strong>source of data</strong></a> is very slow or offline.
+                    Whoops, seems like the <a href="{{ $url }}" target="_blank"><strong>source of data</strong></a> 
+                    @if( $status == 404 )
+                        was not found.
+                    @elseif( $status == 502 )
+                        is very slow or offline.
+                    @else
+                        is unreachable.
+                    @endif
                 </h1>
-                <p class="subtitle">Please try again later.</p>
+                <p class="subtitle">
+                    {{ $status . ' ' . $errorMsg }}
+                </p>
             </div>
         </div>
     </section>

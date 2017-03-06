@@ -28,7 +28,7 @@
         </div>
     </section>
 
-    <section class="section is-medium">
+    <section class="section">
         <div class="container">
             <div class="columns">
                 <div class="column is-one-quarter">
@@ -115,6 +115,14 @@
             </div>
         </div>
     </section>
+    
+    <hr>
+
+    <div id="app">
+        <section class="section has-text-centered">
+            <Quicksearch placeholdertext="Find another card"></Quicksearch>
+        </section>
+    </div>
 
     @include('partials.footer')
 @endsection

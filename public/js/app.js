@@ -1921,14 +1921,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    props: {
+        placeholdertext: {
+            type: String,
+            default: "Find a card"
+        }
+    },
     data: function data() {
         return {
             searchQuery: '',
@@ -19593,12 +19597,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', {
-    staticClass: "section is-medium has-text-centered",
-    attrs: {
-      "id": "quicksearch"
-    }
-  }, [_c('div', {
+  return _c('div', {
     staticClass: "container"
   }, [_c('div', {
     staticClass: "columns"
@@ -19619,7 +19618,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input is-large is-expanded",
     attrs: {
       "type": "text",
-      "placeholder": "Find a card"
+      "placeholder": _vm.placeholdertext
     },
     domProps: {
       "value": _vm._s(_vm.searchQuery)
@@ -19638,12 +19637,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.hideError
     }
-  }), _vm._v("\n                    Whoops, seems like my "), _c('a', {
+  }), _vm._v("\n                Whoops, seems like my "), _c('a', {
     attrs: {
       "href": _vm.searchUrl,
       "target": "_blank"
     }
-  }, [_c('strong', [_vm._v("source of data")])]), _vm._v(" is very slow or offline.\n                ")]) : _vm._e(), _vm._v(" "), (_vm.showBox) ? _c('div', {
+  }, [_c('strong', [_vm._v("source of data")])]), _vm._v(" is very slow or offline.\n            ")]) : _vm._e(), _vm._v(" "), (_vm.showBox) ? _c('div', {
     staticClass: "box"
   }, [(_vm.results.length == 0) ? _c('p', [_vm._v("No results.")]) : _vm._e(), _vm._v(" "), (_vm.results.length) ? _c('table', {
     staticClass: "table is-marginless"
@@ -19672,7 +19671,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.previewImg,
       "alt": "card preview"
     }
-  })])]) : _vm._e()])])])
+  })])]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"

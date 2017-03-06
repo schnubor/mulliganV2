@@ -37,7 +37,9 @@
     </section>
 
     <div id="app">
-        <Quicksearch></Quicksearch>
+        <section id="quicksearch" class="section is-medium has-text-centered">
+            <Quicksearch></Quicksearch>
+        </section>
     </div>
 
      @include('partials.footer')

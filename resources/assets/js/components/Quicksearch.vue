@@ -1,41 +1,39 @@
 <template>
-    <section id="quicksearch" class="section is-medium has-text-centered">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-half is-offset-one-quarter">
-                    <p class="control has-icon" :class="{ 'is-loading' : isLoading }">
-                        <input class="input is-large is-expanded" type="text" placeholder="Find a card" v-model="searchQuery" v-on:keyup="getSearchDebounced">
-                        <span class="icon">
-                            <i class="fa fa-search"></i>
-                        </span>
-                    </p>
-                    <div class="notification is-warning" v-if="showError">
-                        <button class="delete" v-on:click="hideError"></button>
-                        Whoops, seems like my <a :href="searchUrl" target="_blank"><strong>source of data</strong></a> is very slow or offline.
-                    </div>
-                    <div class="box" v-if="showBox">
-                        <p v-if="results.length == 0">No results.</p>
-                        <table class="table is-marginless" v-if="results.length">
-                            <tbody>
-                                <template v-for="(result, index) in results">
-                                    <QuicksearchResult 
-                                    :result="result" 
-                                    v-on:mouseenter.native="showPreview( result )"
-                                    v-on:mouseleave.native="hidePreview">
-                                    </QuicksearchResult>
-                                </template>
-                            </tbody>
-                        </table>
-                    </div>
+    <div class="container">
+        <div class="columns">
+            <div class="column is-half is-offset-one-quarter">
+                <p class="control has-icon" :class="{ 'is-loading' : isLoading }">
+                    <input class="input is-large is-expanded" type="text" :placeholder="placeholdertext" v-model="searchQuery" v-on:keyup="getSearchDebounced">
+                    <span class="icon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                </p>
+                <div class="notification is-warning" v-if="showError">
+                    <button class="delete" v-on:click="hideError"></button>
+                    Whoops, seems like my <a :href="searchUrl" target="_blank"><strong>source of data</strong></a> is very slow or offline.
                 </div>
-                <div class="column" v-if="previewImg.length">
-                    <div class="box">
-                        <img :src="previewImg" alt="card preview" class="card" :class="previewImgRarity">
-                    </div>
+                <div class="box" v-if="showBox">
+                    <p v-if="results.length == 0">No results.</p>
+                    <table class="table is-marginless" v-if="results.length">
+                        <tbody>
+                            <template v-for="(result, index) in results">
+                                <QuicksearchResult 
+                                :result="result" 
+                                v-on:mouseenter.native="showPreview( result )"
+                                v-on:mouseleave.native="hidePreview">
+                                </QuicksearchResult>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="column" v-if="previewImg.length">
+                <div class="box">
+                    <img :src="previewImg" alt="card preview" class="card" :class="previewImgRarity">
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </template>
 
 <script>
@@ -44,6 +42,12 @@
     import axios from 'axios';
 
     export default {
+        props : {
+            placeholdertext : {
+                type : String,
+                default: "Find a card"
+            }
+        },
         data() {
             return {
                 searchQuery         : '',

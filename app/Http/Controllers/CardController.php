@@ -27,7 +27,21 @@ class CardController extends Controller
             $response = $client->get( $url, ['timeout' => 10] );
         } 
         catch(\Exception $e){
-           return view( 'error', ['message' => $e, 'url' => $url] );
+            $status = 504;
+            $errorMsg = 'Gateway timeout';
+
+            if( $e->getResponse() ) {
+                $response = json_decode((string)$e->getResponse()->getBody());
+                $status = $response->status;
+                $errorMsg = $response->error;
+            }
+            
+            return view( 'error', [
+                'message' => $e,
+                'url' => $url,
+                'status' => $status,
+                'errorMsg' => $errorMsg
+            ] );
         }
 
         $card = json_decode( $response->getBody() );
