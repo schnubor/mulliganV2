@@ -13,6 +13,14 @@
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-Route::get('/card/{id}', 'CardController@show');
+Route::get('/card/{id}', 'CardController@show')->name('card');
+
+Route::get('/deckbuilder', function () {
+    return view('welcome');
+})->name('deckbuilder');
+
+Route::get('/search', function () {
+    return view('welcome');
+})->name('search');

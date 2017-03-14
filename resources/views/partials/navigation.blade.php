@@ -11,13 +11,13 @@
             <span></span>
         </span>
         <div class="nav-right nav-menu">
-            <a class="nav-item is-active">
+            <a href="{{ route('welcome') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'welcome') === 0 ? 'is-active' : '' }}">
                 Home
             </a>
-            <a class="nav-item">
+            <a href="{{ route('search') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'search') === 0 ? 'is-active' : '' }}">
                 Advanced Search
             </a>
-            <a class="nav-item">
+            <a href="{{ route('deckbuilder') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'deckbuilder') === 0 ? 'is-active' : '' }}">
                 Deck Builder
             </a>
             <span class="nav-item">
