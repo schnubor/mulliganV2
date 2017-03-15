@@ -167,5 +167,4 @@
             background-color: $mythic;
         }
     }
-    
 </style>

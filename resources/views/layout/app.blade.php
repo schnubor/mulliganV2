@@ -7,7 +7,15 @@
         <link rel="stylesheet" href="/css/app.css">
         <title>Mulligan | @yield('title')</title>
         <meta name="description" content="@yield('description')">
-        @yield('og_tags')
+
+        {{-- Social --}}
+        <meta property="og:image" content="@yield('ogimage', 'https://mulligan.com/images/fb_image.jpg')">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Mulligan | @yield('title')">
+        <meta property="og:description" content="@yield('description', 'Find cards and build decks for Magic the Gathering.')">
+        <meta property="og:url" content="{{ Request::url() }}">
+        <meta property="og:site_name" content="mulligan.com">
+
     </head>
     <body>
         @yield('content')

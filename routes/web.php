@@ -18,9 +18,5 @@ Route::get('/', function () {
 Route::get('/card/{id}', 'CardController@show')->name('card');
 
 Route::get('/deckbuilder', function () {
-    return view('welcome');
+    return view('deckbuilder');
 })->name('deckbuilder');
-
-Route::get('/search', function () {
-    return view('welcome');
-})->name('search');

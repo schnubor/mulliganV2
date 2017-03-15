@@ -1,14 +1,8 @@
 @extends('layout.app')
 
-@section('title', Deckbuilder)
+@section('title', 'Deckbuilder')
 
-@section('og_tags')
-    <meta property="og:url" content="{{ Request::url() }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mulligan | Deckbuilder" />
-    <meta property="og:description" content="Build a Magic The Gathering Deck." />
-    <meta property="og:image" content="{{ $card->imageUrl }}" />
-@endsection
+@section('description', 'Build your own Magic The Gathering Deck now.')
 
 @section('content')
     <section class="hero is-primary is-bold">
@@ -21,108 +15,18 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    {{ $card->name }} <span style="opacity: .5;">#{{ $card->multiverseid }}</span>
+                    Deckbuilder
                 </h1>
-                <p class="subtitle">{{ $card->type }}</p>
+                <p class="subtitle">Create a new deck.</p>
             </div>
         </div>
     </section>
-
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-one-quarter">
-                    <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}">
-                    <p class="has-text-left">Artist: {{ $card->artist }}</p>
-                </div>
-                <div class="column content">
-                    @if( isset( $card->manaCost ) )
-                        <p class="title">
-                            {!! Helper::replaceManaIcons( $card->manaCost, false, true ) !!}
-                        </p>
-                        <hr>
-                    @endif
-                    @if( isset( $card->text ) )
-                        <p class="subtitle" style="line-height: 2em;">
-                            {!! nl2br(Helper::replaceManaIcons( $card->text ) ) !!}
-                        </p>
-                    @endif
-                    @if( isset( $card->flavor ) )
-                        <blockquote><em>{{ $card->flavor }}</em></blockquote>
-                    @endif
-                    @if( isset( $card->power ) && isset( $card->toughness ) )
-                        <p>
-                            <span class="title" style="padding-right: 10px;">
-                                <span class="icon is-medium">
-                                    <i class="fa fa-gavel"></i>
-                                </span>
-                                <strong>{{ $card->power }}</strong>
-                            </span>
-
-                            <span class="title">
-                                <span class="icon is-medium">
-                                    <i class="fa fa-shield"></i>
-                                </span>
-                                <strong>{{ $card->toughness }}</strong>
-                            </span>
-                        </p>
-                    @endif
-                    <hr>
-
-                    @if( isset( $card->legalities ) )
-                        <h3>Legalities</h3>
-                        @foreach ($card->legalities as $legality)
-                            @if( $legality->legality == "Legal" )
-                                <span class="tag is-success is-medium">{{ $legality->format }}</span>
-                            @elseif( $legality->legality == "Restricted" )
-                                <span class="tag is-warning is-medium">{{ $legality->format }}</span>
-                            @elseif( $legality->legality == "Banned" )
-                                <span class="tag is-danger is-medium">{{ $legality->format }}</span>
-                            @else
-                                <span class="tag is-light is-medium">{{ $legality->format }}</span>
-                            @endif
-                        @endforeach
-                        <hr>
-                    @endif
-
-                    @if( isset( $card->rulings ) )
-                        <h3>Rulings</h3>
-                        @foreach ($card->rulings as $ruling)
-                            <div class="box">
-                                <div class="content">
-                                    <p>
-                                        {{ $ruling->text }}
-                                    </p>
-                                    <small>– {{ $ruling->date }}</small>
-                                </div>
-                            </div>
-                        @endforeach
-                        <hr>
-                    @endif
-
-                    <p>
-                        Set: {{ $card->setName }} ({{ $card->set }}), Multiverse ID: {{ $card->multiverseid }}
-                    </p>
-                    <hr>
-
-                    <a href="{{ 'https://www.magiccardmarket.eu/Products/Singles/' . $card->setName . '/' . $card->name }}" class="button is-large is-primary is-outlined">
-                        <span class="icon is-medium">
-                            <i class="fa fa-shopping-cart"></i>
-                        </span>
-                        <span>Buy Card</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <hr>
 
     <div id="app">
-        <section class="section has-text-centered">
-            <Quicksearch placeholdertext="Find another card"></Quicksearch>
-        </section>
+        <Filterpanel></Filterpanel>
     </div>
+
+    ajdhakdka
 
     @include('partials.footer')
 @endsection

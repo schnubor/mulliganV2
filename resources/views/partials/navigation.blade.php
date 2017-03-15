@@ -14,11 +14,8 @@
             <a href="{{ route('welcome') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'welcome') === 0 ? 'is-active' : '' }}">
                 Home
             </a>
-            <a href="{{ route('search') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'search') === 0 ? 'is-active' : '' }}">
-                Advanced Search
-            </a>
             <a href="{{ route('deckbuilder') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'deckbuilder') === 0 ? 'is-active' : '' }}">
-                Deck Builder
+                Deckbuilder
             </a>
             <span class="nav-item">
                 <a class="button is-primary is-inverted">

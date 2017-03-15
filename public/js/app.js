@@ -1014,13 +1014,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Quicksearch_vue__ = __webpack_require__(37);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Quicksearch_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Quicksearch_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Filterpanel_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_Filterpanel_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_Filterpanel_vue__);
+
 
 
 
 var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el: '#app',
     components: {
-        Quicksearch: __WEBPACK_IMPORTED_MODULE_1__components_Quicksearch_vue___default.a
+        Quicksearch: __WEBPACK_IMPORTED_MODULE_1__components_Quicksearch_vue___default.a,
+        Filterpanel: __WEBPACK_IMPORTED_MODULE_2__components_Filterpanel_vue___default.a
     }
 });
 
@@ -28593,6 +28597,214 @@ module.exports = function(module) {
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
+
+/***/ }),
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */,
+/* 65 */,
+/* 66 */,
+/* 67 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {}
+};
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(33)();
+exports.push([module.i, "\n.mana-switch {\n  display: inline-block;\n  padding: 0 5px;\n}\n", ""]);
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(71)
+
+var Component = __webpack_require__(8)(
+  /* script */
+  __webpack_require__(67),
+  /* template */
+  __webpack_require__(70),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulligan/resources/assets/js/components/Filterpanel.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Filterpanel.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-9f5f70d6", Component.options)
+  } else {
+    hotAPI.reload("data-v-9f5f70d6", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', {
+    staticClass: "hero is-light"
+  }, [_c('div', {
+    staticClass: "hero-body"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [_c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column is-3"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('span', {
+    staticClass: "select is-fullwidth"
+  }, [_c('select', [_c('option', [_vm._v("Select Set")]), _vm._v(" "), _c('option', [_vm._v("Aether Revolt")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "column is-4"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    staticClass: "input",
+    attrs: {
+      "type": "email",
+      "placeholder": "Card name"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('div', {
+    staticClass: "mana-switch"
+  }, [_c('i', {
+    staticClass: "ms ms-r ms-cost ms-shadow ms-2x ms-fw"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "mana-switch"
+  }, [_c('i', {
+    staticClass: "ms ms-w ms-cost ms-shadow ms-2x ms-fw"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "mana-switch"
+  }, [_c('i', {
+    staticClass: "ms ms-g ms-cost ms-shadow ms-2x ms-fw"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "mana-switch"
+  }, [_c('i', {
+    staticClass: "ms ms-b ms-cost ms-shadow ms-2x ms-fw"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "mana-switch"
+  }, [_c('i', {
+    staticClass: "ms ms-u ms-cost ms-shadow ms-2x ms-fw"
+  })])])])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-9f5f70d6", module.exports)
+  }
+}
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(68);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(42)("1053a2ed", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-9f5f70d6!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Filterpanel.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-9f5f70d6!../../../../node_modules/sass-loader/lib/loader.js!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Filterpanel.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

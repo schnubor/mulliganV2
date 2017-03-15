@@ -1,6 +1,6 @@
 @extends('layout.app')
 
-@section('title', "Home")
+@section('title', 'Home')
 
 @section('content')
     <section class="hero is-primary is-bold is-medium">

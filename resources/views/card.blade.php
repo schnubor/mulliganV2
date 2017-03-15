@@ -2,13 +2,7 @@
 
 @section('title', $card->name)
 
-@section('og_tags')
-    <meta property="og:url" content="{{ Request::url() }}" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mulligan | {{ $card->name }}" />
-    <meta property="og:description" content="Details and rulings for '{{ $card->name }}'" />
-    <meta property="og:image" content="{{ $card->imageUrl }}" />
-@endsection
+@section('description', 'Details and rulings for the MTG card ' . $card->name)
 
 @section('content')
     <section class="hero is-primary is-bold">
