@@ -22,10 +22,10 @@
                         <div class="mana-switch">
                             <i class="ms ms-r ms-cost ms-shadow ms-2x ms-fw"></i>
                         </div>
-                        <div class="mana-switch">
+                        <div class="mana-switch active">
                             <i class="ms ms-w ms-cost ms-shadow ms-2x ms-fw"></i>
                         </div>
-                        <div class="mana-switch">
+                        <div class="mana-switch active">
                             <i class="ms ms-g ms-cost ms-shadow ms-2x ms-fw"></i>
                         </div>
                         <div class="mana-switch">
@@ -53,5 +53,12 @@
     .mana-switch {
         display: inline-block;
         padding: 0 5px;
+        cursor: pointer;
+        opacity: .5;
+        transition: .2s all;
+
+        &:hover, &.active{
+            opacity: 1
+        }
     }
 </style>

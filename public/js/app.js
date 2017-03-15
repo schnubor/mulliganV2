@@ -28677,7 +28677,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(33)();
-exports.push([module.i, "\n.mana-switch {\n  display: inline-block;\n  padding: 0 5px;\n}\n", ""]);
+exports.push([module.i, "\n.mana-switch {\n  display: inline-block;\n  padding: 0 5px;\n  cursor: pointer;\n  opacity: .5;\n  -webkit-transition: .2s all;\n  transition: .2s all;\n}\n.mana-switch:hover, .mana-switch.active {\n    opacity: 1;\n}\n", ""]);
 
 /***/ }),
 /* 69 */
@@ -28755,11 +28755,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "ms ms-r ms-cost ms-shadow ms-2x ms-fw"
   })]), _vm._v(" "), _c('div', {
-    staticClass: "mana-switch"
+    staticClass: "mana-switch active"
   }, [_c('i', {
     staticClass: "ms ms-w ms-cost ms-shadow ms-2x ms-fw"
   })]), _vm._v(" "), _c('div', {
-    staticClass: "mana-switch"
+    staticClass: "mana-switch active"
   }, [_c('i', {
     staticClass: "ms ms-g ms-cost ms-shadow ms-2x ms-fw"
   })]), _vm._v(" "), _c('div', {

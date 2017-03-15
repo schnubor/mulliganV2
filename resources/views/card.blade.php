@@ -109,14 +109,6 @@
             </div>
         </div>
     </section>
-    
-    <hr>
-
-    <div id="app">
-        <section class="section has-text-centered">
-            <Quicksearch placeholdertext="Find another card"></Quicksearch>
-        </section>
-    </div>
 
     @include('partials.footer')
 @endsection
