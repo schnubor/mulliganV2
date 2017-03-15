@@ -2121,7 +2121,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(33)();
-exports.push([module.i, "\n.control.has-icon .input.is-large + .icon {\n  top: 1.65rem;\n}\n.card {\n  border-radius: 16px;\n}\n.card.common {\n    border: 6px solid #545454;\n    background-color: #545454;\n}\n.card.uncommon {\n    border: 6px solid #d4d3e6;\n    background-color: #d4d3e6;\n}\n.card.rare {\n    border: 6px solid #e0c596;\n    background-color: #e0c596;\n}\n.card.mythic {\n    border: 6px solid #ff8555;\n    background-color: #ff8555;\n}\n", ""]);
+exports.push([module.i, "\n.control.has-icon .input.is-large + .icon {\n  top: 1.65rem;\n}\n.card {\n  border-radius: 16px;\n}\n.card.common {\n    border: 6px solid #545454;\n    background-color: #545454;\n}\n.card.uncommon {\n    border: 6px solid #d4d3e6;\n    background-color: #d4d3e6;\n}\n.card.rare {\n    border: 6px solid #e0c596;\n    background-color: #e0c596;\n}\n.card.mythic {\n    border: 6px solid #FEA97F;\n    background-color: #FEA97F;\n}\n", ""]);
 
 /***/ }),
 /* 33 */

@@ -1,12 +1,12 @@
 @extends('layout.app')
 
-@section('title', $card->name)
+@section('title', Deckbuilder)
 
 @section('og_tags')
     <meta property="og:url" content="{{ Request::url() }}" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Mulligan | {{ $card->name }}" />
-    <meta property="og:description" content="Details and rulings for '{{ $card->name }}'" />
+    <meta property="og:title" content="Mulligan | Deckbuilder" />
+    <meta property="og:description" content="Build a Magic The Gathering Deck." />
     <meta property="og:image" content="{{ $card->imageUrl }}" />
 @endsection
 
@@ -32,7 +32,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-one-quarter">
-                    <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}" class="card {{ $card->rarity }}">
+                    <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}">
                     <p class="has-text-left">Artist: {{ $card->artist }}</p>
                 </div>
                 <div class="column content">

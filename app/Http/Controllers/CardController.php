@@ -47,6 +47,28 @@ class CardController extends Controller
         $card = json_decode( $response->getBody() );
         $card = $card->card;
 
+        switch ( $card->rarity ) {
+            case 'Rare':
+                $card->rarity = 'rare';
+                break;
+
+            case 'Uncommon':
+                $card->rarity = 'uncommon';
+                break;
+
+            case 'Mythic Rare':
+                $card->rarity = 'mythic';
+                break;
+
+            case 'Common':
+                $card->rarity = 'common';
+                break;
+            
+            default:
+                $card->rarity = 'common';
+                break;
+        }
+
         // TODO: Create border color from rarity..
 
         return view( 'card', ['card' => $card] );
