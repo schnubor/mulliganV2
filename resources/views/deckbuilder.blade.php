@@ -24,9 +24,17 @@
 
     <div id="app">
         <Filterpanel></Filterpanel>
+        <section class="section">
+            <div class="container">
+                <div class="columns">
+                    <div class="column is-3">
+                        <Decklist></Decklist>
+                    </div>
+                    <Cardresults></Cardresults>
+                </div>
+            </div>
+        </section>
     </div>
-
-    ajdhakdka
 
     @include('partials.footer')
 @endsection
