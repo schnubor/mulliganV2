@@ -143,10 +143,6 @@
 <style lang="scss">
     @import "./../../sass/variables";
 
-    .control.has-icon .input.is-large + .icon {
-        top: 1.65rem;
-    }
-
     .card {
         border-radius: 16px;
 
