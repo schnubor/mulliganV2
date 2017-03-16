@@ -27,7 +27,9 @@
             <div class="columns">
                 <div class="column is-one-quarter">
                     <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}" class="card {{ $card->rarity }}">
-                    <small class="has-text-left">Artist: {{ $card->artist }}</small>
+                    <p>
+                        <small class="has-text-left">Artist: {{ $card->artist }}</small>
+                    </p>
                 </div>
                 <div class="column content">
                     @if( isset( $card->manaCost ) )
