@@ -8,7 +8,7 @@
                             <span class="select is-fullwidth">
                                 <select>
                                     <option>Select Set</option>
-                                    <option>Aether Revolt</option>
+                                    <option :value="set.code" v-for="set in setsReverted">{{ set.name }}</option>
                                 </select>
                             </span>
                         </p>
@@ -51,6 +51,11 @@
                 sets : [],
                 setsUrl : 'https://api.magicthegathering.io/v1/sets'
             };
+        },
+        computed : {
+            setsReverted() {
+                return this.sets.reverse();
+            }
         },
         mounted() {
             // Fetch all the sets

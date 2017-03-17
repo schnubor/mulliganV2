@@ -2243,6 +2243,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             setsUrl: 'https://api.magicthegathering.io/v1/sets'
         };
     },
+
+    computed: {
+        setsReverted: function setsReverted() {
+            return this.sets.reverse();
+        }
+    },
     mounted: function mounted() {
         // Fetch all the sets
         this.fetchSets();
@@ -19953,8 +19959,6 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', {
     staticClass: "hero is-light"
   }, [_c('div', {
@@ -19969,7 +19973,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('span', {
     staticClass: "select is-fullwidth"
-  }, [_c('select', [_c('option', [_vm._v("Select Set")]), _vm._v(" "), _c('option', [_vm._v("Aether Revolt")])])])])]), _vm._v(" "), _c('div', {
+  }, [_c('select', [_c('option', [_vm._v("Select Set")]), _vm._v(" "), _vm._l((_vm.setsReverted), function(set) {
+    return _c('option', {
+      domProps: {
+        "value": set.code
+      }
+    }, [_vm._v(_vm._s(set.name))])
+  })], 2)])])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _vm._m(1)])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "column is-4"
   }, [_c('p', {
     staticClass: "control"
@@ -19979,7 +19991,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "email",
       "placeholder": "Card name"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "column"
   }, [_c('div', {
     staticClass: "mana-switch"
@@ -20001,7 +20015,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mana-switch"
   }, [_c('i', {
     staticClass: "ms ms-u ms-cost ms-shadow ms-2x ms-fw"
-  })])])])])])])
+  })])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
