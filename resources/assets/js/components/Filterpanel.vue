@@ -42,7 +42,35 @@
 </template>
 
 <script>
-    export default {}
+    import _ from 'lodash';
+    import axios from 'axios';
+
+    export default {
+        data() {
+            return {
+                sets : [],
+                setsUrl : 'https://api.magicthegathering.io/v1/sets'
+            };
+        },
+        mounted() {
+            // Fetch all the sets
+            this.fetchSets();
+        },
+        methods : {
+            // Fetch all sets
+            fetchSets() {
+                const self = this;
+                axios.get( this.setsUrl, { timeout : 10000 } )
+                .then( function( response ) {
+                    console.log( response.data );
+                    // Fill sets
+                    self.sets = response.data.sets;
+                } ).catch( ( error ) => {
+                    console.warn( error );
+                } );
+            }
+        }
+    };
 </script>
 
 <style lang="scss">

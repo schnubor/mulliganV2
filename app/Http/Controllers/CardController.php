@@ -69,8 +69,6 @@ class CardController extends Controller
                 break;
         }
 
-        // TODO: Create border color from rarity..
-
         return view( 'card', ['card' => $card] );
     }
 }

@@ -45,7 +45,7 @@
         props : {
             placeholdertext : {
                 type : String,
-                default: "Find a card"
+                default : 'Find a card'
             }
         },
         data() {
@@ -67,7 +67,7 @@
         components : {
             QuicksearchResult
         },
-        methods: {
+        methods : {
             getSearchDebounced : _.debounce( function() {
                 const self = this;
 
@@ -113,16 +113,16 @@
             showPreview( result ) {
                 this.previewImg = result.imageUrl;
                 switch( result.rarity ) {
-                    case 'Mythic Rare': 
+                    case 'Mythic Rare' :
                         this.previewImgRarity = 'mythic';
                         break;
-                    case 'Rare': 
+                    case 'Rare' :
                         this.previewImgRarity = 'rare';
                         break;
-                    case 'Uncommon': 
+                    case 'Uncommon' :
                         this.previewImgRarity = 'uncommon';
                         break;
-                    default: 
+                    default :
                         this.previewImgRarity = 'common';
                         break;
                 }
@@ -136,8 +136,7 @@
                 this.showError = false;
             }
         }
-        
-    }
+    };
 </script>
 
 <style lang="scss">
