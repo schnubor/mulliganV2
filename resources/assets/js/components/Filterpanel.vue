@@ -35,6 +35,9 @@
                             <i class="ms ms-u ms-cost ms-shadow ms-2x ms-fw"></i>
                         </div>
                     </div>
+                    <div class="column">
+                        <Spinner></Spinner>
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,11 +47,12 @@
 <script>
     import _ from 'lodash';
     import axios from 'axios';
+    import Spinner from './Spinner.vue';
 
     export default {
         data() {
             return {
-                sets : [],
+                sets    : [],
                 setsUrl : 'https://api.magicthegathering.io/v1/sets'
             };
         },
@@ -56,10 +60,6 @@
             setsReverted() {
                 return this.sets.reverse();
             }
-        },
-        mounted() {
-            // Fetch all the sets
-            this.fetchSets();
         },
         methods : {
             // Fetch all sets
@@ -74,6 +74,13 @@
                     console.warn( error );
                 } );
             }
+        },
+        mounted() {
+            // Fetch all the sets
+            this.fetchSets();
+        },
+        components : {
+            Spinner
         }
     };
 </script>

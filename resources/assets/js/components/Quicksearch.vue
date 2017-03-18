@@ -44,7 +44,7 @@
     export default {
         props : {
             placeholdertext : {
-                type : String,
+                type    : String,
                 default : 'Find a card'
             }
         },
@@ -57,7 +57,7 @@
                 isLoading           : false,
                 previewImg          : '',
                 previewImgRarity    : ''
-            }
+            };
         },
         computed : {
             searchUrl() {
@@ -72,7 +72,7 @@
                 const self = this;
 
                 // Fetch search results
-                if( this.searchQuery.length > 3 ){
+                if ( this.searchQuery.length > 3 ) {
                     // set loading state
                     this.isLoading = true;
 
@@ -82,7 +82,7 @@
                     axios.get( this.searchUrl, { timeout : 10000 } )
                     .then( function( response ) {
                         self.results = [];
-                        for( const card of response.data.cards ) {
+                        for ( const card of response.data.cards ) {
                             if ( card.manaCost && card.imageUrl ) {
                                 self.results.push( card );
                             }
@@ -112,7 +112,7 @@
 
             showPreview( result ) {
                 this.previewImg = result.imageUrl;
-                switch( result.rarity ) {
+                switch ( result.rarity ) {
                     case 'Mythic Rare' :
                         this.previewImgRarity = 'mythic';
                         break;

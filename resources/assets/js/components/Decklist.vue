@@ -41,7 +41,16 @@
 </template>
 
 <script>
-    export default {}
+    import Spinner from './Spinner.vue';
+
+    export default {
+        data() {
+            return {};
+        },
+        components : {
+            Spinner
+        }
+    };
 </script>
 
 <style lang="scss">

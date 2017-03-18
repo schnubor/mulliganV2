@@ -18,7 +18,7 @@
     import slug from 'slug';
 
     export default {
-        props: ['result'],
+        props     : [ 'result' ],
         computed : {
             cardTitle() {
                 return slug( this.result.name );
@@ -26,14 +26,14 @@
             manaCosts() {
                 const manaString = this.result.manaCost;
                 const re = /(\{.*?\})/g;
-                let splits = manaString.split(re);
-                let manaCosts = [];
+                let splits = manaString.split( re );
+                const manaCosts = [];
 
                 splits = splits.filter( Boolean ); // e.g. ['{R}','{W}']
 
                 // Build class strings from splits
-                for( const split of splits ) {
-                    const manaCostLetter = split.slice(1, -1).toLowerCase();
+                for ( const split of splits ) {
+                    const manaCostLetter = split.slice( 1, -1 ).toLowerCase();
                     const classString = `ms-${manaCostLetter}`;
                     manaCosts.push( classString );
                 }
@@ -41,5 +41,5 @@
                 return manaCosts;
             }
         }
-    }
+    };
 </script>
