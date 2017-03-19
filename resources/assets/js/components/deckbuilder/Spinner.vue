@@ -4,9 +4,11 @@
     </div>
 </template>
 
-<style lang="css">
+<style lang="scss">
+    @import "./../../../sass/variables";
+    
     .loader {
-        border: 2px solid #00d1b2; 
+        border: 2px solid $teal; 
         border-top: 4px solid #f5f5f5; /* Light grey */
         border-radius: 50%;
         width: 32px;

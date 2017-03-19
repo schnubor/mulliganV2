@@ -140,7 +140,7 @@
 </script>
 
 <style lang="scss">
-    @import "./../../sass/variables";
+    @import "./../../../sass/variables";
 
     .card {
         border-radius: 16px;
