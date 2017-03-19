@@ -23,5 +23,7 @@
     "slug": "^0.9.1",
     "vue": "^2.1.10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "query-string": "^4.3.2"
+  }
 }

@@ -74,7 +74,7 @@
                 // Fetch search results
                 if ( this.searchQuery.length > 3 ) {
                     // set loading state
-                    this.isLoading = true;
+                    self.isLoading = true;
 
                     // hide error message
                     self.showError = false;
