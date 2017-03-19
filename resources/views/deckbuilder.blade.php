@@ -23,18 +23,7 @@
     </section>
 
     <div id="app">
-        <Filterpanel></Filterpanel>
-        <section class="section">
-            <div class="container">
-                <div class="columns">
-                    <div class="column is-3">
-                        <Deckactions></Deckactions>
-                        <Decklist></Decklist>
-                    </div>
-                    <Cardresults></Cardresults>
-                </div>
-            </div>
-        </section>
+        <Deckbuilder></Deckbuilder>
     </div>
 
     @include('partials.footer')
