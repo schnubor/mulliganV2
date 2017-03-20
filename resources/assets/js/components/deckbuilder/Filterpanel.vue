@@ -96,6 +96,7 @@
     import axios from 'axios';
     import Spinner from './Spinner.vue';
     import queryString from 'query-string';
+    import Store from './store.js';
 
     export default {
         data() {
@@ -108,16 +109,11 @@
                 fetched     : false,
                 noresults   : false,
                 toomany     : false,
-                cards       : [],
-                pagination  : {
-                    currentPage : 1,
-                    pageSize    : 32
-                },
 
                 // Filters
                 filters : {
                     set     : '',
-                    mana    : 0,
+                    mana    : null,
                     name    : '',
                     rarity  : '',
                     type    : '',
@@ -128,7 +124,10 @@
                         black : false,
                         white : false
                     }
-                }
+                },
+
+                // Store
+                shared : Store
             };
         },
         computed : {
@@ -160,9 +159,10 @@
                 if ( this.filters.set ) params.set = this.filters.set;
                 if ( this.filters.type ) params.types = this.filters.type;
                 if ( this.filters.rarity ) params.rarity = this.filters.rarity;
+                if ( this.filters.mana ) params.cmc = this.filters.mana;
                 if ( this.colorsArray.length && this.filters.type !== 'land' ) params.colors = this.colorsArray.join( ',' );
 
-                params.pageSize = this.pagination.pageSize;
+                params.pageSize = this.shared.pagination.pageSize;
                 params.page = page;
 
                 const searchUri = this.searchUrl + queryString.stringify( params );
@@ -175,13 +175,13 @@
                     console.log( response );
                     // Get total count
                     const total = response.headers[ 'total-count' ];
-                    const totalPages = Math.ceil( total / self.pagination.pageSize );
+                    const totalPages = Math.ceil( total / self.shared.pagination.pageSize );
                     // Check for
                     if ( total < 1000 ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
                             for ( const card of response.data.cards ) {
-                                if ( card.imageUrl ) self.cards.push( card );
+                                if ( card.imageUrl ) self.shared.cardlist.push( card );
                             }
                         }
                         else {
@@ -223,8 +223,8 @@
                 } );
             },
             search : _.debounce( function() {
-                this.pagination.currentPage = 1;
-                this.cards = [];
+                this.shared.pagination.currentPage = 1;
+                this.shared.cardlist = [];
                 this.fetched = false;
                 this.searching = true;
                 this.noresults = false;

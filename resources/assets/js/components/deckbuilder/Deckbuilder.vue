@@ -5,10 +5,10 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-3">
-                        <Deckactions></Deckactions>
-                        <Decklist></Decklist>
+                        <Deckactions :shared="shared"></Deckactions>
+                        <Decklist :shared="shared"></Decklist>
                     </div>
-                    <Cardresults></Cardresults>
+                    <Cardresults :shared="shared"></Cardresults>
                 </div>
             </div>
         </section>
@@ -20,8 +20,14 @@
     import Cardresults from './Cardresults.vue';
     import Decklist from './Decklist.vue';
     import Deckactions from './Deckactions.vue';
+    import Store from './store.js';
 
     export default {
+        data() {
+            return {
+                shared : Store
+            };
+        },
         components : {
             Filterpanel,
             Cardresults,

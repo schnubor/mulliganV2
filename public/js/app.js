@@ -28825,23 +28825,10 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Singlecard_vue__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Singlecard_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Singlecard_vue__);
 //
 //
 //
@@ -28891,11 +28878,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = {
-    data: function data() {
-        return {
-            cardlist: []
-        };
+    props: ['shared'],
+    components: {
+        Card: __WEBPACK_IMPORTED_MODULE_1__Singlecard_vue___default.a
+    },
+    computed: {
+        totalPages: function totalPages() {
+            return Math.ceil(this.shared.cardlist.length / this.shared.pagination.pageSize);
+        },
+        cardPage: function cardPage() {
+            var resultCount = this.shared.cardlist.length;
+            var index = 0;
+            var currentPage = this.shared.pagination.currentPage - 1;
+            if (resultCount !== 0) {
+                if (this.shared.pagination.currentPage >= this.totalPages) {
+                    currentPage = this.totalPages - 1;
+                }
+            } else {
+                currentPage = 0;
+            }
+            index = currentPage * this.shared.pagination.pageSize;
+            return this.shared.cardlist.slice(index, index + this.shared.pagination.pageSize);
+        },
+        chunkedPage: function chunkedPage() {
+            return __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.chunk(this.cardPage, 4);
+        }
     }
 };
 
@@ -29004,6 +29015,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Spinner_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Spinner_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_query_string__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_query_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_query_string__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_js__ = __webpack_require__(120);
 //
 //
 //
@@ -29097,6 +29109,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -29114,16 +29127,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             fetched: false,
             noresults: false,
             toomany: false,
-            cards: [],
-            pagination: {
-                currentPage: 1,
-                pageSize: 32
-            },
 
             // Filters
             filters: {
                 set: '',
-                mana: 0,
+                mana: null,
                 name: '',
                 rarity: '',
                 type: '',
@@ -29134,7 +29142,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     black: false,
                     white: false
                 }
-            }
+            },
+
+            // Store
+            shared: __WEBPACK_IMPORTED_MODULE_4__store_js__["a" /* default */]
         };
     },
 
@@ -29167,9 +29178,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.filters.set) params.set = this.filters.set;
             if (this.filters.type) params.types = this.filters.type;
             if (this.filters.rarity) params.rarity = this.filters.rarity;
+            if (this.filters.mana) params.cmc = this.filters.mana;
             if (this.colorsArray.length && this.filters.type !== 'land') params.colors = this.colorsArray.join(',');
 
-            params.pageSize = this.pagination.pageSize;
+            params.pageSize = this.shared.pagination.pageSize;
             params.page = page;
 
             var searchUri = this.searchUrl + __WEBPACK_IMPORTED_MODULE_3_query_string___default.a.stringify(params);
@@ -29181,7 +29193,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(response);
                 // Get total count
                 var total = response.headers['total-count'];
-                var totalPages = Math.ceil(total / self.pagination.pageSize);
+                var totalPages = Math.ceil(total / self.shared.pagination.pageSize);
                 // Check for
                 if (total < 1000) {
                     // Fill cards
@@ -29194,7 +29206,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             for (var _iterator = response.data.cards[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                                 var card = _step.value;
 
-                                if (card.imageUrl) self.cards.push(card);
+                                if (card.imageUrl) self.shared.cardlist.push(card);
                             }
                         } catch (err) {
                             _didIteratorError = true;
@@ -29247,8 +29259,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         search: __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.debounce(function () {
-            this.pagination.currentPage = 1;
-            this.cards = [];
+            this.shared.pagination.currentPage = 1;
+            this.shared.cardlist = [];
             this.fetched = false;
             this.searching = true;
             this.noresults = false;
@@ -29781,67 +29793,32 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
+  return _c('div', {
+    staticClass: "column"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, _vm._l((_vm.chunkedPage), function(group) {
+    return _c('div', {
+      staticClass: "columns"
+    }, _vm._l((group), function(card) {
+      return _c('div', {
+        key: card.id,
+        staticClass: "column is-3"
+      }, [_c('Card', {
+        attrs: {
+          "card": card
+        }
+      })], 1)
+    }))
+  })), _vm._v(" "), _c('hr'), _vm._v(" "), _vm._m(1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
     staticClass: "tabs"
   }, [_c('ul', [_c('li', {
     staticClass: "is-active"
-  }, [_c('a', [_vm._v("All")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Standard")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Modern")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Legacy/Vintage")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "column"
-  }, [_c('div', {
-    staticClass: "columns"
-  }, [_c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "columns"
-  }, [_c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "column is-3"
-  }, [_c('img', {
-    staticClass: "card rare",
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=12605&type=card",
-      "alt": "Utopia Tree"
-    }
-  })])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('nav', {
+  }, [_c('a', [_vm._v("All")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Standard")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Modern")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Legacy/Vintage")])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('nav', {
     staticClass: "pagination"
   }, [_c('a', {
     staticClass: "pagination-previous"
@@ -29863,7 +29840,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pagination-ellipsis"
   }, [_vm._v("…")])]), _vm._v(" "), _c('li', [_c('a', {
     staticClass: "pagination-link"
-  }, [_vm._v("86")])])])])])
+  }, [_vm._v("86")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -30552,6 +30529,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Decklist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Decklist_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_js__ = __webpack_require__(120);
 //
 //
 //
@@ -30569,6 +30547,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -30576,6 +30555,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            shared: __WEBPACK_IMPORTED_MODULE_4__store_js__["a" /* default */]
+        };
+    },
+
     components: {
         Filterpanel: __WEBPACK_IMPORTED_MODULE_0__Filterpanel_vue___default.a,
         Cardresults: __WEBPACK_IMPORTED_MODULE_1__Cardresults_vue___default.a,
@@ -30951,13 +30936,114 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-3"
-  }, [_c('Deckactions'), _vm._v(" "), _c('Decklist')], 1), _vm._v(" "), _c('Cardresults')], 1)])])], 1)
+  }, [_c('Deckactions', {
+    attrs: {
+      "shared": _vm.shared
+    }
+  }), _vm._v(" "), _c('Decklist', {
+    attrs: {
+      "shared": _vm.shared
+    }
+  })], 1), _vm._v(" "), _c('Cardresults', {
+    attrs: {
+      "shared": _vm.shared
+    }
+  })], 1)])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-1f704d7c", module.exports)
+  }
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var Store = {
+    cardlist: [],
+    pagination: {
+        currentPage: 1,
+        pageSize: 32
+    }
+};
+
+/* harmony default export */ __webpack_exports__["a"] = Store;
+
+/***/ }),
+/* 121 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    props: ['card']
+};
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(121),
+  /* template */
+  __webpack_require__(123),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Singlecard.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Singlecard.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-13591a18", Component.options)
+  } else {
+    hotAPI.reload("data-v-13591a18", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    key: _vm.card.id
+  }, [_c('img', {
+    staticClass: "card",
+    attrs: {
+      "src": _vm.card.imageUrl,
+      "alt": _vm.card.name
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-13591a18", module.exports)
   }
 }
 
