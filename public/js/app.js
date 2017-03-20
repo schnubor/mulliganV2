@@ -29109,6 +29109,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -29131,7 +29132,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             // Filters
             filters: {
                 set: '',
-                mana: null,
+                mana: 'any',
                 name: '',
                 rarity: '',
                 type: '',
@@ -29178,7 +29179,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             if (this.filters.set) params.set = this.filters.set;
             if (this.filters.type) params.types = this.filters.type;
             if (this.filters.rarity) params.rarity = this.filters.rarity;
-            if (this.filters.mana) params.cmc = this.filters.mana;
+            if (this.filters.mana !== 'any') params.cmc = this.filters.mana;
+            if (this.filters.mana === '5') params.cmc = 'gte5';
             if (this.colorsArray.length && this.filters.type !== 'land') params.colors = this.colorsArray.join(',');
 
             params.pageSize = this.shared.pagination.pageSize;
@@ -29195,7 +29197,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var total = response.headers['total-count'];
                 var totalPages = Math.ceil(total / self.shared.pagination.pageSize);
                 // Check for
-                if (total < 1000) {
+                if (total < 300) {
                     // Fill cards
                     if (response.data.cards.length) {
                         var _iteratorNormalCompletion = true;
@@ -30084,9 +30086,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('option', {
     attrs: {
-      "value": "0"
+      "value": "any"
     }
   }, [_vm._v("Any Mana Cost")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "0"
+    }
+  }, [_vm._v("0")]), _vm._v(" "), _c('option', {
     attrs: {
       "value": "1"
     }
@@ -30967,7 +30973,7 @@ var Store = {
     cardlist: [],
     pagination: {
         currentPage: 1,
-        pageSize: 32
+        pageSize: 12
     }
 };
 

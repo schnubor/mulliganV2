@@ -45,7 +45,8 @@
                             <p class="control">
                                 <span class="select is-fullwidth">
                                     <select v-model="filters.mana">
-                                        <option value="0">Any Mana Cost</option>
+                                        <option value="any">Any Mana Cost</option>
+                                        <option value="0">0</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -113,7 +114,7 @@
                 // Filters
                 filters : {
                     set     : '',
-                    mana    : null,
+                    mana    : 'any',
                     name    : '',
                     rarity  : '',
                     type    : '',
@@ -159,7 +160,8 @@
                 if ( this.filters.set ) params.set = this.filters.set;
                 if ( this.filters.type ) params.types = this.filters.type;
                 if ( this.filters.rarity ) params.rarity = this.filters.rarity;
-                if ( this.filters.mana ) params.cmc = this.filters.mana;
+                if ( this.filters.mana !== 'any' ) params.cmc = this.filters.mana;
+                if ( this.filters.mana === '5' ) params.cmc = 'gte5';
                 if ( this.colorsArray.length && this.filters.type !== 'land' ) params.colors = this.colorsArray.join( ',' );
 
                 params.pageSize = this.shared.pagination.pageSize;
@@ -177,7 +179,7 @@
                     const total = response.headers[ 'total-count' ];
                     const totalPages = Math.ceil( total / self.shared.pagination.pageSize );
                     // Check for
-                    if ( total < 1000 ) {
+                    if ( total < 300 ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
                             for ( const card of response.data.cards ) {
