@@ -1,12 +1,8 @@
 <template>
     <div class="column">
-        <div class="tabs">
-            <ul>
-                <li class="is-active"><a>All</a></li>
-                <li><a>Standard</a></li>
-                <li><a>Modern</a></li>
-                <li><a>Legacy/Vintage</a></li>
-            </ul>
+        <div>
+            <span class="title">Search results</span>
+            <hr>
         </div>
         <div class="column">
             <div class="columns" v-for="group in chunkedPage">
@@ -16,46 +12,22 @@
             </div>
         </div>
         <hr>
-        <nav class="pagination">
-            <a class="pagination-previous">Previous</a>
-            <a class="pagination-next">Next page</a>
-            <ul class="pagination-list">
-                <li>
-                    <a class="pagination-link">1</a>
-                </li>
-                <li>
-                    <span class="pagination-ellipsis">&hellip;</span>
-                </li>
-                <li>
-                    <a class="pagination-link">45</a>
-                </li>
-                <li>
-                    <a class="pagination-link is-current">46</a>
-                </li>
-                <li>
-                    <a class="pagination-link">47</a>
-                </li>
-                <li>
-                    <span class="pagination-ellipsis">&hellip;</span>
-                </li>
-                <li>
-                    <a class="pagination-link">86</a>
-                </li>
-            </ul>
-        </nav>
+        <Pagination></Pagination>
     </div>
 </template>
 
 <script>
     import _ from 'lodash';
     import Card from './Singlecard.vue';
+    import Pagination from './Pagination.vue';
 
     export default {
         props : [
             'shared'
         ],
         components : {
-            Card
+            Card,
+            Pagination
         },
         computed : {
             totalPages() {
