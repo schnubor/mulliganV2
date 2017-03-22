@@ -1,7 +1,7 @@
 <template>
     <div class="column">
         <div>
-            <span class="title">Search results</span>
+            <span class="title">Search results ( {{ this.shared.cardlist.length }} Cards)</span>
             <hr>
         </div>
         <div class="column">
@@ -12,7 +12,7 @@
             </div>
         </div>
         <hr>
-        <Pagination></Pagination>
+        <Pagination :total="totalPages" :current="shared.pagination.currentPage"></Pagination>
     </div>
 </template>
 
