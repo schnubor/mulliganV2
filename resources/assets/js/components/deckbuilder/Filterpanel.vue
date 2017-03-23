@@ -187,7 +187,7 @@
                             }
                         }
                         else {
-                            self.noresults = true;
+                            self.shared.error = 'No results. Try adjusting your filters.';
                         }
                         // Fetch next page if necessary
                         if ( page < totalPages ) {
@@ -200,13 +200,13 @@
                         }
                     }
                     else {
-                        self.toomany = true;
+                        self.shared.error = 'Too many results! Try adjusting the filters.';
                         self.searching = false;
                     }
                 } )
                 .catch( ( error ) => {
                     self.searching = false;
-                    self.error = true;
+                    self.shared.error = 'Oops! Something went wrong. Please try again!';
                     console.warn( error );
                 } );
             },
@@ -227,10 +227,9 @@
             search : _.debounce( function() {
                 this.shared.pagination.currentPage = 1;
                 this.shared.cardlist = [];
+                this.shared.error = '';
                 this.fetched = false;
                 this.searching = true;
-                this.noresults = false;
-                this.toomany = false;
 
                 this.fetchPage( 1 );
             }, 200 )

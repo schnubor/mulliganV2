@@ -4,6 +4,11 @@
             <span class="title">Search results ( {{ this.shared.cardlist.length }} Cards)</span>
             <hr>
         </div>
+        <section class="section has-text-centered is-medium" v-if="shared.error.length">
+            <p class="title errorMsg">
+                {{ shared.error }}
+            </p>
+        </section>
         <div class="column">
             <div class="columns" v-for="group in chunkedPage">
                 <div class="column is-3" v-for="card in group" :key="card.id">
@@ -11,8 +16,7 @@
                 </div>
             </div>
         </div>
-        <hr>
-        <Pagination :total="totalPages" :current="shared.pagination.currentPage"></Pagination>
+        <Pagination :total="totalPages" :current="shared.pagination.currentPage" v-if="this.shared.cardlist.length"></Pagination>
     </div>
 </template>
 
@@ -56,5 +60,7 @@
 </script>
 
 <style lang="scss">
-    
+    .errorMsg {
+        color: #CCC;
+    }
 </style>
