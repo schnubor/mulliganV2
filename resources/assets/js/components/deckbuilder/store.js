@@ -5,6 +5,15 @@ const Store = {
         currentPage : 1,
         pageSize    : 12,
         totalPages  : null
+    },
+    decklist : {
+        artifacts       : [],
+        lands           : [],
+        creatures       : [],
+        sorceries       : [],
+        instants        : [],
+        planeswalker    : [],
+        enchantments    : []
     }
 };
 

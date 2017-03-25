@@ -37,11 +37,9 @@
         },
         methods : {
             prevPage() {
-                console.log( 'prev page!' );
                 this.shared.pagination.currentPage--;
             },
             nextPage() {
-                console.log( 'next page!' );
                 this.shared.pagination.currentPage++;
             }
         }
