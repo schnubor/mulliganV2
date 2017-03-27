@@ -20,7 +20,7 @@
                     Planeswalker
                 </p>
                 <ul class="menu-list">
-                    <template v-for="planeswalker in planeswalkers">
+                    <template v-for="planeswalker in planeswalker">
                         <Decklistitem :entry="planeswalker" :qty="planeswalker.qty"></Decklistitem>
                     </template>
                 </ul>
@@ -121,13 +121,37 @@
                 return this.shared.decklist.lands;
             },
             cardSum() {
-                return this.artifacts.length +
-                       this.creatures.length +
-                       this.planeswalker.length +
-                       this.enchantments.length +
-                       this.instants.length +
-                       this.sorceries.length +
-                       this.lands.length;
+                let artifactSum = 0;
+                let creatureSum = 0;
+                let enchantmentSum = 0;
+                let instantSum = 0;
+                let sorcerySum = 0;
+                let planeswalkerSum = 0;
+                let landSum = 0;
+
+                for ( const artifact of this.artifacts ) {
+                    artifactSum += artifact.qty;
+                }
+                for ( const creature of this.creatures ) {
+                    creatureSum += creature.qty;
+                }
+                for ( const enchantment of this.enchantments ) {
+                    enchantmentSum += enchantment.qty;
+                }
+                for ( const instant of this.instants ) {
+                    instantSum += instant.qty;
+                }
+                for ( const sorcery of this.sorceries ) {
+                    sorcerySum += sorcery.qty;
+                }
+                for ( const planeswalker of this.planeswalker ) {
+                    planeswalkerSum += planeswalker.qty;
+                }
+                for ( const land of this.lands ) {
+                    landSum += land.qty;
+                }
+
+                return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum;
             }
         }
     };

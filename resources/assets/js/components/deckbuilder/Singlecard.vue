@@ -40,12 +40,17 @@
         methods : {
             updateDecklist( list, card ) {
                 const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
+
                 if ( existingCardIndex > -1 ) {
                     list[ existingCardIndex ].qty++;
                 }
                 else {
-                    card.qty = 1;
-                    list.push( card );
+                    const newCard = {
+                        'id'   : card.id,
+                        'card' : card,
+                        'qty'  : 1
+                    };
+                    list.push( newCard );
                 }
             },
             addToDecklist( card ) {

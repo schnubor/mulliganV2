@@ -168,13 +168,11 @@
                 params.page = page;
 
                 const searchUri = this.searchUrl + queryString.stringify( params );
-                console.log( searchUri );
 
                 const self = this;
 
                 axios.get( searchUri, { timeout : 10000 } )
                 .then( function( response ) {
-                    console.log( response );
                     // Get total count
                     const total = response.headers[ 'total-count' ];
                     const totalPages = Math.ceil( total / self.shared.pagination.pageSize );

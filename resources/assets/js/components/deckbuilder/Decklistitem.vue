@@ -1,8 +1,8 @@
 <template>
     <li>
         <a>
-            <span class="tag is-warning">{{ quantity }}</span>
-            {{ entry.name }}
+            <span class="tag is-warning">{{ entry.qty }}</span>
+            {{ entry.card.name }}
         </a>
         <ul v-show="showSubmenu">
             <li>
@@ -23,15 +23,8 @@
         props : [ 'entry' ],
         data() {
             return {
-                showSubmenu : false,
-                shared      : Store
+                showSubmenu : false
             };
-        },
-        computed : {
-            quantity() {
-                const cardIndex = _.findIndex( this.shared.decklist.creatures, { 'id' : this.entry.id } );
-                return this.shared.decklist.creatures[ cardIndex ].qty;
-            }
         }
     };
 </script>
