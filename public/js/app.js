@@ -20226,19 +20226,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        fetchPage: function fetchPage(page) {
+        fetchPage: function fetchPage(page, filters, colorsArray) {
             var params = {};
 
-            if (this.filters.name) params.name = this.filters.name;
-            if (this.filters.set) params.set = this.filters.set;
-            if (this.filters.type) params.types = this.filters.type;
-            if (this.filters.rarity) params.rarity = this.filters.rarity;
-            if (this.filters.mana !== 'any') params.cmc = this.filters.mana;
-            if (this.filters.mana === '5') params.cmc = 'gte5';
-            if (this.colorsArray.length && this.filters.type !== 'land') params.colors = this.colorsArray.join(',');
+            if (filters.name) params.name = filters.name;
+            if (filters.set) params.set = filters.set;
+            if (filters.type) params.types = filters.type;
+            if (filters.rarity) params.rarity = filters.rarity;
+            if (filters.mana !== 'any') params.cmc = filters.mana;
+            if (filters.mana === '5') params.cmc = 'gte5';
+            if (colorsArray.length && filters.type !== 'land') params.colors = colorsArray.join(',');
 
             params.pageSize = this.shared.pagination.pageSize;
-            params.page = page;
+            params.page = this.searchPage;
 
             var searchUri = this.searchUrl + __WEBPACK_IMPORTED_MODULE_3_query_string___default.a.stringify(params);
 
@@ -20277,21 +20277,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             }
                         }
                     } else {
+                        self.cardlist = [];
                         self.shared.error = 'No results. Try adjusting your filters.';
                     }
                     // Fetch next page if necessary
-                    if (page < totalPages) {
-                        page++;
-                        self.fetchPage(page);
+                    if (self.searchPage < totalPages) {
+                        self.searchPage++;
+                        self.fetchPage(self.searchPage, filters, colorsArray);
                     } else {
                         self.fetched = true;
                         self.searching = false;
                     }
                 } else {
+                    self.cardlist = [];
                     self.shared.error = 'Too many results! Try adjusting the filters.';
                     self.searching = false;
                 }
             }).catch(function (error) {
+                self.cardlist = [];
                 self.searching = false;
                 self.shared.error = 'Oops! Something went wrong. Please try again!';
                 console.warn(error);
@@ -20318,8 +20321,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.shared.error = '';
             this.fetched = false;
             this.searching = true;
+            this.searchPage = 1;
 
-            this.fetchPage(1);
+            this.fetchPage(this.searchPage, this.filters, this.colorsArray);
         }, 200)
     },
     mounted: function mounted() {
