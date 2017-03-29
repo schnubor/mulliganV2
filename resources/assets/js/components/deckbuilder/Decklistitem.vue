@@ -1,7 +1,7 @@
 <template>
     <li>
         <a>
-            <span class="tag is-warning">{{ entry.qty }}</span>
+            <span class="tag" :class="[fullClass, errorClass]">{{ entry.qty }}</span>
             {{ entry.card.name }}
         </a>
         <ul v-show="showSubmenu">
@@ -25,6 +25,22 @@
             return {
                 showSubmenu : false
             };
+        },
+        computed : {
+            fullClass() {
+                if ( this.entry.qty === 4 &&
+                     _.get( this.entry.card, 'supertypes[0]' ) !== 'Basic' ) {
+                    return 'is-warning';
+                }
+                return '';
+            },
+            errorClass() {
+                if ( this.entry.qty > 4 &&
+                     _.get( this.entry.card, 'supertypes[0]' ) !== 'Basic' ) {
+                    return 'is-danger';
+                }
+                return '';
+            }
         }
     };
 </script>

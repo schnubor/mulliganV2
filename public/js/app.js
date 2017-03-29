@@ -20052,6 +20052,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             showSubmenu: false
         };
+    },
+
+    computed: {
+        fullClass: function fullClass() {
+            if (this.entry.qty === 4 && __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(this.entry.card, 'supertypes[0]') !== 'Basic') {
+                return 'is-warning';
+            }
+            return '';
+        },
+        errorClass: function errorClass() {
+            if (this.entry.qty > 4 && __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(this.entry.card, 'supertypes[0]') !== 'Basic') {
+                return 'is-danger';
+            }
+            return '';
+        }
     }
 };
 
@@ -22092,7 +22107,8 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', [_c('span', {
-    staticClass: "tag is-warning"
+    staticClass: "tag",
+    class: [_vm.fullClass, _vm.errorClass]
   }, [_vm._v(_vm._s(_vm.entry.qty))]), _vm._v("\n        " + _vm._s(_vm.entry.card.name) + "\n    ")]), _vm._v(" "), _c('ul', {
     directives: [{
       name: "show",
