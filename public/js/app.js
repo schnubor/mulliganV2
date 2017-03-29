@@ -19805,6 +19805,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Spinner: __WEBPACK_IMPORTED_MODULE_0__Spinner_vue___default.a,
         Decklistitem: __WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue___default.a
     },
+    methods: {
+        forceUpdate: function forceUpdate() {
+            console.log('update!');
+            this.$forceUpdate();
+        }
+    },
     computed: {
         artifacts: function artifacts() {
             return this.shared.decklist.artifacts;
@@ -20025,6 +20031,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_js__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_slug__);
 //
 //
 //
@@ -20042,15 +20050,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-    props: ['entry'],
+    props: ['entry', 'list'],
     data: function data() {
         return {
-            showSubmenu: false
+            showSubmenu: false,
+            shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */]
         };
     },
 
@@ -20061,11 +20074,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
             return '';
         },
+        cardUrl: function cardUrl() {
+            return '/card/' + __WEBPACK_IMPORTED_MODULE_2_slug___default()(this.entry.card.name) + '-' + this.entry.card.multiverseid;
+        },
         errorClass: function errorClass() {
             if (this.entry.qty > 4 && __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.get(this.entry.card, 'supertypes[0]') !== 'Basic') {
                 return 'is-danger';
             }
             return '';
+        }
+    },
+    methods: {
+        removeCard: function removeCard() {
+            var index = __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.findIndex(this.shared.decklist[this.list], { id: this.entry.id });
+
+            if (this.shared.decklist[this.list][index].qty > 1) {
+                this.shared.decklist[this.list][index].qty--;
+            } else {
+                __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.remove(this.shared.decklist[this.list], { id: this.entry.id });
+                this.$emit('update');
+            }
+        },
+        removeEntry: function removeEntry() {
+            __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.remove(this.shared.decklist[this.list], { id: this.entry.id });
+            this.$emit('update');
         }
     }
 };
@@ -21724,7 +21756,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": creature,
-        "qty": creature.qty
+        "list": "creatures"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.planeswalker.length) ? [_c('p', {
@@ -21735,7 +21770,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": planeswalker,
-        "qty": planeswalker.qty
+        "list": "planeswalker"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.artifacts.length) ? [_c('p', {
@@ -21746,7 +21784,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": artifact,
-        "qty": artifact.qty
+        "list": "artifacts"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.instants.length) ? [_c('p', {
@@ -21757,7 +21798,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": instant,
-        "qty": instant.qty
+        "list": "instants"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.sorceries.length) ? [_c('p', {
@@ -21768,7 +21812,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": sorcery,
-        "qty": sorcery.qty
+        "list": "sorceries"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.enchantments.length) ? [_c('p', {
@@ -21779,7 +21826,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": enchantment,
-        "qty": enchantment.qty
+        "list": "enchantments"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), _c('p', {
@@ -21790,7 +21840,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('Decklistitem', {
       attrs: {
         "entry": land,
-        "qty": land.qty
+        "list": "lands"
+      },
+      on: {
+        "update": _vm.forceUpdate
       }
     })]
   }), _vm._v(" "), _vm._m(0)], 2)], 2)])
@@ -22106,7 +22159,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', [_c('span', {
+  return _c('li', [_c('a', {
+    on: {
+      "click": function($event) {
+        _vm.showSubmenu = !_vm.showSubmenu
+      }
+    }
+  }, [_c('span', {
     staticClass: "tag",
     class: [_vm.fullClass, _vm.errorClass]
   }, [_vm._v(_vm._s(_vm.entry.qty))]), _vm._v("\n        " + _vm._s(_vm.entry.card.name) + "\n    ")]), _vm._v(" "), _c('ul', {
@@ -22116,12 +22175,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.showSubmenu),
       expression: "showSubmenu"
     }]
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', [_vm._v("Card Details")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', [_vm._v("Remove one")])])
-}]}
+  }, [_c('li', [_c('a', {
+    attrs: {
+      "href": _vm.cardUrl,
+      "target": "_blank"
+    }
+  }, [_vm._v("Card Details")])]), _vm._v(" "), _c('li', [_c('a', {
+    on: {
+      "click": _vm.removeCard
+    }
+  }, [_vm._v("Remove one card")])]), _vm._v(" "), _c('li', [_c('a', {
+    on: {
+      "click": _vm.removeEntry
+    }
+  }, [_vm._v("Remove all cards")])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

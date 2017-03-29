@@ -1,15 +1,18 @@
 <template>
     <li>
-        <a>
+        <a @click="showSubmenu = !showSubmenu">
             <span class="tag" :class="[fullClass, errorClass]">{{ entry.qty }}</span>
             {{ entry.card.name }}
         </a>
         <ul v-show="showSubmenu">
             <li>
-                <a>Card Details</a>
+                <a :href="cardUrl" target="_blank">Card Details</a>
             </li>
             <li>
-                <a>Remove one</a>
+                <a @click="removeCard">Remove one card</a>
+            </li>
+            <li>
+                <a @click="removeEntry">Remove all cards</a>
             </li>
         </ul>
     </li>
@@ -18,12 +21,14 @@
 <script>
     import Store from './store.js';
     import _ from 'lodash';
+    import slug from 'slug';
 
     export default {
-        props : [ 'entry' ],
+        props : [ 'entry', 'list' ],
         data() {
             return {
-                showSubmenu : false
+                showSubmenu : false,
+                shared      : Store
             };
         },
         computed : {
@@ -34,12 +39,32 @@
                 }
                 return '';
             },
+            cardUrl() {
+                return '/card/' + slug( this.entry.card.name ) + '-' + this.entry.card.multiverseid;
+            },
             errorClass() {
                 if ( this.entry.qty > 4 &&
                      _.get( this.entry.card, 'supertypes[0]' ) !== 'Basic' ) {
                     return 'is-danger';
                 }
                 return '';
+            }
+        },
+        methods : {
+            removeCard() {
+                const index = _.findIndex( this.shared.decklist[ this.list ], { id : this.entry.id } );
+
+                if ( this.shared.decklist[ this.list ][index].qty > 1 ) {
+                    this.shared.decklist[ this.list ][index].qty--;
+                }
+                else {
+                    _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                    this.$emit( 'update' );
+                }
+            },
+            removeEntry() {
+                _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                this.$emit( 'update' );
             }
         }
     };
