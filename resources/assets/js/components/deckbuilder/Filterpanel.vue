@@ -180,6 +180,7 @@
                     if ( total < 300 ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
+                            self.shared.error = '';
                             for ( const card of response.data.cards ) {
                                 if ( card.imageUrl ) self.shared.cardlist.push( card );
                             }

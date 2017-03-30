@@ -20311,6 +20311,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 if (total < 300) {
                     // Fill cards
                     if (response.data.cards.length) {
+                        self.shared.error = '';
                         var _iteratorNormalCompletion = true;
                         var _didIteratorError = false;
                         var _iteratorError = undefined;
@@ -31218,6 +31219,53 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
     methods: {
@@ -31292,9 +31340,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.closeModal
     }
-  })]), _vm._v(" "), _c('section', {
-    staticClass: "modal-card-body"
-  }, [_vm._v("\n            Basic lands\n        ")]), _vm._v(" "), _c('footer', {
+  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-success",
@@ -31307,7 +31353,91 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.closeModal
     }
   }, [_vm._v("Cancel")])])])])
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', {
+    staticClass: "modal-card-body"
+  }, [_c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column"
+  }, [_c('img', {
+    attrs: {
+      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401961&type=card",
+      "alt": "Mountain",
+      "width": "100%"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "title has-text-centered is-marginless"
+  }, [_vm._v("10")]), _vm._v(" "), _c('div', {
+    staticClass: "actions has-text-centered"
+  }, [_c('a', {
+    staticClass: "button"
+  }, [_c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])]), _vm._v(" "), _c('a', {
+    staticClass: "button"
+  }, [_c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('img', {
+    attrs: {
+      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401992&type=card",
+      "alt": "Plain",
+      "width": "100%"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "title has-text-centered is-marginless"
+  }, [_vm._v("10")]), _vm._v(" "), _c('div', {
+    staticClass: "actions has-text-centered"
+  }, [_c('a', {
+    staticClass: "button"
+  }, [_c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])]), _vm._v(" "), _c('a', {
+    staticClass: "button"
+  }, [_c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('img', {
+    attrs: {
+      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401890&type=card",
+      "alt": "Forest",
+      "width": "100%"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "title has-text-centered"
+  }, [_vm._v("10")])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('img', {
+    attrs: {
+      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401925&type=card",
+      "alt": "Island",
+      "width": "100%"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "title has-text-centered"
+  }, [_vm._v("10")])]), _vm._v(" "), _c('div', {
+    staticClass: "column"
+  }, [_c('img', {
+    attrs: {
+      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=402060&type=card",
+      "alt": "Swamp",
+      "width": "100%"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "title has-text-centered"
+  }, [_vm._v("10")])])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
