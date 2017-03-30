@@ -58,11 +58,15 @@
                     this.shared.decklist[ this.list ][index].qty--;
                 }
                 else {
+                    this.shared.decklist[ this.list ][index].qty--;
                     _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
                     this.$emit( 'update' );
                 }
             },
             removeEntry() {
+                const index = _.findIndex( this.shared.decklist[ this.list ], { id : this.entry.id } );
+
+                this.shared.decklist[ this.list ][index].qty = 0;
                 _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
                 this.$emit( 'update' );
             }

@@ -77,7 +77,7 @@
                 <template v-for="land in lands">
                     <Decklistitem :entry="land" list="lands" @update="forceUpdate"></Decklistitem>
                 </template>
-                <li><a>Add Basic Lands</a></li>
+                <li><a><i class="ms ms-land ms-fw inline-icon"></i> Add Basic Lands</a></li>
             </ul>
         </aside>
     </div>
@@ -100,7 +100,6 @@
         },
         methods : {
             forceUpdate() {
-                console.log( 'update!' );
                 this.$forceUpdate();
             }
         },
@@ -164,5 +163,7 @@
 </script>
 
 <style lang="scss">
-    
+    .inline-icon {
+        padding-right: 10px;
+    }
 </style>
