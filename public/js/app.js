@@ -19653,7 +19653,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Decklist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Decklist_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__ = __webpack_require__(58);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__store_js__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue__ = __webpack_require__(106);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Landmodal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__store_js__ = __webpack_require__(4);
 //
 //
 //
@@ -19671,6 +19673,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -19681,7 +19685,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            shared: __WEBPACK_IMPORTED_MODULE_4__store_js__["a" /* default */]
+            shared: __WEBPACK_IMPORTED_MODULE_5__store_js__["a" /* default */],
+            showLandModal: false
         };
     },
 
@@ -19689,7 +19694,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Filterpanel: __WEBPACK_IMPORTED_MODULE_0__Filterpanel_vue___default.a,
         Cardresults: __WEBPACK_IMPORTED_MODULE_1__Cardresults_vue___default.a,
         Decklist: __WEBPACK_IMPORTED_MODULE_2__Decklist_vue___default.a,
-        Deckactions: __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default.a
+        Deckactions: __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default.a,
+        Landmodal: __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue___default.a
     }
 };
 
@@ -19704,7 +19710,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_js__ = __webpack_require__(4);
-//
 //
 //
 //
@@ -19808,6 +19813,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         forceUpdate: function forceUpdate() {
             this.$forceUpdate();
+        },
+        showLandModal: function showLandModal() {
+            console.log('show land modal');
+            this.$emit('showlandmodal');
         }
     },
     computed: {
@@ -21849,12 +21858,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "update": _vm.forceUpdate
       }
     })]
-  }), _vm._v(" "), _vm._m(0)], 2)], 2)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('li', [_c('a', [_c('i', {
+  }), _vm._v(" "), _c('li', [_c('a', {
+    on: {
+      "click": _vm.showLandModal
+    }
+  }, [_c('i', {
     staticClass: "ms ms-land ms-fw inline-icon"
-  }), _vm._v(" Add Basic Lands")])])
-}]}
+  }), _vm._v(" Add Basic Lands")])])], 2)], 2)])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -22253,7 +22264,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Filterpanel'), _vm._v(" "), _c('section', {
+  return _c('div', [_c('Landmodal', {
+    class: {
+      'is-active': _vm.showLandModal
+    },
+    on: {
+      "closelandmodal": function($event) {
+        _vm.showLandModal = false
+      }
+    }
+  }), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), _c('section', {
     staticClass: "section"
   }, [_c('div', {
     staticClass: "container"
@@ -22268,6 +22288,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('Decklist', {
     attrs: {
       "shared": _vm.shared
+    },
+    on: {
+      "showlandmodal": function($event) {
+        _vm.showLandModal = true
+      }
     }
   })], 1), _vm._v(" "), _c('Cardresults', {
     attrs: {
@@ -31152,6 +31177,170 @@ module.exports = function(module) {
 __webpack_require__(17);
 module.exports = __webpack_require__(18);
 
+
+/***/ }),
+/* 89 */,
+/* 90 */,
+/* 91 */,
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    methods: {
+        closeModal: function closeModal() {
+            this.$emit('closelandmodal');
+        }
+    }
+};
+
+/***/ }),
+/* 105 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+exports.push([module.i, "\n.modal-enter {\n  opacity: 0;\n}\n.modal-leave-active {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave-active .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n", ""]);
+
+/***/ }),
+/* 106 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(108)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(104),
+  /* template */
+  __webpack_require__(107),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulligan/resources/assets/js/components/deckbuilder/Landmodal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Landmodal.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-fa368624", Component.options)
+  } else {
+    hotAPI.reload("data-v-fa368624", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 107 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal"
+  }, [_c('div', {
+    staticClass: "modal-background"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal-card"
+  }, [_c('header', {
+    staticClass: "modal-card-head"
+  }, [_c('p', {
+    staticClass: "modal-card-title"
+  }, [_vm._v("Add Basic Lands")]), _vm._v(" "), _c('button', {
+    staticClass: "delete",
+    on: {
+      "click": _vm.closeModal
+    }
+  })]), _vm._v(" "), _c('section', {
+    staticClass: "modal-card-body"
+  }, [_vm._v("\n            Basic lands\n        ")]), _vm._v(" "), _c('footer', {
+    staticClass: "modal-card-foot"
+  }, [_c('a', {
+    staticClass: "button is-success",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("Save changes")]), _vm._v(" "), _c('a', {
+    staticClass: "button",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("Cancel")])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-fa368624", module.exports)
+  }
+}
+
+/***/ }),
+/* 108 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(105);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(3)("1f172a90", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-fa368624!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Landmodal.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-fa368624!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Landmodal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

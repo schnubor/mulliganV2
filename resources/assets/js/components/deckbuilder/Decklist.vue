@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <span class="tag is-primary is-large">{{ cardSum }} Cards</span>
         
         <aside class="menu" style="margin-top: 1.5em;">
@@ -77,7 +76,7 @@
                 <template v-for="land in lands">
                     <Decklistitem :entry="land" list="lands" @update="forceUpdate"></Decklistitem>
                 </template>
-                <li><a><i class="ms ms-land ms-fw inline-icon"></i> Add Basic Lands</a></li>
+                <li><a @click="showLandModal"><i class="ms ms-land ms-fw inline-icon"></i> Add Basic Lands</a></li>
             </ul>
         </aside>
     </div>
@@ -91,7 +90,7 @@
     export default {
         data() {
             return {
-                shared : Store
+                shared        : Store
             };
         },
         components : {
@@ -101,6 +100,10 @@
         methods : {
             forceUpdate() {
                 this.$forceUpdate();
+            },
+            showLandModal() {
+                console.log( 'show land modal' );
+                this.$emit( 'showlandmodal' );
             }
         },
         computed : {
