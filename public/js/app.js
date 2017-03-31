@@ -725,6 +725,7 @@ function applyToTag (styleElement, obj) {
 var Store = {
     cardlist: [],
     error: 'Please search for cards or set filters above.',
+    maxResults: 360,
     pagination: {
         currentPage: 1,
         pageSize: 12,
@@ -737,7 +738,14 @@ var Store = {
         sorceries: [],
         instants: [],
         planeswalker: [],
-        enchantments: []
+        enchantments: [],
+        basiclands: {
+            'mountains': 0,
+            'plains': 0,
+            'forests': 0,
+            'islands': 0,
+            'swamps': 0
+        }
     }
 };
 
@@ -19607,6 +19615,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         chunkedPage: function chunkedPage() {
             return __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.chunk(this.cardPage, 4);
+        },
+        isValidError: function isValidError() {
+            return this.shared.error.length && (!this.shared.cardlist.length || this.shared.cardlist.length > this.shared.maxResults);
         }
     }
 };
@@ -19710,6 +19721,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Decklistitem_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_js__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -20109,6 +20126,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.shared.decklist[this.list][index].qty = 0;
             __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.remove(this.shared.decklist[this.list], { id: this.entry.id });
+            this.showSubmenu = false;
+
+            // triggers rerender in decklist
             this.$emit('update');
         }
     }
@@ -20308,7 +20328,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 var total = response.headers['total-count'];
                 var totalPages = Math.ceil(total / self.shared.pagination.pageSize);
                 // Check for
-                if (total < 300) {
+                if (total < self.shared.maxResults) {
                     // Fill cards
                     if (response.data.cards.length) {
                         self.shared.error = '';
@@ -20320,7 +20340,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             for (var _iterator = response.data.cards[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                                 var card = _step.value;
 
-                                if (card.imageUrl) self.shared.cardlist.push(card);
+                                if (card.imageUrl && __WEBPACK_IMPORTED_MODULE_0_lodash___default.a.get(card, 'supertypes[0]') !== 'Basic') {
+                                    self.shared.cardlist.push(card);
+                                }
                             }
                         } catch (err) {
                             _didIteratorError = true;
@@ -20802,7 +20824,7 @@ exports.push([module.i, "\n.card {\n  border-radius: 16px;\n}\n.card.common {\n 
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.overlay[data-v-1fc810bc] {\n  background-color: rgba(0, 0, 0, 0.6);\n  border-radius: 14px;\n  height: 98%;\n  -webkit-transition: .2s all;\n  transition: .2s all;\n  opacity: 0;\n}\n.overlay.active[data-v-1fc810bc] {\n    opacity: 1;\n}\n.overlay .button[data-v-1fc810bc] {\n    margin-top: 60%;\n}\n.overlay .details[data-v-1fc810bc] {\n    position: absolute;\n    bottom: 10px;\n    left: 10px;\n}\n.overlay .details a[data-v-1fc810bc] {\n      color: white;\n      -webkit-transition: .2s all;\n      transition: .2s all;\n      opacity: .5;\n}\n.overlay .details a[data-v-1fc810bc]:hover {\n        color: white;\n        opacity: 1;\n}\n.card-container[data-v-1fc810bc] {\n  position: relative;\n}\n.card[data-v-1fc810bc] {\n  width: 100%;\n}\n", ""]);
+exports.push([module.i, "\n.overlay[data-v-1fc810bc] {\n  background-color: rgba(0, 0, 0, 0.6);\n  border-radius: 14px;\n  height: 98%;\n  -webkit-transition: .2s all;\n  transition: .2s all;\n  opacity: 0;\n}\n.overlay.active[data-v-1fc810bc] {\n    opacity: 1;\n}\n.overlay .button[data-v-1fc810bc] {\n    margin-top: 60%;\n}\n.overlay .details[data-v-1fc810bc] {\n    position: absolute;\n    bottom: 10px;\n    left: 10px;\n}\n.overlay .details a[data-v-1fc810bc] {\n      color: white;\n      -webkit-transition: .2s all;\n      transition: .2s all;\n      opacity: .8;\n}\n.overlay .details a[data-v-1fc810bc]:hover {\n        color: white;\n        opacity: 1;\n}\n.card-container[data-v-1fc810bc] {\n  position: relative;\n}\n.card[data-v-1fc810bc] {\n  width: 100%;\n}\n", ""]);
 
 /***/ }),
 /* 48 */
@@ -21698,7 +21720,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "is-light",
     attrs: {
-      "href": '/card/' + _vm.cardTitle + '-' + _vm.card.multiverseid
+      "href": '/card/' + _vm.cardTitle + '-' + _vm.card.multiverseid,
+      "target": "_blank"
     }
   }, [_vm._m(1)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21845,9 +21868,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "update": _vm.forceUpdate
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), _c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.lands.length) ? _c('p', {
     staticClass: "menu-label"
-  }, [_vm._v("\n            Lands\n        ")]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("\n            Lands\n        ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, [_vm._l((_vm.lands), function(land) {
     return [_c('Decklistitem', {
@@ -21859,13 +21882,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "update": _vm.forceUpdate
       }
     })]
-  }), _vm._v(" "), _c('li', [_c('a', {
+  })], 2), _vm._v(" "), _c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Basic Lands\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, [_c('li', [_c('a', {
     on: {
       "click": _vm.showLandModal
     }
   }, [_c('i', {
     staticClass: "ms ms-land ms-fw inline-icon"
-  }), _vm._v(" Add Basic Lands")])])], 2)], 2)])
+  }), _vm._v(" Add Basic Lands")])])])], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -22318,7 +22345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_c('div', [_c('span', {
     staticClass: "title"
-  }, [_vm._v("Search results ( " + _vm._s(this.shared.cardlist.length) + " Cards)")]), _vm._v(" "), _c('hr')]), _vm._v(" "), (_vm.shared.error.length) ? _c('section', {
+  }, [_vm._v("Search results ( " + _vm._s(this.shared.cardlist.length) + " Cards)")]), _vm._v(" "), _c('hr')]), _vm._v(" "), (_vm.isValidError) ? _c('section', {
     staticClass: "section has-text-centered is-medium"
   }, [_c('p', {
     staticClass: "title errorMsg"
@@ -31200,6 +31227,58 @@ module.exports = __webpack_require__(18);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_js__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -31267,9 +31346,56 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */],
+            mountains: 0,
+            plains: 0,
+            forests: 0,
+            islands: 0,
+            swamps: 0
+        };
+    },
+
+    computed: {
+        totalMountains: function totalMountains() {
+            return this.shared.decklist.basiclands.mountains + this.mountains;
+        },
+        totalPlains: function totalPlains() {
+            return this.shared.decklist.basiclands.plains + this.plains;
+        },
+        totalForests: function totalForests() {
+            return this.shared.decklist.basiclands.forests + this.forests;
+        },
+        totalIslands: function totalIslands() {
+            return this.shared.decklist.basiclands.islands + this.islands;
+        },
+        totalSwamps: function totalSwamps() {
+            return this.shared.decklist.basiclands.swamps + this.swamps;
+        }
+    },
     methods: {
+        reset: function reset() {
+            this.mountains = 0;
+            this.plains = 0;
+            this.forests = 0;
+            this.islands = 0;
+            this.swamps = 0;
+        },
         closeModal: function closeModal() {
+            this.reset();
+            this.$emit('closelandmodal');
+        },
+        save: function save() {
+            this.shared.decklist.basiclands.mountains = this.totalMountains;
+            this.shared.decklist.basiclands.plains = this.totalPlains;
+            this.shared.decklist.basiclands.forests = this.totalForests;
+            this.shared.decklist.basiclands.islands = this.totalIslands;
+            this.shared.decklist.basiclands.swamps = this.totalSwamps;
+            this.reset();
             this.$emit('closelandmodal');
         }
     }
@@ -31340,21 +31466,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.closeModal
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('footer', {
-    staticClass: "modal-card-foot"
-  }, [_c('a', {
-    staticClass: "button is-success",
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("Save changes")]), _vm._v(" "), _c('a', {
-    staticClass: "button",
-    on: {
-      "click": _vm.closeModal
-    }
-  }, [_vm._v("Cancel")])])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('section', {
+  })]), _vm._v(" "), _c('section', {
     staticClass: "modal-card-body"
   }, [_c('div', {
     staticClass: "columns"
@@ -31366,23 +31478,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Mountain",
       "width": "100%"
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "title has-text-centered is-marginless"
-  }, [_vm._v("10")]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
-    staticClass: "button"
-  }, [_c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })])]), _vm._v(" "), _c('a', {
-    staticClass: "button"
-  }, [_c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "button is-small is-pulled-left",
+    on: {
+      "click": function($event) {
+        _vm.mountains--
+      }
+    }
+  }, [_vm._m(0)]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle has-text-centered"
+  }, [_vm._v(_vm._s(_vm.totalMountains))]), _vm._v(" "), _c('a', {
+    staticClass: "button is-small is-pulled-right",
+    on: {
+      "click": function($event) {
+        _vm.mountains++
+      }
+    }
+  }, [_vm._m(1)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
   }, [_c('img', {
     attrs: {
@@ -31390,23 +31504,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Plain",
       "width": "100%"
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "title has-text-centered is-marginless"
-  }, [_vm._v("10")]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
-    staticClass: "button"
-  }, [_c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })])]), _vm._v(" "), _c('a', {
-    staticClass: "button"
-  }, [_c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "button is-small is-pulled-left",
+    on: {
+      "click": function($event) {
+        _vm.plains--
+      }
+    }
+  }, [_vm._m(2)]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle has-text-centered"
+  }, [_vm._v(_vm._s(_vm.totalPlains))]), _vm._v(" "), _c('a', {
+    staticClass: "button is-small is-pulled-right",
+    on: {
+      "click": function($event) {
+        _vm.plains++
+      }
+    }
+  }, [_vm._m(3)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
   }, [_c('img', {
     attrs: {
@@ -31414,9 +31530,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Forest",
       "width": "100%"
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "title has-text-centered"
-  }, [_vm._v("10")])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "actions has-text-centered"
+  }, [_c('a', {
+    staticClass: "button is-small is-pulled-left",
+    on: {
+      "click": function($event) {
+        _vm.forests--
+      }
+    }
+  }, [_vm._m(4)]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle has-text-centered"
+  }, [_vm._v(_vm._s(_vm.totalForests))]), _vm._v(" "), _c('a', {
+    staticClass: "button is-small is-pulled-right",
+    on: {
+      "click": function($event) {
+        _vm.forests++
+      }
+    }
+  }, [_vm._m(5)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
   }, [_c('img', {
     attrs: {
@@ -31424,9 +31556,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Island",
       "width": "100%"
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "title has-text-centered"
-  }, [_vm._v("10")])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', {
+    staticClass: "actions has-text-centered"
+  }, [_c('a', {
+    staticClass: "button is-small is-pulled-left",
+    on: {
+      "click": function($event) {
+        _vm.islands--
+      }
+    }
+  }, [_vm._m(6)]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle has-text-centered"
+  }, [_vm._v(_vm._s(_vm.totalIslands))]), _vm._v(" "), _c('a', {
+    staticClass: "button is-small is-pulled-right",
+    on: {
+      "click": function($event) {
+        _vm.islands++
+      }
+    }
+  }, [_vm._m(7)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
   }, [_c('img', {
     attrs: {
@@ -31434,9 +31582,97 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Swamp",
       "width": "100%"
     }
-  }), _vm._v(" "), _c('p', {
-    staticClass: "title has-text-centered"
-  }, [_vm._v("10")])])])])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "actions has-text-centered"
+  }, [_c('a', {
+    staticClass: "button is-small is-pulled-left",
+    on: {
+      "click": function($event) {
+        _vm.swamps--
+      }
+    }
+  }, [_vm._m(8)]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle has-text-centered"
+  }, [_vm._v(_vm._s(_vm.totalSwamps))]), _vm._v(" "), _c('a', {
+    staticClass: "button is-small is-pulled-right",
+    on: {
+      "click": function($event) {
+        _vm.swamps++
+      }
+    }
+  }, [_vm._m(9)])])])]), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('footer', {
+    staticClass: "modal-card-foot"
+  }, [_c('a', {
+    staticClass: "button is-primary",
+    on: {
+      "click": _vm.save
+    }
+  }, [_vm._v("Save changes")]), _vm._v(" "), _c('a', {
+    staticClass: "button",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("Cancel")])])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {

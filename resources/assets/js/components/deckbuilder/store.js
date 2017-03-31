@@ -1,6 +1,7 @@
 const Store = {
     cardlist    : [],
     error       : 'Please search for cards or set filters above.',
+    maxResults  : 360,
     pagination  : {
         currentPage : 1,
         pageSize    : 12,
@@ -13,7 +14,14 @@ const Store = {
         sorceries       : [],
         instants        : [],
         planeswalker    : [],
-        enchantments    : []
+        enchantments    : [],
+        basiclands      : {
+            'mountains' : 0,
+            'plains'    : 0,
+            'forests'   : 0,
+            'islands'   : 0,
+            'swamps'    : 0
+        }
     }
 };
 

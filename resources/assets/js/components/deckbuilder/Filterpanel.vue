@@ -177,12 +177,14 @@
                     const total = response.headers[ 'total-count' ];
                     const totalPages = Math.ceil( total / self.shared.pagination.pageSize );
                     // Check for
-                    if ( total < 300 ) {
+                    if ( total < self.shared.maxResults ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
                             self.shared.error = '';
                             for ( const card of response.data.cards ) {
-                                if ( card.imageUrl ) self.shared.cardlist.push( card );
+                                if ( card.imageUrl && _.get( card, 'supertypes[0]' ) !== 'Basic' ) {
+                                    self.shared.cardlist.push( card );
+                                }
                             }
                         }
                         else {

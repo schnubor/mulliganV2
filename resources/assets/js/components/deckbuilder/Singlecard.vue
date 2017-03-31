@@ -9,7 +9,7 @@
                 <span>Add</span>
             </a>
             <div class="details">
-                <a :href="'/card/' + cardTitle + '-' + card.multiverseid" class="is-light">
+                <a :href="'/card/' + cardTitle + '-' + card.multiverseid" class="is-light" target="_blank">
                     <span class="icon">
                         <i class="fa fa-eye"></i>
                     </span>
@@ -107,7 +107,7 @@
             a{
                 color: white;
                 transition: .2s all;
-                opacity: .5;
+                opacity: .8;
 
                 &:hover {
                     color: white;

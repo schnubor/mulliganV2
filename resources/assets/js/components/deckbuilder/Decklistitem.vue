@@ -68,6 +68,9 @@
 
                 this.shared.decklist[ this.list ][index].qty = 0;
                 _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                this.showSubmenu = false;
+
+                // triggers rerender in decklist
                 this.$emit( 'update' );
             }
         }

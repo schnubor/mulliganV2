@@ -4,7 +4,7 @@
             <span class="title">Search results ( {{ this.shared.cardlist.length }} Cards)</span>
             <hr>
         </div>
-        <section class="section has-text-centered is-medium" v-if="shared.error.length">
+        <section class="section has-text-centered is-medium" v-if="isValidError">
             <p class="title errorMsg">
                 {{ shared.error }}
             </p>
@@ -54,6 +54,9 @@
             },
             chunkedPage() {
                 return _.chunk( this.cardPage, 4 );
+            },
+            isValidError() {
+                return this.shared.error.length && ( !this.shared.cardlist.length || this.shared.cardlist.length > this.shared.maxResults );
             }
         }
     };

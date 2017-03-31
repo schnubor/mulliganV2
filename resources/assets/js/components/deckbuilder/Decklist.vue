@@ -69,13 +69,19 @@
                 </ul>
             </template>
 
-            <p class="menu-label">
+            <p class="menu-label" v-if="lands.length">
                 Lands
             </p>
             <ul class="menu-list">
                 <template v-for="land in lands">
                     <Decklistitem :entry="land" list="lands" @update="forceUpdate"></Decklistitem>
                 </template>
+            </ul>
+
+            <p class="menu-label">
+                Basic Lands
+            </p>
+            <ul class="menu-list">
                 <li><a @click="showLandModal"><i class="ms ms-land ms-fw inline-icon"></i> Add Basic Lands</a></li>
             </ul>
         </aside>
