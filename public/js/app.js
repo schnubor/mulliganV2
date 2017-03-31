@@ -19811,6 +19811,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -19858,6 +19887,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         lands: function lands() {
             return this.shared.decklist.lands;
         },
+        basiclands: function basiclands() {
+            return this.shared.decklist.basiclands;
+        },
         cardSum: function cardSum() {
             var artifactSum = 0;
             var creatureSum = 0;
@@ -19866,6 +19898,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var sorcerySum = 0;
             var planeswalkerSum = 0;
             var landSum = 0;
+            var basicLandSum = 0;
 
             var _iteratorNormalCompletion = true;
             var _didIteratorError = false;
@@ -20042,7 +20075,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             }
 
-            return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum;
+            basicLandSum = this.basiclands.mountains + this.basiclands.plains + this.basiclands.forests + this.basiclands.islands + this.basiclands.swamps;
+
+            return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
         }
     }
 };
@@ -21892,8 +21927,38 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "ms ms-land ms-fw inline-icon"
-  }), _vm._v(" Add Basic Lands")])])])], 2)])
-},staticRenderFns: []}
+  }), _vm._v(" Manage Basic Lands")])]), _vm._v(" "), _c('li', [_c('ul', [_c('li', [_vm._m(0), _vm._v(" "), _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.mountains))]), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.plains))]), _vm._v("\n                        Plains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.forests))]), _vm._v("\n                        Forests\n                    ")]), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.islands))]), _vm._v("\n                        Islands\n                    ")]), _vm._v(" "), _c('li', [_vm._m(4), _vm._v(" "), _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.swamps))]), _vm._v("\n                        Swamps\n                    ")])])])])], 2)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "ms ms-r ms-cost ms-fw"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "ms ms-w ms-cost ms-fw"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "ms ms-g ms-cost ms-fw"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "ms ms-u ms-cost ms-fw"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('i', {
+    staticClass: "ms ms-b ms-cost ms-fw"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -31344,7 +31409,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -31600,7 +31664,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.swamps++
       }
     }
-  }, [_vm._m(9)])])])]), _vm._v(" "), _c('hr')]), _vm._v(" "), _c('footer', {
+  }, [_vm._m(9)])])])])]), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",

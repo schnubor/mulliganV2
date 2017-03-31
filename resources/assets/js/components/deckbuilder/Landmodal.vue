@@ -105,7 +105,6 @@
                         </div>
                     </div>
                 </div>
-                <hr>
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="save">Save changes</a>

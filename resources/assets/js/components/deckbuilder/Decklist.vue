@@ -82,7 +82,36 @@
                 Basic Lands
             </p>
             <ul class="menu-list">
-                <li><a @click="showLandModal"><i class="ms ms-land ms-fw inline-icon"></i> Add Basic Lands</a></li>
+                <li><a @click="showLandModal"><i class="ms ms-land ms-fw inline-icon"></i> Manage Basic Lands</a></li>
+                <li>
+                    <ul>
+                        <li>
+                            <span><i class="ms ms-r ms-cost ms-fw"></i></span>
+                            <span class="tag">{{ this.basiclands.mountains }}</span>
+                            Mountains
+                        </li>
+                        <li>
+                            <span><i class="ms ms-w ms-cost ms-fw"></i></span>
+                            <span class="tag">{{ this.basiclands.plains }}</span>
+                            Plains
+                        </li>
+                        <li>
+                            <span><i class="ms ms-g ms-cost ms-fw"></i></span>
+                            <span class="tag">{{ this.basiclands.forests }}</span>
+                            Forests
+                        </li>
+                        <li>
+                            <span><i class="ms ms-u ms-cost ms-fw"></i></span>
+                            <span class="tag">{{ this.basiclands.islands }}</span>
+                            Islands
+                        </li>
+                        <li>
+                            <span><i class="ms ms-b ms-cost ms-fw"></i></span>
+                            <span class="tag">{{ this.basiclands.swamps }}</span>
+                            Swamps
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </aside>
     </div>
@@ -134,6 +163,9 @@
             lands() {
                 return this.shared.decklist.lands;
             },
+            basiclands() {
+                return this.shared.decklist.basiclands;
+            },
             cardSum() {
                 let artifactSum = 0;
                 let creatureSum = 0;
@@ -142,6 +174,7 @@
                 let sorcerySum = 0;
                 let planeswalkerSum = 0;
                 let landSum = 0;
+                let basicLandSum = 0;
 
                 for ( const artifact of this.artifacts ) {
                     artifactSum += artifact.qty;
@@ -165,7 +198,9 @@
                     landSum += land.qty;
                 }
 
-                return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum;
+                basicLandSum = this.basiclands.mountains + this.basiclands.plains + this.basiclands.forests + this.basiclands.islands + this.basiclands.swamps;
+
+                return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
             }
         }
     };
