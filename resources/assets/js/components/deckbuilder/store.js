@@ -8,6 +8,7 @@ const Store = {
         totalPages  : null
     },
     decklist : {
+        cardsum         : 0,
         artifacts       : [],
         lands           : [],
         creatures       : [],

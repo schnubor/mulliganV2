@@ -175,6 +175,7 @@
                 let planeswalkerSum = 0;
                 let landSum = 0;
                 let basicLandSum = 0;
+                let cardSum = 0;
 
                 for ( const artifact of this.artifacts ) {
                     artifactSum += artifact.qty;
@@ -200,7 +201,11 @@
 
                 basicLandSum = this.basiclands.mountains + this.basiclands.plains + this.basiclands.forests + this.basiclands.islands + this.basiclands.swamps;
 
-                return artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+                cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+
+                this.shared.decklist.cardsum = cardSum;
+
+                return cardSum;
             }
         }
     };
