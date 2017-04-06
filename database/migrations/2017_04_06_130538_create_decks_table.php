@@ -15,9 +15,10 @@ class CreateDecksTable extends Migration
     {
         Schema::create('decks', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title', 100)->nullable();
+            $table->string('title', 140)->nullable();
             $table->text('description')->nullable();
             $table->json('decklist')->nullable();
+            $table->integer('owner_id')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class CreateDecksTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('decks');
     }
 }
