@@ -31912,6 +31912,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -31922,6 +31931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */],
             title: '',
             description: '',
+            decklink: 'https://mulligan.com/decks/kaladesh-123',
             saving: false,
             saved: false,
             error: false
@@ -31931,7 +31941,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {},
     methods: {
         closeModal: function closeModal() {
+            this.reset();
             this.$emit('closesavemodal');
+        },
+        reset: function reset() {
+            this.saved = false;
+            this.error = false;
+            this.saving = false;
+            this.title = '';
+            this.description = '';
         },
         save: function save() {
             this.saved = false;
@@ -32029,13 +32047,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-body"
   }, [(_vm.error) ? _c('div', {
     staticClass: "notification is-danger"
-  }, [_vm._v("\n                Danger lorem ipsum dolor sit amet, consectetur\n                adipiscing elit lorem ipsum dolor sit amet,\n                consectetur adipiscing elit\n            ")]) : _vm._e(), _vm._v(" "), (_vm.saved) ? _c('div', {
+  }, [_vm._v("\n                Danger lorem ipsum dolor sit amet, consectetur\n                adipiscing elit lorem ipsum dolor sit amet,\n                consectetur adipiscing elit\n            ")]) : _vm._e(), _vm._v(" "), (_vm.saved) ? [_c('div', {
     staticClass: "notification is-success"
-  }, [_vm._v("\n                Success! The Deck has been successfully saved and can be reached here:\n                "), _c('a', {
+  }, [_vm._v("\n                    Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.decklink),
+      expression: "decklink"
+    }],
+    staticClass: "input is-medium",
     attrs: {
-      "href": "#"
+      "type": "text",
+      "readonly": ""
+    },
+    domProps: {
+      "value": _vm._s(_vm.decklink)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.decklink = $event.target.value
+      }
     }
-  }, [_vm._v("Link to deck")])]) : _vm._e(), _vm._v(" "), _c('div', {
+  })])])] : _vm._e(), _vm._v(" "), (!_vm.saved) ? [_c('div', {
     staticClass: "field"
   }, [_c('p', {
     staticClass: "control"
@@ -32084,7 +32123,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.description = $event.target.value
       }
     }
-  })])])]), _vm._v(" "), _c('footer', {
+  })])])] : _vm._e()], 2), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",

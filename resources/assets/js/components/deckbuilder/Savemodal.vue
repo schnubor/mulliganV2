@@ -12,20 +12,29 @@
                     adipiscing elit lorem ipsum dolor sit amet,
                     consectetur adipiscing elit
                 </div>
-                <div class="notification is-success" v-if="saved">
-                    Success! The Deck has been successfully saved and can be reached here:
-                    <a href="#">Link to deck</a>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <input class="input" type="text" placeholder="Name (required)" v-model="title">
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control">
-                        <textarea class="textarea" placeholder="Description (optional)" v-model="description"></textarea>
-                    </p>
-                </div>
+
+                <template v-if="saved">
+                    <div class="notification is-success">
+                        Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <input class="input is-medium" type="text" readonly v-model="decklink">
+                        </p>
+                    </div>
+                </template>
+                <template v-if="!saved">
+                    <div class="field">
+                        <p class="control">
+                            <input class="input" type="text" placeholder="Name (required)" v-model="title">
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control">
+                            <textarea class="textarea" placeholder="Description (optional)" v-model="description"></textarea>
+                        </p>
+                    </div>
+                </template>
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" :class="{ 'is-loading' : saving }" @click="save">Save Deck</a>
@@ -45,6 +54,7 @@
                 shared      : Store,
                 title       : '',
                 description : '',
+                decklink    : 'https://mulligan.com/decks/kaladesh-123',
                 saving      : false,
                 saved       : false,
                 error       : false
@@ -53,7 +63,15 @@
         computed : {},
         methods  : {
             closeModal() {
+                this.reset();
                 this.$emit( 'closesavemodal' );
+            },
+            reset() {
+                this.saved = false;
+                this.error = false;
+                this.saving = false;
+                this.title = '';
+                this.description = '';
             },
             save() {
                 this.saved = false;
