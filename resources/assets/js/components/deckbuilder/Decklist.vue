@@ -137,7 +137,6 @@
                 this.$forceUpdate();
             },
             showLandModal() {
-                console.log( 'show land modal' );
                 this.$emit( 'showlandmodal' );
             }
         },

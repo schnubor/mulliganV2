@@ -20,4 +20,24 @@ class DeckController extends Controller
     {
         return view( 'deckbuilder' );
     }
+
+    /**
+     * Create a new deck instance.
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function store(Request $request)
+    {
+        // Validate the request...
+
+        $deck = new Deck;
+
+        $deck->title = $request->title;
+        $deck->description = $request->description;
+        $deck->decklist = $request->decklist;
+        $deck->owner_id = null;
+
+        $deck->save();
+    }
 }
