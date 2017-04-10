@@ -7,10 +7,28 @@
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
-                Save yo
+                <div class="notification is-danger" v-if="error">
+                    Danger lorem ipsum dolor sit amet, consectetur
+                    adipiscing elit lorem ipsum dolor sit amet,
+                    consectetur adipiscing elit
+                </div>
+                <div class="notification is-success" v-if="saved">
+                    Success! The Deck has been successfully saved and can be reached here:
+                    <a href="#">Link to deck</a>
+                </div>
+                <div class="field">
+                    <p class="control">
+                        <input class="input" type="text" placeholder="Name (required)" v-model="title">
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control">
+                        <textarea class="textarea" placeholder="Description (optional)" v-model="description"></textarea>
+                    </p>
+                </div>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-primary" @click="save">Save Deck</a>
+                <a class="button is-primary" :class="{ 'is-loading' : saving }" @click="save">Save Deck</a>
                 <a class="button" @click="closeModal">Cancel</a>
             </footer>
         </div>
@@ -19,11 +37,17 @@
 
 <script>
     import Store from './store.js';
+    import axios from 'axios';
 
     export default {
         data() {
             return {
-                shared      : Store
+                shared      : Store,
+                title       : '',
+                description : '',
+                saving      : false,
+                saved       : false,
+                error       : false
             };
         },
         computed : {},
@@ -32,8 +56,30 @@
                 this.$emit( 'closesavemodal' );
             },
             save() {
-                // send POST save request ...
-                this.$emit( 'closesavemodal' );
+                this.saved = false;
+                this.error = false;
+                this.saving = true;
+
+                const self = this;
+                const data = {
+                    title       : this.title,
+                    description : this.description,
+                    decklist    : JSON.stringify( this.shared.decklist )
+                };
+
+                axios.post( '/api/decks', data )
+                .then( function( response ) {
+                    self.saving = false;
+                    self.saved = true;
+                    self.error = false;
+                    console.log( response );
+                } )
+                .catch( function( error ) {
+                    console.warn( error );
+                    self.saving = false;
+                    self.saved = false;
+                    self.error = true;
+                } );
             }
         }
     };

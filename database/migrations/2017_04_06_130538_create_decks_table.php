@@ -17,7 +17,7 @@ class CreateDecksTable extends Migration
             $table->increments('id');
             $table->string('title', 140)->nullable();
             $table->text('description')->nullable();
-            $table->json('decklist')->nullable();
+            $table->text('decklist')->nullable();
             $table->integer('owner_id')->nullable();
             $table->timestamps();
         });

@@ -31873,6 +31873,8 @@ module.exports = __webpack_require__(18);
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_axios__);
 //
 //
 //
@@ -31892,13 +31894,37 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */]
+            shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */],
+            title: '',
+            description: '',
+            saving: false,
+            saved: false,
+            error: false
         };
     },
 
@@ -31908,8 +31934,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$emit('closesavemodal');
         },
         save: function save() {
-            // send POST save request ...
-            this.$emit('closesavemodal');
+            this.saved = false;
+            this.error = false;
+            this.saving = true;
+
+            var self = this;
+            var data = {
+                title: this.title,
+                description: this.description,
+                decklist: JSON.stringify(this.shared.decklist)
+            };
+
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('/api/decks', data).then(function (response) {
+                self.saving = false;
+                self.saved = true;
+                self.error = false;
+                console.log(response);
+            }).catch(function (error) {
+                console.warn(error);
+                self.saving = false;
+                self.saved = false;
+                self.error = true;
+            });
         }
     }
 };
@@ -31981,10 +32027,70 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('section', {
     staticClass: "modal-card-body"
-  }, [_vm._v("\n            Save yo\n        ")]), _vm._v(" "), _c('footer', {
+  }, [(_vm.error) ? _c('div', {
+    staticClass: "notification is-danger"
+  }, [_vm._v("\n                Danger lorem ipsum dolor sit amet, consectetur\n                adipiscing elit lorem ipsum dolor sit amet,\n                consectetur adipiscing elit\n            ")]) : _vm._e(), _vm._v(" "), (_vm.saved) ? _c('div', {
+    staticClass: "notification is-success"
+  }, [_vm._v("\n                Success! The Deck has been successfully saved and can be reached here:\n                "), _c('a', {
+    attrs: {
+      "href": "#"
+    }
+  }, [_vm._v("Link to deck")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.title),
+      expression: "title"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "placeholder": "Name (required)"
+    },
+    domProps: {
+      "value": _vm._s(_vm.title)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.title = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "field"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('textarea', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.description),
+      expression: "description"
+    }],
+    staticClass: "textarea",
+    attrs: {
+      "placeholder": "Description (optional)"
+    },
+    domProps: {
+      "value": _vm._s(_vm.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.description = $event.target.value
+      }
+    }
+  })])])]), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",
+    class: {
+      'is-loading': _vm.saving
+    },
     on: {
       "click": _vm.save
     }

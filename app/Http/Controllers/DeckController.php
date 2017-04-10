@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use App\Deck;
 use Helper;
 
 class DeckController extends Controller
