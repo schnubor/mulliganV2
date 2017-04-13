@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
+use Cocur\Slugify\Slugify;
 use App\Deck;
 use Helper;
 
@@ -30,15 +32,40 @@ class DeckController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request...
+        $validator = Validator::make($request->all(), [
+            'title'         => 'required|max:140',
+            'description'   => 'string|nullable',
+            'ownerId'       => 'required|numeric',
+            'decklist'      => 'required|json'
+        ]);
 
+        // Return validation errors as JSON
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 400);
+        }
+
+        // Store the Deck
         $deck = new Deck;
 
         $deck->title = $request->title;
         $deck->description = $request->description;
         $deck->decklist = $request->decklist;
-        $deck->owner_id = null;
+        $deck->owner_id = $request->ownerId;
 
         $deck->save();
+
+        // return success response
+        $slugify = new Slugify();
+        if ( $deck ) {
+            return response()->json([ 
+                'message' => 'SUCCESS',
+                'deckname' => $slugify->slugify( $deck->title ) . '-' . $deck->id
+            ], 200);
+        }
+
+        // return error if something went wrong
+        return response()->json([ 
+            'message' => 'ERROR'
+        ], 500);
     }
 }

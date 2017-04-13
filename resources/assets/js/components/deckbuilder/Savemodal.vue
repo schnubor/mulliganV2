@@ -8,18 +8,23 @@
             </header>
             <section class="modal-card-body">
                 <div class="notification is-danger" v-if="error">
-                    Danger lorem ipsum dolor sit amet, consectetur
-                    adipiscing elit lorem ipsum dolor sit amet,
-                    consectetur adipiscing elit
+                    Something went wrong while saving the Deck. Please try again.
                 </div>
 
                 <template v-if="saved">
                     <div class="notification is-success">
                         Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.
                     </div>
-                    <div class="field">
+                    <div class="field has-addons">
                         <p class="control">
-                            <input class="input is-medium" type="text" readonly v-model="decklink">
+                            <a class="button is-medium is-disabled">
+                                <span class="icon">
+                                    <i class="fa fa-link"></i>
+                                </span>
+                            </a>
+                        </p>
+                        <p class="control is-expanded">
+                            <input class="input is-medium" type="text" readonly="readonly" v-model="decklink" onclick="this.select()">
                         </p>
                     </div>
                 </template>
@@ -54,7 +59,7 @@
                 shared      : Store,
                 title       : '',
                 description : '',
-                decklink    : 'https://mulligan.com/decks/kaladesh-123',
+                decklink    : '',
                 saving      : false,
                 saved       : false,
                 error       : false
@@ -82,7 +87,8 @@
                 const data = {
                     title       : this.title,
                     description : this.description,
-                    decklist    : JSON.stringify( this.shared.decklist )
+                    decklist    : JSON.stringify( this.shared.decklist ),
+                    ownerId     : 1
                 };
 
                 axios.post( '/api/decks', data )
@@ -90,6 +96,7 @@
                     self.saving = false;
                     self.saved = true;
                     self.error = false;
+                    self.decklink = 'https://mulligan.com/decks/' + response.data.deckname;
                     console.log( response );
                 } )
                 .catch( function( error ) {
