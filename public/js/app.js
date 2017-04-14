@@ -20792,6 +20792,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -20809,7 +20810,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    computed: {},
+    computed: {
+        isValid: function isValid() {
+            if (this.title.length > 1 && this.title.length <= 140) {
+                return true;
+            }
+            return false;
+        }
+    },
     methods: {
         closeModal: function closeModal() {
             this.reset();
@@ -23076,7 +23084,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input",
     attrs: {
       "type": "text",
-      "placeholder": "Name (required)"
+      "placeholder": "Name (required, 140 chars)"
     },
     domProps: {
       "value": _vm._s(_vm.title)
@@ -23113,20 +23121,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])] : _vm._e()], 2), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
-  }, [_c('a', {
+  }, [(_vm.saved) ? _c('a', {
+    staticClass: "button is-primary",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("Close")]) : _vm._e(), _vm._v(" "), (!_vm.saved) ? _c('a', {
     staticClass: "button is-primary",
     class: {
-      'is-loading': _vm.saving
+      'is-loading': _vm.saving, 'is-disabled': !_vm.isValid
     },
     on: {
       "click": _vm.save
     }
-  }, [_vm._v("Save Deck")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Save Deck")]) : _vm._e(), _vm._v(" "), (!_vm.saved) ? _c('a', {
     staticClass: "button",
     on: {
       "click": _vm.closeModal
     }
-  }, [_vm._v("Cancel")])])])])
+  }, [_vm._v("Cancel")]) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('p', {
     staticClass: "control"

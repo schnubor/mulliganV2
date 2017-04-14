@@ -31,7 +31,7 @@
                 <template v-if="!saved">
                     <div class="field">
                         <p class="control">
-                            <input class="input" type="text" placeholder="Name (required)" v-model="title">
+                            <input class="input" type="text" placeholder="Name (required, 140 chars)" v-model="title">
                         </p>
                     </div>
                     <div class="field">
@@ -42,8 +42,9 @@
                 </template>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-primary" :class="{ 'is-loading' : saving }" @click="save">Save Deck</a>
-                <a class="button" @click="closeModal">Cancel</a>
+                <a class="button is-primary" @click="closeModal" v-if="saved">Close</a>
+                <a class="button is-primary" :class="{ 'is-loading' : saving, 'is-disabled' : !isValid }" @click="save" v-if="!saved">Save Deck</a>
+                <a class="button" @click="closeModal" v-if="!saved">Cancel</a>
             </footer>
         </div>
     </div>
@@ -65,7 +66,14 @@
                 error       : false
             };
         },
-        computed : {},
+        computed : {
+            isValid() {
+                if ( this.title.length > 1 && this.title.length <= 140 ) {
+                    return true;
+                }
+                return false;
+            }
+        },
         methods  : {
             closeModal() {
                 this.reset();
