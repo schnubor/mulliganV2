@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Cardmodal :class="{ 'is-active' : showCardModal }" @closecardmodal="showCardModal = false"></Cardmodal>
         <Landmodal :class="{ 'is-active' : showLandModal }" @closelandmodal="showLandModal = false"></Landmodal>
         <Savemodal :class="{ 'is-active' : showSaveModal }" @closesavemodal="showSaveModal = false"></Savemodal>
         <Statsmodal :class="{ 'is-active' : showStatsModal }" @closestatsmodal="showStatsModal = false"></Statsmodal>
@@ -15,7 +16,7 @@
                         </Deckactions>
                         <Decklist :shared="shared" @showlandmodal="showLandModal = true"></Decklist>
                     </div>
-                    <Cardresults :shared="shared"></Cardresults>
+                    <Cardresults :shared="shared" @showcardmodal="showCardModal = true"></Cardresults>
                 </div>
             </div>
         </section>
@@ -27,15 +28,18 @@
     import Cardresults from './Cardresults.vue';
     import Decklist from './Decklist.vue';
     import Deckactions from './Deckactions.vue';
+    import Cardmodal from './Cardmodal.vue';
     import Landmodal from './Landmodal.vue';
     import Savemodal from './Savemodal.vue';
     import Statsmodal from './Statsmodal.vue';
     import Store from './store.js';
+    import { EventBus } from './../../eventbus.js';
 
     export default {
         data() {
             return {
                 shared         : Store,
+                showCardModal  : false,
                 showLandModal  : false,
                 showSaveModal  : false,
                 showStatsModal : false
@@ -46,9 +50,19 @@
             Cardresults,
             Decklist,
             Deckactions,
+            Cardmodal,
             Landmodal,
             Savemodal,
             Statsmodal
+        },
+        created() {
+            EventBus.$on( 'showcardmodal', this.showCardModalAction );
+        },
+        methods : {
+            showCardModalAction( card ) {
+                this.shared.cardModal = card;
+                this.showCardModal = true;
+            }
         }
     };
 </script>

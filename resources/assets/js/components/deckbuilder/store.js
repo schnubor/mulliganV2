@@ -23,7 +23,8 @@ const Store = {
             'islands'   : 0,
             'swamps'    : 0
         }
-    }
+    },
+    cardModal : {}
 };
 
 export default Store;

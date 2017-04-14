@@ -105,7 +105,6 @@
                     self.saved = true;
                     self.error = false;
                     self.decklink = 'https://mulligan.com/decks/' + response.data.deckname;
-                    console.log( response );
                 } )
                 .catch( function( error ) {
                     console.warn( error );
@@ -119,17 +118,5 @@
 </script>
 
 <style lang="scss">
-    .modal-enter {
-        opacity: 0;
-    }
 
-    .modal-leave-active {
-        opacity: 0;
-    }
-
-    .modal-enter .modal-container,
-    .modal-leave-active .modal-container {
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-    }
 </style>

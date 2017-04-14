@@ -9,7 +9,7 @@
                 <span>Add</span>
             </a>
             <div class="details">
-                <a :href="'/card/' + cardTitle + '-' + card.multiverseid" class="is-light" target="_blank">
+                <a @click="showCardModal" class="is-light" target="_blank">
                     <span class="icon">
                         <i class="fa fa-eye"></i>
                     </span>
@@ -23,6 +23,7 @@
     import slug from 'slug';
     import _ from 'lodash';
     import Store from './store.js';
+    import { EventBus } from './../../eventbus.js';
 
     export default {
         props : [ 'card' ],
@@ -38,6 +39,9 @@
             }
         },
         methods : {
+            showCardModal() {
+                EventBus.$emit( 'showcardmodal', this.card );
+            },
             updateDecklist( list, card ) {
                 const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
 

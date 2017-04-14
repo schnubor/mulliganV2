@@ -455,7 +455,8 @@ var Store = {
             'islands': 0,
             'swamps': 0
         }
-    }
+    },
+    cardModal: {}
 };
 
 /* harmony default export */ __webpack_exports__["a"] = Store;
@@ -19690,13 +19691,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Decklist_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Decklist_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Deckactions_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue__ = __webpack_require__(69);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Landmodal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Savemodal_vue__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Savemodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Savemodal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Statsmodal_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Statsmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Statsmodal_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__store_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Cardmodal_vue__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Cardmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Cardmodal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Landmodal_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__Landmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__Landmodal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Savemodal_vue__ = __webpack_require__(71);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Savemodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__Savemodal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Statsmodal_vue__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Statsmodal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__Statsmodal_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__store_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__eventbus_js__ = __webpack_require__(124);
 //
 //
 //
@@ -19721,6 +19725,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
+
 
 
 
@@ -19734,7 +19741,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = {
     data: function data() {
         return {
-            shared: __WEBPACK_IMPORTED_MODULE_7__store_js__["a" /* default */],
+            shared: __WEBPACK_IMPORTED_MODULE_8__store_js__["a" /* default */],
+            showCardModal: false,
             showLandModal: false,
             showSaveModal: false,
             showStatsModal: false
@@ -19746,9 +19754,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         Cardresults: __WEBPACK_IMPORTED_MODULE_1__Cardresults_vue___default.a,
         Decklist: __WEBPACK_IMPORTED_MODULE_2__Decklist_vue___default.a,
         Deckactions: __WEBPACK_IMPORTED_MODULE_3__Deckactions_vue___default.a,
-        Landmodal: __WEBPACK_IMPORTED_MODULE_4__Landmodal_vue___default.a,
-        Savemodal: __WEBPACK_IMPORTED_MODULE_5__Savemodal_vue___default.a,
-        Statsmodal: __WEBPACK_IMPORTED_MODULE_6__Statsmodal_vue___default.a
+        Cardmodal: __WEBPACK_IMPORTED_MODULE_4__Cardmodal_vue___default.a,
+        Landmodal: __WEBPACK_IMPORTED_MODULE_5__Landmodal_vue___default.a,
+        Savemodal: __WEBPACK_IMPORTED_MODULE_6__Savemodal_vue___default.a,
+        Statsmodal: __WEBPACK_IMPORTED_MODULE_7__Statsmodal_vue___default.a
+    },
+    created: function created() {
+        __WEBPACK_IMPORTED_MODULE_9__eventbus_js__["a" /* EventBus */].$on('showcardmodal', this.showCardModalAction);
+    },
+
+    methods: {
+        showCardModalAction: function showCardModalAction(card) {
+            this.shared.cardModal = card;
+            this.showCardModal = true;
+        }
     }
 };
 
@@ -20848,7 +20867,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.saved = true;
                 self.error = false;
                 self.decklink = 'https://mulligan.com/decks/' + response.data.deckname;
-                console.log(response);
             }).catch(function (error) {
                 console.warn(error);
                 self.saving = false;
@@ -20870,6 +20888,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__eventbus_js__ = __webpack_require__(124);
 //
 //
 //
@@ -20891,6 +20910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -20911,6 +20931,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
+        showCardModal: function showCardModal() {
+            __WEBPACK_IMPORTED_MODULE_3__eventbus_js__["a" /* EventBus */].$emit('showcardmodal', this.card);
+        },
         updateDecklist: function updateDecklist(list, card) {
             var existingCardIndex = __WEBPACK_IMPORTED_MODULE_1_lodash___default.a.findIndex(list, { 'id': card.id });
 
@@ -21296,7 +21319,7 @@ exports.push([module.i, "\n.loader {\n  border: 2px solid #00d1b2;\n  border-top
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.modal-enter {\n  opacity: 0;\n}\n.modal-leave-active {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave-active .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "", ""]);
 
 /***/ }),
 /* 57 */
@@ -22285,8 +22308,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "is-light",
     attrs: {
-      "href": '/card/' + _vm.cardTitle + '-' + _vm.card.multiverseid,
       "target": "_blank"
+    },
+    on: {
+      "click": _vm.showCardModal
     }
   }, [_vm._m(1)])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22948,7 +22973,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Landmodal', {
+  return _c('div', [_c('Cardmodal', {
+    class: {
+      'is-active': _vm.showCardModal
+    },
+    on: {
+      "closecardmodal": function($event) {
+        _vm.showCardModal = false
+      }
+    }
+  }), _vm._v(" "), _c('Landmodal', {
     class: {
       'is-active': _vm.showLandModal
     },
@@ -23007,6 +23041,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1), _vm._v(" "), _c('Cardresults', {
     attrs: {
       "shared": _vm.shared
+    },
+    on: {
+      "showcardmodal": function($event) {
+        _vm.showCardModal = true
+      }
     }
   })], 1)])])], 1)
 },staticRenderFns: []}
@@ -32342,6 +32381,188 @@ module.exports = function(module) {
 __webpack_require__(17);
 module.exports = __webpack_require__(18);
 
+
+/***/ }),
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_js__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: function data() {
+        return {
+            shared: __WEBPACK_IMPORTED_MODULE_0__store_js__["a" /* default */]
+        };
+    },
+
+    computed: {},
+    methods: {
+        closeModal: function closeModal() {
+            this.$emit('closecardmodal');
+        }
+    }
+};
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "", ""]);
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(123)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(119),
+  /* template */
+  __webpack_require__(122),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulligan/resources/assets/js/components/deckbuilder/Cardmodal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Cardmodal.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-73dc4d69", Component.options)
+  } else {
+    hotAPI.reload("data-v-73dc4d69", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal"
+  }, [_c('div', {
+    staticClass: "modal-background"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "modal-card"
+  }, [_c('header', {
+    staticClass: "modal-card-head"
+  }, [_c('p', {
+    staticClass: "modal-card-title"
+  }, [_vm._v(_vm._s(_vm.shared.cardModal.name))]), _vm._v(" "), _c('button', {
+    staticClass: "delete",
+    on: {
+      "click": _vm.closeModal
+    }
+  })]), _vm._v(" "), _c('section', {
+    staticClass: "modal-card-body"
+  }, [_vm._v("\n            dem details\n        ")]), _vm._v(" "), _c('footer', {
+    staticClass: "modal-card-foot"
+  }, [_c('a', {
+    staticClass: "button is-primary",
+    on: {
+      "click": _vm.closeModal
+    }
+  }, [_vm._v("Close")])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-73dc4d69", module.exports)
+  }
+}
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(120);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("42c6e266", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-73dc4d69!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-73dc4d69!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 124 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventBus; });
+// This is the event hub we'll use in every
+// component to communicate between them.
+
+
+var EventBus = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 
 /***/ })
 /******/ ]);
