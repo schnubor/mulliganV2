@@ -37,7 +37,7 @@
     </section>
 
     <div id="app">
-        <section id="quicksearch" class="section is-medium has-text-centered">
+        <section id="quicksearch" class="section has-text-centered">
             <Quicksearch></Quicksearch>
         </section>
     </div>

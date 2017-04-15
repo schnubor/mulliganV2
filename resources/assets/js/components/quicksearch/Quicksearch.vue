@@ -17,19 +17,10 @@
                     <table class="table is-marginless" v-if="results.length">
                         <tbody>
                             <template v-for="(result, index) in results">
-                                <QuicksearchResult 
-                                :result="result" 
-                                v-on:mouseenter.native="showPreview( result )"
-                                v-on:mouseleave.native="hidePreview">
-                                </QuicksearchResult>
+                                <QuicksearchResult :result="result"></QuicksearchResult>
                             </template>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="column" v-if="previewImg.length">
-                <div class="box">
-                    <img :src="previewImg" alt="card preview" class="card" :class="previewImgRarity">
                 </div>
             </div>
         </div>
@@ -54,9 +45,7 @@
                 results             : [],
                 showBox             : false,
                 showError           : false,
-                isLoading           : false,
-                previewImg          : '',
-                previewImgRarity    : ''
+                isLoading           : false
             };
         },
         computed : {
@@ -109,24 +98,6 @@
                     this.hidePreview();
                 }
             }, 200 ),
-
-            showPreview( result ) {
-                this.previewImg = result.imageUrl;
-                switch ( result.rarity ) {
-                    case 'Mythic Rare' :
-                        this.previewImgRarity = 'mythic';
-                        break;
-                    case 'Rare' :
-                        this.previewImgRarity = 'rare';
-                        break;
-                    case 'Uncommon' :
-                        this.previewImgRarity = 'uncommon';
-                        break;
-                    default :
-                        this.previewImgRarity = 'common';
-                        break;
-                }
-            },
 
             hidePreview() {
                 this.previewImg = '';
