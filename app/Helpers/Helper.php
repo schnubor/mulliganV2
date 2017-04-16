@@ -17,6 +17,7 @@ class Helper
         $pattern[8] = '/{B\/P}/';
         $pattern[9] = '/{E}/';
         $pattern[10] = '/{(\d)}/';
+        $pattern[11] = '/{X}/';
 
         $replacement = array();
         $replacement[0] = '<i class="ms ms-tap ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
@@ -28,8 +29,9 @@ class Helper
         $replacement[6] = '<i class="ms ms-c ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
         $replacement[7] = '<i class="ms ms-s ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
         $replacement[8] = '<i class="ms ms-p ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
-        $replacement[9] = '<i class="ms ms-e ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
+        $replacement[9] = '<i class="ms ms-e ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
         $replacement[10] = '<i class="ms ms-\1 ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
+        $replacement[11] = '<i class="ms ms-x ms-cost ' . ($big ? 'ms-2x ' : '') . ($shadow ? 'ms-shadow ' : '') . '"></i> ';
 
         $newText = preg_replace( $pattern, $replacement, $text );
 

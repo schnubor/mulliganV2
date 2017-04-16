@@ -10,7 +10,7 @@
             </header>
             <section class="modal-card-body">
                 <p class="title">
-                    {{ shared.cardModal.name }}
+                    <a :href="cardUrl" target="_blank">{{ shared.cardModal.name }}</a>
                 </p>
                 <p class="subtitle">{{ shared.cardModal.type }}</p>
                 <hr>
@@ -22,6 +22,8 @@
                         </p>
                     </div>
                     <div class="column content">
+                        <p v-if="shared.cardModal.manaCost" v-html="manaCosts"></p>
+                        <hr>
                         <p v-if="shared.cardModal.text" v-html="rawText"></p>
                         <blockquote v-if="shared.cardModal.flavor">
                             <em>{{ shared.cardModal.flavor }}</em>
@@ -49,7 +51,7 @@
                         <template v-if="shared.cardModal.legalities">
                             <p class="title is-4">Legalities</p>
                             <template v-for="legality in shared.cardModal.legalities">
-                                <span class="tag" :class="{ 
+                                <span class="tag legality" :class="{ 
                                     'is-success' : legality.legality === 'Legal',
                                     'is-warning' : legality.legality === 'Restricted',
                                     'is-danger' : legality.legality === 'Banned'
@@ -85,6 +87,8 @@
 
 <script>
     import Store from './store.js';
+    import { replaceManaCosts, replaceManaText } from './../../utils.js';
+    import slug from 'slug';
 
     export default {
         data() {
@@ -94,20 +98,16 @@
         },
         computed : {
             rawText() {
-                let text = this.shared.cardModal.text;
-                text = text.replace( /\n/g, '<br /><br />' );
-                text = text.replace( /\{T\}/g, '<i class="ms ms-tap ms-cost"></i>' );
-                text = text.replace( /\{R\}/g, '<i class="ms ms-r ms-cost"></i>' );
-                text = text.replace( /\{U\}/g, '<i class="ms ms-u ms-cost"></i>' );
-                text = text.replace( /\{G\}/g, '<i class="ms ms-g ms-cost"></i>' );
-                text = text.replace( /\{W\}/g, '<i class="ms ms-w ms-cost"></i>' );
-                text = text.replace( /\{B\}/g, '<i class="ms ms-b ms-cost"></i>' );
-                text = text.replace( /\{C\}/g, '<i class="ms ms-c ms-cost"></i>' );
-                text = text.replace( /\{S\}/g, '<i class="ms ms-s ms-cost"></i>' );
-                text = text.replace( /\{B\/P\}/g, '<i class="ms ms-p ms-cost"></i>' );
-                text = text.replace( /\{E\}/g, '<i class="ms ms-e"></i>' );
-                text = text.replace( /\{(\d)\}/g, '<i class="ms ms-$1 ms-cost"></i>' );
-                return text;
+                return replaceManaText( this.shared.cardModal.text );
+            },
+            cardUrl() {
+                if ( this.shared.cardModal.name ) {
+                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.shared.cardModal.name ) + '-' + this.shared.cardModal.multiverseid;
+                }
+                return '';
+            },
+            manaCosts() {
+                return replaceManaCosts( this.shared.cardModal.manaCost );
             }
         },
         methods  : {
@@ -118,8 +118,12 @@
     };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     .multiverseid {
         opacity: .5;
+    }
+
+    .tag.legality {
+        margin: 5px 10px 5px 0;
     }
 </style>

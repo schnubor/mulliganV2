@@ -104,7 +104,7 @@
                     self.saving = false;
                     self.saved = true;
                     self.error = false;
-                    self.decklink = 'https://mulligan.com/decks/' + response.data.deckname;
+                    self.decklink = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
                 } )
                 .catch( function( error ) {
                     console.warn( error );

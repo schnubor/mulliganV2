@@ -28758,6 +28758,9 @@ module.exports = function spread(callback) {
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_js__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__utils_js__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_slug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_slug__);
 //
 //
 //
@@ -28843,6 +28846,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+
+
 
 
 
@@ -28855,20 +28862,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         rawText: function rawText() {
-            var text = this.shared.cardModal.text;
-            text = text.replace(/\n/g, '<br /><br />');
-            text = text.replace(/\{T\}/g, '<i class="ms ms-tap ms-cost"></i>');
-            text = text.replace(/\{R\}/g, '<i class="ms ms-r ms-cost"></i>');
-            text = text.replace(/\{U\}/g, '<i class="ms ms-u ms-cost"></i>');
-            text = text.replace(/\{G\}/g, '<i class="ms ms-g ms-cost"></i>');
-            text = text.replace(/\{W\}/g, '<i class="ms ms-w ms-cost"></i>');
-            text = text.replace(/\{B\}/g, '<i class="ms ms-b ms-cost"></i>');
-            text = text.replace(/\{C\}/g, '<i class="ms ms-c ms-cost"></i>');
-            text = text.replace(/\{S\}/g, '<i class="ms ms-s ms-cost"></i>');
-            text = text.replace(/\{B\/P\}/g, '<i class="ms ms-p ms-cost"></i>');
-            text = text.replace(/\{E\}/g, '<i class="ms ms-e"></i>');
-            text = text.replace(/\{(\d)\}/g, '<i class="ms ms-$1 ms-cost"></i>');
-            return text;
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_js__["a" /* replaceManaText */])(this.shared.cardModal.text);
+        },
+        cardUrl: function cardUrl() {
+            if (this.shared.cardModal.name) {
+                return window.location.protocol + '//' + window.location.host + '/card/' + __WEBPACK_IMPORTED_MODULE_2_slug___default()(this.shared.cardModal.name) + '-' + this.shared.cardModal.multiverseid;
+            }
+            return '';
+        },
+        manaCosts: function manaCosts() {
+            return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__utils_js__["b" /* replaceManaCosts */])(this.shared.cardModal.manaCost);
         }
     },
     methods: {
@@ -30192,7 +30195,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 self.saving = false;
                 self.saved = true;
                 self.error = false;
-                self.decklink = 'https://mulligan.com/decks/' + response.data.deckname;
+                self.decklink = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
             }).catch(function (error) {
                 console.warn(error);
                 self.saving = false;
@@ -30215,6 +30218,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__store_js__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__eventbus_js__ = __webpack_require__(15);
+//
 //
 //
 //
@@ -30578,13 +30582,7 @@ exports = module.exports = __webpack_require__(3)();
 exports.push([module.i, "\n.errorMsg {\n  color: #CCC;\n}\n", ""]);
 
 /***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.multiverseid {\n  opacity: .5;\n}\n", ""]);
-
-/***/ }),
+/* 54 */,
 /* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -30972,7 +30970,7 @@ module.exports={166:{"value":"00A6","name":"BROKEN BAR","category":"So","class":
 
 
 /* styles */
-__webpack_require__(98)
+__webpack_require__(127)
 
 var Component = __webpack_require__(0)(
   /* script */
@@ -30980,7 +30978,7 @@ var Component = __webpack_require__(0)(
   /* template */
   __webpack_require__(84),
   /* scopeId */
-  null,
+  "data-v-10d2aee6",
   /* cssModules */
   null
 )
@@ -31822,7 +31820,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-body"
   }, [_c('p', {
     staticClass: "title"
-  }, [_vm._v("\n                " + _vm._s(_vm.shared.cardModal.name) + "\n            ")]), _vm._v(" "), _c('p', {
+  }, [_c('a', {
+    attrs: {
+      "href": _vm.cardUrl,
+      "target": "_blank"
+    }
+  }, [_vm._v(_vm._s(_vm.shared.cardModal.name))])]), _vm._v(" "), _c('p', {
     staticClass: "subtitle"
   }, [_vm._v(_vm._s(_vm.shared.cardModal.type))]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "columns"
@@ -31837,7 +31840,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "has-text-left"
   }, [_vm._v("Artist: " + _vm._s(_vm.shared.cardModal.artist))])])]), _vm._v(" "), _c('div', {
     staticClass: "column content"
-  }, [(_vm.shared.cardModal.text) ? _c('p', {
+  }, [(_vm.shared.cardModal.manaCost) ? _c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.manaCosts)
+    }
+  }) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), (_vm.shared.cardModal.text) ? _c('p', {
     domProps: {
       "innerHTML": _vm._s(_vm.rawText)
     }
@@ -31852,7 +31859,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title is-4"
   }, [_vm._v("Legalities")]), _vm._v(" "), _vm._l((_vm.shared.cardModal.legalities), function(legality) {
     return [_c('span', {
-      staticClass: "tag",
+      staticClass: "tag legality",
       class: {
         'is-success': legality.legality === 'Legal',
           'is-warning': legality.legality === 'Restricted',
@@ -31940,7 +31947,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showCardModal
     }
-  }, [_vm._m(1)])])])])
+  }, [_vm._m(1), _vm._v("\n                Details\n            ")])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon"
@@ -32958,32 +32965,7 @@ if(false) {
 }
 
 /***/ }),
-/* 98 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(54);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("1f2c1941", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-10d2aee6!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-10d2aee6!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 98 */,
 /* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33259,6 +33241,92 @@ module.exports = function(module) {
 __webpack_require__(19);
 module.exports = __webpack_require__(20);
 
+
+/***/ }),
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = replaceManaText;
+/* harmony export (immutable) */ __webpack_exports__["b"] = replaceManaCosts;
+function replaceManaText(text) {
+    text = text.replace(/\n/g, '<br /><br />');
+    text = text.replace(/\{T\}/g, '<i class="ms ms-tap ms-cost"></i>');
+    text = text.replace(/\{R\}/g, '<i class="ms ms-r ms-cost"></i>');
+    text = text.replace(/\{U\}/g, '<i class="ms ms-u ms-cost"></i>');
+    text = text.replace(/\{G\}/g, '<i class="ms ms-g ms-cost"></i>');
+    text = text.replace(/\{W\}/g, '<i class="ms ms-w ms-cost"></i>');
+    text = text.replace(/\{B\}/g, '<i class="ms ms-b ms-cost"></i>');
+    text = text.replace(/\{C\}/g, '<i class="ms ms-c ms-cost"></i>');
+    text = text.replace(/\{S\}/g, '<i class="ms ms-s ms-cost"></i>');
+    text = text.replace(/\{B\/P\}/g, '<i class="ms ms-p ms-cost"></i>');
+    text = text.replace(/\{E\}/g, '<i class="ms ms-e"></i>');
+    text = text.replace(/\{X\}/g, '<i class="ms ms-x ms-cost"></i>');
+    text = text.replace(/\{(\d)\}/g, '<i class="ms ms-$1 ms-cost"></i>');
+    return text;
+}
+
+function replaceManaCosts(cmc) {
+    cmc = cmc.replace(/\{R\}/g, '<i class="ms ms-r ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{U\}/g, '<i class="ms ms-u ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{G\}/g, '<i class="ms ms-g ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{W\}/g, '<i class="ms ms-w ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{B\}/g, '<i class="ms ms-b ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{C\}/g, '<i class="ms ms-c ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{S\}/g, '<i class="ms ms-s ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{X\}/g, '<i class="ms ms-x ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{B\/P\}/g, '<i class="ms ms-p ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{(\d)\}/g, '<i class="ms ms-$1 ms-cost ms-shadow ms-2x"></i> ');
+    return cmc;
+}
+
+/***/ }),
+/* 126 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "\n.multiverseid[data-v-10d2aee6] {\n  opacity: .5;\n}\n.tag.legality[data-v-10d2aee6] {\n  margin: 5px 10px 5px 0;\n}\n", ""]);
+
+/***/ }),
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(126);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("c737e554", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-10d2aee6&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-10d2aee6&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Cardmodal.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

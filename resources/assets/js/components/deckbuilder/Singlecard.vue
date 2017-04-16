@@ -13,6 +13,7 @@
                     <span class="icon">
                         <i class="fa fa-eye"></i>
                     </span>
+                    Details
                 </a>
             </div>
         </div>
