@@ -39,6 +39,22 @@
                             <textarea class="textarea" placeholder="Description (optional)" v-model="description"></textarea>
                         </p>
                     </div>
+                    <div class="field has-addons">
+                        <p class="control">
+                            <input class="input" type="text" placeholder="Add Tags" v-model="tag" @keyup.enter="addTag">
+                        </p>
+                        <p class="control">
+                            <a class="button is-primary" @click="addTag">
+                                Add
+                            </a>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <span class="tag is-primary single-tag" v-for="tag, index in tags">
+                            {{ tag }}
+                            <button class="delete is-small" @click="removeTag( index )"></button>
+                        </span>
+                    </div>
                 </template>
             </section>
             <footer class="modal-card-foot">
@@ -60,6 +76,8 @@
                 shared      : Store,
                 title       : '',
                 description : '',
+                tag         : '',
+                tags        : [],
                 decklink    : '',
                 saving      : false,
                 saved       : false,
@@ -75,6 +93,15 @@
             }
         },
         methods  : {
+            addTag() {
+                if ( this.tag !== '' ) {
+                    this.tags.push( this.tag );
+                }
+                this.tag = '';
+            },
+            removeTag( index ) {
+                this.tags.splice( index, 1 );
+            },
             closeModal() {
                 this.reset();
                 this.$emit( 'closesavemodal' );
@@ -96,6 +123,7 @@
                     title       : this.title,
                     description : this.description,
                     decklist    : JSON.stringify( this.shared.decklist ),
+                    tags        : JSON.stringify( this.tags ),
                     ownerId     : 1
                 };
 
@@ -118,5 +146,7 @@
 </script>
 
 <style lang="scss">
-
+    .single-tag {
+        margin-right: 5px;
+    }
 </style>

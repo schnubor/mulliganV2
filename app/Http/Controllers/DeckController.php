@@ -35,8 +35,9 @@ class DeckController extends Controller
         $validator = Validator::make($request->all(), [
             'title'         => 'required|max:140',
             'description'   => 'string|nullable',
-            'ownerId'       => 'required|numeric',
-            'decklist'      => 'required|json'
+            'decklist'      => 'required|json',
+            'tags'          => 'json',
+            'ownerId'       => 'required|numeric'
         ]);
 
         // Return validation errors as JSON
@@ -50,6 +51,7 @@ class DeckController extends Controller
         $deck->title = $request->title;
         $deck->description = $request->description;
         $deck->decklist = $request->decklist;
+        $deck->tags = $request->tags;
         $deck->owner_id = $request->ownerId;
 
         $deck->save();
