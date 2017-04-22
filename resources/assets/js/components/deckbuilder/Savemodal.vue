@@ -102,7 +102,9 @@
                 this.tags.splice( index, 1 );
             },
             closeModal() {
-                this.reset();
+                if ( this.saved ) {
+                    this.reset();
+                }
                 this.$emit( 'closesavemodal' );
             },
             reset() {
@@ -111,6 +113,7 @@
                 this.saving = false;
                 this.title = '';
                 this.description = '';
+                this.tags = [];
             },
             save() {
                 this.saved = false;

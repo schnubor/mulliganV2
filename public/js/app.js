@@ -29585,7 +29585,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.tags.splice(index, 1);
         },
         closeModal: function closeModal() {
-            this.reset();
+            if (this.saved) {
+                this.reset();
+            }
             this.$emit('closesavemodal');
         },
         reset: function reset() {
@@ -29594,6 +29596,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.saving = false;
             this.title = '';
             this.description = '';
+            this.tags = [];
         },
         save: function save() {
             this.saved = false;
