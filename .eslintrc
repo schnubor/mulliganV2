@@ -1,6 +1,6 @@
 {
-    'extends': 'vue',
-
+    extends: ["vue"],
+    plugins: ["vue"],
     rules: {
         'array-bracket-spacing': [ 2, 'always' ],
         'brace-style': [ 2, 'stroustrup' ],

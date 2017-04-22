@@ -10,7 +10,6 @@
                 <div class="notification is-danger" v-if="error">
                     Something went wrong while saving the Deck. Please try again.
                 </div>
-
                 <template v-if="saved">
                     <div class="notification is-success">
                         Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.
