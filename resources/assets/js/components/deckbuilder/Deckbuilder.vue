@@ -10,13 +10,13 @@
             <div class="container">
                 <div class="columns">
                     <div class="column is-3">
-                        <Deckactions :shared="shared" 
+                        <Deckactions 
                                      @showsavemodal="showSaveModal = true" 
                                      @showstatsmodal="showStatsModal = true">
                         </Deckactions>
-                        <Decklist :shared="shared" @showlandmodal="showLandModal = true"></Decklist>
+                        <Decklist @showlandmodal="showLandModal = true"></Decklist>
                     </div>
-                    <Cardresults :shared="shared" @showcardmodal="showCardModal = true"></Cardresults>
+                    <Cardresults @showcardmodal="showCardModal = true"></Cardresults>
                 </div>
             </div>
         </section>
@@ -32,13 +32,11 @@
     import Landmodal from './Landmodal.vue';
     import Savemodal from './Savemodal.vue';
     import Statsmodal from './Statsmodal.vue';
-    import Store from './store.js';
     import { EventBus } from './../../eventbus.js';
 
     export default {
         data() {
             return {
-                shared         : Store,
                 showCardModal  : false,
                 showLandModal  : false,
                 showSaveModal  : false,
@@ -60,7 +58,8 @@
         },
         methods : {
             showCardModalAction( card ) {
-                this.shared.cardModal = card;
+                // TODO
+                this.$store.state.cardModal = card;
                 this.showCardModal = true;
             }
         }

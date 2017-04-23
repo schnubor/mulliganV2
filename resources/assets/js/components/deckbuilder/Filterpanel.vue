@@ -97,7 +97,6 @@
     import axios from 'axios';
     import Spinner from './Spinner.vue';
     import queryString from 'query-string';
-    import Store from './store.js';
 
     export default {
         data() {
@@ -125,10 +124,7 @@
                         black : false,
                         white : false
                     }
-                },
-
-                // Store
-                shared : Store
+                }
             };
         },
         computed : {
@@ -142,6 +138,9 @@
                     if ( filters.colors[ color ] ) colors.push( color );
                 }
                 return colors;
+            },
+            pageSize() {
+                return this.$store.getters.pageSize;
             }
         },
         watch : {
@@ -164,7 +163,7 @@
                 if ( filters.mana === '5' ) params.cmc = 'gte5';
                 if ( colorsArray.length && filters.type !== 'land' ) params.colors = colorsArray.join( ',' );
 
-                params.pageSize = this.shared.pagination.pageSize;
+                params.pageSize = this.pageSize;
                 params.page = this.searchPage;
 
                 const searchUri = this.searchUrl + queryString.stringify( params );
@@ -175,21 +174,30 @@
                 .then( function( response ) {
                     // Get total count
                     const total = response.headers[ 'total-count' ];
-                    const totalPages = Math.ceil( total / self.shared.pagination.pageSize );
+                    const totalPages = Math.ceil( total / self.pageSize );
                     // Check for
-                    if ( total < self.shared.maxResults ) {
+                    if ( total < self.$store.state.maxResults ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
-                            self.shared.error = '';
+                            self.$store.dispatch( {
+                                type    : 'setError',
+                                error   : ''
+                            } );
                             for ( const card of response.data.cards ) {
                                 if ( card.imageUrl && _.get( card, 'supertypes[0]' ) !== 'Basic' ) {
-                                    self.shared.cardlist.push( card );
+                                    self.$store.dispatch( {
+                                        type : 'addResult',
+                                        card : card
+                                    } );
                                 }
                             }
                         }
                         else {
                             self.cardlist = [];
-                            self.shared.error = 'No results. Try adjusting your filters.';
+                            self.$store.dispatch( {
+                                type    : 'setError',
+                                error   : 'No results. Try adjusting your filters.'
+                            } );
                         }
                         // Fetch next page if necessary
                         if ( self.searchPage < totalPages ) {
@@ -203,14 +211,20 @@
                     }
                     else {
                         self.cardlist = [];
-                        self.shared.error = 'Too many results! Try adjusting the filters.';
+                        self.$store.dispatch( {
+                            type    : 'setError',
+                            error   : 'Too many results! Try adjusting the filters.'
+                        } );
                         self.searching = false;
                     }
                 } )
                 .catch( ( error ) => {
                     self.cardlist = [];
                     self.searching = false;
-                    self.shared.error = 'Oops! Something went wrong. Please try again!';
+                    self.$store.dispatch( {
+                        type    : 'setError',
+                        error   : 'Oops! Something went wrong. Please try again!'
+                    } );
                     console.warn( error );
                 } );
             },
@@ -229,9 +243,9 @@
                 } );
             },
             search : _.debounce( function() {
-                this.shared.pagination.currentPage = 1;
-                this.shared.cardlist = [];
-                this.shared.error = '';
+                this.$store.state.pagination.currentPage = 1;
+                this.$store.state.cardlist = [];
+                this.$store.state.error = '';
                 this.fetched = false;
                 this.searching = true;
                 this.searchPage = 1;

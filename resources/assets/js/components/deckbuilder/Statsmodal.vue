@@ -17,14 +17,7 @@
 </template>
 
 <script>
-    import Store from './store.js';
-
     export default {
-        data() {
-            return {
-                shared      : Store
-            };
-        },
         computed : {},
         methods  : {
             closeModal() {

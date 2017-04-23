@@ -20,17 +20,10 @@
 </template>
 
 <script>
-    import Store from './store.js';
-
     export default {
-        data() {
-            return {
-                shared : Store
-            };
-        },
         computed : {
             hasCards() {
-                return this.shared.decklist.cardsum > 0;
+                return this.$store.getters.totalCards > 0;
             }
         },
         methods : {
@@ -45,5 +38,4 @@
 </script>
 
 <style lang="scss">
-    
 </style>

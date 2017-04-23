@@ -115,12 +115,9 @@
 </template>
 
 <script>
-    import Store from './store.js';
-
     export default {
         data() {
             return {
-                shared      : Store,
                 mountains   : 0,
                 plains      : 0,
                 forests     : 0,
@@ -130,19 +127,19 @@
         },
         computed : {
             totalMountains() {
-                return this.shared.decklist.basiclands.mountains + this.mountains;
+                return this.$store.state.decklist.basiclands.mountains + this.mountains;
             },
             totalPlains() {
-                return this.shared.decklist.basiclands.plains + this.plains;
+                return this.$store.state.decklist.basiclands.plains + this.plains;
             },
             totalForests() {
-                return this.shared.decklist.basiclands.forests + this.forests;
+                return this.$store.state.decklist.basiclands.forests + this.forests;
             },
             totalIslands() {
-                return this.shared.decklist.basiclands.islands + this.islands;
+                return this.$store.state.decklist.basiclands.islands + this.islands;
             },
             totalSwamps() {
-                return this.shared.decklist.basiclands.swamps + this.swamps;
+                return this.$store.state.decklist.basiclands.swamps + this.swamps;
             }
         },
         methods : {
@@ -158,11 +155,11 @@
                 this.$emit( 'closelandmodal' );
             },
             save() {
-                this.shared.decklist.basiclands.mountains = this.totalMountains;
-                this.shared.decklist.basiclands.plains = this.totalPlains;
-                this.shared.decklist.basiclands.forests = this.totalForests;
-                this.shared.decklist.basiclands.islands = this.totalIslands;
-                this.shared.decklist.basiclands.swamps = this.totalSwamps;
+                this.$store.state.decklist.basiclands.mountains = this.totalMountains;
+                this.$store.state.decklist.basiclands.plains = this.totalPlains;
+                this.$store.state.decklist.basiclands.forests = this.totalForests;
+                this.$store.state.decklist.basiclands.islands = this.totalIslands;
+                this.$store.state.decklist.basiclands.swamps = this.totalSwamps;
                 this.reset();
                 this.$emit( 'closelandmodal' );
             }

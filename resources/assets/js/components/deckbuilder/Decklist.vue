@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="tag is-primary is-large">{{ cardSum }} Cards</span>
+        <span class="tag is-primary is-large">{{ totalCards }} Cards</span>
         
         <aside class="menu" style="margin-top: 1.5em;">
             <template v-if="creatures.length">
@@ -120,14 +120,9 @@
 <script>
     import Spinner from './Spinner.vue';
     import Decklistitem from './Decklistitem.vue';
-    import Store from './store.js';
+    import { mapGetters } from 'vuex';
 
     export default {
-        data() {
-            return {
-                shared        : Store
-            };
-        },
         components : {
             Spinner,
             Decklistitem
@@ -141,71 +136,17 @@
             }
         },
         computed : {
-            artifacts() {
-                return this.shared.decklist.artifacts;
-            },
-            creatures() {
-                return this.shared.decklist.creatures;
-            },
-            enchantments() {
-                return this.shared.decklist.enchantments;
-            },
-            instants() {
-                return this.shared.decklist.instants;
-            },
-            sorceries() {
-                return this.shared.decklist.sorceries;
-            },
-            planeswalker() {
-                return this.shared.decklist.planeswalker;
-            },
-            lands() {
-                return this.shared.decklist.lands;
-            },
-            basiclands() {
-                return this.shared.decklist.basiclands;
-            },
-            cardSum() {
-                let artifactSum = 0;
-                let creatureSum = 0;
-                let enchantmentSum = 0;
-                let instantSum = 0;
-                let sorcerySum = 0;
-                let planeswalkerSum = 0;
-                let landSum = 0;
-                let basicLandSum = 0;
-                let cardSum = 0;
-
-                for ( const artifact of this.artifacts ) {
-                    artifactSum += artifact.qty;
-                }
-                for ( const creature of this.creatures ) {
-                    creatureSum += creature.qty;
-                }
-                for ( const enchantment of this.enchantments ) {
-                    enchantmentSum += enchantment.qty;
-                }
-                for ( const instant of this.instants ) {
-                    instantSum += instant.qty;
-                }
-                for ( const sorcery of this.sorceries ) {
-                    sorcerySum += sorcery.qty;
-                }
-                for ( const planeswalker of this.planeswalker ) {
-                    planeswalkerSum += planeswalker.qty;
-                }
-                for ( const land of this.lands ) {
-                    landSum += land.qty;
-                }
-
-                basicLandSum = this.basiclands.mountains + this.basiclands.plains + this.basiclands.forests + this.basiclands.islands + this.basiclands.swamps;
-
-                cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
-
-                this.shared.decklist.cardsum = cardSum;
-
-                return cardSum;
-            }
+            ...mapGetters( [
+                'lands',
+                'artifacts',
+                'creatures',
+                'instants',
+                'sorceries',
+                'planeswalker',
+                'enchantments',
+                'basiclands',
+                'totalCards'
+            ] )
         }
     };
 </script>

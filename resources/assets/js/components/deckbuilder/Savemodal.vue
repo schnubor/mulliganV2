@@ -66,13 +66,11 @@
 </template>
 
 <script>
-    import Store from './store.js';
     import axios from 'axios';
 
     export default {
         data() {
             return {
-                shared      : Store,
                 title       : '',
                 description : '',
                 tag         : '',
@@ -124,7 +122,7 @@
                 const data = {
                     title       : this.title,
                     description : this.description,
-                    decklist    : JSON.stringify( this.shared.decklist ),
+                    decklist    : JSON.stringify( this.$store.state.decklist ),
                     tags        : JSON.stringify( this.tags ),
                     ownerId     : 1
                 };

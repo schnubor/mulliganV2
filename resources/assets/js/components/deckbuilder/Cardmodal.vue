@@ -4,53 +4,54 @@
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">
-                    MultiverseID <span class="multiverseid">#{{ shared.cardModal.multiverseid }}</span>
+                    MultiverseID <span class="multiverseid">#{{ this.$store.state.cardModal.multiverseid }}</span>
                 </p>
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
                 <p class="title">
-                    <a :href="cardUrl" target="_blank">{{ shared.cardModal.name }}</a>
+                    <a :href="cardUrl" target="_blank">{{ this.$store.state.cardModal.name }}</a>
+                    <span class="link-icon"><i class="fa fa-link"></i></span>
                 </p>
-                <p class="subtitle">{{ shared.cardModal.type }}</p>
+                <p class="subtitle">{{ this.$store.state.cardModal.type }}</p>
                 <hr>
                 <div class="columns">
                     <div class="column is-one-third">
-                        <img :src="shared.cardModal.imageUrl" :alt="shared.cardModal.name">
+                        <img :src="this.$store.state.cardModal.imageUrl" :alt="this.$store.state.cardModal.name">
                         <p>
-                            <small class="has-text-left">Artist: {{ shared.cardModal.artist }}</small>
+                            <small class="has-text-left">Artist: {{ this.$store.state.cardModal.artist }}</small>
                         </p>
                     </div>
                     <div class="column content">
-                        <p v-if="shared.cardModal.manaCost" v-html="manaCosts"></p>
+                        <p v-if="this.$store.state.cardModal.manaCost" v-html="manaCosts"></p>
                         <hr>
-                        <p v-if="shared.cardModal.text" v-html="rawText"></p>
-                        <blockquote v-if="shared.cardModal.flavor">
-                            <em>{{ shared.cardModal.flavor }}</em>
+                        <p v-if="this.$store.state.cardModal.text" v-html="rawText"></p>
+                        <blockquote v-if="this.$store.state.cardModal.flavor">
+                            <em>{{ this.$store.state.cardModal.flavor }}</em>
                         </blockquote>
-                        <p v-if="shared.cardModal.power">
+                        <p v-if="this.$store.state.cardModal.power">
                             <span class="title" style="padding-right: 10px;">
                                 <span class="icon is-medium">
                                     <i class="fa fa-gavel"></i>
                                 </span>
-                                <strong>{{ shared.cardModal.power }}</strong>
+                                <strong>{{ this.$store.state.cardModal.power }}</strong>
                             </span>
 
                             <span class="title">
                                 <span class="icon is-medium">
                                     <i class="fa fa-shield"></i>
                                 </span>
-                                <strong>{{ shared.cardModal.toughness }}</strong>
+                                <strong>{{ this.$store.state.cardModal.toughness }}</strong>
                             </span>
                         </p>
                         <hr>
                         <p>
-                            Set: {{ shared.cardModal.setName }} ({{ shared.cardModal.set }})
+                            Set: {{ this.$store.state.cardModal.setName }} ({{ this.$store.state.cardModal.set }})
                         </p>
                         <hr>
-                        <template v-if="shared.cardModal.legalities">
+                        <template v-if="this.$store.state.cardModal.legalities">
                             <p class="title is-4">Legalities</p>
-                            <template v-for="legality in shared.cardModal.legalities">
+                            <template v-for="legality in this.$store.state.cardModal.legalities">
                                 <span class="tag legality" :class="{ 
                                     'is-success' : legality.legality === 'Legal',
                                     'is-warning' : legality.legality === 'Restricted',
@@ -61,9 +62,9 @@
                             </template>
                             <hr>
                         </template>
-                        <template v-if="shared.cardModal.rulings">
+                        <template v-if="this.$store.state.cardModal.rulings">
                             <p class="title is-4">Rulings</p>
-                            <template v-for="ruling in shared.cardModal.rulings">
+                            <template v-for="ruling in this.$store.state.cardModal.rulings">
                                 <div class="box">
                                     <div class="content">
                                         <p>
@@ -86,28 +87,22 @@
 </template>
 
 <script>
-    import Store from './store.js';
     import { replaceManaCosts, replaceManaText } from './../../utils.js';
     import slug from 'slug';
 
     export default {
-        data() {
-            return {
-                shared : Store
-            };
-        },
         computed : {
             rawText() {
-                return replaceManaText( this.shared.cardModal.text );
+                return replaceManaText( this.$store.state.cardModal.text );
             },
             cardUrl() {
-                if ( this.shared.cardModal.name ) {
-                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.shared.cardModal.name ) + '-' + this.shared.cardModal.multiverseid;
+                if ( this.$store.state.cardModal.name ) {
+                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.$store.state.cardModal.name ) + '-' + this.$store.state.cardModal.multiverseid;
                 }
                 return '';
             },
             manaCosts() {
-                return replaceManaCosts( this.shared.cardModal.manaCost );
+                return replaceManaCosts( this.$store.state.cardModal.manaCost );
             }
         },
         methods  : {
@@ -125,5 +120,9 @@
 
     .tag.legality {
         margin: 5px 10px 5px 0;
+    }
+
+    .link-icon {
+        opacity: .2;
     }
 </style>

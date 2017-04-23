@@ -23,14 +23,12 @@
 <script>
     import slug from 'slug';
     import _ from 'lodash';
-    import Store from './store.js';
     import { EventBus } from './../../eventbus.js';
 
     export default {
         props : [ 'card' ],
         data() {
             return {
-                shared      : Store,
                 isMouseover : false
             };
         },
@@ -61,25 +59,25 @@
             addToDecklist( card ) {
                 switch ( card.types[ 0 ] ) {
                     case 'Creature' :
-                        this.updateDecklist( this.shared.decklist.creatures, card );
+                        this.updateDecklist( this.$store.state.decklist.creatures, card );
                         break;
                     case 'Instant' :
-                        this.updateDecklist( this.shared.decklist.instants, card );
+                        this.updateDecklist( this.$store.state.decklist.instants, card );
                         break;
                     case 'Sorcery' :
-                        this.updateDecklist( this.shared.decklist.sorceries, card );
+                        this.updateDecklist( this.$store.state.decklist.sorceries, card );
                         break;
                     case 'Land' :
-                        this.updateDecklist( this.shared.decklist.lands, card );
+                        this.updateDecklist( this.$store.state.decklist.lands, card );
                         break;
                     case 'Artifact' :
-                        this.updateDecklist( this.shared.decklist.artifacts, card );
+                        this.updateDecklist( this.$store.state.decklist.artifacts, card );
                         break;
                     case 'Enchantment' :
-                        this.updateDecklist( this.shared.decklist.enchantments, card );
+                        this.updateDecklist( this.$store.state.decklist.enchantments, card );
                         break;
                     case 'Planeswalker' :
-                        this.updateDecklist( this.shared.decklist.planeswalker, card );
+                        this.updateDecklist( this.$store.state.decklist.planeswalker, card );
                         break;
                     default: break;
                 }

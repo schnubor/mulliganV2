@@ -12,15 +12,8 @@
 </template>
 
 <script>
-    import Store from './store.js';
-
     export default {
         props    : [ 'total', 'current' ],
-        data() {
-            return {
-                shared : Store
-            };
-        },
         computed : {
             isFirstPage() {
                 if ( this.current === 1 ) {
@@ -37,10 +30,10 @@
         },
         methods : {
             prevPage() {
-                this.shared.pagination.currentPage--;
+                this.$store.state.pagination.currentPage--;
             },
             nextPage() {
-                this.shared.pagination.currentPage++;
+                this.$store.state.pagination.currentPage++;
             }
         }
     };

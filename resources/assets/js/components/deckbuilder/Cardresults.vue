@@ -1,12 +1,12 @@
 <template>
     <div class="column">
         <div>
-            <span class="title">Search results ( {{ this.shared.cardlist.length }} Cards)</span>
+            <span class="title">Search results ( {{ this.$store.state.cardlist.length }} Cards)</span>
             <hr>
         </div>
         <section class="section has-text-centered is-medium" v-if="isValidError">
             <p class="title errorMsg">
-                {{ shared.error }}
+                {{ this.$store.state.error }}
             </p>
         </section>
         <div class="column">
@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <Pagination :total="totalPages" :current="shared.pagination.currentPage" v-if="this.shared.cardlist.length"></Pagination>
+        <Pagination :total="totalPages" :current="this.$store.state.pagination.currentPage" v-if="this.$store.state.cardlist.length"></Pagination>
     </div>
 </template>
 
@@ -26,37 +26,34 @@
     import Pagination from './Pagination.vue';
 
     export default {
-        props : [
-            'shared'
-        ],
         components : {
             Card,
             Pagination
         },
         computed : {
             totalPages() {
-                return Math.ceil( this.shared.cardlist.length / this.shared.pagination.pageSize );
+                return Math.ceil( this.$store.state.cardlist.length / this.$store.state.pagination.pageSize );
             },
             cardPage() {
-                const resultCount = this.shared.cardlist.length;
+                const resultCount = this.$store.state.cardlist.length;
                 let index = 0;
-                let currentPage = this.shared.pagination.currentPage - 1;
+                let currentPage = this.$store.state.pagination.currentPage - 1;
                 if ( resultCount !== 0 ) {
-                    if ( this.shared.pagination.currentPage >= this.totalPages ) {
+                    if ( this.$store.state.pagination.currentPage >= this.totalPages ) {
                         currentPage = this.totalPages - 1;
                     }
                 }
                 else {
                     currentPage = 0;
                 }
-                index = currentPage * this.shared.pagination.pageSize;
-                return this.shared.cardlist.slice( index, index + this.shared.pagination.pageSize );
+                index = currentPage * this.$store.state.pagination.pageSize;
+                return this.$store.state.cardlist.slice( index, index + this.$store.state.pagination.pageSize );
             },
             chunkedPage() {
                 return _.chunk( this.cardPage, 4 );
             },
             isValidError() {
-                return this.shared.error.length && ( !this.shared.cardlist.length || this.shared.cardlist.length > this.shared.maxResults );
+                return this.$store.state.error.length && ( !this.$store.state.cardlist.length || this.$store.state.cardlist.length > this.$store.state.maxResults );
             }
         }
     };

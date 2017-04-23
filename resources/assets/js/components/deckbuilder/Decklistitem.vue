@@ -19,7 +19,6 @@
 </template>
 
 <script>
-    import Store from './store.js';
     import _ from 'lodash';
     import slug from 'slug';
 
@@ -27,8 +26,7 @@
         props : [ 'entry', 'list' ],
         data() {
             return {
-                showSubmenu : false,
-                shared      : Store
+                showSubmenu : false
             };
         },
         computed : {
@@ -52,22 +50,22 @@
         },
         methods : {
             removeCard() {
-                const index = _.findIndex( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                const index = _.findIndex( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
 
-                if ( this.shared.decklist[ this.list ][index].qty > 1 ) {
-                    this.shared.decklist[ this.list ][index].qty--;
+                if ( this.$store.state.decklist[ this.list ][index].qty > 1 ) {
+                    this.$store.state.decklist[ this.list ][index].qty--;
                 }
                 else {
-                    this.shared.decklist[ this.list ][index].qty--;
-                    _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                    this.$store.state.decklist[ this.list ][index].qty--;
+                    _.remove( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
                     this.$emit( 'update' );
                 }
             },
             removeEntry() {
-                const index = _.findIndex( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                const index = _.findIndex( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
 
-                this.shared.decklist[ this.list ][index].qty = 0;
-                _.remove( this.shared.decklist[ this.list ], { id : this.entry.id } );
+                this.$store.state.decklist[ this.list ][index].qty = 0;
+                _.remove( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
                 this.showSubmenu = false;
 
                 // triggers rerender in decklist
