@@ -16,7 +16,7 @@
                 </div>
             </div>
         </div>
-        <Pagination :total="totalPages" :current="this.$store.state.pagination.currentPage" v-if="this.$store.state.cardlist.length"></Pagination>
+        <Pagination v-if="this.$store.state.cardlist.length"></Pagination>
     </div>
 </template>
 

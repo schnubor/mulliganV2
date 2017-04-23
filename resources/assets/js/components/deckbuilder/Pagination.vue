@@ -5,7 +5,7 @@
             <a class="pagination-previous" :class="{ 'is-disabled' : isFirstPage }" @click="prevPage">Previous</a>
             <a class="pagination-next" :class="{ 'is-disabled' : isLastPage }" @click="nextPage">Next page</a>
             <ul class="pagination-list">
-                <p>Page {{ current }} of {{ total }}</p>
+                <p>Page {{ currentPage }} of {{ totalPages }}</p>
             </ul>
         </nav>
     </div>
@@ -13,16 +13,21 @@
 
 <script>
     export default {
-        props    : [ 'total', 'current' ],
         computed : {
+            currentPage() {
+                return this.$store.getters.currentPage;
+            },
+            totalPages() {
+                return this.$store.getters.totalPages;
+            },
             isFirstPage() {
-                if ( this.current === 1 ) {
+                if ( this.currentPage === 1 ) {
                     return true;
                 }
                 return false;
             },
             isLastPage() {
-                if ( this.current === this.total ) {
+                if ( this.currentPage === this.totalPages ) {
                     return true;
                 }
                 return false;
@@ -30,10 +35,14 @@
         },
         methods : {
             prevPage() {
-                this.$store.state.pagination.currentPage--;
+                this.$store.dispatch( {
+                    type : 'setPrevPage'
+                } );
             },
             nextPage() {
-                this.$store.state.pagination.currentPage++;
+                this.$store.dispatch( {
+                    type : 'setNextPage'
+                } );
             }
         }
     };

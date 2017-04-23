@@ -9,32 +9,32 @@
                     <div class="columns">
                         <div class="column is-4">
                             <p class="control">
-                                <input class="input" type="email" placeholder="Card name" v-model="filters.name">
+                                <input class="input" type="text" placeholder="Card name" v-model="filters.name" :disabled="searching">
                             </p>
                         </div>
                         <div class="column">
-                            <div class="mana-switch" :class="{ active: filters.colors.red }" @click="filters.colors.red = !filters.colors.red">
+                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.red }" @click="filters.colors.red = !filters.colors.red">
                                 <i class="ms ms-r ms-cost ms-2x ms-fw"></i>
-                            </div>
-                            <div class="mana-switch" :class="{ active: filters.colors.white }" @click="filters.colors.white = !filters.colors.white">
+                            </button>
+                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.white }" @click="filters.colors.white = !filters.colors.white">
                                 <i class="ms ms-w ms-cost ms-2x ms-fw"></i>
-                            </div>
-                            <div class="mana-switch" :class="{ active: filters.colors.green }" @click="filters.colors.green = !filters.colors.green">
+                            </button>
+                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.green }" @click="filters.colors.green = !filters.colors.green">
                                 <i class="ms ms-g ms-cost ms-2x ms-fw"></i>
-                            </div>
-                            <div class="mana-switch" :class="{ active: filters.colors.black }" @click="filters.colors.black = !filters.colors.black">
+                            </button>
+                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.black }" @click="filters.colors.black = !filters.colors.black">
                                 <i class="ms ms-b ms-cost ms-2x ms-fw"></i>
-                            </div>
-                            <div class="mana-switch" :class="{ active: filters.colors.blue }" @click="filters.colors.blue = !filters.colors.blue">
+                            </button>
+                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.blue }" @click="filters.colors.blue = !filters.colors.blue">
                                 <i class="ms ms-u ms-cost ms-2x ms-fw"></i>
-                            </div>
+                            </button>
                         </div>
                     </div>
                     <div class="columns">
                         <div class="column is-2">
                             <p class="control">
                                 <span class="select is-fullwidth">
-                                    <select v-model="filters.set">
+                                    <select v-model="filters.set" :disabled="searching">
                                         <option value="">Any Set</option>
                                         <option :value="set.code" v-for="set in setsReverted">{{ set.name }}</option>
                                     </select>
@@ -44,7 +44,7 @@
                         <div class="column is-2">
                             <p class="control">
                                 <span class="select is-fullwidth">
-                                    <select v-model="filters.mana">
+                                    <select v-model="filters.mana" :disabled="searching">
                                         <option value="any">Any Mana Cost</option>
                                         <option value="0">0</option>
                                         <option value="1">1</option>
@@ -59,7 +59,7 @@
                         <div class="column is-2">
                             <p class="control">
                                 <span class="select is-fullwidth">
-                                    <select v-model="filters.type">
+                                    <select v-model="filters.type" :disabled="searching">
                                         <option value="">Any Type</option>
                                         <option value="creature">Creature</option>
                                         <option value="instant">Instant</option>
@@ -75,7 +75,7 @@
                         <div class="column is-2">
                             <p class="control">
                                 <span class="select is-fullwidth">
-                                    <select v-model="filters.rarity">
+                                    <select v-model="filters.rarity" :disabled="searching">
                                         <option value="">Any Rarity</option>
                                         <option value="Mythic Rare">Mythic</option>
                                         <option value="Rare">Rare</option>
@@ -175,6 +175,13 @@
                     // Get total count
                     const total = response.headers[ 'total-count' ];
                     const totalPages = Math.ceil( total / self.pageSize );
+
+                    // update store
+                    self.$store.dispatch( {
+                        type    : 'setTotalPages',
+                        total   : totalPages
+                    } );
+
                     // Check for
                     if ( total < self.$store.state.maxResults ) {
                         // Fill cards
@@ -251,7 +258,7 @@
                 this.searchPage = 1;
 
                 this.fetchPage( this.searchPage, this.filters, this.colorsArray );
-            }, 200 )
+            }, 500 )
         },
         mounted() {
             this.fetchSets();
@@ -264,6 +271,8 @@
 
 <style lang="scss">
     .mana-switch {
+        background-color: transparent;
+        border: none;
         display: inline-block;
         padding: 0 5px;
         cursor: pointer;
@@ -272,6 +281,10 @@
 
         &.active{
             opacity: 1
+        }
+
+        &:focus {
+            outline:0;
         }
     }
 </style>

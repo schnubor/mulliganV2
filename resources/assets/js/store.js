@@ -110,6 +110,15 @@ export const store = new Vuex.Store( {
         setError( state, payload ) {
             state.error = payload.error;
         },
+        setTotalPages( state, payload ) {
+            state.pagination.totalPages = payload.total;
+        },
+        setNextPage( state ) {
+            state.pagination.currentPage++;
+        },
+        setPrevPage( state ) {
+            state.pagination.currentPage--;
+        },
         addResult( state, payload ) {
             state.cardlist.push( payload.card );
         }
@@ -119,6 +128,22 @@ export const store = new Vuex.Store( {
             context.commit( {
                 type    : 'setError',
                 error   : payload.error
+            } );
+        },
+        setTotalPages( context, payload ) {
+            context.commit( {
+                type    : 'setTotalPages',
+                total   : payload.total
+            } );
+        },
+        setNextPage( context ) {
+            context.commit( {
+                type : 'setNextPage'
+            } );
+        },
+        setPrevPage( context ) {
+            context.commit( {
+                type : 'setPrevPage'
             } );
         },
         addResult( context, payload ) {
