@@ -9,8 +9,9 @@
             <section class="modal-card-body">
                 <div class="columns">
                     <div class="column">
-                        <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401961&type=card" alt="Mountain" width="100%">
-
+                        <div class="manaIcon has-text-centered">
+                            <i class="ms ms-r ms-4x ms-cost"></i>
+                        </div>
                         <div class="actions has-text-centered">
                             <a class="button is-small is-pulled-left" @click="mountains--">
                                 <span class="icon is-small">
@@ -28,7 +29,9 @@
                         </div>
                     </div>
                     <div class="column">
-                        <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401992&type=card" alt="Plain" width="100%">
+                        <div class="manaIcon has-text-centered">
+                            <i class="ms ms-w ms-4x ms-cost"></i>
+                        </div>
 
                         <div class="actions has-text-centered">
                             <a class="button is-small is-pulled-left" @click="plains--">
@@ -48,7 +51,9 @@
                         
                     </div>
                     <div class="column">
-                        <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401890&type=card" alt="Forest" width="100%">
+                        <div class="manaIcon has-text-centered">
+                            <i class="ms ms-g ms-4x ms-cost"></i>
+                        </div>
                         
                         <div class="actions has-text-centered">
                             <a class="button is-small is-pulled-left" @click="forests--">
@@ -67,7 +72,9 @@
                         </div>
                     </div>
                     <div class="column">
-                        <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401925&type=card" alt="Island" width="100%">
+                        <div class="manaIcon has-text-centered">
+                            <i class="ms ms-u ms-4x ms-cost"></i>
+                        </div>
                         
                         <div class="actions has-text-centered">
                             <a class="button is-small is-pulled-left" @click="islands--">
@@ -86,7 +93,9 @@
                         </div>
                     </div>
                     <div class="column">
-                        <img src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=402060&type=card" alt="Swamp" width="100%">
+                        <div class="manaIcon has-text-centered">
+                            <i class="ms ms-b ms-4x ms-cost"></i>
+                        </div>
                         
                         <div class="actions has-text-centered">
                             <a class="button is-small is-pulled-left" @click="swamps--">
@@ -168,6 +177,14 @@
 </script>
 
 <style lang="scss">
+
+    .manaIcon {
+        padding: 30px 0;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        background-color: whitesmoke;
+    }
+
     .modal-enter {
         opacity: 0;
     }

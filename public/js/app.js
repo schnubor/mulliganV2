@@ -30594,6 +30594,15 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     data: function data() {
@@ -31615,7 +31624,7 @@ function replaceManaCosts(cmc) {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.modal-enter {\n  opacity: 0;\n}\n.modal-leave-active {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave-active .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n", ""]);
+exports.push([module.i, "\n.manaIcon {\n  padding: 30px 0;\n  margin-bottom: 10px;\n  border-radius: 4px;\n  background-color: whitesmoke;\n}\n.modal-enter {\n  opacity: 0;\n}\n.modal-leave-active {\n  opacity: 0;\n}\n.modal-enter .modal-container,\n.modal-leave-active .modal-container {\n  -webkit-transform: scale(1.1);\n  transform: scale(1.1);\n}\n", ""]);
 
 /***/ }),
 /* 55 */
@@ -32555,13 +32564,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column"
-  }, [_c('img', {
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401961&type=card",
-      "alt": "Mountain",
-      "width": "100%"
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
     staticClass: "button is-small is-pulled-left",
@@ -32570,7 +32573,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.mountains--
       }
     }
-  }, [_vm._m(0)]), _vm._v(" "), _c('span', {
+  }, [_vm._m(1)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
   }, [_vm._v(_vm._s(_vm.totalMountains))]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-pulled-right",
@@ -32579,15 +32582,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.mountains++
       }
     }
-  }, [_vm._m(1)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(2)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
-  }, [_c('img', {
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401992&type=card",
-      "alt": "Plain",
-      "width": "100%"
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
     staticClass: "button is-small is-pulled-left",
@@ -32596,7 +32593,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.plains--
       }
     }
-  }, [_vm._m(2)]), _vm._v(" "), _c('span', {
+  }, [_vm._m(4)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
   }, [_vm._v(_vm._s(_vm.totalPlains))]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-pulled-right",
@@ -32605,15 +32602,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.plains++
       }
     }
-  }, [_vm._m(3)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(5)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
-  }, [_c('img', {
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401890&type=card",
-      "alt": "Forest",
-      "width": "100%"
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._m(6), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
     staticClass: "button is-small is-pulled-left",
@@ -32622,7 +32613,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.forests--
       }
     }
-  }, [_vm._m(4)]), _vm._v(" "), _c('span', {
+  }, [_vm._m(7)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
   }, [_vm._v(_vm._s(_vm.totalForests))]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-pulled-right",
@@ -32631,15 +32622,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.forests++
       }
     }
-  }, [_vm._m(5)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(8)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
-  }, [_c('img', {
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=401925&type=card",
-      "alt": "Island",
-      "width": "100%"
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._m(9), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
     staticClass: "button is-small is-pulled-left",
@@ -32648,7 +32633,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.islands--
       }
     }
-  }, [_vm._m(6)]), _vm._v(" "), _c('span', {
+  }, [_vm._m(10)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
   }, [_vm._v(_vm._s(_vm.totalIslands))]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-pulled-right",
@@ -32657,15 +32642,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.islands++
       }
     }
-  }, [_vm._m(7)])])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(11)])])]), _vm._v(" "), _c('div', {
     staticClass: "column"
-  }, [_c('img', {
-    attrs: {
-      "src": "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=402060&type=card",
-      "alt": "Swamp",
-      "width": "100%"
-    }
-  }), _vm._v(" "), _c('div', {
+  }, [_vm._m(12), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
   }, [_c('a', {
     staticClass: "button is-small is-pulled-left",
@@ -32674,7 +32653,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.swamps--
       }
     }
-  }, [_vm._m(8)]), _vm._v(" "), _c('span', {
+  }, [_vm._m(13)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
   }, [_vm._v(_vm._s(_vm.totalSwamps))]), _vm._v(" "), _c('a', {
     staticClass: "button is-small is-pulled-right",
@@ -32683,7 +32662,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.swamps++
       }
     }
-  }, [_vm._m(9)])])])])]), _vm._v(" "), _c('footer', {
+  }, [_vm._m(14)])])])])]), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",
@@ -32697,16 +32676,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Cancel")])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon is-small"
+  return _c('div', {
+    staticClass: "manaIcon has-text-centered"
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
+    staticClass: "ms ms-r ms-4x ms-cost"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -32721,16 +32694,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-plus"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon is-small"
+  return _c('div', {
+    staticClass: "manaIcon has-text-centered"
   }, [_c('i', {
-    staticClass: "fa fa-minus"
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "icon is-small"
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
+    staticClass: "ms ms-w ms-4x ms-cost"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
@@ -32743,6 +32710,48 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "icon is-small"
   }, [_c('i', {
     staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "manaIcon has-text-centered"
+  }, [_c('i', {
+    staticClass: "ms ms-g ms-4x ms-cost"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "manaIcon has-text-centered"
+  }, [_c('i', {
+    staticClass: "ms ms-u ms-4x ms-cost"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-minus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-plus"
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "manaIcon has-text-centered"
+  }, [_c('i', {
+    staticClass: "ms ms-b ms-4x ms-cost"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
