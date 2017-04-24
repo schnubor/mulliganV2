@@ -113,8 +113,6 @@
                 setsUrl     : 'https://api.magicthegathering.io/v1/sets',
                 searchUrl   : 'https://api.magicthegathering.io/v1/cards?',
                 loading     : true,
-                searching   : false,
-                fetched     : false,
                 noresults   : false,
                 toomany     : false,
 
@@ -152,6 +150,9 @@
             },
             apiError() {
                 return this.$store.getters.apiError;
+            },
+            searching() {
+                return this.$store.getters.searching;
             }
         },
         watch : {
@@ -232,8 +233,9 @@
                             self.fetchPage( self.searchPage, filters, colorsArray );
                         }
                         else {
-                            self.fetched = true;
-                            self.searching = false;
+                            self.$store.dispatch( {
+                                type : 'finishSearch'
+                            } );
                         }
                     }
                     else {
@@ -242,12 +244,16 @@
                             type    : 'setError',
                             error   : 'Too many results! Try adjusting the filters.'
                         } );
-                        self.searching = false;
+                        self.$store.dispatch( {
+                            type : 'finishSearch'
+                        } );
                     }
                 } )
                 .catch( ( error ) => {
                     self.cardlist = [];
-                    self.searching = false;
+                    self.$store.dispatch( {
+                        type : 'finishSearch'
+                    } );
                     self.$store.dispatch( {
                         type    : 'setAPIError',
                         error   : error
@@ -279,12 +285,11 @@
                 } );
             },
             search : _.debounce( function() {
-                this.$store.state.pagination.currentPage = 1;
-                this.$store.state.cardlist = [];
-                this.$store.state.error = '';
-                this.fetched = false;
-                this.searching = true;
                 this.searchPage = 1;
+
+                this.$store.dispatch( {
+                    type : 'startSearch'
+                } );
 
                 this.fetchPage( this.searchPage, this.filters, this.colorsArray );
             }, 500 )

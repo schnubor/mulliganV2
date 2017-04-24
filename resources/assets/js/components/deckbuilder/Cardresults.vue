@@ -1,22 +1,25 @@
 <template>
     <div class="column">
         <div>
-            <span class="title">Search results ( {{ this.$store.state.cardlist.length }} Cards)</span>
+            <span class="title">Search results ( {{ totalResults }} Cards)</span>
             <hr>
         </div>
+        <section class="section has-text-centered is-medium" v-if="searching">
+            <Spinner></Spinner>
+        </section>
         <section class="section has-text-centered is-medium" v-if="isValidError">
             <p class="title errorMsg">
-                {{ this.$store.state.error }}
+                {{ this.$store.getters.searchError }}
             </p>
         </section>
-        <div class="column">
+        <div class="column" v-show="!searching">
             <div class="columns" v-for="group in chunkedPage">
                 <div class="column is-3" v-for="card in group" :key="card.id">
                     <Card :card="card"></Card>
                 </div>
             </div>
         </div>
-        <Pagination v-if="this.$store.state.cardlist.length"></Pagination>
+        <Pagination v-if="totalResults" v-show="!searching"></Pagination>
     </div>
 </template>
 
@@ -24,18 +27,26 @@
     import _ from 'lodash';
     import Card from './Singlecard.vue';
     import Pagination from './Pagination.vue';
+    import Spinner from './Spinner.vue';
 
     export default {
         components : {
             Card,
-            Pagination
+            Pagination,
+            Spinner
         },
         computed : {
+            searching() {
+                return this.$store.getters.searching;
+            },
+            totalResults() {
+                return this.$store.getters.totalResults;
+            },
             totalPages() {
-                return Math.ceil( this.$store.state.cardlist.length / this.$store.state.pagination.pageSize );
+                return Math.ceil( this.totalResults / this.$store.state.pagination.pageSize );
             },
             cardPage() {
-                const resultCount = this.$store.state.cardlist.length;
+                const resultCount = this.totalResults;
                 let index = 0;
                 let currentPage = this.$store.state.pagination.currentPage - 1;
                 if ( resultCount !== 0 ) {
@@ -53,7 +64,7 @@
                 return _.chunk( this.cardPage, 4 );
             },
             isValidError() {
-                return this.$store.state.error.length && ( !this.$store.state.cardlist.length || this.$store.state.cardlist.length > this.$store.state.maxResults );
+                return this.$store.getters.isValidError;
             }
         }
     };

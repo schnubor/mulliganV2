@@ -29697,19 +29697,56 @@ var _Pagination = __webpack_require__(77);
 
 var _Pagination2 = _interopRequireDefault(_Pagination);
 
+var _Spinner = __webpack_require__(16);
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     components: {
         Card: _Singlecard2.default,
-        Pagination: _Pagination2.default
+        Pagination: _Pagination2.default,
+        Spinner: _Spinner2.default
     },
     computed: {
+        searching: function searching() {
+            return this.$store.getters.searching;
+        },
+        totalResults: function totalResults() {
+            return this.$store.getters.totalResults;
+        },
         totalPages: function totalPages() {
-            return Math.ceil(this.$store.state.cardlist.length / this.$store.state.pagination.pageSize);
+            return Math.ceil(this.totalResults / this.$store.state.pagination.pageSize);
         },
         cardPage: function cardPage() {
-            var resultCount = this.$store.state.cardlist.length;
+            var resultCount = this.totalResults;
             var index = 0;
             var currentPage = this.$store.state.pagination.currentPage - 1;
             if (resultCount !== 0) {
@@ -29726,31 +29763,10 @@ exports.default = {
             return _lodash2.default.chunk(this.cardPage, 4);
         },
         isValidError: function isValidError() {
-            return this.$store.state.error.length && (!this.$store.state.cardlist.length || this.$store.state.cardlist.length > this.$store.state.maxResults);
+            return this.$store.getters.isValidError;
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 40 */
@@ -29884,7 +29900,6 @@ exports.default = {
         }
     }
 }; //
-//
 //
 //
 //
@@ -30299,8 +30314,6 @@ exports.default = {
             setsUrl: 'https://api.magicthegathering.io/v1/sets',
             searchUrl: 'https://api.magicthegathering.io/v1/cards?',
             loading: true,
-            searching: false,
-            fetched: false,
             noresults: false,
             toomany: false,
 
@@ -30339,6 +30352,9 @@ exports.default = {
         },
         apiError: function apiError() {
             return this.$store.getters.apiError;
+        },
+        searching: function searching() {
+            return this.$store.getters.searching;
         }
     },
     watch: {
@@ -30437,8 +30453,9 @@ exports.default = {
                         self.searchPage++;
                         self.fetchPage(self.searchPage, filters, colorsArray);
                     } else {
-                        self.fetched = true;
-                        self.searching = false;
+                        self.$store.dispatch({
+                            type: 'finishSearch'
+                        });
                     }
                 } else {
                     self.cardlist = [];
@@ -30446,11 +30463,15 @@ exports.default = {
                         type: 'setError',
                         error: 'Too many results! Try adjusting the filters.'
                     });
-                    self.searching = false;
+                    self.$store.dispatch({
+                        type: 'finishSearch'
+                    });
                 }
             }).catch(function (error) {
                 self.cardlist = [];
-                self.searching = false;
+                self.$store.dispatch({
+                    type: 'finishSearch'
+                });
                 self.$store.dispatch({
                     type: 'setAPIError',
                     error: error
@@ -30483,12 +30504,11 @@ exports.default = {
         },
 
         search: _lodash2.default.debounce(function () {
-            this.$store.state.pagination.currentPage = 1;
-            this.$store.state.cardlist = [];
-            this.$store.state.error = '';
-            this.fetched = false;
-            this.searching = true;
             this.searchPage = 1;
+
+            this.$store.dispatch({
+                type: 'startSearch'
+            });
 
             this.fetchPage(this.searchPage, this.filters, this.colorsArray);
         }, 500)
@@ -31308,6 +31328,7 @@ var store = exports.store = new _vuex2.default.Store({
         error: 'Please search for cards or set filters above.',
         apiError: false,
         maxResults: 360,
+        searching: false,
         pagination: {
             currentPage: 1,
             pageSize: 12,
@@ -31345,8 +31366,20 @@ var store = exports.store = new _vuex2.default.Store({
         }
     },
     getters: {
+        searching: function searching(state) {
+            return state.searching;
+        },
+        totalResults: function totalResults(state) {
+            return state.cardlist.length;
+        },
+        searchError: function searchError(state) {
+            return state.error;
+        },
         apiError: function apiError(state) {
             return state.apiError;
+        },
+        isValidError: function isValidError(state) {
+            return state.error.length && (!state.cardlist.length || state.cardlist.length > state.maxResults);
         },
         pageSize: function pageSize(state) {
             return state.pagination.pageSize;
@@ -31592,6 +31625,15 @@ var store = exports.store = new _vuex2.default.Store({
         },
         addResult: function addResult(state, payload) {
             state.cardlist.push(payload.card);
+        },
+        startSearch: function startSearch(state) {
+            state.searching = true;
+            state.pagination.currentPage = 1;
+            state.cardlist = [];
+            state.error = '';
+        },
+        finishSearch: function finishSearch(state) {
+            state.searching = false;
         }
     },
     actions: {
@@ -31631,6 +31673,16 @@ var store = exports.store = new _vuex2.default.Store({
         },
         addCard: function addCard(context, payload) {
             console.log(payload);
+        },
+        startSearch: function startSearch(context) {
+            context.commit({
+                type: 'startSearch'
+            });
+        },
+        finishSearch: function finishSearch(context) {
+            context.commit({
+                type: 'finishSearch'
+            });
         }
     }
 });
@@ -32877,11 +32929,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_c('div', [_c('span', {
     staticClass: "title"
-  }, [_vm._v("Search results ( " + _vm._s(this.$store.state.cardlist.length) + " Cards)")]), _vm._v(" "), _c('hr')]), _vm._v(" "), (_vm.isValidError) ? _c('section', {
+  }, [_vm._v("Search results ( " + _vm._s(_vm.totalResults) + " Cards)")]), _vm._v(" "), _c('hr')]), _vm._v(" "), (_vm.searching) ? _c('section', {
+    staticClass: "section has-text-centered is-medium"
+  }, [_c('Spinner')], 1) : _vm._e(), _vm._v(" "), (_vm.isValidError) ? _c('section', {
     staticClass: "section has-text-centered is-medium"
   }, [_c('p', {
     staticClass: "title errorMsg"
-  }, [_vm._v("\n            " + _vm._s(this.$store.state.error) + "\n        ")])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(this.$store.getters.searchError) + "\n        ")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.searching),
+      expression: "!searching"
+    }],
     staticClass: "column"
   }, _vm._l((_vm.chunkedPage), function(group) {
     return _c('div', {
@@ -32896,7 +32956,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       })], 1)
     }))
-  })), _vm._v(" "), (this.$store.state.cardlist.length) ? _c('Pagination') : _vm._e()], 1)
+  })), _vm._v(" "), (_vm.totalResults) ? _c('Pagination', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (!_vm.searching),
+      expression: "!searching"
+    }]
+  }) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33128,7 +33195,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showStatsModal = false
       }
     }
-  }), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), _c('section', {
+  }), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), (!_vm.apiError) ? _c('section', {
     staticClass: "section"
   }, [_c('div', {
     staticClass: "container"
@@ -33157,7 +33224,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.showCardModal = true
       }
     }
-  })], 1)])])], 1)
+  })], 1)])]) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

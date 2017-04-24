@@ -6,12 +6,11 @@
         <Statsmodal :class="{ 'is-active' : showStatsModal }" @closestatsmodal="showStatsModal = false"></Statsmodal>
 
         <Filterpanel></Filterpanel>
-        <section class="section">
+        <section class="section" v-if="!apiError">
             <div class="container">
                 <div class="columns">
                     <div class="column is-3">
-                        <Deckactions 
-                                     @showsavemodal="showSaveModal = true" 
+                        <Deckactions @showsavemodal="showSaveModal = true" 
                                      @showstatsmodal="showStatsModal = true">
                         </Deckactions>
                         <Decklist @showlandmodal="showLandModal = true"></Decklist>

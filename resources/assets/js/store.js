@@ -7,8 +7,9 @@ export const store = new Vuex.Store( {
     state : {
         cardlist    : [],
         error       : 'Please search for cards or set filters above.',
-        apiError   : false,
+        apiError    : false,
         maxResults  : 360,
+        searching   : false,
         pagination  : {
             currentPage : 1,
             pageSize    : 12,
@@ -46,8 +47,20 @@ export const store = new Vuex.Store( {
         }
     },
     getters : {
+        searching( state ) {
+            return state.searching;
+        },
+        totalResults( state ) {
+            return state.cardlist.length;
+        },
+        searchError( state ) {
+            return state.error;
+        },
         apiError( state ) {
             return state.apiError;
+        },
+        isValidError( state ) {
+            return state.error.length && ( !state.cardlist.length || state.cardlist.length > state.maxResults );
         },
         pageSize( state ) {
             return state.pagination.pageSize;
@@ -140,6 +153,15 @@ export const store = new Vuex.Store( {
         },
         addResult( state, payload ) {
             state.cardlist.push( payload.card );
+        },
+        startSearch( state ) {
+            state.searching = true;
+            state.pagination.currentPage = 1;
+            state.cardlist = [];
+            state.error = '';
+        },
+        finishSearch( state ) {
+            state.searching = false;
         }
     },
     actions : {
@@ -179,6 +201,16 @@ export const store = new Vuex.Store( {
         },
         addCard( context, payload ) {
             console.log( payload );
+        },
+        startSearch( context ) {
+            context.commit( {
+                type : 'startSearch'
+            } );
+        },
+        finishSearch( context ) {
+            context.commit( {
+                type : 'finishSearch'
+            } );
         }
     }
 } );
