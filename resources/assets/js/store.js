@@ -7,6 +7,7 @@ export const store = new Vuex.Store( {
     state : {
         cardlist    : [],
         error       : 'Please search for cards or set filters above.',
+        apiError   : false,
         maxResults  : 360,
         pagination  : {
             currentPage : 1,
@@ -30,9 +31,24 @@ export const store = new Vuex.Store( {
                 'swamps'    : 0
             }
         },
-        cardModal : {}
+        cardModal : {
+            visible : false,
+            card    : {}
+        },
+        landModal : {
+            visible : false
+        },
+        saveModal : {
+            visible : false
+        },
+        statsModal : {
+            visible : false
+        }
     },
     getters : {
+        apiError( state ) {
+            return state.apiError;
+        },
         pageSize( state ) {
             return state.pagination.pageSize;
         },
@@ -107,6 +123,9 @@ export const store = new Vuex.Store( {
         }
     },
     mutations : {
+        setAPIError( state, payload ) {
+            state.apiError = payload.error;
+        },
         setError( state, payload ) {
             state.error = payload.error;
         },
@@ -124,6 +143,12 @@ export const store = new Vuex.Store( {
         }
     },
     actions : {
+        setAPIError( context, payload ) {
+            context.commit( {
+                type    : 'setAPIError',
+                error   : payload.error
+            } );
+        },
         setError( context, payload ) {
             context.commit( {
                 type    : 'setError',

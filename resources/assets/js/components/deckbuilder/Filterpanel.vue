@@ -6,86 +6,94 @@
                     <Spinner></Spinner>
                 </div>
                 <div v-if="!loading">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <p class="control">
-                                <input class="input" type="text" placeholder="Card name" v-model="filters.name" :disabled="searching">
-                            </p>
+                    <article class="message is-danger" v-if="apiError">
+                        <div class="message-body">
+                            <strong>Whoops!</strong><br>
+                            <p>Seems like the API (<a href="http://magicthegathering.io/" target="_blank">magicthegathering.io</a>) this site is using is currently unavailable. Please try again later!</p>
                         </div>
-                        <div class="column">
-                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.red }" @click="filters.colors.red = !filters.colors.red">
-                                <i class="ms ms-r ms-cost ms-2x ms-fw"></i>
-                            </button>
-                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.white }" @click="filters.colors.white = !filters.colors.white">
-                                <i class="ms ms-w ms-cost ms-2x ms-fw"></i>
-                            </button>
-                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.green }" @click="filters.colors.green = !filters.colors.green">
-                                <i class="ms ms-g ms-cost ms-2x ms-fw"></i>
-                            </button>
-                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.black }" @click="filters.colors.black = !filters.colors.black">
-                                <i class="ms ms-b ms-cost ms-2x ms-fw"></i>
-                            </button>
-                            <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.blue }" @click="filters.colors.blue = !filters.colors.blue">
-                                <i class="ms ms-u ms-cost ms-2x ms-fw"></i>
-                            </button>
+                    </article>
+                    <template v-else>
+                        <div class="columns">
+                            <div class="column is-4">
+                                <p class="control">
+                                    <input class="input" type="text" placeholder="Card name" v-model="filters.name" :disabled="searching">
+                                </p>
+                            </div>
+                            <div class="column">
+                                <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.red }" @click="filters.colors.red = !filters.colors.red">
+                                    <i class="ms ms-r ms-cost ms-2x ms-fw"></i>
+                                </button>
+                                <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.white }" @click="filters.colors.white = !filters.colors.white">
+                                    <i class="ms ms-w ms-cost ms-2x ms-fw"></i>
+                                </button>
+                                <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.green }" @click="filters.colors.green = !filters.colors.green">
+                                    <i class="ms ms-g ms-cost ms-2x ms-fw"></i>
+                                </button>
+                                <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.black }" @click="filters.colors.black = !filters.colors.black">
+                                    <i class="ms ms-b ms-cost ms-2x ms-fw"></i>
+                                </button>
+                                <button class="mana-switch" :disabled="searching" :class="{ active: filters.colors.blue }" @click="filters.colors.blue = !filters.colors.blue">
+                                    <i class="ms ms-u ms-cost ms-2x ms-fw"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="columns">
-                        <div class="column is-2">
-                            <p class="control">
-                                <span class="select is-fullwidth">
-                                    <select v-model="filters.set" :disabled="searching">
-                                        <option value="">Any Set</option>
-                                        <option :value="set.code" v-for="set in setsReverted">{{ set.name }}</option>
-                                    </select>
-                                </span>
-                            </p>
+                        <div class="columns">
+                            <div class="column is-2">
+                                <p class="control">
+                                    <span class="select is-fullwidth">
+                                        <select v-model="filters.set" :disabled="searching">
+                                            <option value="">Any Set</option>
+                                            <option :value="set.code" v-for="set in setsReverted">{{ set.name }}</option>
+                                        </select>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="column is-2">
+                                <p class="control">
+                                    <span class="select is-fullwidth">
+                                        <select v-model="filters.mana" :disabled="searching">
+                                            <option value="any">Any Mana Cost</option>
+                                            <option value="0">0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5+</option>
+                                        </select>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="column is-2">
+                                <p class="control">
+                                    <span class="select is-fullwidth">
+                                        <select v-model="filters.type" :disabled="searching">
+                                            <option value="">Any Type</option>
+                                            <option value="creature">Creature</option>
+                                            <option value="instant">Instant</option>
+                                            <option value="Sorcery">Sorcery</option>
+                                            <option value="enchantment">Enchantment</option>
+                                            <option value="Artifact">Artifact</option>
+                                            <option value="Planeswalker">Planeswalker</option>
+                                            <option value="Land">Land</option>
+                                        </select>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="column is-2">
+                                <p class="control">
+                                    <span class="select is-fullwidth">
+                                        <select v-model="filters.rarity" :disabled="searching">
+                                            <option value="">Any Rarity</option>
+                                            <option value="Mythic Rare">Mythic</option>
+                                            <option value="Rare">Rare</option>
+                                            <option value="Uncommon">Uncommon</option>
+                                            <option value="Common">Common</option>
+                                        </select>
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                        <div class="column is-2">
-                            <p class="control">
-                                <span class="select is-fullwidth">
-                                    <select v-model="filters.mana" :disabled="searching">
-                                        <option value="any">Any Mana Cost</option>
-                                        <option value="0">0</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5+</option>
-                                    </select>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="column is-2">
-                            <p class="control">
-                                <span class="select is-fullwidth">
-                                    <select v-model="filters.type" :disabled="searching">
-                                        <option value="">Any Type</option>
-                                        <option value="creature">Creature</option>
-                                        <option value="instant">Instant</option>
-                                        <option value="Sorcery">Sorcery</option>
-                                        <option value="enchantment">Enchantment</option>
-                                        <option value="Artifact">Artifact</option>
-                                        <option value="Planeswalker">Planeswalker</option>
-                                        <option value="Land">Land</option>
-                                    </select>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="column is-2">
-                            <p class="control">
-                                <span class="select is-fullwidth">
-                                    <select v-model="filters.rarity" :disabled="searching">
-                                        <option value="">Any Rarity</option>
-                                        <option value="Mythic Rare">Mythic</option>
-                                        <option value="Rare">Rare</option>
-                                        <option value="Uncommon">Uncommon</option>
-                                        <option value="Common">Common</option>
-                                    </select>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
+                    </template>
                 </div>
             </div>
         </div>
@@ -141,6 +149,9 @@
             },
             pageSize() {
                 return this.$store.getters.pageSize;
+            },
+            apiError() {
+                return this.$store.getters.apiError;
             }
         },
         watch : {
@@ -172,6 +183,12 @@
 
                 axios.get( searchUri, { timeout : 10000 } )
                 .then( function( response ) {
+                    // Clear API errors
+                    self.$store.dispatch( {
+                        type    : 'setAPIError',
+                        error   : false
+                    } );
+
                     // Get total count
                     const total = response.headers[ 'total-count' ];
                     const totalPages = Math.ceil( total / self.pageSize );
@@ -186,10 +203,13 @@
                     if ( total < self.$store.state.maxResults ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
+                            // Clear errors
                             self.$store.dispatch( {
                                 type    : 'setError',
                                 error   : ''
                             } );
+
+                            // Display results
                             for ( const card of response.data.cards ) {
                                 if ( card.imageUrl && _.get( card, 'supertypes[0]' ) !== 'Basic' ) {
                                     self.$store.dispatch( {
@@ -229,8 +249,8 @@
                     self.cardlist = [];
                     self.searching = false;
                     self.$store.dispatch( {
-                        type    : 'setError',
-                        error   : 'Oops! Something went wrong. Please try again!'
+                        type    : 'setAPIError',
+                        error   : error
                     } );
                     console.warn( error );
                 } );
@@ -245,7 +265,16 @@
                     // Fill sets
                     self.sets = response.data.sets;
                     self.loading = false;
+                    self.$store.dispatch( {
+                        type    : 'setAPIError',
+                        error   : false
+                    } );
                 } ).catch( ( error ) => {
+                    self.loading = false;
+                    self.$store.dispatch( {
+                        type    : 'setAPIError',
+                        error   : error
+                    } );
                     console.warn( error );
                 } );
             },

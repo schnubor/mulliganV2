@@ -43,6 +43,11 @@
                 showStatsModal : false
             };
         },
+        computed : {
+            apiError() {
+                return this.$store.getters.apiError;
+            }
+        },
         components : {
             Filterpanel,
             Cardresults,

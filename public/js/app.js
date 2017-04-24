@@ -29857,6 +29857,11 @@ exports.default = {
         };
     },
 
+    computed: {
+        apiError: function apiError() {
+            return this.$store.getters.apiError;
+        }
+    },
     components: {
         Filterpanel: _Filterpanel2.default,
         Cardresults: _Cardresults2.default,
@@ -30278,6 +30283,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     data: function data() {
@@ -30323,6 +30336,9 @@ exports.default = {
         },
         pageSize: function pageSize() {
             return this.$store.getters.pageSize;
+        },
+        apiError: function apiError() {
+            return this.$store.getters.apiError;
         }
     },
     watch: {
@@ -30353,6 +30369,12 @@ exports.default = {
             var self = this;
 
             _axios2.default.get(searchUri, { timeout: 10000 }).then(function (response) {
+                // Clear API errors
+                self.$store.dispatch({
+                    type: 'setAPIError',
+                    error: false
+                });
+
                 // Get total count
                 var total = response.headers['total-count'];
                 var totalPages = Math.ceil(total / self.pageSize);
@@ -30367,10 +30389,13 @@ exports.default = {
                 if (total < self.$store.state.maxResults) {
                     // Fill cards
                     if (response.data.cards.length) {
+                        // Clear errors
                         self.$store.dispatch({
                             type: 'setError',
                             error: ''
                         });
+
+                        // Display results
                         var _iteratorNormalCompletion = true;
                         var _didIteratorError = false;
                         var _iteratorError = undefined;
@@ -30427,8 +30452,8 @@ exports.default = {
                 self.cardlist = [];
                 self.searching = false;
                 self.$store.dispatch({
-                    type: 'setError',
-                    error: 'Oops! Something went wrong. Please try again!'
+                    type: 'setAPIError',
+                    error: error
                 });
                 console.warn(error);
             });
@@ -30443,7 +30468,16 @@ exports.default = {
                 // Fill sets
                 self.sets = response.data.sets;
                 self.loading = false;
+                self.$store.dispatch({
+                    type: 'setAPIError',
+                    error: false
+                });
             }).catch(function (error) {
+                self.loading = false;
+                self.$store.dispatch({
+                    type: 'setAPIError',
+                    error: error
+                });
                 console.warn(error);
             });
         },
@@ -31272,6 +31306,7 @@ var store = exports.store = new _vuex2.default.Store({
     state: {
         cardlist: [],
         error: 'Please search for cards or set filters above.',
+        apiError: false,
         maxResults: 360,
         pagination: {
             currentPage: 1,
@@ -31295,9 +31330,24 @@ var store = exports.store = new _vuex2.default.Store({
                 'swamps': 0
             }
         },
-        cardModal: {}
+        cardModal: {
+            visible: false,
+            card: {}
+        },
+        landModal: {
+            visible: false
+        },
+        saveModal: {
+            visible: false
+        },
+        statsModal: {
+            visible: false
+        }
     },
     getters: {
+        apiError: function apiError(state) {
+            return state.apiError;
+        },
         pageSize: function pageSize(state) {
             return state.pagination.pageSize;
         },
@@ -31525,6 +31575,9 @@ var store = exports.store = new _vuex2.default.Store({
         }
     },
     mutations: {
+        setAPIError: function setAPIError(state, payload) {
+            state.apiError = payload.error;
+        },
         setError: function setError(state, payload) {
             state.error = payload.error;
         },
@@ -31542,6 +31595,12 @@ var store = exports.store = new _vuex2.default.Store({
         }
     },
     actions: {
+        setAPIError: function setAPIError(context, payload) {
+            context.commit({
+                type: 'setAPIError',
+                error: payload.error
+            });
+        },
         setError: function setError(context, payload) {
             context.commit({
                 type: 'setError',
@@ -33534,7 +33593,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "container"
   }, [(_vm.loading) ? _c('div', {
     staticClass: "has-text-centered"
-  }, [_c('Spinner')], 1) : _vm._e(), _vm._v(" "), (!_vm.loading) ? _c('div', [_c('div', {
+  }, [_c('Spinner')], 1) : _vm._e(), _vm._v(" "), (!_vm.loading) ? _c('div', [(_vm.apiError) ? _c('article', {
+    staticClass: "message is-danger"
+  }, [_vm._m(0)]) : [_c('div', {
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-4"
@@ -33839,8 +33900,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "Common"
     }
-  }, [_vm._v("Common")])])])])])])]) : _vm._e()])])])
-},staticRenderFns: []}
+  }, [_vm._v("Common")])])])])])])]], 2) : _vm._e()])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "message-body"
+  }, [_c('strong', [_vm._v("Whoops!")]), _c('br'), _vm._v(" "), _c('p', [_vm._v("Seems like the API ("), _c('a', {
+    attrs: {
+      "href": "http://magicthegathering.io/",
+      "target": "_blank"
+    }
+  }, [_vm._v("magicthegathering.io")]), _vm._v(") this site is using is currently unavailable. Please try again later!")])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -33881,8 +33951,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('a', {
     staticClass: "button",
-    class: {
-      'is-disabled': !_vm.hasCards
+    attrs: {
+      "disabled": !_vm.hasCards
     },
     on: {
       "click": _vm.showSaveModal
@@ -33891,8 +33961,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "control"
   }, [_c('a', {
     staticClass: "button",
-    class: {
-      'is-disabled': !_vm.hasCards
+    attrs: {
+      "disabled": !_vm.hasCards
     },
     on: {
       "click": _vm.showStatsModal
@@ -33900,7 +33970,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(1), _vm._v(" "), _c('span', [_vm._v("Stats")])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
-    staticClass: "icon "
+    staticClass: "icon is-small"
   }, [_c('i', {
     staticClass: "fa fa-save"
   })])
