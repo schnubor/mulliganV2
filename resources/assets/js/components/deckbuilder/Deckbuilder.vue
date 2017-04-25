@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Cardmodal :class="{ 'is-active' : showCardModal }" @closecardmodal="showCardModal = false"></Cardmodal>
+        <Cardmodal></Cardmodal>
         <Landmodal :class="{ 'is-active' : showLandModal }" @closelandmodal="showLandModal = false"></Landmodal>
         <Savemodal :class="{ 'is-active' : showSaveModal }" @closesavemodal="showSaveModal = false"></Savemodal>
         <Statsmodal :class="{ 'is-active' : showStatsModal }" @closestatsmodal="showStatsModal = false"></Statsmodal>
@@ -36,7 +36,6 @@
     export default {
         data() {
             return {
-                showCardModal  : false,
                 showLandModal  : false,
                 showSaveModal  : false,
                 showStatsModal : false
@@ -59,13 +58,6 @@
         },
         created() {
             EventBus.$on( 'showcardmodal', this.showCardModalAction );
-        },
-        methods : {
-            showCardModalAction( card ) {
-                // TODO
-                this.$store.state.cardModal = card;
-                this.showCardModal = true;
-            }
         }
     };
 </script>

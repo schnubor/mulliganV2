@@ -1,57 +1,57 @@
 <template>
-    <div class="modal">
+    <div class="modal" :class="{ 'is-active' : isVisible }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">
-                    MultiverseID <span class="multiverseid">#{{ this.$store.state.cardModal.multiverseid }}</span>
+                    MultiverseID <span class="multiverseid">#{{ card.multiverseid }}</span>
                 </p>
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
                 <p class="title">
-                    <a :href="cardUrl" target="_blank">{{ this.$store.state.cardModal.name }}</a>
+                    <a :href="cardUrl" target="_blank">{{ card.name }}</a>
                     <span class="link-icon"><i class="fa fa-link"></i></span>
                 </p>
-                <p class="subtitle">{{ this.$store.state.cardModal.type }}</p>
+                <p class="subtitle">{{ card.type }}</p>
                 <hr>
                 <div class="columns">
                     <div class="column is-one-third">
-                        <img :src="this.$store.state.cardModal.imageUrl" :alt="this.$store.state.cardModal.name">
+                        <img :src="card.imageUrl" :alt="card.name">
                         <p>
-                            <small class="has-text-left">Artist: {{ this.$store.state.cardModal.artist }}</small>
+                            <small class="has-text-left">Artist: {{ card.artist }}</small>
                         </p>
                     </div>
                     <div class="column content">
-                        <p v-if="this.$store.state.cardModal.manaCost" v-html="manaCosts"></p>
+                        <p v-if="card.manaCost" v-html="manaCosts"></p>
                         <hr>
-                        <p v-if="this.$store.state.cardModal.text" v-html="rawText"></p>
-                        <blockquote v-if="this.$store.state.cardModal.flavor">
-                            <em>{{ this.$store.state.cardModal.flavor }}</em>
+                        <p v-if="card.text" v-html="rawText"></p>
+                        <blockquote v-if="card.flavor">
+                            <em>{{ card.flavor }}</em>
                         </blockquote>
-                        <p v-if="this.$store.state.cardModal.power">
+                        <p v-if="card.power">
                             <span class="title" style="padding-right: 10px;">
                                 <span class="icon is-medium">
                                     <i class="fa fa-gavel"></i>
                                 </span>
-                                <strong>{{ this.$store.state.cardModal.power }}</strong>
+                                <strong>{{ card.power }}</strong>
                             </span>
 
                             <span class="title">
                                 <span class="icon is-medium">
                                     <i class="fa fa-shield"></i>
                                 </span>
-                                <strong>{{ this.$store.state.cardModal.toughness }}</strong>
+                                <strong>{{ card.toughness }}</strong>
                             </span>
                         </p>
                         <hr>
                         <p>
-                            Set: {{ this.$store.state.cardModal.setName }} ({{ this.$store.state.cardModal.set }})
+                            Set: {{ card.setName }} ({{ card.set }})
                         </p>
                         <hr>
-                        <template v-if="this.$store.state.cardModal.legalities">
+                        <template v-if="card.legalities">
                             <p class="title is-4">Legalities</p>
-                            <template v-for="legality in this.$store.state.cardModal.legalities">
+                            <template v-for="legality in card.legalities">
                                 <span class="tag legality" :class="{ 
                                     'is-success' : legality.legality === 'Legal',
                                     'is-warning' : legality.legality === 'Restricted',
@@ -62,9 +62,9 @@
                             </template>
                             <hr>
                         </template>
-                        <template v-if="this.$store.state.cardModal.rulings">
+                        <template v-if="card.rulings">
                             <p class="title is-4">Rulings</p>
-                            <template v-for="ruling in this.$store.state.cardModal.rulings">
+                            <template v-for="ruling in card.rulings">
                                 <div class="box">
                                     <div class="content">
                                         <p>
@@ -93,21 +93,29 @@
     export default {
         computed : {
             rawText() {
-                return replaceManaText( this.$store.state.cardModal.text );
+                return replaceManaText( this.card.text );
             },
             cardUrl() {
-                if ( this.$store.state.cardModal.name ) {
-                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.$store.state.cardModal.name ) + '-' + this.$store.state.cardModal.multiverseid;
+                if ( this.card.name ) {
+                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.card.name ) + '-' + this.card.multiverseid;
                 }
                 return '';
             },
             manaCosts() {
-                return replaceManaCosts( this.$store.state.cardModal.manaCost );
+                return replaceManaCosts( this.card.manaCost );
+            },
+            card() {
+                return this.$store.getters.cardModal.card;
+            },
+            isVisible() {
+                return this.$store.getters.cardModal.visible;
             }
         },
         methods  : {
             closeModal() {
-                this.$emit( 'closecardmodal' );
+                this.$store.dispatch( {
+                    type : 'hideCardModal'
+                } );
             }
         }
     };

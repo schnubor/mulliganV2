@@ -39,7 +39,12 @@
         },
         methods : {
             showCardModal() {
-                EventBus.$emit( 'showcardmodal', this.card );
+                // EventBus.$emit( 'showcardmodal', this.card );
+                const card = this.card;
+                this.$store.dispatch( {
+                    type    : 'showCardModal',
+                    card    : card
+                } );
             },
             updateDecklist( list, card ) {
                 const existingCardIndex = _.findIndex( list, { 'id' : card.id } );

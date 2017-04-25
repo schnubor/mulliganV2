@@ -126,7 +126,7 @@ module.exports = function normalizeComponent (
 "use strict";
 
 
-var bind = __webpack_require__(14);
+var bind = __webpack_require__(15);
 
 /*global toString:true*/
 
@@ -18059,10 +18059,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(11);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(10);
+    adapter = __webpack_require__(11);
   }
   return adapter;
 }
@@ -18323,6 +18323,44 @@ process.umask = function() { return 0; };
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(106)
+
+var Component = __webpack_require__(0)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(94),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Spinner.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-76ffa909", Component.options)
+  } else {
+    hotAPI.reload("data-v-76ffa909", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27507,7 +27545,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8), __webpack_require__(18)))
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27518,7 +27556,7 @@ var settle = __webpack_require__(27);
 var buildURL = __webpack_require__(30);
 var parseHeaders = __webpack_require__(36);
 var isURLSameOrigin = __webpack_require__(34);
-var createError = __webpack_require__(13);
+var createError = __webpack_require__(14);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(29);
 
 module.exports = function xhrAdapter(config) {
@@ -27692,7 +27730,7 @@ module.exports = function xhrAdapter(config) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27718,7 +27756,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27730,7 +27768,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 13 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27754,7 +27792,7 @@ module.exports = function createError(message, config, code, response) {
 
 
 /***/ }),
-/* 14 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27772,7 +27810,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27783,7 +27821,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.EventBus = undefined;
 
-var _vue = __webpack_require__(9);
+var _vue = __webpack_require__(10);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -27791,44 +27829,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var EventBus = exports.EventBus = new _vue2.default(); // This is the event hub we'll use in every
 // component to communicate between them.
-
-/***/ }),
-/* 16 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(106)
-
-var Component = __webpack_require__(0)(
-  /* script */
-  null,
-  /* template */
-  __webpack_require__(94),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Spinner.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-76ffa909", Component.options)
-  } else {
-    hotAPI.reload("data-v-76ffa909", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
 
 /***/ }),
 /* 17 */
@@ -28678,7 +28678,7 @@ module.exports = g;
 "use strict";
 
 
-var _vue = __webpack_require__(9);
+var _vue = __webpack_require__(10);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -28717,7 +28717,7 @@ new _vue2.default({
 
 
 var utils = __webpack_require__(1);
-var bind = __webpack_require__(14);
+var bind = __webpack_require__(15);
 var Axios = __webpack_require__(23);
 var defaults = __webpack_require__(7);
 
@@ -28752,9 +28752,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(11);
+axios.Cancel = __webpack_require__(12);
 axios.CancelToken = __webpack_require__(22);
-axios.isCancel = __webpack_require__(12);
+axios.isCancel = __webpack_require__(13);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -28775,7 +28775,7 @@ module.exports.default = axios;
 "use strict";
 
 
-var Cancel = __webpack_require__(11);
+var Cancel = __webpack_require__(12);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -28992,7 +28992,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(1);
 var transformData = __webpack_require__(28);
-var isCancel = __webpack_require__(12);
+var isCancel = __webpack_require__(13);
 var defaults = __webpack_require__(7);
 
 /**
@@ -29102,7 +29102,7 @@ module.exports = function enhanceError(error, config, code, response) {
 "use strict";
 
 
-var createError = __webpack_require__(13);
+var createError = __webpack_require__(14);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -29655,21 +29655,29 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     computed: {
         rawText: function rawText() {
-            return (0, _utils.replaceManaText)(this.$store.state.cardModal.text);
+            return (0, _utils.replaceManaText)(this.card.text);
         },
         cardUrl: function cardUrl() {
-            if (this.$store.state.cardModal.name) {
-                return window.location.protocol + '//' + window.location.host + '/card/' + (0, _slug2.default)(this.$store.state.cardModal.name) + '-' + this.$store.state.cardModal.multiverseid;
+            if (this.card.name) {
+                return window.location.protocol + '//' + window.location.host + '/card/' + (0, _slug2.default)(this.card.name) + '-' + this.card.multiverseid;
             }
             return '';
         },
         manaCosts: function manaCosts() {
-            return (0, _utils.replaceManaCosts)(this.$store.state.cardModal.manaCost);
+            return (0, _utils.replaceManaCosts)(this.card.manaCost);
+        },
+        card: function card() {
+            return this.$store.getters.cardModal.card;
+        },
+        isVisible: function isVisible() {
+            return this.$store.getters.cardModal.visible;
         }
     },
     methods: {
         closeModal: function closeModal() {
-            this.$emit('closecardmodal');
+            this.$store.dispatch({
+                type: 'hideCardModal'
+            });
         }
     }
 };
@@ -29697,7 +29705,7 @@ var _Pagination = __webpack_require__(77);
 
 var _Pagination2 = _interopRequireDefault(_Pagination);
 
-var _Spinner = __webpack_require__(16);
+var _Spinner = __webpack_require__(9);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -29859,14 +29867,13 @@ var _Statsmodal = __webpack_require__(80);
 
 var _Statsmodal2 = _interopRequireDefault(_Statsmodal);
 
-var _eventbus = __webpack_require__(15);
+var _eventbus = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
     data: function data() {
         return {
-            showCardModal: false,
             showLandModal: false,
             showSaveModal: false,
             showStatsModal: false
@@ -29890,14 +29897,6 @@ exports.default = {
     },
     created: function created() {
         _eventbus.EventBus.$on('showcardmodal', this.showCardModalAction);
-    },
-
-    methods: {
-        showCardModalAction: function showCardModalAction(card) {
-            // TODO
-            this.$store.state.cardModal = card;
-            this.showCardModal = true;
-        }
     }
 }; //
 //
@@ -30055,7 +30054,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 
-var _Spinner = __webpack_require__(16);
+var _Spinner = __webpack_require__(9);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -30194,7 +30193,7 @@ var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Spinner = __webpack_require__(16);
+var _Spinner = __webpack_require__(9);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -30946,7 +30945,7 @@ var _lodash = __webpack_require__(4);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _eventbus = __webpack_require__(15);
+var _eventbus = __webpack_require__(16);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30965,7 +30964,12 @@ exports.default = {
     },
     methods: {
         showCardModal: function showCardModal() {
-            _eventbus.EventBus.$emit('showcardmodal', this.card);
+            // EventBus.$emit( 'showcardmodal', this.card );
+            var card = this.card;
+            this.$store.dispatch({
+                type: 'showCardModal',
+                card: card
+            });
         },
         updateDecklist: function updateDecklist(list, card) {
             var existingCardIndex = _lodash2.default.findIndex(list, { 'id': card.id });
@@ -31310,7 +31314,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.store = undefined;
 
-var _vue = __webpack_require__(9);
+var _vue = __webpack_require__(10);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -31605,6 +31609,9 @@ var store = exports.store = new _vuex2.default.Store({
             cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
 
             return cardSum;
+        },
+        cardModal: function cardModal(state) {
+            return state.cardModal;
         }
     },
     mutations: {
@@ -31634,9 +31641,28 @@ var store = exports.store = new _vuex2.default.Store({
         },
         finishSearch: function finishSearch(state) {
             state.searching = false;
+        },
+        showCardModal: function showCardModal(state, payload) {
+            state.cardModal.card = payload.card;
+            state.cardModal.visible = true;
+        },
+        hideCardModal: function hideCardModal(state) {
+            state.cardModal.card = {};
+            state.cardModal.visible = false;
         }
     },
     actions: {
+        showCardModal: function showCardModal(context, payload) {
+            context.commit({
+                type: 'showCardModal',
+                card: payload.card
+            });
+        },
+        hideCardModal: function hideCardModal(context) {
+            context.commit({
+                type: 'hideCardModal'
+            });
+        },
         setAPIError: function setAPIError(context, payload) {
             context.commit({
                 type: 'setAPIError',
@@ -32979,7 +33005,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal"
+    staticClass: "modal",
+    class: {
+      'is-active': _vm.isVisible
+    }
   }, [_c('div', {
     staticClass: "modal-background"
   }), _vm._v(" "), _c('div', {
@@ -32990,7 +33019,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-title"
   }, [_vm._v("\n                MultiverseID "), _c('span', {
     staticClass: "multiverseid"
-  }, [_vm._v("#" + _vm._s(this.$store.state.cardModal.multiverseid))])]), _vm._v(" "), _c('button', {
+  }, [_vm._v("#" + _vm._s(_vm.card.multiverseid))])]), _vm._v(" "), _c('button', {
     staticClass: "delete",
     on: {
       "click": _vm.closeModal
@@ -33004,39 +33033,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.cardUrl,
       "target": "_blank"
     }
-  }, [_vm._v(_vm._s(this.$store.state.cardModal.name))]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.card.name))]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('p', {
     staticClass: "subtitle"
-  }, [_vm._v(_vm._s(this.$store.state.cardModal.type))]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.card.type))]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-one-third"
   }, [_c('img', {
     attrs: {
-      "src": this.$store.state.cardModal.imageUrl,
-      "alt": this.$store.state.cardModal.name
+      "src": _vm.card.imageUrl,
+      "alt": _vm.card.name
     }
   }), _vm._v(" "), _c('p', [_c('small', {
     staticClass: "has-text-left"
-  }, [_vm._v("Artist: " + _vm._s(this.$store.state.cardModal.artist))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Artist: " + _vm._s(_vm.card.artist))])])]), _vm._v(" "), _c('div', {
     staticClass: "column content"
-  }, [(this.$store.state.cardModal.manaCost) ? _c('p', {
+  }, [(_vm.card.manaCost) ? _c('p', {
     domProps: {
       "innerHTML": _vm._s(_vm.manaCosts)
     }
-  }) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), (this.$store.state.cardModal.text) ? _c('p', {
+  }) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), (_vm.card.text) ? _c('p', {
     domProps: {
       "innerHTML": _vm._s(_vm.rawText)
     }
-  }) : _vm._e(), _vm._v(" "), (this.$store.state.cardModal.flavor) ? _c('blockquote', [_c('em', [_vm._v(_vm._s(this.$store.state.cardModal.flavor))])]) : _vm._e(), _vm._v(" "), (this.$store.state.cardModal.power) ? _c('p', [_c('span', {
+  }) : _vm._e(), _vm._v(" "), (_vm.card.flavor) ? _c('blockquote', [_c('em', [_vm._v(_vm._s(_vm.card.flavor))])]) : _vm._e(), _vm._v(" "), (_vm.card.power) ? _c('p', [_c('span', {
     staticClass: "title",
     staticStyle: {
       "padding-right": "10px"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('strong', [_vm._v(_vm._s(this.$store.state.cardModal.power))])]), _vm._v(" "), _c('span', {
+  }, [_vm._m(1), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.card.power))])]), _vm._v(" "), _c('span', {
     staticClass: "title"
-  }, [_vm._m(2), _vm._v(" "), _c('strong', [_vm._v(_vm._s(this.$store.state.cardModal.toughness))])])]) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_vm._v("\n                        Set: " + _vm._s(this.$store.state.cardModal.setName) + " (" + _vm._s(this.$store.state.cardModal.set) + ")\n                    ")]), _vm._v(" "), _c('hr'), _vm._v(" "), (this.$store.state.cardModal.legalities) ? [_c('p', {
+  }, [_vm._m(2), _vm._v(" "), _c('strong', [_vm._v(_vm._s(_vm.card.toughness))])])]) : _vm._e(), _vm._v(" "), _c('hr'), _vm._v(" "), _c('p', [_vm._v("\n                        Set: " + _vm._s(_vm.card.setName) + " (" + _vm._s(_vm.card.set) + ")\n                    ")]), _vm._v(" "), _c('hr'), _vm._v(" "), (_vm.card.legalities) ? [_c('p', {
     staticClass: "title is-4"
-  }, [_vm._v("Legalities")]), _vm._v(" "), _vm._l((this.$store.state.cardModal.legalities), function(legality) {
+  }, [_vm._v("Legalities")]), _vm._v(" "), _vm._l((_vm.card.legalities), function(legality) {
     return [_c('span', {
       staticClass: "tag legality",
       class: {
@@ -33045,9 +33074,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           'is-danger': legality.legality === 'Banned'
       }
     }, [_vm._v("\n                                " + _vm._s(legality.format) + "\n                            ")])]
-  }), _vm._v(" "), _c('hr')] : _vm._e(), _vm._v(" "), (this.$store.state.cardModal.rulings) ? [_c('p', {
+  }), _vm._v(" "), _c('hr')] : _vm._e(), _vm._v(" "), (_vm.card.rulings) ? [_c('p', {
     staticClass: "title is-4"
-  }, [_vm._v("Rulings")]), _vm._v(" "), _vm._l((this.$store.state.cardModal.rulings), function(ruling) {
+  }, [_vm._v("Rulings")]), _vm._v(" "), _vm._l((_vm.card.rulings), function(ruling) {
     return [_c('div', {
       staticClass: "box"
     }, [_c('div', {
@@ -33159,16 +33188,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Cardmodal', {
-    class: {
-      'is-active': _vm.showCardModal
-    },
-    on: {
-      "closecardmodal": function($event) {
-        _vm.showCardModal = false
-      }
-    }
-  }), _vm._v(" "), _c('Landmodal', {
+  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal', {
     class: {
       'is-active': _vm.showLandModal
     },
