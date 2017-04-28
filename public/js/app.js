@@ -28690,7 +28690,7 @@ var _Deckbuilder = __webpack_require__(72);
 
 var _Deckbuilder2 = _interopRequireDefault(_Deckbuilder);
 
-var _store = __webpack_require__(52);
+var _store = __webpack_require__(127);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -31303,417 +31303,7 @@ exports.default = {
 //
 
 /***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.store = undefined;
-
-var _vue = __webpack_require__(10);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _vuex = __webpack_require__(17);
-
-var _vuex2 = _interopRequireDefault(_vuex);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_vue2.default.use(_vuex2.default);
-
-var store = exports.store = new _vuex2.default.Store({
-    state: {
-        cardlist: [],
-        error: 'Please search for cards or set filters above.',
-        apiError: false,
-        maxResults: 360,
-        searching: false,
-        pagination: {
-            currentPage: 1,
-            pageSize: 12,
-            totalPages: null
-        },
-        decklist: {
-            cardsum: 0,
-            artifacts: [],
-            lands: [],
-            creatures: [],
-            sorceries: [],
-            instants: [],
-            planeswalker: [],
-            enchantments: [],
-            basiclands: {
-                'mountains': 0,
-                'plains': 0,
-                'forests': 0,
-                'islands': 0,
-                'swamps': 0
-            }
-        },
-        cardModal: {
-            visible: false,
-            card: {}
-        },
-        landModal: {
-            visible: false
-        },
-        saveModal: {
-            visible: false
-        },
-        statsModal: {
-            visible: false
-        }
-    },
-    getters: {
-        searching: function searching(state) {
-            return state.searching;
-        },
-        totalResults: function totalResults(state) {
-            return state.cardlist.length;
-        },
-        searchError: function searchError(state) {
-            return state.error;
-        },
-        apiError: function apiError(state) {
-            return state.apiError;
-        },
-        isValidError: function isValidError(state) {
-            return state.error.length && (!state.cardlist.length || state.cardlist.length > state.maxResults);
-        },
-        pageSize: function pageSize(state) {
-            return state.pagination.pageSize;
-        },
-        totalPages: function totalPages(state) {
-            return state.pagination.totalPages;
-        },
-        currentPage: function currentPage(state) {
-            return state.pagination.currentPage;
-        },
-        artifacts: function artifacts(state) {
-            return state.decklist.artifacts;
-        },
-        lands: function lands(state) {
-            return state.decklist.lands;
-        },
-        creatures: function creatures(state) {
-            return state.decklist.creatures;
-        },
-        sorceries: function sorceries(state) {
-            return state.decklist.sorceries;
-        },
-        instants: function instants(state) {
-            return state.decklist.instants;
-        },
-        planeswalker: function planeswalker(state) {
-            return state.decklist.planeswalker;
-        },
-        enchantments: function enchantments(state) {
-            return state.decklist.enchantments;
-        },
-        basiclands: function basiclands(state) {
-            return state.decklist.basiclands;
-        },
-        totalCards: function totalCards(state) {
-            var artifactSum = 0;
-            var creatureSum = 0;
-            var enchantmentSum = 0;
-            var instantSum = 0;
-            var sorcerySum = 0;
-            var planeswalkerSum = 0;
-            var landSum = 0;
-            var basicLandSum = 0;
-            var cardSum = 0;
-
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-                for (var _iterator = state.decklist.artifacts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                    var artifact = _step.value;
-
-                    artifactSum += artifact.qty;
-                }
-            } catch (err) {
-                _didIteratorError = true;
-                _iteratorError = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion && _iterator.return) {
-                        _iterator.return();
-                    }
-                } finally {
-                    if (_didIteratorError) {
-                        throw _iteratorError;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = state.decklist.creatures[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var creature = _step2.value;
-
-                    creatureSum += creature.qty;
-                }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion3 = true;
-            var _didIteratorError3 = false;
-            var _iteratorError3 = undefined;
-
-            try {
-                for (var _iterator3 = state.decklist.enchantments[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                    var enchantment = _step3.value;
-
-                    enchantmentSum += enchantment.qty;
-                }
-            } catch (err) {
-                _didIteratorError3 = true;
-                _iteratorError3 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
-                        _iterator3.return();
-                    }
-                } finally {
-                    if (_didIteratorError3) {
-                        throw _iteratorError3;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion4 = true;
-            var _didIteratorError4 = false;
-            var _iteratorError4 = undefined;
-
-            try {
-                for (var _iterator4 = state.decklist.instants[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                    var instant = _step4.value;
-
-                    instantSum += instant.qty;
-                }
-            } catch (err) {
-                _didIteratorError4 = true;
-                _iteratorError4 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion4 && _iterator4.return) {
-                        _iterator4.return();
-                    }
-                } finally {
-                    if (_didIteratorError4) {
-                        throw _iteratorError4;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion5 = true;
-            var _didIteratorError5 = false;
-            var _iteratorError5 = undefined;
-
-            try {
-                for (var _iterator5 = state.decklist.sorceries[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                    var sorcery = _step5.value;
-
-                    sorcerySum += sorcery.qty;
-                }
-            } catch (err) {
-                _didIteratorError5 = true;
-                _iteratorError5 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion5 && _iterator5.return) {
-                        _iterator5.return();
-                    }
-                } finally {
-                    if (_didIteratorError5) {
-                        throw _iteratorError5;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion6 = true;
-            var _didIteratorError6 = false;
-            var _iteratorError6 = undefined;
-
-            try {
-                for (var _iterator6 = state.decklist.planeswalker[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                    var planeswalker = _step6.value;
-
-                    planeswalkerSum += planeswalker.qty;
-                }
-            } catch (err) {
-                _didIteratorError6 = true;
-                _iteratorError6 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion6 && _iterator6.return) {
-                        _iterator6.return();
-                    }
-                } finally {
-                    if (_didIteratorError6) {
-                        throw _iteratorError6;
-                    }
-                }
-            }
-
-            var _iteratorNormalCompletion7 = true;
-            var _didIteratorError7 = false;
-            var _iteratorError7 = undefined;
-
-            try {
-                for (var _iterator7 = state.decklist.lands[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                    var land = _step7.value;
-
-                    landSum += land.qty;
-                }
-            } catch (err) {
-                _didIteratorError7 = true;
-                _iteratorError7 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion7 && _iterator7.return) {
-                        _iterator7.return();
-                    }
-                } finally {
-                    if (_didIteratorError7) {
-                        throw _iteratorError7;
-                    }
-                }
-            }
-
-            basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
-
-            cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
-
-            return cardSum;
-        },
-        cardModal: function cardModal(state) {
-            return state.cardModal;
-        }
-    },
-    mutations: {
-        setAPIError: function setAPIError(state, payload) {
-            state.apiError = payload.error;
-        },
-        setError: function setError(state, payload) {
-            state.error = payload.error;
-        },
-        setTotalPages: function setTotalPages(state, payload) {
-            state.pagination.totalPages = payload.total;
-        },
-        setNextPage: function setNextPage(state) {
-            state.pagination.currentPage++;
-        },
-        setPrevPage: function setPrevPage(state) {
-            state.pagination.currentPage--;
-        },
-        addResult: function addResult(state, payload) {
-            state.cardlist.push(payload.card);
-        },
-        startSearch: function startSearch(state) {
-            state.searching = true;
-            state.pagination.currentPage = 1;
-            state.cardlist = [];
-            state.error = '';
-        },
-        finishSearch: function finishSearch(state) {
-            state.searching = false;
-        },
-        showCardModal: function showCardModal(state, payload) {
-            state.cardModal.card = payload.card;
-            state.cardModal.visible = true;
-        },
-        hideCardModal: function hideCardModal(state) {
-            state.cardModal.card = {};
-            state.cardModal.visible = false;
-        }
-    },
-    actions: {
-        showCardModal: function showCardModal(context, payload) {
-            context.commit({
-                type: 'showCardModal',
-                card: payload.card
-            });
-        },
-        hideCardModal: function hideCardModal(context) {
-            context.commit({
-                type: 'hideCardModal'
-            });
-        },
-        setAPIError: function setAPIError(context, payload) {
-            context.commit({
-                type: 'setAPIError',
-                error: payload.error
-            });
-        },
-        setError: function setError(context, payload) {
-            context.commit({
-                type: 'setError',
-                error: payload.error
-            });
-        },
-        setTotalPages: function setTotalPages(context, payload) {
-            context.commit({
-                type: 'setTotalPages',
-                total: payload.total
-            });
-        },
-        setNextPage: function setNextPage(context) {
-            context.commit({
-                type: 'setNextPage'
-            });
-        },
-        setPrevPage: function setPrevPage(context) {
-            context.commit({
-                type: 'setPrevPage'
-            });
-        },
-        addResult: function addResult(context, payload) {
-            context.commit({
-                type: 'addResult',
-                card: payload.card
-            });
-        },
-        addCard: function addCard(context, payload) {
-            console.log(payload);
-        },
-        startSearch: function startSearch(context) {
-            context.commit({
-                type: 'startSearch'
-            });
-        },
-        finishSearch: function finishSearch(context) {
-            context.commit({
-                type: 'finishSearch'
-            });
-        }
-    }
-});
-
-/***/ }),
+/* 52 */,
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -34550,6 +34140,503 @@ module.exports = function(module) {
 __webpack_require__(19);
 module.exports = __webpack_require__(20);
 
+
+/***/ }),
+/* 112 */,
+/* 113 */,
+/* 114 */,
+/* 115 */,
+/* 116 */,
+/* 117 */,
+/* 118 */,
+/* 119 */,
+/* 120 */,
+/* 121 */,
+/* 122 */,
+/* 123 */,
+/* 124 */,
+/* 125 */,
+/* 126 */,
+/* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.store = undefined;
+
+var _vue = __webpack_require__(10);
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _vuex = __webpack_require__(17);
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+var _modals = __webpack_require__(128);
+
+var _modals2 = _interopRequireDefault(_modals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vue2.default.use(_vuex2.default);
+
+var store = exports.store = new _vuex2.default.Store({
+    modules: {
+        modals: _modals2.default
+    },
+    state: {
+        cardlist: [],
+        error: 'Please search for cards or set filters above.',
+        apiError: false,
+        maxResults: 360,
+        searching: false,
+        pagination: {
+            currentPage: 1,
+            pageSize: 12,
+            totalPages: null
+        },
+        decklist: {
+            cardsum: 0,
+            artifacts: [],
+            lands: [],
+            creatures: [],
+            sorceries: [],
+            instants: [],
+            planeswalker: [],
+            enchantments: [],
+            basiclands: {
+                'mountains': 0,
+                'plains': 0,
+                'forests': 0,
+                'islands': 0,
+                'swamps': 0
+            }
+        }
+    },
+    getters: {
+        searching: function searching(state) {
+            return state.searching;
+        },
+        totalResults: function totalResults(state) {
+            return state.cardlist.length;
+        },
+        searchError: function searchError(state) {
+            return state.error;
+        },
+        apiError: function apiError(state) {
+            return state.apiError;
+        },
+        isValidError: function isValidError(state) {
+            return state.error.length && (!state.cardlist.length || state.cardlist.length > state.maxResults);
+        },
+        pageSize: function pageSize(state) {
+            return state.pagination.pageSize;
+        },
+        totalPages: function totalPages(state) {
+            return state.pagination.totalPages;
+        },
+        currentPage: function currentPage(state) {
+            return state.pagination.currentPage;
+        },
+        artifacts: function artifacts(state) {
+            return state.decklist.artifacts;
+        },
+        lands: function lands(state) {
+            return state.decklist.lands;
+        },
+        creatures: function creatures(state) {
+            return state.decklist.creatures;
+        },
+        sorceries: function sorceries(state) {
+            return state.decklist.sorceries;
+        },
+        instants: function instants(state) {
+            return state.decklist.instants;
+        },
+        planeswalker: function planeswalker(state) {
+            return state.decklist.planeswalker;
+        },
+        enchantments: function enchantments(state) {
+            return state.decklist.enchantments;
+        },
+        basiclands: function basiclands(state) {
+            return state.decklist.basiclands;
+        },
+        totalCards: function totalCards(state) {
+            var artifactSum = 0;
+            var creatureSum = 0;
+            var enchantmentSum = 0;
+            var instantSum = 0;
+            var sorcerySum = 0;
+            var planeswalkerSum = 0;
+            var landSum = 0;
+            var basicLandSum = 0;
+            var cardSum = 0;
+
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = state.decklist.artifacts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var artifact = _step.value;
+
+                    artifactSum += artifact.qty;
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+                for (var _iterator2 = state.decklist.creatures[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                    var creature = _step2.value;
+
+                    creatureSum += creature.qty;
+                }
+            } catch (err) {
+                _didIteratorError2 = true;
+                _iteratorError2 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                        _iterator2.return();
+                    }
+                } finally {
+                    if (_didIteratorError2) {
+                        throw _iteratorError2;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+                for (var _iterator3 = state.decklist.enchantments[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                    var enchantment = _step3.value;
+
+                    enchantmentSum += enchantment.qty;
+                }
+            } catch (err) {
+                _didIteratorError3 = true;
+                _iteratorError3 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                        _iterator3.return();
+                    }
+                } finally {
+                    if (_didIteratorError3) {
+                        throw _iteratorError3;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion4 = true;
+            var _didIteratorError4 = false;
+            var _iteratorError4 = undefined;
+
+            try {
+                for (var _iterator4 = state.decklist.instants[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                    var instant = _step4.value;
+
+                    instantSum += instant.qty;
+                }
+            } catch (err) {
+                _didIteratorError4 = true;
+                _iteratorError4 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                        _iterator4.return();
+                    }
+                } finally {
+                    if (_didIteratorError4) {
+                        throw _iteratorError4;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion5 = true;
+            var _didIteratorError5 = false;
+            var _iteratorError5 = undefined;
+
+            try {
+                for (var _iterator5 = state.decklist.sorceries[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                    var sorcery = _step5.value;
+
+                    sorcerySum += sorcery.qty;
+                }
+            } catch (err) {
+                _didIteratorError5 = true;
+                _iteratorError5 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                        _iterator5.return();
+                    }
+                } finally {
+                    if (_didIteratorError5) {
+                        throw _iteratorError5;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion6 = true;
+            var _didIteratorError6 = false;
+            var _iteratorError6 = undefined;
+
+            try {
+                for (var _iterator6 = state.decklist.planeswalker[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                    var planeswalker = _step6.value;
+
+                    planeswalkerSum += planeswalker.qty;
+                }
+            } catch (err) {
+                _didIteratorError6 = true;
+                _iteratorError6 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                        _iterator6.return();
+                    }
+                } finally {
+                    if (_didIteratorError6) {
+                        throw _iteratorError6;
+                    }
+                }
+            }
+
+            var _iteratorNormalCompletion7 = true;
+            var _didIteratorError7 = false;
+            var _iteratorError7 = undefined;
+
+            try {
+                for (var _iterator7 = state.decklist.lands[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                    var land = _step7.value;
+
+                    landSum += land.qty;
+                }
+            } catch (err) {
+                _didIteratorError7 = true;
+                _iteratorError7 = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                        _iterator7.return();
+                    }
+                } finally {
+                    if (_didIteratorError7) {
+                        throw _iteratorError7;
+                    }
+                }
+            }
+
+            basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
+
+            cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+
+            return cardSum;
+        }
+    },
+    mutations: {
+        setAPIError: function setAPIError(state, payload) {
+            state.apiError = payload.error;
+        },
+        setError: function setError(state, payload) {
+            state.error = payload.error;
+        },
+        setTotalPages: function setTotalPages(state, payload) {
+            state.pagination.totalPages = payload.total;
+        },
+        setNextPage: function setNextPage(state) {
+            state.pagination.currentPage++;
+        },
+        setPrevPage: function setPrevPage(state) {
+            state.pagination.currentPage--;
+        },
+        addResult: function addResult(state, payload) {
+            state.cardlist.push(payload.card);
+        },
+        startSearch: function startSearch(state) {
+            state.searching = true;
+            state.pagination.currentPage = 1;
+            state.cardlist = [];
+            state.error = '';
+        },
+        finishSearch: function finishSearch(state) {
+            state.searching = false;
+        }
+    },
+    actions: {
+        setAPIError: function setAPIError(context, payload) {
+            context.commit({
+                type: 'setAPIError',
+                error: payload.error
+            });
+        },
+        setError: function setError(context, payload) {
+            context.commit({
+                type: 'setError',
+                error: payload.error
+            });
+        },
+        setTotalPages: function setTotalPages(context, payload) {
+            context.commit({
+                type: 'setTotalPages',
+                total: payload.total
+            });
+        },
+        setNextPage: function setNextPage(context) {
+            context.commit({
+                type: 'setNextPage'
+            });
+        },
+        setPrevPage: function setPrevPage(context) {
+            context.commit({
+                type: 'setPrevPage'
+            });
+        },
+        addResult: function addResult(context, payload) {
+            context.commit({
+                type: 'addResult',
+                card: payload.card
+            });
+        },
+        addCard: function addCard(context, payload) {
+            console.log(payload);
+        },
+        startSearch: function startSearch(context) {
+            context.commit({
+                type: 'startSearch'
+            });
+        },
+        finishSearch: function finishSearch(context) {
+            context.commit({
+                type: 'finishSearch'
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mutations;
+
+var _types = __webpack_require__(129);
+
+var types = _interopRequireWildcard(_types);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var state = {
+    cardModal: {
+        visible: false,
+        card: {}
+    },
+    landModal: {
+        visible: false
+    },
+    saveModal: {
+        visible: false
+    },
+    statsModal: {
+        visible: false
+    }
+};
+
+var getters = {
+    cardModal: function cardModal(state) {
+        return state.cardModal;
+    }
+};
+
+var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MODAL, function (state, payload) {
+    state.cardModal.card = payload.card;
+    state.cardModal.visible = true;
+}), _defineProperty(_mutations, types.HIDE_CARD_MODAL, function (state) {
+    state.cardModal.card = {};
+    state.cardModal.visible = false;
+}), _mutations);
+
+var actions = {
+    showCardModal: function showCardModal(_ref, card) {
+        var commit = _ref.commit;
+
+        commit(types.SHOW_CARD_MODAL, card);
+    },
+    hideCardModal: function hideCardModal(_ref2) {
+        var commit = _ref2.commit;
+
+        commit(types.HIDE_CARD_MODAL);
+    }
+};
+
+exports.default = {
+    state: state,
+    getters: getters,
+    mutations: mutations,
+    actions: actions
+};
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+//  Errors
+var SET_API_ERROR = exports.SET_API_ERROR = 'SET_API_ERROR';
+var SET_ERROR = exports.SET_ERROR = 'SET_ERROR';
+
+// Pagination
+var SET_TOTAL_PAGES = exports.SET_TOTAL_PAGES = 'SET_TOTAL_PAGES';
+var SET_NEXT_PAGE = exports.SET_NEXT_PAGE = 'SET_NEXT_PAGE';
+var SET_PREV_PAGE = exports.SET_PREV_PAGE = 'SET_PREV_PAGE';
+
+// Deckbuilder
+var ADD_RESULT = exports.ADD_RESULT = 'ADD_RESULT';
+var START_SEARCH = exports.START_SEARCH = 'START_SEARCH';
+var FINISH_SEARCH = exports.FINISH_SEARCH = 'FINISH_SEARCH';
+
+// Modals
+var SHOW_CARD_MODAL = exports.SHOW_CARD_MODAL = 'SHOW_CARD_MODAL';
+var HIDE_CARD_MODAL = exports.HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
 
 /***/ })
 /******/ ]);

@@ -1,9 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import modals from './modules/modals.js';
+
 Vue.use( Vuex );
 
 export const store = new Vuex.Store( {
+    modules : {
+        modals
+    },
     state : {
         cardlist    : [],
         error       : 'Please search for cards or set filters above.',
@@ -31,19 +36,6 @@ export const store = new Vuex.Store( {
                 'islands'   : 0,
                 'swamps'    : 0
             }
-        },
-        cardModal : {
-            visible : false,
-            card    : {}
-        },
-        landModal : {
-            visible : false
-        },
-        saveModal : {
-            visible : false
-        },
-        statsModal : {
-            visible : false
         }
     },
     getters : {
@@ -133,9 +125,6 @@ export const store = new Vuex.Store( {
             cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
 
             return cardSum;
-        },
-        cardModal( state ) {
-            return state.cardModal;
         }
     },
     mutations : {
@@ -165,28 +154,9 @@ export const store = new Vuex.Store( {
         },
         finishSearch( state ) {
             state.searching = false;
-        },
-        showCardModal( state, payload ) {
-            state.cardModal.card = payload.card;
-            state.cardModal.visible = true;
-        },
-        hideCardModal( state ) {
-            state.cardModal.card = {};
-            state.cardModal.visible = false;
         }
     },
     actions : {
-        showCardModal( context, payload ) {
-            context.commit( {
-                type    : 'showCardModal',
-                card    : payload.card
-            } );
-        },
-        hideCardModal( context ) {
-            context.commit( {
-                type    : 'hideCardModal'
-            } );
-        },
         setAPIError( context, payload ) {
             context.commit( {
                 type    : 'setAPIError',
