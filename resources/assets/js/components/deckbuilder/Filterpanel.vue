@@ -201,7 +201,7 @@
                     } );
 
                     // Check for
-                    if ( total < self.$store.state.maxResults ) {
+                    if ( total < self.$store.getters.maxResults ) {
                         // Fill cards
                         if ( response.data.cards.length ) {
                             // Clear errors

@@ -43,22 +43,22 @@
                 return this.$store.getters.totalResults;
             },
             totalPages() {
-                return Math.ceil( this.totalResults / this.$store.state.pagination.pageSize );
+                return Math.ceil( this.totalResults / this.$store.getters.pageSize );
             },
             cardPage() {
                 const resultCount = this.totalResults;
                 let index = 0;
-                let currentPage = this.$store.state.pagination.currentPage - 1;
+                let currentPage = this.$store.getters.currentPage - 1;
                 if ( resultCount !== 0 ) {
-                    if ( this.$store.state.pagination.currentPage >= this.totalPages ) {
+                    if ( this.$store.getters.currentPage >= this.totalPages ) {
                         currentPage = this.totalPages - 1;
                     }
                 }
                 else {
                     currentPage = 0;
                 }
-                index = currentPage * this.$store.state.pagination.pageSize;
-                return this.$store.state.cardlist.slice( index, index + this.$store.state.pagination.pageSize );
+                index = currentPage * this.$store.getters.pageSize;
+                return this.$store.getters.cardlist.slice( index, index + this.$store.getters.pageSize );
             },
             chunkedPage() {
                 return _.chunk( this.cardPage, 4 );

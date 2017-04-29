@@ -50,26 +50,26 @@
         },
         methods : {
             removeCard() {
-                const index = _.findIndex( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
+                const list = this.list;
+                const id = this.entry.id;
 
-                if ( this.$store.state.decklist[ this.list ][index].qty > 1 ) {
-                    this.$store.state.decklist[ this.list ][index].qty--;
-                }
-                else {
-                    this.$store.state.decklist[ this.list ][index].qty--;
-                    _.remove( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
-                    this.$emit( 'update' );
-                }
+                this.$store.dispatch( {
+                    type : 'removeCard',
+                    list : list,
+                    id   : id
+                } );
             },
             removeEntry() {
-                const index = _.findIndex( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
+                const list = this.list;
+                const id = this.entry.id;
 
-                this.$store.state.decklist[ this.list ][index].qty = 0;
-                _.remove( this.$store.state.decklist[ this.list ], { id : this.entry.id } );
+                this.$store.dispatch( {
+                    type : 'removeEntry',
+                    list : list,
+                    id   : id
+                } );
+
                 this.showSubmenu = false;
-
-                // triggers rerender in decklist
-                this.$emit( 'update' );
             }
         }
     };

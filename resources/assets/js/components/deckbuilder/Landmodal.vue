@@ -136,19 +136,19 @@
         },
         computed : {
             totalMountains() {
-                return this.$store.state.decklist.basiclands.mountains + this.mountains;
+                return this.$store.getters.basiclands.mountains + this.mountains;
             },
             totalPlains() {
-                return this.$store.state.decklist.basiclands.plains + this.plains;
+                return this.$store.getters.basiclands.plains + this.plains;
             },
             totalForests() {
-                return this.$store.state.decklist.basiclands.forests + this.forests;
+                return this.$store.getters.basiclands.forests + this.forests;
             },
             totalIslands() {
-                return this.$store.state.decklist.basiclands.islands + this.islands;
+                return this.$store.getters.basiclands.islands + this.islands;
             },
             totalSwamps() {
-                return this.$store.state.decklist.basiclands.swamps + this.swamps;
+                return this.$store.getters.basiclands.swamps + this.swamps;
             }
         },
         methods : {
@@ -161,16 +161,14 @@
             },
             closeModal() {
                 this.reset();
-                this.$emit( 'closelandmodal' );
             },
             save() {
-                this.$store.state.decklist.basiclands.mountains = this.totalMountains;
-                this.$store.state.decklist.basiclands.plains = this.totalPlains;
-                this.$store.state.decklist.basiclands.forests = this.totalForests;
-                this.$store.state.decklist.basiclands.islands = this.totalIslands;
-                this.$store.state.decklist.basiclands.swamps = this.totalSwamps;
+                this.$store.getters.basiclands.mountains = this.totalMountains;
+                this.$store.getters.basiclands.plains = this.totalPlains;
+                this.$store.getters.basiclands.forests = this.totalForests;
+                this.$store.getters.basiclands.islands = this.totalIslands;
+                this.$store.getters.basiclands.swamps = this.totalSwamps;
                 this.reset();
-                this.$emit( 'closelandmodal' );
             }
         }
     };

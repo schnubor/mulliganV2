@@ -22,8 +22,6 @@
 
 <script>
     import slug from 'slug';
-    import _ from 'lodash';
-    import { EventBus } from './../../eventbus.js';
 
     export default {
         props : [ 'card' ],
@@ -39,53 +37,17 @@
         },
         methods : {
             showCardModal() {
-                // EventBus.$emit( 'showcardmodal', this.card );
                 const card = this.card;
                 this.$store.dispatch( {
                     type    : 'showCardModal',
                     card    : card
                 } );
             },
-            updateDecklist( list, card ) {
-                const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
-
-                if ( existingCardIndex > -1 ) {
-                    list[ existingCardIndex ].qty++;
-                }
-                else {
-                    const newCard = {
-                        'id'   : card.id,
-                        'card' : card,
-                        'qty'  : 1
-                    };
-                    list.push( newCard );
-                }
-            },
             addToDecklist( card ) {
-                switch ( card.types[ 0 ] ) {
-                    case 'Creature' :
-                        this.updateDecklist( this.$store.state.decklist.creatures, card );
-                        break;
-                    case 'Instant' :
-                        this.updateDecklist( this.$store.state.decklist.instants, card );
-                        break;
-                    case 'Sorcery' :
-                        this.updateDecklist( this.$store.state.decklist.sorceries, card );
-                        break;
-                    case 'Land' :
-                        this.updateDecklist( this.$store.state.decklist.lands, card );
-                        break;
-                    case 'Artifact' :
-                        this.updateDecklist( this.$store.state.decklist.artifacts, card );
-                        break;
-                    case 'Enchantment' :
-                        this.updateDecklist( this.$store.state.decklist.enchantments, card );
-                        break;
-                    case 'Planeswalker' :
-                        this.updateDecklist( this.$store.state.decklist.planeswalker, card );
-                        break;
-                    default: break;
-                }
+                this.$store.dispatch( {
+                    type : 'addToDecklist',
+                    card : card
+                } );
             }
         }
     };
