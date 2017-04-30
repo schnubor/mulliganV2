@@ -27,6 +27,9 @@ const mutations = {
     },
     [types.SET_PREV_PAGE]( state ) {
         state.currentPage--;
+    },
+    [types.START_SEARCH]( state ) {
+        state.currentPage = 1;
     }
 };
 

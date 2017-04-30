@@ -112,6 +112,7 @@
                 sets        : [],
                 setsUrl     : 'https://api.magicthegathering.io/v1/sets',
                 searchUrl   : 'https://api.magicthegathering.io/v1/cards?',
+                searchSize  : 100,
                 loading     : true,
                 noresults   : false,
                 toomany     : false,
@@ -175,7 +176,7 @@
                 if ( filters.mana === '5' ) params.cmc = 'gte5';
                 if ( colorsArray.length && filters.type !== 'land' ) params.colors = colorsArray.join( ',' );
 
-                params.pageSize = this.pageSize;
+                params.pageSize = this.searchSize;
                 params.page = this.searchPage;
 
                 const searchUri = this.searchUrl + queryString.stringify( params );
@@ -192,12 +193,13 @@
 
                     // Get total count
                     const total = response.headers[ 'total-count' ];
-                    const totalPages = Math.ceil( total / self.pageSize );
+                    const totalPages = Math.ceil( total / self.searchSize );
+                    const totalPaginationPages = Math.ceil( total / self.pageSize );
 
-                    // update store
+                    // Update pagination
                     self.$store.dispatch( {
                         type    : 'setTotalPages',
-                        total   : totalPages
+                        total   : totalPaginationPages
                     } );
 
                     // Check for
