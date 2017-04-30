@@ -128,11 +128,10 @@
             Decklistitem
         },
         methods : {
-            forceUpdate() {
-                this.$forceUpdate();
-            },
             showLandModal() {
-                this.$emit( 'showlandmodal' );
+                this.$store.dispatch( {
+                    type    : 'showLandModal'
+                } );
             }
         },
         computed : {

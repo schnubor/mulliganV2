@@ -19,6 +19,9 @@ const state = {
 const getters = {
     cardModal( state ) {
         return state.cardModal;
+    },
+    landModal( state ) {
+        return state.landModal;
     }
 };
 
@@ -30,6 +33,12 @@ const mutations = {
     [types.HIDE_CARD_MODAL]( state ) {
         state.cardModal.card = {};
         state.cardModal.visible = false;
+    },
+    [types.SHOW_LAND_MODAL]( state ) {
+        state.landModal.visible = true;
+    },
+    [types.HIDE_LAND_MODAL]( state ) {
+        state.landModal.visible = false;
     }
 };
 
@@ -39,6 +48,12 @@ const actions = {
     },
     hideCardModal( { commit } ) {
         commit( types.HIDE_CARD_MODAL );
+    },
+    showLandModal( { commit }, card ) {
+        commit( types.SHOW_LAND_MODAL );
+    },
+    hideLandModal( { commit } ) {
+        commit( types.HIDE_LAND_MODAL );
     }
 };
 

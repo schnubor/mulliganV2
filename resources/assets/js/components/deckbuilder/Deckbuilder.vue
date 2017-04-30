@@ -1,7 +1,7 @@
 <template>
     <div>
         <Cardmodal></Cardmodal>
-        <Landmodal :class="{ 'is-active' : showLandModal }" @closelandmodal="showLandModal = false"></Landmodal>
+        <Landmodal></Landmodal>
         <Savemodal :class="{ 'is-active' : showSaveModal }" @closesavemodal="showSaveModal = false"></Savemodal>
         <Statsmodal :class="{ 'is-active' : showStatsModal }" @closestatsmodal="showStatsModal = false"></Statsmodal>
 
@@ -31,12 +31,10 @@
     import Landmodal from './Landmodal.vue';
     import Savemodal from './Savemodal.vue';
     import Statsmodal from './Statsmodal.vue';
-    import { EventBus } from './../../eventbus.js';
 
     export default {
         data() {
             return {
-                showLandModal  : false,
                 showSaveModal  : false,
                 showStatsModal : false
             };
@@ -55,9 +53,6 @@
             Landmodal,
             Savemodal,
             Statsmodal
-        },
-        created() {
-            EventBus.$on( 'showcardmodal', this.showCardModalAction );
         }
     };
 </script>

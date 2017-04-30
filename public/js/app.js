@@ -18161,10 +18161,20 @@ var FINISH_SEARCH = exports.FINISH_SEARCH = 'FINISH_SEARCH';
 var ADD_TO_DECKLIST = exports.ADD_TO_DECKLIST = 'ADD_TO_DECKLIST';
 var REMOVE_CARD_FROM_ENTRY = exports.REMOVE_CARD_FROM_ENTRY = 'REMOVE_CARD_FROM_ENTRY';
 var REMOVE_ENTRY = exports.REMOVE_ENTRY = 'REMOVE_ENTRY';
+var UPDATE_BASIC_LANDS = exports.UPDATE_BASIC_LANDS = 'UPDATE_BASIC_LANDS';
 
 // Modals
 var SHOW_CARD_MODAL = exports.SHOW_CARD_MODAL = 'SHOW_CARD_MODAL';
 var HIDE_CARD_MODAL = exports.HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
+
+var SHOW_LAND_MODAL = exports.SHOW_LAND_MODAL = 'SHOW_LAND_MODAL';
+var HIDE_LAND_MODAL = exports.HIDE_LAND_MODAL = 'HIDE_LAND_MODAL';
+
+var SHOW_SAVE_MODAL = exports.SHOW_SAVE_MODAL = 'SHOW_SAVE_MODAL';
+var HIDE_SAVE_MODAL = exports.HIDE_SAVE_MODAL = 'HIDE_SAVE_MODAL';
+
+var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
+var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
 
 /***/ }),
 /* 9 */
@@ -29268,14 +29278,36 @@ var _Statsmodal = __webpack_require__(84);
 
 var _Statsmodal2 = _interopRequireDefault(_Statsmodal);
 
-var _eventbus = __webpack_require__(52);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     data: function data() {
         return {
-            showLandModal: false,
             showSaveModal: false,
             showStatsModal: false
         };
@@ -29295,34 +29327,8 @@ exports.default = {
         Landmodal: _Landmodal2.default,
         Savemodal: _Savemodal2.default,
         Statsmodal: _Statsmodal2.default
-    },
-    created: function created() {
-        _eventbus.EventBus.$on('showcardmodal', this.showCardModalAction);
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 42 */
@@ -29473,11 +29479,10 @@ exports.default = {
         Decklistitem: _Decklistitem2.default
     },
     methods: {
-        forceUpdate: function forceUpdate() {
-            this.$forceUpdate();
-        },
         showLandModal: function showLandModal() {
-            this.$emit('showlandmodal');
+            this.$store.dispatch({
+                type: 'showLandModal'
+            });
         }
     },
     computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards']))
@@ -30087,6 +30092,9 @@ exports.default = {
         },
         totalSwamps: function totalSwamps() {
             return this.$store.getters.basiclands.swamps + this.swamps;
+        },
+        isVisible: function isVisible() {
+            return this.$store.getters.landModal.visible;
         }
     },
     methods: {
@@ -30099,13 +30107,24 @@ exports.default = {
         },
         closeModal: function closeModal() {
             this.reset();
+            this.$store.dispatch({
+                type: 'hideLandModal'
+            });
         },
         save: function save() {
-            this.$store.getters.basiclands.mountains = this.totalMountains;
-            this.$store.getters.basiclands.plains = this.totalPlains;
-            this.$store.getters.basiclands.forests = this.totalForests;
-            this.$store.getters.basiclands.islands = this.totalIslands;
-            this.$store.getters.basiclands.swamps = this.totalSwamps;
+            this.$store.dispatch({
+                type: 'updateBasicLands',
+                mountains: this.totalMountains,
+                plains: this.totalPlains,
+                forests: this.totalForests,
+                islands: this.totalIslands,
+                swamps: this.totalSwamps
+            });
+
+            this.$store.dispatch({
+                type: 'hideLandModal'
+            });
+
             this.reset();
         }
     }
@@ -30663,27 +30682,7 @@ exports.default = {
 //
 
 /***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.EventBus = undefined;
-
-var _vue = __webpack_require__(11);
-
-var _vue2 = _interopRequireDefault(_vue);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var EventBus = exports.EventBus = new _vue2.default(); // This is the event hub we'll use in every
-// component to communicate between them.
-
-/***/ }),
+/* 52 */,
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -31054,6 +31053,12 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
 
     state.decklist[list][index].qty = 0;
     _lodash2.default.remove(state.decklist[list], { id: id });
+}), _defineProperty(_mutations, types.UPDATE_BASIC_LANDS, function (state, payload) {
+    state.decklist.basiclands.mountains = payload.mountains;
+    state.decklist.basiclands.plains = payload.plains;
+    state.decklist.basiclands.forests = payload.forests;
+    state.decklist.basiclands.islands = payload.islands;
+    state.decklist.basiclands.swamps = payload.swamps;
 }), _mutations);
 
 var actions = {
@@ -31071,6 +31076,11 @@ var actions = {
         var commit = _ref3.commit;
 
         commit(types.REMOVE_ENTRY, payload);
+    },
+    updateBasicLands: function updateBasicLands(_ref4, payload) {
+        var commit = _ref4.commit;
+
+        commit(types.UPDATE_BASIC_LANDS, payload);
     }
 };
 
@@ -31121,6 +31131,9 @@ var state = {
 var getters = {
     cardModal: function cardModal(state) {
         return state.cardModal;
+    },
+    landModal: function landModal(state) {
+        return state.landModal;
     }
 };
 
@@ -31130,6 +31143,10 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
 }), _defineProperty(_mutations, types.HIDE_CARD_MODAL, function (state) {
     state.cardModal.card = {};
     state.cardModal.visible = false;
+}), _defineProperty(_mutations, types.SHOW_LAND_MODAL, function (state) {
+    state.landModal.visible = true;
+}), _defineProperty(_mutations, types.HIDE_LAND_MODAL, function (state) {
+    state.landModal.visible = false;
 }), _mutations);
 
 var actions = {
@@ -31142,6 +31159,16 @@ var actions = {
         var commit = _ref2.commit;
 
         commit(types.HIDE_CARD_MODAL);
+    },
+    showLandModal: function showLandModal(_ref3, card) {
+        var commit = _ref3.commit;
+
+        commit(types.SHOW_LAND_MODAL);
+    },
+    hideLandModal: function hideLandModal(_ref4) {
+        var commit = _ref4.commit;
+
+        commit(types.HIDE_LAND_MODAL);
     }
 };
 
@@ -33048,16 +33075,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal', {
-    class: {
-      'is-active': _vm.showLandModal
-    },
-    on: {
-      "closelandmodal": function($event) {
-        _vm.showLandModal = false
-      }
-    }
-  }), _vm._v(" "), _c('Savemodal', {
+  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal'), _vm._v(" "), _c('Savemodal', {
     class: {
       'is-active': _vm.showSaveModal
     },
@@ -33481,7 +33499,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal"
+    staticClass: "modal",
+    class: {
+      'is-active': _vm.isVisible
+    }
   }, [_c('div', {
     staticClass: "modal-background"
   }), _vm._v(" "), _c('div', {
@@ -33606,7 +33627,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.save
     }
-  }, [_vm._v("Save changes")]), _vm._v(" "), _c('a', {
+  }, [_vm._v("Save & Close")]), _vm._v(" "), _c('a', {
     staticClass: "button",
     on: {
       "click": _vm.closeModal

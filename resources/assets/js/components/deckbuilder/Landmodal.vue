@@ -1,5 +1,5 @@
 <template>
-    <div class="modal">
+    <div class="modal" :class="{ 'is-active' : isVisible }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -116,7 +116,7 @@
                 </div>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-primary" @click="save">Save changes</a>
+                <a class="button is-primary" @click="save">Save & Close</a>
                 <a class="button" @click="closeModal">Cancel</a>
             </footer>
         </div>
@@ -149,6 +149,9 @@
             },
             totalSwamps() {
                 return this.$store.getters.basiclands.swamps + this.swamps;
+            },
+            isVisible() {
+                return this.$store.getters.landModal.visible;
             }
         },
         methods : {
@@ -161,13 +164,24 @@
             },
             closeModal() {
                 this.reset();
+                this.$store.dispatch( {
+                    type : 'hideLandModal'
+                } );
             },
             save() {
-                this.$store.getters.basiclands.mountains = this.totalMountains;
-                this.$store.getters.basiclands.plains = this.totalPlains;
-                this.$store.getters.basiclands.forests = this.totalForests;
-                this.$store.getters.basiclands.islands = this.totalIslands;
-                this.$store.getters.basiclands.swamps = this.totalSwamps;
+                this.$store.dispatch( {
+                    type        : 'updateBasicLands',
+                    mountains   : this.totalMountains,
+                    plains      : this.totalPlains,
+                    forests     : this.totalForests,
+                    islands     : this.totalIslands,
+                    swamps      : this.totalSwamps
+                } );
+
+                this.$store.dispatch( {
+                    type : 'hideLandModal'
+                } );
+
                 this.reset();
             }
         }

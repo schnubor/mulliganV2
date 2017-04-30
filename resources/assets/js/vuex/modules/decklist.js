@@ -153,6 +153,13 @@ const mutations = {
 
         state.decklist[ list ][ index ].qty = 0;
         _.remove( state.decklist[ list ], { id : id } );
+    },
+    [types.UPDATE_BASIC_LANDS]( state, payload ) {
+        state.decklist.basiclands.mountains = payload.mountains;
+        state.decklist.basiclands.plains = payload.plains;
+        state.decklist.basiclands.forests = payload.forests;
+        state.decklist.basiclands.islands = payload.islands;
+        state.decklist.basiclands.swamps = payload.swamps;
     }
 };
 
@@ -165,6 +172,9 @@ const actions = {
     },
     removeEntry( { commit }, payload ) {
         commit( types.REMOVE_ENTRY, payload );
+    },
+    updateBasicLands( { commit }, payload ) {
+        commit( types.UPDATE_BASIC_LANDS, payload );
     }
 };
 
