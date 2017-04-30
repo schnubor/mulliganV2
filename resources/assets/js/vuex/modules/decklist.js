@@ -100,7 +100,7 @@ const mutations = {
                 list = state.decklist.creatures;
                 break;
             case 'Instant' :
-                list = state.decklist.isntants;
+                list = state.decklist.instants;
                 break;
             case 'Sorcery' :
                 list = state.decklist.sorceries;

@@ -31010,7 +31010,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
             list = state.decklist.creatures;
             break;
         case 'Instant':
-            list = state.decklist.isntants;
+            list = state.decklist.instants;
             break;
         case 'Sorcery':
             list = state.decklist.sorceries;
@@ -32512,9 +32512,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": creature,
         "list": "creatures"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.planeswalker.length) ? [_c('p', {
@@ -32526,9 +32523,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": planeswalker,
         "list": "planeswalker"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.artifacts.length) ? [_c('p', {
@@ -32540,9 +32534,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": artifact,
         "list": "artifacts"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.instants.length) ? [_c('p', {
@@ -32554,9 +32545,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": instant,
         "list": "instants"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.sorceries.length) ? [_c('p', {
@@ -32568,9 +32556,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": sorcery,
         "list": "sorceries"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.enchantments.length) ? [_c('p', {
@@ -32582,9 +32567,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": enchantment,
         "list": "enchantments"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2)] : _vm._e(), _vm._v(" "), (_vm.lands.length) ? _c('p', {
@@ -32596,9 +32578,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "entry": land,
         "list": "lands"
-      },
-      on: {
-        "update": _vm.forceUpdate
       }
     })]
   })], 2), _vm._v(" "), _c('p', {

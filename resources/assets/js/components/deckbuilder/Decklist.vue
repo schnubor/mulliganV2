@@ -9,7 +9,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="creature in creatures">
-                        <Decklistitem :entry="creature" list="creatures" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="creature" list="creatures"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -20,7 +20,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="planeswalker in planeswalker">
-                        <Decklistitem :entry="planeswalker" list="planeswalker" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="planeswalker" list="planeswalker"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -31,7 +31,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="artifact in artifacts">
-                        <Decklistitem :entry="artifact" list="artifacts" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="artifact" list="artifacts"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -42,7 +42,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="instant in instants">
-                        <Decklistitem :entry="instant" list="instants" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="instant" list="instants"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -53,7 +53,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="sorcery in sorceries">
-                        <Decklistitem :entry="sorcery" list="sorceries" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="sorcery" list="sorceries"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -64,7 +64,7 @@
                 </p>
                 <ul class="menu-list">
                     <template v-for="enchantment in enchantments">
-                        <Decklistitem :entry="enchantment" list="enchantments" @update="forceUpdate"></Decklistitem>
+                        <Decklistitem :entry="enchantment" list="enchantments"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -74,7 +74,7 @@
             </p>
             <ul class="menu-list">
                 <template v-for="land in lands">
-                    <Decklistitem :entry="land" list="lands" @update="forceUpdate"></Decklistitem>
+                    <Decklistitem :entry="land" list="lands"></Decklistitem>
                 </template>
             </ul>
 
