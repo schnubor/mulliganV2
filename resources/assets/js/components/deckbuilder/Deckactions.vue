@@ -28,10 +28,14 @@
         },
         methods : {
             showSaveModal() {
-                this.$emit( 'showsavemodal' );
+                this.$store.dispatch( {
+                    type : 'showSaveModal'
+                } );
             },
             showStatsModal() {
-                this.$emit( 'showstatsmodal' );
+                this.$store.dispatch( {
+                    type : 'showStatsModal'
+                } );
             }
         }
     };

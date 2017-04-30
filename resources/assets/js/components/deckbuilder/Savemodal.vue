@@ -1,5 +1,5 @@
 <template>
-    <div class="modal">
+    <div class="modal" :class="{ 'is-active' : isVisible }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -87,6 +87,9 @@
                     return true;
                 }
                 return false;
+            },
+            isVisible() {
+                return this.$store.getters.saveModal.visible;
             }
         },
         methods  : {
@@ -103,7 +106,9 @@
                 if ( this.saved ) {
                     this.reset();
                 }
-                this.$emit( 'closesavemodal' );
+                this.$store.dispatch( {
+                    type : 'hideSaveModal'
+                } );
             },
             reset() {
                 this.saved = false;
@@ -122,7 +127,7 @@
                 const data = {
                     title       : this.title,
                     description : this.description,
-                    decklist    : JSON.stringify( this.$store.state.decklist ),
+                    decklist    : JSON.stringify( this.$store.getters.decklist ),
                     tags        : JSON.stringify( this.tags ),
                     ownerId     : 1
                 };

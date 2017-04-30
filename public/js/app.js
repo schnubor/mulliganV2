@@ -29227,10 +29227,14 @@ exports.default = {
     },
     methods: {
         showSaveModal: function showSaveModal() {
-            this.$emit('showsavemodal');
+            this.$store.dispatch({
+                type: 'showSaveModal'
+            });
         },
         showStatsModal: function showStatsModal() {
-            this.$emit('showstatsmodal');
+            this.$store.dispatch({
+                type: 'showStatsModal'
+            });
         }
     }
 };
@@ -29303,16 +29307,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
-//
 
 exports.default = {
-    data: function data() {
-        return {
-            showSaveModal: false,
-            showStatsModal: false
-        };
-    },
-
     computed: {
         apiError: function apiError() {
             return this.$store.getters.apiError;
@@ -30226,6 +30222,9 @@ exports.default = {
                 return true;
             }
             return false;
+        },
+        isVisible: function isVisible() {
+            return this.$store.getters.saveModal.visible;
         }
     },
     methods: {
@@ -30242,7 +30241,9 @@ exports.default = {
             if (this.saved) {
                 this.reset();
             }
-            this.$emit('closesavemodal');
+            this.$store.dispatch({
+                type: 'hideSaveModal'
+            });
         },
         reset: function reset() {
             this.saved = false;
@@ -30261,7 +30262,7 @@ exports.default = {
             var data = {
                 title: this.title,
                 description: this.description,
-                decklist: JSON.stringify(this.$store.state.decklist),
+                decklist: JSON.stringify(this.$store.getters.decklist),
                 tags: JSON.stringify(this.tags),
                 ownerId: 1
             };
@@ -30445,10 +30446,16 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
-    computed: {},
+    computed: {
+        isVisible: function isVisible() {
+            return this.$store.getters.statsModal.visible;
+        }
+    },
     methods: {
         closeModal: function closeModal() {
-            this.$emit('closestatsmodal');
+            this.$store.dispatch({
+                type: 'hideStatsModal'
+            });
         }
     }
 };
@@ -30773,6 +30780,9 @@ var state = {
 };
 
 var getters = {
+    decklist: function decklist(state) {
+        return state.decklist;
+    },
     artifacts: function artifacts(state) {
         return state.decklist.artifacts;
     },
@@ -31134,6 +31144,12 @@ var getters = {
     },
     landModal: function landModal(state) {
         return state.landModal;
+    },
+    saveModal: function saveModal(state) {
+        return state.saveModal;
+    },
+    statsModal: function statsModal(state) {
+        return state.statsModal;
     }
 };
 
@@ -31147,6 +31163,14 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
     state.landModal.visible = true;
 }), _defineProperty(_mutations, types.HIDE_LAND_MODAL, function (state) {
     state.landModal.visible = false;
+}), _defineProperty(_mutations, types.SHOW_SAVE_MODAL, function (state) {
+    state.saveModal.visible = true;
+}), _defineProperty(_mutations, types.HIDE_SAVE_MODAL, function (state) {
+    state.saveModal.visible = false;
+}), _defineProperty(_mutations, types.SHOW_STATS_MODAL, function (state) {
+    state.statsModal.visible = true;
+}), _defineProperty(_mutations, types.HIDE_STATS_MODAL, function (state) {
+    state.statsModal.visible = false;
 }), _mutations);
 
 var actions = {
@@ -31169,6 +31193,26 @@ var actions = {
         var commit = _ref4.commit;
 
         commit(types.HIDE_LAND_MODAL);
+    },
+    showSaveModal: function showSaveModal(_ref5, card) {
+        var commit = _ref5.commit;
+
+        commit(types.SHOW_SAVE_MODAL);
+    },
+    hideSaveModal: function hideSaveModal(_ref6) {
+        var commit = _ref6.commit;
+
+        commit(types.HIDE_SAVE_MODAL);
+    },
+    showStatsModal: function showStatsModal(_ref7, card) {
+        var commit = _ref7.commit;
+
+        commit(types.SHOW_STATS_MODAL);
+    },
+    hideStatsModal: function hideStatsModal(_ref8) {
+        var commit = _ref8.commit;
+
+        commit(types.HIDE_STATS_MODAL);
     }
 };
 
@@ -32613,7 +32657,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal"
+    staticClass: "modal",
+    class: {
+      'is-active': _vm.isVisible
+    }
   }, [_c('div', {
     staticClass: "modal-background"
   }), _vm._v(" "), _c('div', {
@@ -33075,25 +33122,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal'), _vm._v(" "), _c('Savemodal', {
-    class: {
-      'is-active': _vm.showSaveModal
-    },
-    on: {
-      "closesavemodal": function($event) {
-        _vm.showSaveModal = false
-      }
-    }
-  }), _vm._v(" "), _c('Statsmodal', {
-    class: {
-      'is-active': _vm.showStatsModal
-    },
-    on: {
-      "closestatsmodal": function($event) {
-        _vm.showStatsModal = false
-      }
-    }
-  }), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), (!_vm.apiError) ? _c('section', {
+  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal'), _vm._v(" "), _c('Savemodal'), _vm._v(" "), _c('Statsmodal'), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), (!_vm.apiError) ? _c('section', {
     staticClass: "section"
   }, [_c('div', {
     staticClass: "container"
@@ -33101,28 +33130,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-3"
-  }, [_c('Deckactions', {
-    on: {
-      "showsavemodal": function($event) {
-        _vm.showSaveModal = true
-      },
-      "showstatsmodal": function($event) {
-        _vm.showStatsModal = true
-      }
-    }
-  }), _vm._v(" "), _c('Decklist', {
-    on: {
-      "showlandmodal": function($event) {
-        _vm.showLandModal = true
-      }
-    }
-  })], 1), _vm._v(" "), _c('Cardresults', {
-    on: {
-      "showcardmodal": function($event) {
-        _vm.showCardModal = true
-      }
-    }
-  })], 1)])]) : _vm._e()], 1)
+  }, [_c('Deckactions'), _vm._v(" "), _c('Decklist')], 1), _vm._v(" "), _c('Cardresults')], 1)])]) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -33256,7 +33264,10 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal"
+    staticClass: "modal",
+    class: {
+      'is-active': _vm.isVisible
+    }
   }, [_c('div', {
     staticClass: "modal-background"
   }), _vm._v(" "), _c('div', {

@@ -1,5 +1,5 @@
 <template>
-    <div class="modal">
+    <div class="modal" :class="{ 'is-active' : isVisible }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -18,10 +18,16 @@
 
 <script>
     export default {
-        computed : {},
+        computed : {
+            isVisible() {
+                return this.$store.getters.statsModal.visible;
+            }
+        },
         methods  : {
             closeModal() {
-                this.$emit( 'closestatsmodal' );
+                this.$store.dispatch( {
+                    type : 'hideStatsModal'
+                } );
             }
         }
     };

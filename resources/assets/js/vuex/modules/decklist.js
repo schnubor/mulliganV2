@@ -22,6 +22,9 @@ const state = {
 };
 
 const getters = {
+    decklist( state ) {
+        return state.decklist;
+    },
     artifacts( state ) {
         return state.decklist.artifacts;
     },
