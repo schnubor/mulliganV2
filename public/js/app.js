@@ -45594,30 +45594,70 @@ exports.default = {
     data: function data() {
         return {
             data: {
-                labels: ["January", "February", "March", "April", "May", "June", "July"],
+                labels: ["CMC 0", "CMC 1", "CMC 2", "CMC 3", "CMC 4", "CMC 5+"],
                 datasets: [{
-                    label: "My First dataset",
-                    backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(255, 159, 64, 0.2)'],
-                    borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
-                    borderWidth: 1,
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    label: 'Creatures',
+                    data: [1, 4, 4, 5, 2, 1],
+                    backgroundColor: 'rgba(55, 160, 225, 0.7)',
+                    hoverBackgroundColor: 'rgba(46, 134, 189, 0.7)',
+                    hoverBorderWidth: 0,
+                    hoverBorderColor: 'lightgrey',
+                    stack: 1
+                }, {
+                    label: 'Instants',
+                    data: [0, 3, 2, 1, 0, 0],
+                    backgroundColor: 'rgba(55, 225, 192, 0.7)',
+                    hoverBackgroundColor: 'rgba(46, 187, 160, 0.7)',
+                    hoverBorderWidth: 0,
+                    stack: 1
+                }, {
+                    label: 'Sorceries',
+                    data: [0, 0, 2, 1, 0, 0],
+                    backgroundColor: 'rgba(76, 255, 149, 0.7)',
+                    hoverBackgroundColor: 'rgba(73, 217, 132, 0.7)',
+                    hoverBorderWidth: 0,
+                    stack: 1
+                }, {
+                    label: 'Planeswalker',
+                    data: [0, 0, 0, 1, 0, 0],
+                    backgroundColor: 'rgba(225, 186, 55, 0.7)',
+                    hoverBackgroundColor: 'rgba(178, 147, 44, 0.7)',
+                    hoverBorderWidth: 0,
+                    stack: 1
+                }, {
+                    label: 'Enchantments',
+                    data: [0, 2, 1, 0, 0, 0],
+                    backgroundColor: 'rgba(255, 130, 76, 0.7)',
+                    hoverBackgroundColor: 'rgba(201, 104, 62, 0.7)',
+                    hoverBorderWidth: 0,
+                    stack: 1
+                }, {
+                    label: 'Artefacts',
+                    data: [1, 2, 2, 1, 0, 1],
+                    backgroundColor: 'rgba(178, 178, 178, 0.7)',
+                    hoverBackgroundColor: 'rgba(138, 138, 138, 0.7)',
+                    hoverBorderWidth: 0,
+                    stack: 1
                 }]
             },
             options: {
                 scales: {
                     xAxes: [{
-                        stacked: true
+                        gridLines: { display: false }
                     }],
                     yAxes: [{
                         stacked: true
                     }]
+                },
+                legend: {
+                    display: false
                 }
             }
         };
     },
     mounted: function mounted() {
         var data = this.data;
-        var options = this.optons;
+        var options = this.options;
 
         var ctx = document.getElementById('manacurve');
         new _chart2.default(ctx, {
@@ -46737,6 +46777,16 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     data: function data() {
@@ -47126,6 +47176,7 @@ exports.default = {
         }
     }
 }; //
+//
 //
 //
 //
@@ -61856,8 +61907,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
-  }, [_c('a', {
+  }, [_c('button', {
     staticClass: "button is-small is-pulled-left",
+    attrs: {
+      "disabled": _vm.totalMountains === 0
+    },
     on: {
       "click": function($event) {
         _vm.mountains--
@@ -61865,7 +61919,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(1)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
-  }, [_vm._v(_vm._s(_vm.totalMountains))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.totalMountains))]), _vm._v(" "), _c('button', {
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
@@ -61876,8 +61930,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_vm._m(3), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
-  }, [_c('a', {
+  }, [_c('button', {
     staticClass: "button is-small is-pulled-left",
+    attrs: {
+      "disabled": _vm.totalPlains === 0
+    },
     on: {
       "click": function($event) {
         _vm.plains--
@@ -61885,7 +61942,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(4)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
-  }, [_vm._v(_vm._s(_vm.totalPlains))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.totalPlains))]), _vm._v(" "), _c('button', {
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
@@ -61896,8 +61953,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_vm._m(6), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
-  }, [_c('a', {
+  }, [_c('button', {
     staticClass: "button is-small is-pulled-left",
+    attrs: {
+      "disabled": _vm.totalForests === 0
+    },
     on: {
       "click": function($event) {
         _vm.forests--
@@ -61905,7 +61965,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(7)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
-  }, [_vm._v(_vm._s(_vm.totalForests))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.totalForests))]), _vm._v(" "), _c('button', {
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
@@ -61916,8 +61976,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_vm._m(9), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
-  }, [_c('a', {
+  }, [_c('button', {
     staticClass: "button is-small is-pulled-left",
+    attrs: {
+      "disabled": _vm.totalIslands === 0
+    },
     on: {
       "click": function($event) {
         _vm.islands--
@@ -61925,7 +61988,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(10)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
-  }, [_vm._v(_vm._s(_vm.totalIslands))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.totalIslands))]), _vm._v(" "), _c('button', {
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
@@ -61936,8 +61999,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_vm._m(12), _vm._v(" "), _c('div', {
     staticClass: "actions has-text-centered"
-  }, [_c('a', {
+  }, [_c('button', {
     staticClass: "button is-small is-pulled-left",
+    attrs: {
+      "disabled": _vm.totalSwamps === 0
+    },
     on: {
       "click": function($event) {
         _vm.swamps--
@@ -61945,7 +62011,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(13)]), _vm._v(" "), _c('span', {
     staticClass: "subtitle has-text-centered"
-  }, [_vm._v(_vm._s(_vm.totalSwamps))]), _vm._v(" "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.totalSwamps))]), _vm._v(" "), _c('button', {
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
@@ -62740,7 +62806,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('section', {
     staticClass: "modal-card-body"
-  }, [_c('Manacurve')], 1), _vm._v(" "), _c('footer', {
+  }, [_c('p', {
+    staticClass: "title is-4"
+  }, [_vm._v("Mana Curve")]), _vm._v(" "), _c('Manacurve')], 1), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",

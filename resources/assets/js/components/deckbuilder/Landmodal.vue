@@ -13,19 +13,21 @@
                             <i class="ms ms-r ms-4x ms-cost"></i>
                         </div>
                         <div class="actions has-text-centered">
-                            <a class="button is-small is-pulled-left" @click="mountains--">
+                            <button class="button is-small is-pulled-left"
+                                    :disabled="totalMountains === 0"
+                                    @click="mountains--">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
-                            </a>
+                            </button>
 
                             <span class="subtitle has-text-centered">{{ totalMountains }}</span>
 
-                            <a class="button is-small is-pulled-right" @click="mountains++">
+                            <button class="button is-small is-pulled-right" @click="mountains++">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="column">
@@ -34,19 +36,21 @@
                         </div>
 
                         <div class="actions has-text-centered">
-                            <a class="button is-small is-pulled-left" @click="plains--">
+                            <button class="button is-small is-pulled-left"
+                                    :disabled="totalPlains === 0"
+                                    @click="plains--">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
-                            </a>
+                            </button>
 
                             <span class="subtitle has-text-centered">{{ totalPlains }}</span>
 
-                            <a class="button is-small is-pulled-right" @click="plains++">
+                            <button class="button is-small is-pulled-right" @click="plains++">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
-                            </a>
+                            </button>
                         </div>
                         
                     </div>
@@ -56,19 +60,21 @@
                         </div>
                         
                         <div class="actions has-text-centered">
-                            <a class="button is-small is-pulled-left" @click="forests--">
+                            <button class="button is-small is-pulled-left"
+                                    :disabled="totalForests === 0"
+                                    @click="forests--">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
-                            </a>
+                            </button>
 
                             <span class="subtitle has-text-centered">{{ totalForests }}</span>
 
-                            <a class="button is-small is-pulled-right" @click="forests++">
+                            <button class="button is-small is-pulled-right" @click="forests++">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="column">
@@ -77,19 +83,21 @@
                         </div>
                         
                         <div class="actions has-text-centered">
-                            <a class="button is-small is-pulled-left" @click="islands--">
+                            <button class="button is-small is-pulled-left"
+                                    :disabled="totalIslands === 0"
+                                    @click="islands--">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
-                            </a>
+                            </button>
 
                             <span class="subtitle has-text-centered">{{ totalIslands }}</span>
 
-                            <a class="button is-small is-pulled-right" @click="islands++">
+                            <button class="button is-small is-pulled-right" @click="islands++">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <div class="column">
@@ -98,19 +106,21 @@
                         </div>
                         
                         <div class="actions has-text-centered">
-                            <a class="button is-small is-pulled-left" @click="swamps--">
+                            <button class="button is-small is-pulled-left"
+                                    :disabled="totalSwamps === 0"
+                                    @click="swamps--">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
-                            </a>
+                            </button>
 
                             <span class="subtitle has-text-centered">{{ totalSwamps }}</span>
 
-                            <a class="button is-small is-pulled-right" @click="swamps++">
+                            <button class="button is-small is-pulled-right" @click="swamps++">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>

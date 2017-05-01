@@ -7,6 +7,7 @@
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
+                <p class="title is-4">Mana Curve</p>
                 <Manacurve></Manacurve>
             </section>
             <footer class="modal-card-foot">
