@@ -7,7 +7,7 @@
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
-                Charts and stuff
+                <Manacurve></Manacurve>
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="closeModal">Close</a>
@@ -17,7 +17,12 @@
 </template>
 
 <script>
+    import Manacurve from './../charts/Manacurve.vue';
+
     export default {
+        components : {
+            Manacurve
+        },
         computed : {
             isVisible() {
                 return this.$store.getters.statsModal.visible;
