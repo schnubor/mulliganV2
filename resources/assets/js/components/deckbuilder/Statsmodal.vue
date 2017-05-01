@@ -8,16 +8,16 @@
             </header>
             <section class="modal-card-body">
                 <p class="title is-4">Mana Curve</p>
-                <Manacurve></Manacurve>
+                <Manacurve v-if="isVisible"></Manacurve>
                 <hr />
                 <div class="columns">
                     <div class="column is-5">
                         <p class="title is-4">Card Types</p>
-                        <Cardtypes></Cardtypes>
+                        <Cardtypes v-if="isVisible"></Cardtypes>
                     </div>
                     <div class="column is-5 is-offset-2">
                         <p class="title is-4">Mana Distribution</p>
-                        <Manadistribution></Manadistribution>
+                        <Manadistribution v-if="isVisible"></Manadistribution>
                     </div>
                 </div>
             </section>
