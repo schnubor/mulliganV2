@@ -45594,48 +45594,48 @@ exports.default = {
     data: function data() {
         return {
             data: {
-                labels: ["CMC 0", "CMC 1", "CMC 2", "CMC 3", "CMC 4", "CMC 5+"],
+                labels: ['CMC 0', 'CMC 1', 'CMC 2', 'CMC 3', 'CMC 4', 'CMC 5+'],
                 datasets: [{
                     label: 'Creatures',
                     data: [1, 4, 4, 5, 2, 1],
-                    backgroundColor: 'rgba(55, 160, 225, 0.7)',
-                    hoverBackgroundColor: 'rgba(46, 134, 189, 0.7)',
+                    backgroundColor: '#37a0e1',
+                    hoverBackgroundColor: '#2e86bd',
                     hoverBorderWidth: 0,
                     hoverBorderColor: 'lightgrey',
                     stack: 1
                 }, {
                     label: 'Instants',
                     data: [0, 3, 2, 1, 0, 0],
-                    backgroundColor: 'rgba(55, 225, 192, 0.7)',
-                    hoverBackgroundColor: 'rgba(46, 187, 160, 0.7)',
+                    backgroundColor: '#37e1c0',
+                    hoverBackgroundColor: '#2ebba0',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Sorceries',
                     data: [0, 0, 2, 1, 0, 0],
-                    backgroundColor: 'rgba(76, 255, 149, 0.7)',
-                    hoverBackgroundColor: 'rgba(73, 217, 132, 0.7)',
-                    hoverBorderWidth: 0,
-                    stack: 1
-                }, {
-                    label: 'Planeswalker',
-                    data: [0, 0, 0, 1, 0, 0],
-                    backgroundColor: 'rgba(225, 186, 55, 0.7)',
-                    hoverBackgroundColor: 'rgba(178, 147, 44, 0.7)',
+                    backgroundColor: '#4cff95',
+                    hoverBackgroundColor: '#49d984',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Enchantments',
+                    data: [0, 0, 0, 1, 0, 0],
+                    backgroundColor: '#e1ba37',
+                    hoverBackgroundColor: '#b2932c',
+                    hoverBorderWidth: 0,
+                    stack: 1
+                }, {
+                    label: 'Planeswalker',
                     data: [0, 2, 1, 0, 0, 0],
-                    backgroundColor: 'rgba(255, 130, 76, 0.7)',
-                    hoverBackgroundColor: 'rgba(201, 104, 62, 0.7)',
+                    backgroundColor: '#ff824c',
+                    hoverBackgroundColor: '#c9683e',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Artefacts',
                     data: [1, 2, 2, 1, 0, 1],
-                    backgroundColor: 'rgba(178, 178, 178, 0.7)',
-                    hoverBackgroundColor: 'rgba(138, 138, 138, 0.7)',
+                    backgroundColor: '#b2b2b2',
+                    hoverBackgroundColor: '#8a8a8a',
                     hoverBorderWidth: 0,
                     stack: 1
                 }]
@@ -47157,11 +47157,21 @@ var _Manacurve = __webpack_require__(239);
 
 var _Manacurve2 = _interopRequireDefault(_Manacurve);
 
+var _Manadistribution = __webpack_require__(299);
+
+var _Manadistribution2 = _interopRequireDefault(_Manadistribution);
+
+var _Cardtypes = __webpack_require__(302);
+
+var _Cardtypes2 = _interopRequireDefault(_Cardtypes);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
     components: {
-        Manacurve: _Manacurve2.default
+        Manacurve: _Manacurve2.default,
+        Manadistribution: _Manadistribution2.default,
+        Cardtypes: _Cardtypes2.default
     },
     computed: {
         isVisible: function isVisible() {
@@ -47176,6 +47186,17 @@ exports.default = {
         }
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -62808,7 +62829,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-body"
   }, [_c('p', {
     staticClass: "title is-4"
-  }, [_vm._v("Mana Curve")]), _vm._v(" "), _c('Manacurve')], 1), _vm._v(" "), _c('footer', {
+  }, [_vm._v("Mana Curve")]), _vm._v(" "), _c('Manacurve'), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "columns"
+  }, [_c('div', {
+    staticClass: "column is-5"
+  }, [_c('p', {
+    staticClass: "title is-4"
+  }, [_vm._v("Card Types")]), _vm._v(" "), _c('Cardtypes')], 1), _vm._v(" "), _c('div', {
+    staticClass: "column is-5 is-offset-2"
+  }, [_c('p', {
+    staticClass: "title is-4"
+  }, [_vm._v("Mana Distribution")]), _vm._v(" "), _c('Manadistribution')], 1)])], 1), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
   }, [_c('a', {
     staticClass: "button is-primary",
@@ -63699,6 +63730,225 @@ module.exports = function listToStyles (parentId, list) {
 __webpack_require__(136);
 module.exports = __webpack_require__(137);
 
+
+/***/ }),
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _chart = __webpack_require__(176);
+
+var _chart2 = _interopRequireDefault(_chart);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            data: {
+                labels: ['Red', 'White', 'Green', 'Blue', 'Black'],
+                datasets: [{
+                    data: [30, 20, 0, 0, 10],
+                    backgroundColor: ['#db8664', '#f0f2c0', '#93b483', '#b5cde3', '#aca29a'],
+                    hoverBackgroundColor: ['#bf775b', '#dadcb0', '#7e9872', '#96acc0', '#938a83']
+                }]
+            },
+            options: {
+                legend: { display: false }
+            }
+        };
+    },
+    mounted: function mounted() {
+        var data = this.data;
+        var options = this.options;
+
+        var ctx = document.getElementById('manadistribution');
+        new _chart2.default(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    }
+}; //
+//
+//
+//
+
+/***/ }),
+/* 299 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(298),
+  /* template */
+  __webpack_require__(300),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/charts/Manadistribution.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Manadistribution.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-53347b32", Component.options)
+  } else {
+    hotAPI.reload("data-v-53347b32", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 300 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('canvas', {
+    attrs: {
+      "id": "manadistribution"
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-53347b32", module.exports)
+  }
+}
+
+/***/ }),
+/* 301 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _chart = __webpack_require__(176);
+
+var _chart2 = _interopRequireDefault(_chart);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            data: {
+                labels: ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Planeswalker', 'Artefacts'],
+                datasets: [{
+                    data: [12, 5, 6, 2, 2, 10],
+                    backgroundColor: ['#37a0e1', '#37e1c0', '#4cff95', '#e1ba37', '#ff824c', '#b2b2b2'],
+                    hoverBackgroundColor: ['#2e86bd', '#2ebba0', '#49d984', '#b2932c', '#c9683e', '#8a8a8a']
+                }]
+            },
+            options: {
+                legend: { display: false }
+            }
+        };
+    },
+    mounted: function mounted() {
+        var data = this.data;
+        var options = this.options;
+
+        var ctx = document.getElementById('cardtypes');
+        new _chart2.default(ctx, {
+            type: 'pie',
+            data: data,
+            options: options
+        });
+    }
+}; //
+//
+//
+//
+
+/***/ }),
+/* 302 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(301),
+  /* template */
+  __webpack_require__(303),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/charts/Cardtypes.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Cardtypes.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-24617492", Component.options)
+  } else {
+    hotAPI.reload("data-v-24617492", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 303 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('canvas', {
+    attrs: {
+      "id": "cardtypes"
+    }
+  })
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-24617492", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

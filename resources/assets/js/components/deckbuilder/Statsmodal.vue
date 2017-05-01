@@ -9,6 +9,17 @@
             <section class="modal-card-body">
                 <p class="title is-4">Mana Curve</p>
                 <Manacurve></Manacurve>
+                <hr />
+                <div class="columns">
+                    <div class="column is-5">
+                        <p class="title is-4">Card Types</p>
+                        <Cardtypes></Cardtypes>
+                    </div>
+                    <div class="column is-5 is-offset-2">
+                        <p class="title is-4">Mana Distribution</p>
+                        <Manadistribution></Manadistribution>
+                    </div>
+                </div>
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="closeModal">Close</a>
@@ -19,10 +30,14 @@
 
 <script>
     import Manacurve from './../charts/Manacurve.vue';
+    import Manadistribution from './../charts/Manadistribution.vue';
+    import Cardtypes from './../charts/Cardtypes.vue';
 
     export default {
         components : {
-            Manacurve
+            Manacurve,
+            Manadistribution,
+            Cardtypes
         },
         computed : {
             isVisible() {
