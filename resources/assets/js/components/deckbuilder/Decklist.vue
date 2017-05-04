@@ -84,7 +84,7 @@
             <ul class="menu-list">
                 <li><a @click="showLandModal"><i class="ms ms-land ms-fw inline-icon"></i> Manage Basic Lands</a></li>
                 <li>
-                    <ul>
+                    <ul class="land-list">
                         <li>
                             <span><i class="ms ms-r ms-cost ms-fw"></i></span>
                             <span class="tag">{{ this.basiclands.mountains }}</span>
@@ -153,5 +153,9 @@
 <style lang="scss">
     .inline-icon {
         padding-right: 10px;
+    }
+
+    .land-list li {
+        padding: 2px 0;
     }
 </style>

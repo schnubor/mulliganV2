@@ -53,6 +53,8 @@ class DeckController extends Controller
         $deck->decklist = $request->decklist;
         $deck->tags = $request->tags;
         $deck->owner_id = $request->ownerId;
+        $deck->views = 0;
+        $deck->likes = 0;
 
         $deck->save();
 

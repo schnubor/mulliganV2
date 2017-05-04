@@ -28,26 +28,84 @@ const getters = {
     artifacts( state ) {
         return state.decklist.artifacts;
     },
+    artifactCount( state ) {
+        let count = 0;
+        state.decklist.artifacts.forEach( ( artifact ) => {
+            count += artifact.qty;
+        } );
+        return count;
+    },
     lands( state ) {
         return state.decklist.lands;
+    },
+    landCount( state ) {
+        let count = 0;
+        state.decklist.lands.forEach( ( land ) => {
+            count += land.qty;
+        } );
+        return count;
     },
     creatures( state ) {
         return state.decklist.creatures;
     },
+    creatureCount( state ) {
+        let count = 0;
+        state.decklist.creatures.forEach( ( creature ) => {
+            count += creature.qty;
+        } );
+        return count;
+    },
     sorceries( state ) {
         return state.decklist.sorceries;
+    },
+    sorceryCount( state ) {
+        let count = 0;
+        state.decklist.sorceries.forEach( ( sorcery ) => {
+            count += sorcery.qty;
+        } );
+        return count;
     },
     instants( state ) {
         return state.decklist.instants;
     },
+    instantCount( state ) {
+        let count = 0;
+        state.decklist.instants.forEach( ( instant ) => {
+            count += instant.qty;
+        } );
+        return count;
+    },
     planeswalker( state ) {
         return state.decklist.planeswalker;
+    },
+    planeswalkerCount( state ) {
+        let count = 0;
+        state.decklist.planeswalker.forEach( ( planeswalker ) => {
+            count += planeswalker.qty;
+        } );
+        return count;
     },
     enchantments( state ) {
         return state.decklist.enchantments;
     },
+    enchantmentCount( state ) {
+        let count = 0;
+        state.decklist.enchantments.forEach( ( enchantment ) => {
+            count += enchantment.qty;
+        } );
+        return count;
+    },
     basiclands( state ) {
         return state.decklist.basiclands;
+    },
+    basiclandCount( state ) {
+        let count = 0;
+        count += state.decklist.basiclands.mountains;
+        count += state.decklist.basiclands.plains;
+        count += state.decklist.basiclands.islands;
+        count += state.decklist.basiclands.forests;
+        count += state.decklist.basiclands.swamps;
+        return count;
     },
     totalCards( state ) {
         let artifactSum = 0;

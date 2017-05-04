@@ -47469,7 +47469,7 @@ function replaceManaText(text) {
     text = text.replace(/\{B\/P\}/g, '<i class="ms ms-p ms-cost"></i>');
     text = text.replace(/\{E\}/g, '<i class="ms ms-e"></i>');
     text = text.replace(/\{X\}/g, '<i class="ms ms-x ms-cost"></i>');
-    text = text.replace(/\{(\d)\}/g, '<i class="ms ms-$1 ms-cost"></i>');
+    text = text.replace(/\{(\d+)\}/g, '<i class="ms ms-$1 ms-cost"></i>');
     return text;
 }
 
@@ -47483,7 +47483,7 @@ function replaceManaCosts(cmc) {
     cmc = cmc.replace(/\{S\}/g, '<i class="ms ms-s ms-cost ms-shadow ms-2x"></i> ');
     cmc = cmc.replace(/\{X\}/g, '<i class="ms ms-x ms-cost ms-shadow ms-2x"></i> ');
     cmc = cmc.replace(/\{B\/P\}/g, '<i class="ms ms-p ms-cost ms-shadow ms-2x"></i> ');
-    cmc = cmc.replace(/\{(\d)\}/g, '<i class="ms ms-$1 ms-cost ms-shadow ms-2x"></i> ');
+    cmc = cmc.replace(/\{(\d+)\}/g, '<i class="ms ms-$1 ms-cost ms-shadow ms-2x"></i> ');
     return cmc;
 }
 
@@ -47541,26 +47541,84 @@ var getters = {
     artifacts: function artifacts(state) {
         return state.decklist.artifacts;
     },
+    artifactCount: function artifactCount(state) {
+        var count = 0;
+        state.decklist.artifacts.forEach(function (artifact) {
+            count += artifact.qty;
+        });
+        return count;
+    },
     lands: function lands(state) {
         return state.decklist.lands;
+    },
+    landCount: function landCount(state) {
+        var count = 0;
+        state.decklist.lands.forEach(function (land) {
+            count += land.qty;
+        });
+        return count;
     },
     creatures: function creatures(state) {
         return state.decklist.creatures;
     },
+    creatureCount: function creatureCount(state) {
+        var count = 0;
+        state.decklist.creatures.forEach(function (creature) {
+            count += creature.qty;
+        });
+        return count;
+    },
     sorceries: function sorceries(state) {
         return state.decklist.sorceries;
+    },
+    sorceryCount: function sorceryCount(state) {
+        var count = 0;
+        state.decklist.sorceries.forEach(function (sorcery) {
+            count += sorcery.qty;
+        });
+        return count;
     },
     instants: function instants(state) {
         return state.decklist.instants;
     },
+    instantCount: function instantCount(state) {
+        var count = 0;
+        state.decklist.instants.forEach(function (instant) {
+            count += instant.qty;
+        });
+        return count;
+    },
     planeswalker: function planeswalker(state) {
         return state.decklist.planeswalker;
+    },
+    planeswalkerCount: function planeswalkerCount(state) {
+        var count = 0;
+        state.decklist.planeswalker.forEach(function (planeswalker) {
+            count += planeswalker.qty;
+        });
+        return count;
     },
     enchantments: function enchantments(state) {
         return state.decklist.enchantments;
     },
+    enchantmentCount: function enchantmentCount(state) {
+        var count = 0;
+        state.decklist.enchantments.forEach(function (enchantment) {
+            count += enchantment.qty;
+        });
+        return count;
+    },
     basiclands: function basiclands(state) {
         return state.decklist.basiclands;
+    },
+    basiclandCount: function basiclandCount(state) {
+        var count = 0;
+        count += state.decklist.basiclands.mountains;
+        count += state.decklist.basiclands.plains;
+        count += state.decklist.basiclands.islands;
+        count += state.decklist.basiclands.forests;
+        count += state.decklist.basiclands.swamps;
+        return count;
     },
     totalCards: function totalCards(state) {
         var artifactSum = 0;
@@ -60723,7 +60781,7 @@ exports.push([module.i, "\n.overlay[data-v-13591a18] {\n  background-color: rgba
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.inline-icon {\n  padding-right: 10px;\n}\n", ""]);
+exports.push([module.i, "\n.inline-icon {\n  padding-right: 10px;\n}\n.land-list li {\n  padding: 2px 0;\n}\n", ""]);
 
 /***/ }),
 /* 228 */
@@ -62160,16 +62218,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "pagination"
   }, [_c('a', {
     staticClass: "pagination-previous",
-    class: {
-      'is-disabled': _vm.isFirstPage
+    attrs: {
+      "disabled": _vm.isFirstPage
     },
     on: {
       "click": _vm.prevPage
     }
   }, [_vm._v("Previous")]), _vm._v(" "), _c('a', {
     staticClass: "pagination-next",
-    class: {
-      'is-disabled': _vm.isLastPage
+    attrs: {
+      "disabled": _vm.isLastPage
     },
     on: {
       "click": _vm.nextPage
@@ -62545,7 +62603,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "ms ms-land ms-fw inline-icon"
-  }), _vm._v(" Manage Basic Lands")])]), _vm._v(" "), _c('li', [_c('ul', [_c('li', [_vm._m(0), _vm._v(" "), _c('span', {
+  }), _vm._v(" Manage Basic Lands")])]), _vm._v(" "), _c('li', [_c('ul', {
+    staticClass: "land-list"
+  }, [_c('li', [_vm._m(0), _vm._v(" "), _c('span', {
     staticClass: "tag"
   }, [_vm._v(_vm._s(this.basiclands.mountains))]), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), _c('span', {
     staticClass: "tag"
@@ -63766,27 +63826,31 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
-            data: {
-                labels: ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Planeswalker', 'Artefacts'],
-                datasets: [{
-                    data: [12, 5, 6, 2, 2, 10],
-                    backgroundColor: ['#37a0e1', '#37e1c0', '#4cff95', '#e1ba37', '#ff824c', '#b2b2b2'],
-                    hoverBackgroundColor: ['#2e86bd', '#2ebba0', '#49d984', '#b2932c', '#c9683e', '#8a8a8a']
-                }]
-            },
             options: {
                 legend: { display: false }
             }
         };
     },
+
+    computed: {
+        chartData: function chartData() {
+            return [this.$store.getters.creatureCount, this.$store.getters.instantCount, this.$store.getters.sorceryCount, this.$store.getters.enchantmentCount, this.$store.getters.planeswalkerCount, this.$store.getters.artifactCount, this.$store.getters.landCount, this.$store.getters.basiclandCount];
+        }
+    },
     mounted: function mounted() {
-        var data = this.data;
         var options = this.options;
 
         var ctx = document.getElementById('cardtypes');
         new _chart2.default(ctx, {
             type: 'pie',
-            data: data,
+            data: {
+                labels: ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Planeswalker', 'Artifacts', 'Lands', 'Basiclands'],
+                datasets: [{
+                    data: this.chartData,
+                    backgroundColor: ['#37a0e1', '#37e1c0', '#4cff95', '#e1ba37', '#ff824c', '#b2b2b2', '#7c6b64', '#473730'],
+                    hoverBackgroundColor: ['#2e86bd', '#2ebba0', '#49d984', '#b2932c', '#c9683e', '#8a8a8a', '#665953', '#33251f']
+                }]
+            },
             options: options
         });
     }

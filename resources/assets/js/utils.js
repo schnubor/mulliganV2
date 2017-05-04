@@ -11,7 +11,7 @@ export function replaceManaText( text ) {
     text = text.replace( /\{B\/P\}/g, '<i class="ms ms-p ms-cost"></i>' );
     text = text.replace( /\{E\}/g, '<i class="ms ms-e"></i>' );
     text = text.replace( /\{X\}/g, '<i class="ms ms-x ms-cost"></i>' );
-    text = text.replace( /\{(\d)\}/g, '<i class="ms ms-$1 ms-cost"></i>' );
+    text = text.replace( /\{(\d+)\}/g, '<i class="ms ms-$1 ms-cost"></i>' );
     return text;
 }
 
@@ -25,6 +25,6 @@ export function replaceManaCosts( cmc ) {
     cmc = cmc.replace( /\{S\}/g, '<i class="ms ms-s ms-cost ms-shadow ms-2x"></i> ' );
     cmc = cmc.replace( /\{X\}/g, '<i class="ms ms-x ms-cost ms-shadow ms-2x"></i> ' );
     cmc = cmc.replace( /\{B\/P\}/g, '<i class="ms ms-p ms-cost ms-shadow ms-2x"></i> ' );
-    cmc = cmc.replace( /\{(\d)\}/g, '<i class="ms ms-$1 ms-cost ms-shadow ms-2x"></i> ' );
+    cmc = cmc.replace( /\{(\d+)\}/g, '<i class="ms ms-$1 ms-cost ms-shadow ms-2x"></i> ' );
     return cmc;
 }

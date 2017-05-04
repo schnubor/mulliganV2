@@ -2,8 +2,8 @@
     <div>
         <hr>
         <nav class="pagination">
-            <a class="pagination-previous" :class="{ 'is-disabled' : isFirstPage }" @click="prevPage">Previous</a>
-            <a class="pagination-next" :class="{ 'is-disabled' : isLastPage }" @click="nextPage">Next page</a>
+            <a class="pagination-previous" :disabled="isFirstPage" @click="prevPage">Previous</a>
+            <a class="pagination-next" :disabled="isLastPage" @click="nextPage">Next page</a>
             <ul class="pagination-list">
                 <p>Page {{ currentPage }} of {{ totalPages }}</p>
             </ul>

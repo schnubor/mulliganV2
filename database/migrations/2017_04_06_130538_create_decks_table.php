@@ -21,6 +21,7 @@ class CreateDecksTable extends Migration
             $table->longText('decklist')->nullable();
             $table->integer('owner_id')->nullable();
             $table->integer('views')->nullable();
+            $table->integer('likes')->nullable();
             $table->timestamps();
         });
     }
