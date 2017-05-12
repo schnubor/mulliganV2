@@ -128,6 +128,7 @@
                     title       : this.title,
                     description : this.description,
                     decklist    : JSON.stringify( this.$store.getters.decklist ),
+                    colors      : JSON.stringify( this.$store.getters.deckcolors ),
                     tags        : JSON.stringify( this.tags ),
                     ownerId     : 1
                 };

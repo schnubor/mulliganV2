@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-    <section class="hero is-primary is-bold is-medium">
+    <section class="hero is-primary is-bold is-medium home-header">
         <!-- Hero header: will stick at the top -->
         <div class="hero-head">
             @include('partials.navigation')
@@ -13,10 +13,10 @@
         <div class="hero-body">
             <div class="container has-text-centered">
                 <h2 class="title">
-                    Find Cards. Build Decks.
+                    Deckbuilder and Catalog
                 </h2>
                 <h3 class="subtitle">
-                    Magic the Gathering
+                    for Magic the Gathering
                 </h3>
             </div>
         </div>

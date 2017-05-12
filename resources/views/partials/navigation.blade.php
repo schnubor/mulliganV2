@@ -18,7 +18,7 @@
                 Deckbuilder
             </a>
             <span class="nav-item">
-                <a class="button is-primary is-inverted">
+                <a class="button is-primary">
                     <span class="icon">
                         <i class="fa fa-sign-in"></i>
                     </span>

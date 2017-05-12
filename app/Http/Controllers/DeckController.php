@@ -51,6 +51,7 @@ class DeckController extends Controller
         $deck->title = $request->title;
         $deck->description = $request->description;
         $deck->decklist = $request->decklist;
+        $deck->colors = $request->colors;
         $deck->tags = $request->tags;
         $deck->owner_id = $request->ownerId;
         $deck->views = 0;

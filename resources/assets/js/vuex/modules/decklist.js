@@ -2,6 +2,7 @@ import * as types from './../types.js';
 import _ from 'lodash';
 
 const state = {
+    deckcolors  : [],
     decklist    : {
         cardsum         : 0,
         artifacts       : [],
@@ -22,6 +23,9 @@ const state = {
 };
 
 const getters = {
+    deckcolors( state ) {
+        return _.uniq( state.deckcolors );
+    },
     decklist( state ) {
         return state.decklist;
     },
@@ -191,19 +195,35 @@ const mutations = {
             };
             list.push( newCard );
         }
+
+        // update Deck colors
+        if ( card.colorIdentity ) {
+            state.deckcolors = state.deckcolors.concat( card.colorIdentity );
+        }
     },
     [types.REMOVE_CARD_FROM_ENTRY]( state, payload ) {
         const list = payload.list;
         const id = payload.id;
 
         const index = _.findIndex( state.decklist[ list ], { id : id } );
+        const entry = state.decklist[ list ][ index ];
 
-        if ( state.decklist[ list ][ index ].qty > 1 ) {
-            state.decklist[ list ][ index ].qty--;
+        if ( entry.qty > 1 ) {
+            entry.qty--;
         }
         else {
-            state.decklist[ list ][ index ].qty--;
+            entry.qty--;
             _.remove( state.decklist[ list ], { id : id } );
+        }
+
+        // update Deck colors
+        if ( entry.card.colorIdentity ) {
+            entry.card.colorIdentity.forEach( ( value, index ) => {
+                const colorIndex = state.deckcolors.indexOf( value );
+                if ( colorIndex > -1 ) {
+                    state.deckcolors.splice( colorIndex, 1 );
+                }
+            } );
         }
     },
     [types.REMOVE_ENTRY]( state, payload ) {
@@ -211,9 +231,20 @@ const mutations = {
         const id = payload.id;
 
         const index = _.findIndex( state.decklist[ list ], { id : id } );
+        const entry = state.decklist[ list ][ index ];
 
-        state.decklist[ list ][ index ].qty = 0;
+        entry.qty = 0;
         _.remove( state.decklist[ list ], { id : id } );
+
+        // update Deck colors
+        if ( entry.card.colorIdentity ) {
+            entry.card.colorIdentity.forEach( ( value, index ) => {
+                const colorIndex = state.deckcolors.indexOf( value );
+                if ( colorIndex > -1 ) {
+                    state.deckcolors.splice( colorIndex, 1 );
+                }
+            } );
+        }
     },
     [types.UPDATE_BASIC_LANDS]( state, payload ) {
         state.decklist.basiclands.mountains = payload.mountains;
