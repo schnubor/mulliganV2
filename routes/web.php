@@ -17,4 +17,5 @@ Route::get('/', function () {
 
 Route::get('/card/{id}', 'CardController@show')->name('card');
 
-Route::get('/deckbuilder', 'DeckController@show')->name('deckbuilder');
+Route::get('/deckbuilder', 'DeckController@deckbuilder')->name('deckbuilder');
+Route::get('/decks/{id}', 'DeckController@show')->name('deck');

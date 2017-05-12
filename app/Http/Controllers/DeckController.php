@@ -14,14 +14,24 @@ use Helper;
 class DeckController extends Controller
 {
     /**
-     * Show the profile for the given user.
+     * Show the deckbuilder
+     *
+     * @return Response
+     */
+    public function deckbuilder()
+    {
+        return view( 'deckbuilder' );
+    }
+
+    /**
+     * Show a Deck
      *
      * @param  int  $id
      * @return Response
      */
-    public function show()
-    {
-        return view( 'deckbuilder' );
+    public function show( $id ) {
+        $deck = Deck::find( $id );
+        return view( 'deck', [ 'deck' => $deck ] );
     }
 
     /**
