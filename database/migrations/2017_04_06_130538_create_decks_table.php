@@ -19,6 +19,7 @@ class CreateDecksTable extends Migration
             $table->text('description')->nullable();
             $table->string('format')->nullable();
             $table->text('tags')->nullable();
+            $table->boolean('wip')->default( false );
             $table->string('colors')->nullable();
             $table->longText('decklist')->nullable();
             $table->integer('owner_id')->nullable();

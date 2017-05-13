@@ -52,6 +52,7 @@ class DeckController extends Controller
             'decklist'      => 'required|json',
             'tags'          => 'json',
             'format'        => 'required|string',
+            'wip'           => 'required|boolean',
             'ownerId'       => 'required|numeric|nullable'
         ]);
 
@@ -70,6 +71,7 @@ class DeckController extends Controller
         $deck->colors = $request->colors;
         $deck->tags = $request->tags;
         $deck->owner_id = $request->ownerId;
+        $deck->wip = $request->wip;
         $deck->views = 0;
         $deck->likes = 0;
 

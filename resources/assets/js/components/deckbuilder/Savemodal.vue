@@ -72,11 +72,18 @@
                             <button class="delete is-small" @click="removeTag( index )"></button>
                         </span>
                     </div>
+                    <div class="field">
+                        <p class="control">
+                            <label class="checkbox">
+                                <input type="checkbox" v-model="wip"> Work in Progress
+                            </label>
+                        </p>
+                    </div>
                 </template>
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="closeModal" v-if="saved">Close</a>
-                <a class="button is-primary" :class="{ 'is-loading' : saving, 'is-disabled' : !isValid }" @click="save" v-if="!saved">Save Deck</a>
+                <a class="button is-primary" :class="{ 'is-loading' : saving }" @click="save" v-if="!saved" :disabled="!isValid">Save Deck</a>
                 <a class="button" @click="closeModal" v-if="!saved">Cancel</a>
             </footer>
         </div>
@@ -102,7 +109,7 @@ export default {
     },
     computed : {
         isValid() {
-            if ( this.title.length > 1 && this.title.length <= 140 ) {
+            if ( this.title.length > 1 && this.title.length <= 140 && this.format !== '' ) {
                 return true;
             }
             return false;
@@ -118,6 +125,9 @@ export default {
         },
         fetchError() {
             return this.$store.getters.saveModal.error;
+        },
+        wip() {
+            return this.$store.getters.totalCards < 60;
         }
     },
     mounted() {
@@ -164,6 +174,7 @@ export default {
                 colors          : JSON.stringify( this.$store.getters.deckcolors ),
                 tags            : JSON.stringify( this.tags ),
                 format          : this.format,
+                wip             : this.wip,
                 ownerId         : null
             };
 
