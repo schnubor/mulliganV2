@@ -17,6 +17,7 @@ class CreateDecksTable extends Migration
             $table->increments('id');
             $table->string('title', 140)->nullable();
             $table->text('description')->nullable();
+            $table->string('format')->nullable();
             $table->text('tags')->nullable();
             $table->string('colors')->nullable();
             $table->longText('decklist')->nullable();

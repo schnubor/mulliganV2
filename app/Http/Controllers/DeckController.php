@@ -30,7 +30,11 @@ class DeckController extends Controller
      * @return Response
      */
     public function show( $id ) {
-        $deck = Deck::find( $id );
+        $slug = explode( "-", $id );
+        $deckid = end( $slug );
+
+        $deck = Deck::find( $deckid );
+
         return view( 'deck', [ 'deck' => $deck ] );
     }
 
@@ -47,12 +51,13 @@ class DeckController extends Controller
             'description'   => 'string|nullable',
             'decklist'      => 'required|json',
             'tags'          => 'json',
-            'ownerId'       => 'required|numeric'
+            'format'        => 'required|string',
+            'ownerId'       => 'required|numeric|nullable'
         ]);
 
         // Return validation errors as JSON
-        if ($validator->fails()) {
-            return response()->json($validator->messages(), 400);
+        if ( $validator->fails() ) {
+            return response()->json( $validator->messages(), 400 );
         }
 
         // Store the Deck
@@ -60,6 +65,7 @@ class DeckController extends Controller
 
         $deck->title = $request->title;
         $deck->description = $request->description;
+        $deck->format = $request->format;
         $deck->decklist = $request->decklist;
         $deck->colors = $request->colors;
         $deck->tags = $request->tags;

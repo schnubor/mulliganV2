@@ -1,4 +1,5 @@
 import * as types from './../types.js';
+import axios from 'axios';
 
 const state = {
     cardModal : {
@@ -9,7 +10,10 @@ const state = {
         visible : false
     },
     saveModal : {
-        visible : false
+        visible : false,
+        loading : false,
+        error   : false,
+        formats : []
     },
     statsModal : {
         visible : false
@@ -52,6 +56,19 @@ const mutations = {
     [types.HIDE_SAVE_MODAL]( state ) {
         state.saveModal.visible = false;
     },
+    [types.BEGIN_FETCHING_FORMATS]( state ) {
+        state.saveModal.loading = true;
+        state.saveModal.error = false;
+    },
+    [types.FETCHED_FORMATS_SUCCESSFUL]( state, formats ) {
+        state.saveModal.loading = false;
+        state.saveModal.error = false;
+        state.saveModal.formats = formats;
+    },
+    [types.FETCHED_FORMATS_UNSUCCESSFUL]( state ) {
+        state.saveModal.loading = false;
+        state.saveModal.error = true;
+    },
     [types.SHOW_STATS_MODAL]( state ) {
         state.statsModal.visible = true;
     },
@@ -78,6 +95,17 @@ const actions = {
     },
     hideSaveModal( { commit } ) {
         commit( types.HIDE_SAVE_MODAL );
+    },
+    fetchFormats( { commit } ) {
+        commit( types.BEGIN_FETCHING_FORMATS );
+        axios.get( 'https://api.magicthegathering.io/v1/formats', { timeout : 10000 } )
+        .then( function( response ) {
+            const formats = response.data.formats;
+            commit( types.FETCHED_FORMATS_SUCCESSFUL, formats );
+        } ).catch( ( error ) => {
+            commit( types.SET_API_ERROR );
+            console.warn( error );
+        } );
     },
     showStatsModal( { commit }, card ) {
         commit( types.SHOW_STATS_MODAL );

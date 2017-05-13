@@ -22301,6 +22301,9 @@ var HIDE_LAND_MODAL = exports.HIDE_LAND_MODAL = 'HIDE_LAND_MODAL';
 
 var SHOW_SAVE_MODAL = exports.SHOW_SAVE_MODAL = 'SHOW_SAVE_MODAL';
 var HIDE_SAVE_MODAL = exports.HIDE_SAVE_MODAL = 'HIDE_SAVE_MODAL';
+var BEGIN_FETCHING_FORMATS = exports.BEGIN_FETCHING_FORMATS = 'BEGIN_FETCHING_FORMATS';
+var FETCHED_FORMATS_SUCCESSFUL = exports.FETCHED_FORMATS_SUCCESSFUL = 'FETCHED_FORMATS_SUCCESSFUL';
+var FETCHED_FORMATS_UNSUCCESSFUL = exports.FETCHED_FORMATS_UNSUCCESSFUL = 'FETCHED_FORMATS_UNSUCCESSFUL';
 
 var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
 var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
@@ -22897,7 +22900,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Spinner.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Spinner.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -47095,6 +47098,7 @@ exports.default = {
             description: '',
             tag: '',
             tags: [],
+            format: '',
             decklink: '',
             saving: false,
             saved: false,
@@ -47111,8 +47115,23 @@ exports.default = {
         },
         isVisible: function isVisible() {
             return this.$store.getters.saveModal.visible;
+        },
+        formats: function formats() {
+            return this.$store.getters.saveModal.formats;
+        },
+        isLoading: function isLoading() {
+            return this.$store.getters.saveModal.loading;
+        },
+        fetchError: function fetchError() {
+            return this.$store.getters.saveModal.error;
         }
     },
+    mounted: function mounted() {
+        this.$store.dispatch({
+            type: 'fetchFormats'
+        });
+    },
+
     methods: {
         addTag: function addTag() {
             if (this.tag !== '') {
@@ -47151,7 +47170,8 @@ exports.default = {
                 decklist: JSON.stringify(this.$store.getters.decklist),
                 colors: JSON.stringify(this.$store.getters.deckcolors),
                 tags: JSON.stringify(this.tags),
-                ownerId: 1
+                format: this.format,
+                ownerId: null
             };
 
             _axios2.default.post('/api/decks', data).then(function (response) {
@@ -47168,6 +47188,24 @@ exports.default = {
         }
     }
 }; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -48123,6 +48161,12 @@ var _types = __webpack_require__(6);
 
 var types = _interopRequireWildcard(_types);
 
+var _axios = __webpack_require__(8);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -48136,7 +48180,10 @@ var state = {
         visible: false
     },
     saveModal: {
-        visible: false
+        visible: false,
+        loading: false,
+        error: false,
+        formats: []
     },
     statsModal: {
         visible: false
@@ -48172,6 +48219,16 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
     state.saveModal.visible = true;
 }), _defineProperty(_mutations, types.HIDE_SAVE_MODAL, function (state) {
     state.saveModal.visible = false;
+}), _defineProperty(_mutations, types.BEGIN_FETCHING_FORMATS, function (state) {
+    state.saveModal.loading = true;
+    state.saveModal.error = false;
+}), _defineProperty(_mutations, types.FETCHED_FORMATS_SUCCESSFUL, function (state, formats) {
+    state.saveModal.loading = false;
+    state.saveModal.error = false;
+    state.saveModal.formats = formats;
+}), _defineProperty(_mutations, types.FETCHED_FORMATS_UNSUCCESSFUL, function (state) {
+    state.saveModal.loading = false;
+    state.saveModal.error = true;
 }), _defineProperty(_mutations, types.SHOW_STATS_MODAL, function (state) {
     state.statsModal.visible = true;
 }), _defineProperty(_mutations, types.HIDE_STATS_MODAL, function (state) {
@@ -48209,13 +48266,25 @@ var actions = {
 
         commit(types.HIDE_SAVE_MODAL);
     },
-    showStatsModal: function showStatsModal(_ref7, card) {
+    fetchFormats: function fetchFormats(_ref7) {
         var commit = _ref7.commit;
+
+        commit(types.BEGIN_FETCHING_FORMATS);
+        _axios2.default.get('https://api.magicthegathering.io/v1/formats', { timeout: 10000 }).then(function (response) {
+            var formats = response.data.formats;
+            commit(types.FETCHED_FORMATS_SUCCESSFUL, formats);
+        }).catch(function (error) {
+            commit(types.SET_API_ERROR);
+            console.warn(error);
+        });
+    },
+    showStatsModal: function showStatsModal(_ref8, card) {
+        var commit = _ref8.commit;
 
         commit(types.SHOW_STATS_MODAL);
     },
-    hideStatsModal: function hideStatsModal(_ref8) {
-        var commit = _ref8.commit;
+    hideStatsModal: function hideStatsModal(_ref9) {
+        var commit = _ref9.commit;
 
         commit(types.HIDE_STATS_MODAL);
     }
@@ -61553,7 +61622,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/charts/Cardtypes.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/charts/Cardtypes.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Cardtypes.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61587,7 +61656,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/charts/Manacurve.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/charts/Manacurve.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Manacurve.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61621,7 +61690,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/charts/Manadistribution.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/charts/Manadistribution.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Manadistribution.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61659,7 +61728,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Cardmodal.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Cardmodal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Cardmodal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61697,7 +61766,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Cardresults.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Cardresults.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Cardresults.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61735,7 +61804,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Deckactions.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Deckactions.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Deckactions.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61769,7 +61838,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Deckbuilder.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Deckbuilder.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Deckbuilder.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61807,7 +61876,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Decklist.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Decklist.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Decklist.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61841,7 +61910,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Decklistitem.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Decklistitem.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Decklistitem.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61879,7 +61948,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Filterpanel.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Filterpanel.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Filterpanel.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61917,7 +61986,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Landmodal.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Landmodal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Landmodal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61951,7 +62020,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Pagination.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Pagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Pagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -61989,7 +62058,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Savemodal.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Savemodal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Savemodal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62027,7 +62096,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Singlecard.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Singlecard.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Singlecard.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62065,7 +62134,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Statsmodal.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/deckbuilder/Statsmodal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Statsmodal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62103,7 +62172,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/quicksearch/Quicksearch.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/quicksearch/Quicksearch.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Quicksearch.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62137,7 +62206,7 @@ var Component = __webpack_require__(1)(
   /* cssModules */
   null
 )
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/quicksearch/QuicksearchResult.vue"
+Component.options.__file = "/Users/christiankorndoerfer/Code/mulliganV2/resources/assets/js/components/quicksearch/QuicksearchResult.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] QuicksearchResult.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -62921,7 +62990,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.decklink = $event.target.value
       }
     }
-  })])])] : _vm._e(), _vm._v(" "), (!_vm.saved) ? [_c('div', {
+  })]), _vm._v(" "), _c('p', {
+    staticClass: "control"
+  }, [_c('a', {
+    staticClass: "button is-medium is-primary",
+    attrs: {
+      "href": _vm.decklink
+    }
+  }, [_vm._v("\n                            Visit\n                        ")])])])] : _vm._e(), _vm._v(" "), (!_vm.saved) ? [_c('div', {
     staticClass: "field"
   }, [_c('p', {
     staticClass: "control"
@@ -62935,7 +63011,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input",
     attrs: {
       "type": "text",
-      "placeholder": "Name (required, 140 chars)"
+      "placeholder": "Name (required, 140 chars)",
+      "required": ""
     },
     domProps: {
       "value": (_vm.title)
@@ -62971,6 +63048,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })])]), _vm._v(" "), _c('div', {
+    staticClass: "field is-narrow"
+  }, [_c('div', {
+    staticClass: "control"
+  }, [_c('div', {
+    staticClass: "select is-fullwidth"
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.format),
+      expression: "format"
+    }],
+    attrs: {
+      "required": ""
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.format = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("Choose a format (required)")]), _vm._v(" "), _vm._l((_vm.formats), function(format) {
+    return _c('option', {
+      domProps: {
+        "value": format
+      }
+    }, [_vm._v(_vm._s(format))])
+  })], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control"

@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@section('title', $deck->title)
+
+@section('description', 'A Magic The Gathering Deck.')
+
 @section('content')
     <section class="hero is-primary is-bold">
         <!-- Hero header: will stick at the top -->
@@ -13,7 +17,7 @@
                 <h1 class="title">
                     {{ $deck->title }} <span style="opacity: .5;">#{{ $deck->id }}</span>
                 </h1>
-                <p class="subtitle">{{ $deck->owner_id }}</p>
+                <p class="subtitle">Created by Anonymus</p>
             </div>
         </div>
     </section>
