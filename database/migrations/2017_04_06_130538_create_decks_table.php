@@ -23,6 +23,7 @@ class CreateDecksTable extends Migration
             $table->string('colors')->nullable();
             $table->longText('decklist')->nullable();
             $table->integer('owner_id')->nullable();
+            $table->integer('cardcount')->nullable();
             $table->integer('views')->nullable();
             $table->integer('likes')->nullable();
             $table->timestamps();

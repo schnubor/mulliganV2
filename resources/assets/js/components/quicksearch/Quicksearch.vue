@@ -110,27 +110,5 @@
     };
 </script>
 
-<style lang="scss">
-    @import "./../../../sass/variables";
-
-    .card {
-        border-radius: 16px;
-
-        &.common {
-            border: 6px solid $common;
-            background-color: $common;
-        }
-        &.uncommon {
-            border: 6px solid $uncommon;
-            background-color: $uncommon;
-        }
-        &.rare {
-            border: 6px solid $rare;
-            background-color: $rare;
-        }
-        &.mythic {
-            border: 6px solid $mythic;
-            background-color: $mythic;
-        }
-    }
+<style lang="scss" scoped>
 </style>

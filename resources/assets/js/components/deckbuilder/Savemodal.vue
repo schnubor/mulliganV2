@@ -29,7 +29,7 @@
                         </p>
                         <p class="control">
                             <a class="button is-medium is-primary" :href="decklink">
-                                Visit
+                                View
                             </a>
                         </p>
                     </div>
@@ -128,6 +128,9 @@ export default {
         },
         wip() {
             return this.$store.getters.totalCards < 60;
+        },
+        cardCount() {
+            return this.$store.getters.totalCards;
         }
     },
     mounted() {
@@ -175,6 +178,7 @@ export default {
                 tags            : JSON.stringify( this.tags ),
                 format          : this.format,
                 wip             : this.wip,
+                cardcount       : this.cardCount,
                 ownerId         : null
             };
 

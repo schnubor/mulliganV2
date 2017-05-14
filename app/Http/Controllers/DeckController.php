@@ -53,6 +53,7 @@ class DeckController extends Controller
             'tags'          => 'json',
             'format'        => 'required|string',
             'wip'           => 'required|boolean',
+            'cardcount'     => 'numeric',
             'ownerId'       => 'required|numeric|nullable'
         ]);
 
@@ -72,6 +73,7 @@ class DeckController extends Controller
         $deck->tags = $request->tags;
         $deck->owner_id = $request->ownerId;
         $deck->wip = $request->wip;
+        $deck->cardcount = $request->cardcount;
         $deck->views = 0;
         $deck->likes = 0;
 

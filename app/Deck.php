@@ -15,6 +15,6 @@ class Deck extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'format', 'decklist', 'owner_id', 'views', 'likes', 'tags', 'colors', 'wip'
+        'title', 'description', 'format', 'decklist', 'owner_id', 'views', 'likes', 'tags', 'colors', 'wip', 'cardcount'
     ];
 }
