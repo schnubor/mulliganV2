@@ -4,7 +4,7 @@
             {{ result.set }}
         </th>
         <td>
-            <a :href="'/card/' + cardTitle + '-' + result.multiverseid">{{ result.name }}</a>
+            <a :href="'/cards/' + cardTitle + '-' + result.multiverseid">{{ result.name }}</a>
         </td>
         <td>
             <template v-for="manaCost in manaCosts">

@@ -97,7 +97,7 @@
             },
             cardUrl() {
                 if ( this.card.name ) {
-                    return window.location.protocol + '//' + window.location.host + '/card/' + slug( this.card.name ) + '-' + this.card.multiverseid;
+                    return window.location.protocol + '//' + window.location.host + '/cards/' + slug( this.card.name ) + '-' + this.card.multiverseid;
                 }
                 return '';
             },

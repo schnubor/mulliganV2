@@ -45949,7 +45949,7 @@ exports.default = {
         },
         cardUrl: function cardUrl() {
             if (this.card.name) {
-                return window.location.protocol + '//' + window.location.host + '/card/' + (0, _slug2.default)(this.card.name) + '-' + this.card.multiverseid;
+                return window.location.protocol + '//' + window.location.host + '/cards/' + (0, _slug2.default)(this.card.name) + '-' + this.card.multiverseid;
             }
             return '';
         },
@@ -63250,7 +63250,7 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('tr', [_c('th', [_vm._v("\n        " + _vm._s(_vm.result.set) + "\n    ")]), _vm._v(" "), _c('td', [_c('a', {
     attrs: {
-      "href": '/card/' + _vm.cardTitle + '-' + _vm.result.multiverseid
+      "href": '/cards/' + _vm.cardTitle + '-' + _vm.result.multiverseid
     }
   }, [_vm._v(_vm._s(_vm.result.name))])]), _vm._v(" "), _c('td', [_vm._l((_vm.manaCosts), function(manaCost) {
     return [_c('i', {

@@ -26,7 +26,7 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-one-quarter">
-                    <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}" class="card {{ $card->rarity }}">
+                    <img src="{{ $card->imageUrl }}" alt="{{ $card->name }}" class="singlecard {{ $card->rarity }}">
                     <p>
                         <small class="has-text-left">Artist: {{ $card->artist }}</small>
                     </p>
@@ -101,7 +101,7 @@
                     </p>
                     <hr>
 
-                    <a href="{{ 'https://www.magiccardmarket.eu/Products/Singles/' . $card->setName . '/' . $card->name }}" class="button is-large is-primary is-outlined">
+                    <a href="{{ 'https://www.magiccardmarket.eu/Products/Singles/' . $card->setName . '/' . $card->name }}" class="button is-large is-primary is-outlined" target="_blank">
                         <span class="icon is-medium">
                             <i class="fa fa-shopping-cart"></i>
                         </span>
