@@ -67,13 +67,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
-                        @include('partials.deckrow')
+                        @foreach($latestDecks as $deck)
+                            @include('partials.deckrow', ['deck' => $deck])
+                        @endforeach
                     </tbody>
                 </table>
             </div>

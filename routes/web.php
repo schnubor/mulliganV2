@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', 'HomeController@show')->name('welcome');
 
 Route::get('/cards/{id}', 'CardController@show')->name('card');
 
