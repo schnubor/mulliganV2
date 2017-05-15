@@ -34,7 +34,7 @@ class DeckController extends Controller
         $deckid = end( $slug );
 
         $deck = Deck::find( $deckid );
-
+        
         return view( 'deck', [ 'deck' => $deck ] );
     }
 

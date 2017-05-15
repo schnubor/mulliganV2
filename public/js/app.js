@@ -46097,6 +46097,9 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
+//
 
 exports.default = {
     computed: {
@@ -46217,6 +46220,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; //
+//
+//
 //
 //
 //
@@ -62810,9 +62815,13 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('span', {
-    staticClass: "tag is-primary is-large"
-  }, [_vm._v(_vm._s(_vm.totalCards) + " Cards")]), _vm._v(" "), _c('aside', {
+  return _c('div', [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("Total")]), _vm._v(" "), _c('span', {
+    staticClass: "tag is-primary is-medium"
+  }, [_vm._v(_vm._s(_vm.totalCards) + " Main")]), _vm._v(" "), _c('span', {
+    staticClass: "tag is-light is-medium"
+  }, [_vm._v(_vm._s(_vm.totalCards) + " Sideboard")]), _vm._v(" "), _c('aside', {
     staticClass: "menu",
     staticStyle: {
       "margin-top": "1.5em"
@@ -63724,7 +63733,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  return _c('div', [_c('div', {
     staticClass: "field has-addons"
   }, [_c('p', {
     staticClass: "control"
@@ -63746,7 +63755,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.showStatsModal
     }
-  }, [_vm._m(1), _vm._v(" "), _c('span', [_vm._v("Stats")])])])])
+  }, [_vm._m(1), _vm._v(" "), _c('span', [_vm._v("Stats")])])])]), _vm._v(" "), _c('hr')])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', {
     staticClass: "icon is-small"

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <span class="tag is-primary is-large">{{ totalCards }} Cards</span>
+        <p class="menu-label">Total</p>
+        <span class="tag is-primary is-medium">{{ totalCards }} Main</span>
+        <span class="tag is-light is-medium">{{ totalCards }} Sideboard</span>
         
         <aside class="menu" style="margin-top: 1.5em;">
             <template v-if="creatures.length">

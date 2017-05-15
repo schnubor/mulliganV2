@@ -8,6 +8,12 @@
     </td>
     <th>{{ $deck->title }}</th>
     <td>{{ $deck->format }}</td>
-    <td>schnubor</td>
-    <td class="has-text-right"><a href="" class="button is-primary is-small">View <i class="fa fa-fw fa-chevron-right"></i></a></td>    
+    <td>
+    @if(isset( $deck->owner_id ))
+        {{ $deck->owner_id }}
+    @else
+        Anonymous {{ $deck->link }}
+    @endif
+    </td>
+    <td class="has-text-right"><a href="{{ $deck->link }}" class="button is-primary is-small">View <i class="fa fa-fw fa-chevron-right"></i></a></td>    
 </tr>

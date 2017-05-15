@@ -19,7 +19,14 @@ class HomeController extends Controller
      * @return Response
      */
     public function show() {
+        $slugify = new Slugify;
         $latestDecks = Deck::latest()->take(4)->get();
+
+        // Create deck links
+        foreach ($latestDecks as $index => $deck) {
+            $latestDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
+        }
+
         return view( 'welcome', [ 'latestDecks' => $latestDecks ] );
     }
 }
