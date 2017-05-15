@@ -4,7 +4,7 @@
             <span class="ms ms-cost ms-{{ strtolower( $color ) }}"></span>
         @endforeach
     </td>
-    <th>{{ $deck->title }}</th>
+    <th><a href="{{ $deck->link }}">{{ $deck->title }}</a></th>
     <td>{{ $deck->format }}</td>
     <td>
     @if(isset( $deck->owner_id ))
@@ -13,5 +13,5 @@
         Anonymous
     @endif
     </td>
-    <td class="has-text-right"><a href="{{ $deck->link }}" class="button is-primary is-small">View <i class="fa fa-fw fa-chevron-right"></i></a></td>    
+    <td>{{ $deck->created_at->diffForHumans() }}</td>
 </tr>

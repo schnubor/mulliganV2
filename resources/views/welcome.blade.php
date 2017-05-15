@@ -45,10 +45,9 @@
                 <div class="container">
                     <h3 class="title">Popular Decks</h3>
                     <div class="columns">
-                        @include('partials.decktile', [ 'title' => 'Mardu Vehicle' ])
-                        @include('partials.decktile', [ 'title' => 'Bant Control' ])
-                        @include('partials.decktile', [ 'title' => 'Mardu Vehicle' ])
-                        @include('partials.decktile', [ 'title' => 'Mardu Vehicle' ])
+                        @foreach($popularDecks as $popular)
+                            @include('partials.decktile', [ 'deck' => $popular ])
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -63,12 +62,12 @@
                             <th>Title</th>
                             <th>Format</th>
                             <th>Author</th>
-                            <th></th>
+                            <th>Sleeved</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($latestDecks as $deck)
-                            @include('partials.deckrow', ['deck' => $deck])
+                        @foreach($latestDecks as $latest)
+                            @include('partials.deckrow', ['deck' => $latest])
                         @endforeach
                     </tbody>
                 </table>

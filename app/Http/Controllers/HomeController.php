@@ -21,12 +21,18 @@ class HomeController extends Controller
     public function show() {
         $slugify = new Slugify;
         $latestDecks = Deck::latest()->take(4)->get();
+        $popularDecks = Deck::orderBy('likes', 'DESC')->take(4)->get();
 
-        // Create deck links
+        // Create deck links for latestDecks
         foreach ($latestDecks as $index => $deck) {
             $latestDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
         }
 
-        return view( 'welcome', [ 'latestDecks' => $latestDecks ] );
+        // Create deck links for popularDecks
+        foreach ($popularDecks as $index => $deck) {
+            $popularDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
+        }
+
+        return view( 'welcome', [ 'latestDecks' => $latestDecks, 'popularDecks' => $popularDecks ] );
     }
 }
