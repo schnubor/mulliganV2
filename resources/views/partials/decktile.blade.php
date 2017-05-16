@@ -12,7 +12,7 @@
             </span>
         </header>
         <div class="card-content">
-            <div class="content">
+            <div class="content is-small">
                 by 
                 @if(isset( $deck->owner_id ))
                     {{ $deck->owner_id }}
@@ -21,6 +21,14 @@
                 @endif
                 <br/>
                 <small>last updated {{ $deck->updated_at->diffForHumans() }}</small>
+                <br/><br/>
+                <div class="field">
+                    @foreach( json_decode( $deck->tags ) as $tag )
+                        <span class="tag is-light single-tag">
+                            {{ $tag }}
+                        </span>
+                    @endforeach
+                </div>
             </div>
         </div>
         <footer class="card-footer">

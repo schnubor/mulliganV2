@@ -93,4 +93,16 @@ class DeckController extends Controller
             'message' => 'ERROR'
         ], 500);
     }
+
+    /**
+     * Get Deck Information from API
+     *
+     * @param  deck ID $id
+     * @return Response
+     */
+    public function apiget( $id ) {
+        $deck = Deck::find( $id );
+
+        return $deck;
+    }
 }

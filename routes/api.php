@@ -18,3 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/decks', 'DeckController@store');
+Route::get('/decks/{id}', 'DeckController@apiget');
