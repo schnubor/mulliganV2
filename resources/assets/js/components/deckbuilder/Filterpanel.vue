@@ -103,7 +103,7 @@
 <script>
     import _ from 'lodash';
     import axios from 'axios';
-    import Spinner from './Spinner.vue';
+    import Spinner from './../utils/Spinner.vue';
     import queryString from 'query-string';
 
     export default {

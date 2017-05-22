@@ -5,6 +5,7 @@ import searchresults from './modules/searchresults.js';
 import decklist from './modules/decklist.js';
 import pagination from './modules/pagination.js';
 import modals from './modules/modals.js';
+import deck from './modules/deck.js';
 
 Vue.use( Vuex );
 
@@ -13,6 +14,7 @@ export const store = new Vuex.Store( {
         searchresults,
         decklist,
         pagination,
-        modals
+        modals,
+        deck
     }
 } );

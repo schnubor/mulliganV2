@@ -27,7 +27,7 @@
     import _ from 'lodash';
     import Card from './Singlecard.vue';
     import Pagination from './Pagination.vue';
-    import Spinner from './Spinner.vue';
+    import Spinner from './../utils/Spinner.vue';
 
     export default {
         components : {

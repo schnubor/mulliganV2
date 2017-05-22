@@ -22268,6 +22268,12 @@ function applyToTag (styleElement, obj) {
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__(139);
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -22308,8 +22314,13 @@ var FETCHED_FORMATS_UNSUCCESSFUL = exports.FETCHED_FORMATS_UNSUCCESSFUL = 'FETCH
 var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
 var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
 
+// Single Deck
+var BEGIN_FETCHING_DECK = exports.BEGIN_FETCHING_DECK = 'BEGIN_FETCHING_DECK';
+var FETCHING_DECK_SUCCESSFUL = exports.FETCHING_DECK_SUCCESSFUL = 'FETCHING_DECK_SUCCESSFUL';
+var FETCHING_DECK_UNSUCCESSFUL = exports.FETCHING_DECK_UNSUCCESSFUL = 'FETCHING_DECK_UNSUCCESSFUL';
+
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;(function (root) {
@@ -22526,12 +22537,6 @@ if (true) { // AMD
 
 }(this));
 
-
-/***/ }),
-/* 8 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(139);
 
 /***/ }),
 /* 9 */
@@ -22883,44 +22888,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(284)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  null,
-  /* template */
-  __webpack_require__(272),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deckbuilder/Spinner.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-76ffa909", Component.options)
-  } else {
-    hotAPI.reload("data-v-76ffa909", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 12 */,
 /* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -44780,6 +44748,10 @@ var _Deckbuilder = __webpack_require__(247);
 
 var _Deckbuilder2 = _interopRequireDefault(_Deckbuilder);
 
+var _Singledeck = __webpack_require__(306);
+
+var _Singledeck2 = _interopRequireDefault(_Singledeck);
+
 var _store = __webpack_require__(178);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -44789,7 +44761,8 @@ new _vue2.default({
     store: _store.store,
     components: {
         Quicksearch: _Quicksearch2.default,
-        Deckbuilder: _Deckbuilder2.default
+        Deckbuilder: _Deckbuilder2.default,
+        Deck: _Singledeck2.default
     }
 });
 
@@ -45847,7 +45820,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _utils = __webpack_require__(173);
 
-var _slug = __webpack_require__(7);
+var _slug = __webpack_require__(8);
 
 var _slug2 = _interopRequireDefault(_slug);
 
@@ -45995,7 +45968,7 @@ var _Pagination = __webpack_require__(252);
 
 var _Pagination2 = _interopRequireDefault(_Pagination);
 
-var _Spinner = __webpack_require__(12);
+var _Spinner = __webpack_require__(309);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -46341,7 +46314,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 
-var _Spinner = __webpack_require__(12);
+var _Spinner = __webpack_require__(309);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -46383,7 +46356,7 @@ var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _slug = __webpack_require__(7);
+var _slug = __webpack_require__(8);
 
 var _slug2 = _interopRequireDefault(_slug);
 
@@ -46476,11 +46449,11 @@ var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
-var _Spinner = __webpack_require__(12);
+var _Spinner = __webpack_require__(309);
 
 var _Spinner2 = _interopRequireDefault(_Spinner);
 
@@ -47090,7 +47063,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -47304,7 +47277,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slug = __webpack_require__(7);
+var _slug = __webpack_require__(8);
 
 var _slug2 = _interopRequireDefault(_slug);
 
@@ -47470,7 +47443,7 @@ var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -47611,7 +47584,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slug = __webpack_require__(7);
+var _slug = __webpack_require__(8);
 
 var _slug2 = _interopRequireDefault(_slug);
 
@@ -47735,7 +47708,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _mutations;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(7);
 
 var types = _interopRequireWildcard(_types);
 
@@ -48193,11 +48166,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _mutations;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(7);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(8);
+var _axios = __webpack_require__(6);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -48346,7 +48319,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _mutations;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(7);
 
 var types = _interopRequireWildcard(_types);
 
@@ -48420,7 +48393,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _mutations;
 
-var _types = __webpack_require__(6);
+var _types = __webpack_require__(7);
 
 var types = _interopRequireWildcard(_types);
 
@@ -48545,6 +48518,10 @@ var _modals = __webpack_require__(175);
 
 var _modals2 = _interopRequireDefault(_modals);
 
+var _deck = __webpack_require__(304);
+
+var _deck2 = _interopRequireDefault(_deck);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _vue2.default.use(_vuex2.default);
@@ -48554,7 +48531,8 @@ var store = exports.store = new _vuex2.default.Store({
         searchresults: _searchresults2.default,
         decklist: _decklist2.default,
         pagination: _pagination2.default,
-        modals: _modals2.default
+        modals: _modals2.default,
+        deck: _deck2.default
     }
 });
 
@@ -61044,13 +61022,7 @@ exports = module.exports = __webpack_require__(3)();
 exports.push([module.i, "\n.mana-switch {\n  background-color: transparent;\n  border: none;\n  display: inline-block;\n  padding: 0 5px;\n  cursor: pointer;\n  opacity: .5;\n  transition: .2s all;\n}\n.mana-switch.active {\n    opacity: 1;\n}\n.mana-switch:focus {\n    outline: 0;\n}\n", ""]);
 
 /***/ }),
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.loader {\n  border: 2px solid #00d1b2;\n  border-top: 4px solid #f5f5f5;\n  /* Light grey */\n  border-radius: 50%;\n  width: 32px;\n  height: 32px;\n  -webkit-animation: spin 500ms linear infinite;\n          animation: spin 500ms linear infinite;\n  display: inline-block;\n}\n@-webkit-keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n", ""]);
-
-/***/ }),
+/* 233 */,
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -61058,7 +61030,13 @@ exports = module.exports = __webpack_require__(3)();
 exports.push([module.i, "", ""]);
 
 /***/ }),
-/* 235 */,
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "", ""]);
+
+/***/ }),
 /* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -62190,7 +62168,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(305)
+__webpack_require__(286)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -63708,27 +63686,7 @@ if (false) {
 }
 
 /***/ }),
-/* 272 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "text-xs-center loader-container"
-  }, [_c('div', {
-    staticClass: "loader"
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-76ffa909", module.exports)
-  }
-}
-
-/***/ }),
+/* 272 */,
 /* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64106,32 +64064,7 @@ if(false) {
 }
 
 /***/ }),
-/* 284 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(233);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("04111be3", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76ffa909!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-76ffa909!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 284 */,
 /* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -64158,7 +64091,32 @@ if(false) {
 }
 
 /***/ }),
-/* 286 */,
+/* 286 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(235);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("33770386", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c8554070&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c8554070&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
 /* 287 */
 /***/ (function(module, exports) {
 
@@ -64218,27 +64176,576 @@ module.exports = __webpack_require__(138);
 /* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "", ""]);
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _mutations;
+
+var _types = __webpack_require__(7);
+
+var types = _interopRequireWildcard(_types);
+
+var _lodash = __webpack_require__(5);
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _axios = __webpack_require__(6);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var state = {
+    fetchedDeck: {
+        wip: true,
+        colors: [],
+        decklist: {
+            cardsum: 0,
+            artifacts: [],
+            lands: [],
+            creatures: [],
+            sorceries: [],
+            instants: [],
+            planeswalker: [],
+            enchantments: [],
+            basiclands: {
+                'mountains': 0,
+                'plains': 0,
+                'forests': 0,
+                'islands': 0,
+                'swamps': 0
+            }
+        }
+    },
+    deckLoading: false,
+    deckError: false
+};
+
+var getters = {
+    deckLoading: function deckLoading(state) {
+        return state.deckLoading;
+    },
+    deckDeckcolors: function deckDeckcolors(state) {
+        return _lodash2.default.uniq(state.fetchedDeck.colors);
+    },
+    deckDecklist: function deckDecklist(state) {
+        return state.fetchedDeck.decklist;
+    },
+    deckStatus: function deckStatus(status) {
+        return state.fetchedDeck.wip;
+    },
+    decktags: function decktags(status) {
+        return state.fetchedDeck.tags;
+    },
+    deckArtifacts: function deckArtifacts(state) {
+        return state.fetchedDeck.decklist.artifacts;
+    },
+    deckArtifactCount: function deckArtifactCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.artifacts.forEach(function (artifact) {
+            count += artifact.qty;
+        });
+        return count;
+    },
+    deckLands: function deckLands(state) {
+        return state.fetchedDeck.decklist.lands;
+    },
+    deckLandCount: function deckLandCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.lands.forEach(function (land) {
+            count += land.qty;
+        });
+        return count;
+    },
+    deckCreatures: function deckCreatures(state) {
+        return state.fetchedDeck.decklist.creatures;
+    },
+    deckCreatureCount: function deckCreatureCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.creatures.forEach(function (creature) {
+            count += creature.qty;
+        });
+        return count;
+    },
+    deckSorceries: function deckSorceries(state) {
+        return state.fetchedDeck.decklist.sorceries;
+    },
+    deckSorceryCount: function deckSorceryCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.sorceries.forEach(function (sorcery) {
+            count += sorcery.qty;
+        });
+        return count;
+    },
+    deckInstants: function deckInstants(state) {
+        return state.fetchedDeck.decklist.instants;
+    },
+    deckInstantCount: function deckInstantCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.instants.forEach(function (instant) {
+            count += instant.qty;
+        });
+        return count;
+    },
+    deckPlaneswalker: function deckPlaneswalker(state) {
+        return state.fetchedDeck.decklist.planeswalker;
+    },
+    deckPlaneswalkerCount: function deckPlaneswalkerCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.planeswalker.forEach(function (planeswalker) {
+            count += planeswalker.qty;
+        });
+        return count;
+    },
+    deckEnchantments: function deckEnchantments(state) {
+        return state.fetchedDeck.decklist.enchantments;
+    },
+    deckEnchantmentCount: function deckEnchantmentCount(state) {
+        var count = 0;
+        state.fetchedDeck.decklist.enchantments.forEach(function (enchantment) {
+            count += enchantment.qty;
+        });
+        return count;
+    },
+    deckBasiclands: function deckBasiclands(state) {
+        return state.fetchedDeck.decklist.basiclands;
+    },
+    deckBasiclandCount: function deckBasiclandCount(state) {
+        var count = 0;
+        count += state.fetchedDeck.decklist.basiclands.mountains;
+        count += state.fetchedDeck.decklist.basiclands.plains;
+        count += state.fetchedDeck.decklist.basiclands.islands;
+        count += state.fetchedDeck.decklist.basiclands.forests;
+        count += state.fetchedDeck.decklist.basiclands.swamps;
+        return count;
+    },
+    deckTotalCards: function deckTotalCards(state) {
+        var artifactSum = 0;
+        var creatureSum = 0;
+        var enchantmentSum = 0;
+        var instantSum = 0;
+        var sorcerySum = 0;
+        var planeswalkerSum = 0;
+        var landSum = 0;
+        var basicLandSum = 0;
+        var cardSum = 0;
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = state.fetchedDeck.decklist.artifacts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var artifact = _step.value;
+
+                artifactSum += artifact.qty;
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
+
+        try {
+            for (var _iterator2 = state.fetchedDeck.decklist.creatures[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var creature = _step2.value;
+
+                creatureSum += creature.qty;
+            }
+        } catch (err) {
+            _didIteratorError2 = true;
+            _iteratorError2 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion2 && _iterator2.return) {
+                    _iterator2.return();
+                }
+            } finally {
+                if (_didIteratorError2) {
+                    throw _iteratorError2;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion3 = true;
+        var _didIteratorError3 = false;
+        var _iteratorError3 = undefined;
+
+        try {
+            for (var _iterator3 = state.fetchedDeck.decklist.enchantments[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var enchantment = _step3.value;
+
+                enchantmentSum += enchantment.qty;
+            }
+        } catch (err) {
+            _didIteratorError3 = true;
+            _iteratorError3 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion3 && _iterator3.return) {
+                    _iterator3.return();
+                }
+            } finally {
+                if (_didIteratorError3) {
+                    throw _iteratorError3;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion4 = true;
+        var _didIteratorError4 = false;
+        var _iteratorError4 = undefined;
+
+        try {
+            for (var _iterator4 = state.fetchedDeck.decklist.instants[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var instant = _step4.value;
+
+                instantSum += instant.qty;
+            }
+        } catch (err) {
+            _didIteratorError4 = true;
+            _iteratorError4 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion4 && _iterator4.return) {
+                    _iterator4.return();
+                }
+            } finally {
+                if (_didIteratorError4) {
+                    throw _iteratorError4;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion5 = true;
+        var _didIteratorError5 = false;
+        var _iteratorError5 = undefined;
+
+        try {
+            for (var _iterator5 = state.fetchedDeck.decklist.sorceries[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var sorcery = _step5.value;
+
+                sorcerySum += sorcery.qty;
+            }
+        } catch (err) {
+            _didIteratorError5 = true;
+            _iteratorError5 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion5 && _iterator5.return) {
+                    _iterator5.return();
+                }
+            } finally {
+                if (_didIteratorError5) {
+                    throw _iteratorError5;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion6 = true;
+        var _didIteratorError6 = false;
+        var _iteratorError6 = undefined;
+
+        try {
+            for (var _iterator6 = state.fetchedDeck.decklist.planeswalker[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                var planeswalker = _step6.value;
+
+                planeswalkerSum += planeswalker.qty;
+            }
+        } catch (err) {
+            _didIteratorError6 = true;
+            _iteratorError6 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion6 && _iterator6.return) {
+                    _iterator6.return();
+                }
+            } finally {
+                if (_didIteratorError6) {
+                    throw _iteratorError6;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+            for (var _iterator7 = state.fetchedDeck.decklist.lands[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                var land = _step7.value;
+
+                landSum += land.qty;
+            }
+        } catch (err) {
+            _didIteratorError7 = true;
+            _iteratorError7 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion7 && _iterator7.return) {
+                    _iterator7.return();
+                }
+            } finally {
+                if (_didIteratorError7) {
+                    throw _iteratorError7;
+                }
+            }
+        }
+
+        basicLandSum = state.fetchedDeck.decklist.basiclands.mountains + state.fetchedDeck.decklist.basiclands.plains + state.fetchedDeck.decklist.basiclands.forests + state.fetchedDeck.decklist.basiclands.islands + state.fetchedDeck.decklist.basiclands.swamps;
+
+        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+
+        return cardSum;
+    }
+};
+
+var mutations = (_mutations = {}, _defineProperty(_mutations, types.BEGIN_FETCHING_DECK, function (state) {
+    state.deckLoading = true;
+    state.deckError = false;
+}), _defineProperty(_mutations, types.FETCHING_DECK_SUCCESSFUL, function (state, payload) {
+    console.log(payload);
+    state.deckLoading = false;
+    state.deckError = false;
+    // assign deck to state
+    state.fetchedDeck.decklist = JSON.parse(payload.decklist);
+    state.fetchedDeck.colors = JSON.parse(payload.colors);
+    state.fetchedDeck.wip = JSON.parse(payload.wip);
+}), _defineProperty(_mutations, types.FETCHING_DECK_UNSUCCESSFUL, function (state) {
+    state.deckLoading = false;
+    state.deckError = true;
+}), _mutations);
+
+var actions = {
+    fetchDeck: function fetchDeck(_ref, payload) {
+        var commit = _ref.commit;
+
+        commit(types.BEGIN_FETCHING_DECK);
+        _axios2.default.get('/api/decks/' + payload.id, { timeout: 10000 }).then(function (response) {
+            var deck = response.data;
+            commit(types.FETCHING_DECK_SUCCESSFUL, deck);
+        }).catch(function (error) {
+            commit(types.FETCHING_DECK_UNSUCCESSFUL);
+            console.warn(error);
+        });
+    }
+};
+
+exports.default = {
+    state: state,
+    getters: getters,
+    mutations: mutations,
+    actions: actions
+};
 
 /***/ }),
 /* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Spinner = __webpack_require__(309);
+
+var _Spinner2 = _interopRequireDefault(_Spinner);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    props: ['id'],
+    components: {
+        Spinner: _Spinner2.default
+    },
+    computed: {
+        loading: function loading() {
+            return this.$store.getters.deckLoading;
+        }
+    },
+    mounted: function mounted() {
+        this.$store.dispatch({
+            type: 'fetchDeck',
+            id: this.id
+        });
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 306 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(305),
+  /* template */
+  __webpack_require__(307),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/Singledeck.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Singledeck.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a8e52ef8", Component.options)
+  } else {
+    hotAPI.reload("data-v-a8e52ef8", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 307 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('section', {
+    staticClass: "hero is-light"
+  }, [_c('div', {
+    staticClass: "hero-body"
+  }, [_c('div', {
+    staticClass: "container"
+  }, [(_vm.loading) ? _c('div', {
+    staticClass: "has-text-centered"
+  }, [_c('Spinner')], 1) : _vm._e()])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a8e52ef8", module.exports)
+  }
+}
+
+/***/ }),
+/* 308 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "\n.loader {\n  border: 2px solid #00d1b2;\n  border-top: 4px solid #f5f5f5;\n  /* Light grey */\n  border-radius: 50%;\n  width: 32px;\n  height: 32px;\n  -webkit-animation: spin 500ms linear infinite;\n          animation: spin 500ms linear infinite;\n  display: inline-block;\n}\n@-webkit-keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spin {\n0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\n100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n", ""]);
+
+/***/ }),
+/* 309 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(311)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  null,
+  /* template */
+  __webpack_require__(310),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/utils/Spinner.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Spinner.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-388ebc28", Component.options)
+  } else {
+    hotAPI.reload("data-v-388ebc28", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 310 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "text-xs-center loader-container"
+  }, [_c('div', {
+    staticClass: "loader"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-388ebc28", module.exports)
+  }
+}
+
+/***/ }),
+/* 311 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(304);
+var content = __webpack_require__(308);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(4)("33770386", content, false);
+var update = __webpack_require__(4)("4070cb1c", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c8554070&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-c8554070&scoped=true!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Quicksearch.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-388ebc28!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-388ebc28!../../../../../node_modules/sass-loader/lib/loader.js!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Spinner.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

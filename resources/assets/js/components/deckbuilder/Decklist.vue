@@ -120,7 +120,7 @@
 </template>
 
 <script>
-    import Spinner from './Spinner.vue';
+    import Spinner from './../utils/Spinner.vue';
     import Decklistitem from './Decklistitem.vue';
     import { mapGetters } from 'vuex';
 

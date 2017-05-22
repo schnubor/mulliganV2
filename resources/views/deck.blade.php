@@ -17,16 +17,14 @@
                 <h1 class="title">
                     {{ $deck->title }} <span style="opacity: .5;">#{{ $deck->id }}</span>
                 </h1>
-                <p class="subtitle">Created by Anonymus</p>
+                <p class="subtitle">Created by Anonymous</p>
             </div>
         </div>
     </section>
 
-    <section class="section">
-        <div class="container">
-            Le Deck Contents
-        </div>
-    </section>
+    <div id="app">
+        <Deck id="{{ $deck->id }}"></Deck>
+    </div>
 
     @include('partials.footer')
 @endsection
