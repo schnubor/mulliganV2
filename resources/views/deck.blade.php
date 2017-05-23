@@ -2,7 +2,7 @@
 
 @section('title', $deck->title)
 
-@section('description', 'A Magic The Gathering Deck.')
+@section('description', str_limit($deck->description, $limit = 150, $end = '...'))
 
 @section('content')
     <section class="hero is-primary is-bold">
@@ -15,9 +15,15 @@
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    {{ $deck->title }} <span style="opacity: .5;">#{{ $deck->id }}</span>
+                    {{ $deck->title }} 
+                    <span style="opacity: .5;">#{{ $deck->id }}</span>
                 </h1>
-                <p class="subtitle">Created by Anonymous</p>
+                <p class="subtitle">
+                    Created by Anonymous
+                    @if($deck->wip === 1)
+                        <span class="tag is-warning">WIP</span>
+                    @endif
+                </p>
             </div>
         </div>
     </section>

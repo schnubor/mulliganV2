@@ -6,6 +6,8 @@ const state = {
     fetchedDeck : {
         wip         : true,
         colors      : [],
+        tags        : [],
+        likes       : 0,
         decklist    : {
             cardsum         : 0,
             artifacts       : [],
@@ -29,6 +31,12 @@ const state = {
 };
 
 const getters = {
+    deckLikes( state ) {
+        return state.fetchedDeck.likes;
+    },
+    deckTags( state ) {
+        return state.fetchedDeck.tags;
+    },
     deckLoading( state ) {
         return state.deckLoading;
     },
@@ -173,13 +181,14 @@ const mutations = {
         state.deckError = false;
     },
     [types.FETCHING_DECK_SUCCESSFUL]( state, payload ) {
-        console.log( payload );
         state.deckLoading = false;
         state.deckError = false;
         // assign deck to state
         state.fetchedDeck.decklist = JSON.parse( payload.decklist );
         state.fetchedDeck.colors = JSON.parse( payload.colors );
         state.fetchedDeck.wip = JSON.parse( payload.wip );
+        state.fetchedDeck.likes = JSON.parse( payload.likes );
+        state.fetchedDeck.tags = JSON.parse( payload.tags );
     },
     [types.FETCHING_DECK_UNSUCCESSFUL]( state ) {
         state.deckLoading = false;
