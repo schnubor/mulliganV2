@@ -3,22 +3,30 @@
         <div class="container">
             <div class="tabs">
                 <ul>
-                    <li class="is-active"><a>Decklist & Description</a></li>
+                    <li class="is-active"><a>Decklist</a></li>
                     <li><a>Statistics</a></li>
                     <li><a>Visual Spoiler</a></li>
                     <li><a>Start Hand</a></li>
                 </ul>
             </div>
-            <div class="content">
-                lorem ipsum
-            </div>
+                
+            <Decklist v-if="activeTab === 'decklist'"></Decklist>
         </div>
     </section>
 </template>
 
 <script>
-export default {
+import Decklist from './tabs/Decklist.vue';
 
+export default {
+    components : {
+        Decklist
+    },
+    data() {
+        return {
+            activeTab : 'decklist'
+        };
+    }
 };
 </script>
 

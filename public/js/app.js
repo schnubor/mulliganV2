@@ -47836,6 +47836,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var state = {
     fetchedDeck: {
+        title: '',
+        description: '',
         wip: true,
         colors: [],
         tags: [],
@@ -47863,6 +47865,12 @@ var state = {
 };
 
 var getters = {
+    deckTitle: function deckTitle(state) {
+        return state.fetchedDeck.title;
+    },
+    deckDescription: function deckDescription(state) {
+        return state.fetchedDeck.description;
+    },
     deckLikes: function deckLikes(state) {
         return state.fetchedDeck.likes;
     },
@@ -48167,6 +48175,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.BEGIN_FETCHI
     state.deckLoading = false;
     state.deckError = false;
     // assign deck to state
+    state.fetchedDeck.title = payload.title;
+    state.fetchedDeck.description = payload.description;
     state.fetchedDeck.decklist = JSON.parse(payload.decklist);
     state.fetchedDeck.colors = JSON.parse(payload.colors);
     state.fetchedDeck.wip = JSON.parse(payload.wip);
@@ -64976,28 +64986,41 @@ exports.default = {
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
-exports.default = {};
+var _Decklist = __webpack_require__(323);
+
+var _Decklist2 = _interopRequireDefault(_Decklist);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    components: {
+        Decklist: _Decklist2.default
+    },
+    data: function data() {
+        return {
+            activeTab: 'decklist'
+        };
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /***/ }),
 /* 314 */
@@ -65038,25 +65061,272 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('section', {
     staticClass: "section"
   }, [_c('div', {
     staticClass: "container"
-  }, [_c('div', {
+  }, [_vm._m(0), _vm._v(" "), (_vm.activeTab === 'decklist') ? _c('Decklist') : _vm._e()], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "tabs"
   }, [_c('ul', [_c('li', {
     staticClass: "is-active"
-  }, [_c('a', [_vm._v("Decklist & Description")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Statistics")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Visual Spoiler")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Start Hand")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "content"
-  }, [_vm._v("\n            lorem ipsum\n        ")])])])
+  }, [_c('a', [_vm._v("Decklist")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Statistics")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Visual Spoiler")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Start Hand")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-335ae8d1", module.exports)
+  }
+}
+
+/***/ }),
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: ['title', 'list']
+};
+
+/***/ }),
+/* 320 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(319),
+  /* template */
+  __webpack_require__(321),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/tabs/Decklistcolumn.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Decklistcolumn.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-79e3536a", Component.options)
+  } else {
+    hotAPI.reload("data-v-79e3536a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 321 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "column is-one-quarter"
+  }, [_c('aside', {
+    staticClass: "menu"
+  }, [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            " + _vm._s(_vm.title) + "\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, [(_vm.list.length) ? _vm._l((_vm.list), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                        " + _vm._s(item.card.name) + "\n                    ")])])
+  }) : _c('li', [_c('em', [_vm._v("No " + _vm._s(_vm.title) + ".")])])], 2)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-79e3536a", module.exports)
+  }
+}
+
+/***/ }),
+/* 322 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Decklistcolumn = __webpack_require__(320);
+
+var _Decklistcolumn2 = _interopRequireDefault(_Decklistcolumn);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    components: {
+        Decklistcolumn: _Decklistcolumn2.default
+    },
+    computed: {
+        creatures: function creatures() {
+            return this.$store.getters.deckCreatures;
+        },
+        sorceries: function sorceries() {
+            return this.$store.getters.deckSorceries;
+        },
+        instants: function instants() {
+            return this.$store.getters.deckInstants;
+        },
+        enchantments: function enchantments() {
+            return this.$store.getters.deckEnchantments;
+        },
+        artifacts: function artifacts() {
+            return this.$store.getters.deckArtifacts;
+        },
+        planeswalker: function planeswalker() {
+            return this.$store.getters.deckPlaneswalker;
+        },
+        lands: function lands() {
+            return this.$store.getters.deckLands;
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 323 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(322),
+  /* template */
+  __webpack_require__(324),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/tabs/Decklist.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Decklist.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f567b096", Component.options)
+  } else {
+    hotAPI.reload("data-v-f567b096", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 324 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    staticClass: "columns"
+  }, [_c('Decklistcolumn', {
+    attrs: {
+      "title": "Creatures",
+      "list": _vm.creatures
+    }
+  }), _vm._v(" "), _c('Decklistcolumn', {
+    attrs: {
+      "title": "Sorceries",
+      "list": _vm.sorceries
+    }
+  }), _vm._v(" "), _c('Decklistcolumn', {
+    attrs: {
+      "title": "Instants",
+      "list": _vm.instants
+    }
+  }), _vm._v(" "), _c('Decklistcolumn', {
+    attrs: {
+      "title": "Enchantments",
+      "list": _vm.enchantments
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "columns"
+  }, [_c('Decklistcolumn', {
+    attrs: {
+      "title": "Artifacts",
+      "list": _vm.artifacts
+    }
+  }), _vm._v(" "), _c('Decklistcolumn', {
+    attrs: {
+      "title": "Planeswalker",
+      "list": _vm.planeswalker
+    }
+  }), _vm._v(" "), _c('Decklistcolumn', {
+    attrs: {
+      "title": "Lands",
+      "list": _vm.lands
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-f567b096", module.exports)
   }
 }
 

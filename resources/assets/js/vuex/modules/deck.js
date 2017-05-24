@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const state = {
     fetchedDeck : {
+        title       : '',
+        description : '',
         wip         : true,
         colors      : [],
         tags        : [],
@@ -31,6 +33,12 @@ const state = {
 };
 
 const getters = {
+    deckTitle( state ) {
+        return state.fetchedDeck.title;
+    },
+    deckDescription( state ) {
+        return state.fetchedDeck.description;
+    },
     deckLikes( state ) {
         return state.fetchedDeck.likes;
     },
@@ -184,6 +192,8 @@ const mutations = {
         state.deckLoading = false;
         state.deckError = false;
         // assign deck to state
+        state.fetchedDeck.title = payload.title;
+        state.fetchedDeck.description = payload.description;
         state.fetchedDeck.decklist = JSON.parse( payload.decklist );
         state.fetchedDeck.colors = JSON.parse( payload.colors );
         state.fetchedDeck.wip = JSON.parse( payload.wip );
