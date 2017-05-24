@@ -19,7 +19,7 @@
                     <span style="opacity: .5;">#{{ $deck->id }}</span>
                 </h1>
                 <p class="subtitle">
-                    Created by Anonymous
+                    Last sleeved {{ $deck->updated_at->diffForHumans() }}.
                     @if($deck->wip === 1)
                         <span class="tag is-warning">WIP</span>
                     @endif

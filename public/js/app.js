@@ -65085,103 +65085,9 @@ if (false) {
 /* 316 */,
 /* 317 */,
 /* 318 */,
-/* 319 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-exports.default = {
-    props: ['title', 'list']
-};
-
-/***/ }),
-/* 320 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(319),
-  /* template */
-  __webpack_require__(321),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/tabs/Decklistcolumn.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Decklistcolumn.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-79e3536a", Component.options)
-  } else {
-    hotAPI.reload("data-v-79e3536a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 321 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "column is-one-quarter"
-  }, [_c('aside', {
-    staticClass: "menu"
-  }, [_c('p', {
-    staticClass: "menu-label"
-  }, [_vm._v("\n            " + _vm._s(_vm.title) + "\n        ")]), _vm._v(" "), _c('ul', {
-    staticClass: "menu-list"
-  }, [(_vm.list.length) ? _vm._l((_vm.list), function(item) {
-    return _c('li', [_c('a', [_c('span', {
-      staticClass: "tag"
-    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                        " + _vm._s(item.card.name) + "\n                    ")])])
-  }) : _c('li', [_c('em', [_vm._v("No " + _vm._s(_vm.title) + ".")])])], 2)])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-79e3536a", module.exports)
-  }
-}
-
-/***/ }),
+/* 319 */,
+/* 320 */,
+/* 321 */,
 /* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -65192,48 +65098,17 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _Decklistcolumn = __webpack_require__(320);
+var _Menu = __webpack_require__(326);
 
-var _Decklistcolumn2 = _interopRequireDefault(_Decklistcolumn);
+var _Menu2 = _interopRequireDefault(_Menu);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
     components: {
-        Decklistcolumn: _Decklistcolumn2.default
-    },
-    computed: {
-        creatures: function creatures() {
-            return this.$store.getters.deckCreatures;
-        },
-        sorceries: function sorceries() {
-            return this.$store.getters.deckSorceries;
-        },
-        instants: function instants() {
-            return this.$store.getters.deckInstants;
-        },
-        enchantments: function enchantments() {
-            return this.$store.getters.deckEnchantments;
-        },
-        artifacts: function artifacts() {
-            return this.$store.getters.deckArtifacts;
-        },
-        planeswalker: function planeswalker() {
-            return this.$store.getters.deckPlaneswalker;
-        },
-        lands: function lands() {
-            return this.$store.getters.deckLands;
-        }
+        Menu: _Menu2.default
     }
 }; //
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -65281,52 +65156,327 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
     staticClass: "columns"
-  }, [_c('Decklistcolumn', {
-    attrs: {
-      "title": "Creatures",
-      "list": _vm.creatures
-    }
-  }), _vm._v(" "), _c('Decklistcolumn', {
-    attrs: {
-      "title": "Sorceries",
-      "list": _vm.sorceries
-    }
-  }), _vm._v(" "), _c('Decklistcolumn', {
-    attrs: {
-      "title": "Instants",
-      "list": _vm.instants
-    }
-  }), _vm._v(" "), _c('Decklistcolumn', {
-    attrs: {
-      "title": "Enchantments",
-      "list": _vm.enchantments
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "columns"
-  }, [_c('Decklistcolumn', {
-    attrs: {
-      "title": "Artifacts",
-      "list": _vm.artifacts
-    }
-  }), _vm._v(" "), _c('Decklistcolumn', {
-    attrs: {
-      "title": "Planeswalker",
-      "list": _vm.planeswalker
-    }
-  }), _vm._v(" "), _c('Decklistcolumn', {
-    attrs: {
-      "title": "Lands",
-      "list": _vm.lands
-    }
-  })], 1)])
+  }, [_c('div', {
+    staticClass: "column is-one-quarter"
+  }, [_c('Menu')], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-f567b096", module.exports)
+  }
+}
+
+/***/ }),
+/* 325 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    computed: {
+        creatures: function creatures() {
+            return this.$store.getters.deckCreatures;
+        },
+        sorceries: function sorceries() {
+            return this.$store.getters.deckSorceries;
+        },
+        instants: function instants() {
+            return this.$store.getters.deckInstants;
+        },
+        enchantments: function enchantments() {
+            return this.$store.getters.deckEnchantments;
+        },
+        artifacts: function artifacts() {
+            return this.$store.getters.deckArtifacts;
+        },
+        planeswalker: function planeswalker() {
+            return this.$store.getters.deckPlaneswalker;
+        },
+        lands: function lands() {
+            return this.$store.getters.deckLands;
+        },
+        basiclands: function basiclands() {
+            return this.$store.getters.deckBasiclands;
+        }
+    }
+};
+
+/***/ }),
+/* 326 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(325),
+  /* template */
+  __webpack_require__(327),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/tabs/Menu.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Menu.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-b2214966", Component.options)
+  } else {
+    hotAPI.reload("data-v-b2214966", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('aside', {
+    staticClass: "menu"
+  }, [(_vm.creatures.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Creatures\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.creatures), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.sorceries.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Sorceries\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.sorceries), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.instants.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Instants\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.instants), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.enchantments.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Enchantments\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.enchantments), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.artifacts.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Artifacts\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.artifacts), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.planeswalker.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Planeswalker\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.planeswalker), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), (_vm.lands.length) ? [_c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n            Lands\n        ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, _vm._l((_vm.lands), function(item) {
+    return _c('li', [_c('a', [_c('span', {
+      staticClass: "tag"
+    }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
+  }))] : _vm._e(), _vm._v(" "), _c('p', {
+    staticClass: "menu-label"
+  }, [_vm._v("\n        Basiclands\n    ")]), _vm._v(" "), _c('ul', {
+    staticClass: "menu-list"
+  }, [(_vm.basiclands.mountains) ? _c('li', [_c('a', [_c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(_vm.basiclands.mountains))]), _vm._v(" "), _c('i', {
+    staticClass: "ms ms-r ms-cost"
+  }), _vm._v(" Mountains\n            ")])]) : _vm._e(), _vm._v(" "), (_vm.basiclands.plains) ? _c('li', [_c('a', [_c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(_vm.basiclands.plains))]), _vm._v(" "), _c('i', {
+    staticClass: "ms ms-w ms-cost"
+  }), _vm._v(" Plains\n            ")])]) : _vm._e(), _vm._v(" "), (_vm.basiclands.forests) ? _c('li', [_c('a', [_c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(_vm.basiclands.forests))]), _vm._v(" "), _c('i', {
+    staticClass: "ms ms-g ms-cost"
+  }), _vm._v(" Forests\n            ")])]) : _vm._e(), _vm._v(" "), (_vm.basiclands.islands) ? _c('li', [_c('a', [_c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(_vm.basiclands.islands))]), _vm._v(" "), _c('i', {
+    staticClass: "ms ms-u ms-cost"
+  }), _vm._v(" Islands\n            ")])]) : _vm._e(), _vm._v(" "), (_vm.basiclands.swamps) ? _c('li', [_c('a', [_c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(_vm.basiclands.swamps))]), _vm._v(" "), _c('i', {
+    staticClass: "ms ms-b ms-cost"
+  }), _vm._v(" Swamps\n            ")])]) : _vm._e()])], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-b2214966", module.exports)
   }
 }
 
