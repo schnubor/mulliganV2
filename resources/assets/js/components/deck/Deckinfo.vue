@@ -12,6 +12,14 @@
         </div>
         <div class="level-item has-text-centered">
             <div>
+            <p class="heading">Format</p>
+            <p>
+                <span class="tag is-success is-medium">{{ format }}</span>
+            </p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
             <p class="heading">Tags</p>
             <p v-if="tags.length">
                 <template v-for="tag in tags">
@@ -29,18 +37,12 @@
                 <p class="title">{{ likes }}</p>
             </div>
         </div>
-        <div class="level-item has-text-centered">
-            <div>
-                <p class="heading">Comments</p>
-                <p class="title">0</p>
-            </div>
-        </div>
     </nav>
 </template>
 
 <script>
 export default {
-    props : [ 'colors', 'tags', 'likes' ]
+    props : [ 'colors', 'format', 'tags', 'likes' ]
 };
 </script>
 

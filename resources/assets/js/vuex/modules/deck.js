@@ -9,6 +9,7 @@ const state = {
         wip         : true,
         colors      : [],
         tags        : [],
+        format      : '',
         likes       : 0,
         decklist    : {
             cardsum         : 0,
@@ -41,6 +42,9 @@ const getters = {
     },
     deckLikes( state ) {
         return state.fetchedDeck.likes;
+    },
+    deckFormat( state ) {
+        return state.fetchedDeck.format;
     },
     deckTags( state ) {
         return state.fetchedDeck.tags;
@@ -194,6 +198,7 @@ const mutations = {
         // assign deck to state
         state.fetchedDeck.title = payload.title;
         state.fetchedDeck.description = payload.description;
+        state.fetchedDeck.format = payload.format;
         state.fetchedDeck.decklist = JSON.parse( payload.decklist );
         state.fetchedDeck.colors = JSON.parse( payload.colors );
         state.fetchedDeck.wip = JSON.parse( payload.wip );

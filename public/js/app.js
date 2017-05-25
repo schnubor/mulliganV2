@@ -45888,6 +45888,9 @@ exports.default = {
         },
         likes: function likes() {
             return this.$store.getters.deckLikes;
+        },
+        format: function format() {
+            return this.$store.getters.deckFormat;
         }
     },
     mounted: function mounted() {
@@ -47841,6 +47844,7 @@ var state = {
         wip: true,
         colors: [],
         tags: [],
+        format: '',
         likes: 0,
         decklist: {
             cardsum: 0,
@@ -47873,6 +47877,9 @@ var getters = {
     },
     deckLikes: function deckLikes(state) {
         return state.fetchedDeck.likes;
+    },
+    deckFormat: function deckFormat(state) {
+        return state.fetchedDeck.format;
     },
     deckTags: function deckTags(state) {
         return state.fetchedDeck.tags;
@@ -48177,6 +48184,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.BEGIN_FETCHI
     // assign deck to state
     state.fetchedDeck.title = payload.title;
     state.fetchedDeck.description = payload.description;
+    state.fetchedDeck.format = payload.format;
     state.fetchedDeck.decklist = JSON.parse(payload.decklist);
     state.fetchedDeck.colors = JSON.parse(payload.colors);
     state.fetchedDeck.wip = JSON.parse(payload.wip);
@@ -64281,7 +64289,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "colors": _vm.colors,
       "tags": _vm.tags,
-      "likes": _vm.likes
+      "likes": _vm.likes,
+      "format": _vm.format
     }
   })] : _vm._e()], 2)])]), _vm._v(" "), (!_vm.loading) ? _c('Tabs') : _vm._e()], 1)
 },staticRenderFns: []}
@@ -64893,6 +64902,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "level-item has-text-centered"
   }, [_c('div', [_c('p', {
     staticClass: "heading"
+  }, [_vm._v("Format")]), _vm._v(" "), _c('p', [_c('span', {
+    staticClass: "tag is-success is-medium"
+  }, [_vm._v(_vm._s(_vm.format))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "level-item has-text-centered"
+  }, [_c('div', [_c('p', {
+    staticClass: "heading"
   }, [_vm._v("Tags")]), _vm._v(" "), (_vm.tags.length) ? _c('p', [_vm._l((_vm.tags), function(tag) {
     return [_c('span', {
       staticClass: "tag is-primary"
@@ -64905,16 +64920,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "heading"
   }, [_vm._v("Likes")]), _vm._v(" "), _c('p', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.likes))])])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "level-item has-text-centered"
-  }, [_c('div', [_c('p', {
-    staticClass: "heading"
-  }, [_vm._v("Comments")]), _vm._v(" "), _c('p', {
-    staticClass: "title"
-  }, [_vm._v("0")])])])
-}]}
+  }, [_vm._v(_vm._s(_vm.likes))])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -64973,9 +64980,11 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
 
 exports.default = {
-    props: ['colors', 'tags', 'likes']
+    props: ['colors', 'format', 'tags', 'likes']
 };
 
 /***/ }),
@@ -65106,9 +65115,19 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
     components: {
-        Menu: _Menu2.default
+        Deckmenu: _Menu2.default
+    },
+    computed: {
+        decklist: function decklist() {
+            return this.$store.getters.deckDecklist;
+        }
     }
 }; //
+//
+//
+//
+//
+//
 //
 //
 //
@@ -65160,8 +65179,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-one-quarter"
-  }, [_c('Menu')], 1)])
-},staticRenderFns: []}
+  }, [_c('Deckmenu')], 1), _vm._v(" "), _vm._m(0)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "columns is-multiline"
+  }, [_c('div', {
+    staticClass: "column is-one-quarter"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

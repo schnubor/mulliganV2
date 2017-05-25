@@ -1,18 +1,28 @@
 <template>
     <div class="columns">
         <div class="column is-one-quarter">
-            <Menu></Menu>
+            <Deckmenu></Deckmenu>
+        </div>
+        <div class="columns is-multiline">
+            <div class="column is-one-quarter">
+
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 
-import Menu from './Menu.vue';
+import Deckmenu from './Menu.vue';
 
 export default {
     components : {
-        Menu
+        Deckmenu
+    },
+    computed : {
+        decklist() {
+            return this.$store.getters.deckDecklist;
+        }
     }
 };
 </script>
