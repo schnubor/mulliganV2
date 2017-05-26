@@ -65629,7 +65629,7 @@ exports.default = {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 1rem;\n  bottom: 1rem;\n}\n", ""]);
+exports.push([module.i, "\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 0;\n  bottom: .5rem;\n}\n", ""]);
 
 /***/ }),
 /* 332 */
@@ -65685,8 +65685,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": _vm.entry.card.name
     }
   }), _vm._v(" "), _c('span', {
-    staticClass: "tag is-black cardQty"
-  }, [_vm._v(_vm._s(_vm.entry.qty) + "x")])])])
+    staticClass: "tag is-black is-medium cardQty"
+  }, [_c('b', [_vm._v(_vm._s(_vm.entry.qty) + "x")])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

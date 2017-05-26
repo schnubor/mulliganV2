@@ -2,7 +2,7 @@
     <div class="column is-one-quarter">
         <div class="cardContainer">
             <img class="cardImg" :src="entry.card.imageUrl" :alt="entry.card.name">
-            <span class="tag is-black cardQty">{{ entry.qty }}x</span>
+            <span class="tag is-black is-medium cardQty"><b>{{ entry.qty }}x</b></span>
         </div>
     </div>
 </template>
@@ -20,7 +20,7 @@ export default {
 
 .cardQty {
     position: absolute;
-    left: 1rem;
-    bottom: 1rem;
+    left: 0;
+    bottom: .5rem;
 }
 </style>
