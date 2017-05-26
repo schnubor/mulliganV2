@@ -34,7 +34,7 @@
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Likes</p>
-                <p class="title">{{ likes }}</p>
+                <p class="title">{{ likes }} <i class="fa fa-heart" style="color: red;"></i></p>
             </div>
         </div>
     </nav>

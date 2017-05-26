@@ -5,7 +5,6 @@
                 <ul>
                     <li class="is-active"><a>Decklist</a></li>
                     <li><a>Statistics</a></li>
-                    <li><a>Visual Spoiler</a></li>
                     <li><a>Start Hand</a></li>
                 </ul>
             </div>

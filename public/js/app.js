@@ -64920,7 +64920,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "heading"
   }, [_vm._v("Likes")]), _vm._v(" "), _c('p', {
     staticClass: "title"
-  }, [_vm._v(_vm._s(_vm.likes))])])])])
+  }, [_vm._v(_vm._s(_vm.likes) + " "), _c('i', {
+    staticClass: "fa fa-heart",
+    staticStyle: {
+      "color": "red"
+    }
+  })])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65029,7 +65034,6 @@ exports.default = {
 //
 //
 //
-//
 
 /***/ }),
 /* 314 */
@@ -65080,7 +65084,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tabs"
   }, [_c('ul', [_c('li', {
     staticClass: "is-active"
-  }, [_c('a', [_vm._v("Decklist")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Statistics")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Visual Spoiler")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Start Hand")])])])])
+  }, [_c('a', [_vm._v("Decklist")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Statistics")])]), _vm._v(" "), _c('li', [_c('a', [_vm._v("Start Hand")])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -65111,34 +65115,52 @@ var _Menu = __webpack_require__(326);
 
 var _Menu2 = _interopRequireDefault(_Menu);
 
+var _Decklistvisual = __webpack_require__(332);
+
+var _Decklistvisual2 = _interopRequireDefault(_Decklistvisual);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 exports.default = {
     components: {
-        Deckmenu: _Menu2.default
+        Deckmenu: _Menu2.default,
+        Decklistvisual: _Decklistvisual2.default
     },
     computed: {
         decklist: function decklist() {
             return this.$store.getters.deckDecklist;
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 323 */
 /***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(329)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -65179,14 +65201,54 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-one-quarter"
-  }, [_c('Deckmenu')], 1), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "columns is-multiline"
+  }, [_c('Deckmenu')], 1), _vm._v(" "), _c('div', {
+    staticClass: "column"
   }, [_c('div', {
-    staticClass: "column is-one-quarter"
-  })])
-}]}
+    staticClass: "columns is-multiline"
+  }, [_vm._l((_vm.decklist.creatures), function(creature) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": creature
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.instants), function(instant) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": instant
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.sorceries), function(sorcery) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": sorcery
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.enchantments), function(enchantment) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": enchantment
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.artifacts), function(artifact) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": artifact
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.planeswalker), function(planeswalker) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": planeswalker
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.decklist.lands), function(land) {
+    return _c('Decklistvisual', {
+      attrs: {
+        "entry": land
+      }
+    })
+  })], 2)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -65503,6 +65565,161 @@ if (false) {
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-b2214966", module.exports)
   }
+}
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "\n.cardContainer {\n  position: relative;\n}\n", ""]);
+
+/***/ }),
+/* 329 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(328);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("4eecfde2", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-f567b096!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Decklist.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-f567b096!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Decklist.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: ['entry']
+};
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(3)();
+exports.push([module.i, "\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 1rem;\n  bottom: 1rem;\n}\n", ""]);
+
+/***/ }),
+/* 332 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(334)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(330),
+  /* template */
+  __webpack_require__(333),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/schnubor/Development/_Personal/mulliganV2/resources/assets/js/components/deck/tabs/Decklistvisual.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Decklistvisual.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2d790535", Component.options)
+  } else {
+    hotAPI.reload("data-v-2d790535", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "column is-one-quarter"
+  }, [_c('div', {
+    staticClass: "cardContainer"
+  }, [_c('img', {
+    staticClass: "cardImg",
+    attrs: {
+      "src": _vm.entry.card.imageUrl,
+      "alt": _vm.entry.card.name
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "tag is-black cardQty"
+  }, [_vm._v(_vm._s(_vm.entry.qty) + "x")])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2d790535", module.exports)
+  }
+}
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(331);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("464671e2", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-2d790535!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Decklistvisual.vue", function() {
+     var newContent = require("!!../../../../../../node_modules/css-loader/index.js!../../../../../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-2d790535!../../../../../../node_modules/sass-loader/lib/loader.js!../../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Decklistvisual.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
 }
 
 /***/ })
