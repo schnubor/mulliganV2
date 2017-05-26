@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Cardmodal></Cardmodal>
         <section class="hero is-light">
             <div class="hero-body">
                 <div class="container">
@@ -20,13 +21,15 @@
 import Spinner from './../utils/Spinner.vue';
 import Deckinfo from './Deckinfo.vue';
 import Tabs from './Tabs.vue';
+import Cardmodal from './../deckbuilder/Cardmodal.vue';
 
 export default {
     props       : [ 'id' ],
     components  : {
         Spinner,
         Deckinfo,
-        Tabs
+        Tabs,
+        Cardmodal
     },
     computed : {
         loading() {

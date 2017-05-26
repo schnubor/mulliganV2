@@ -7,7 +7,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in creatures">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -21,7 +21,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in sorceries">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -35,7 +35,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in instants">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -49,7 +49,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in enchantments">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -63,7 +63,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in artifacts">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -77,7 +77,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in planeswalker">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -91,7 +91,7 @@
             </p>
             <ul class="menu-list">
                 <li v-for="item in lands">
-                    <a>
+                    <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
@@ -139,6 +139,14 @@
 
 <script>
 export default {
+    methods : {
+        showCardModal( card ) {
+            this.$store.dispatch( {
+                type    : 'showCardModal',
+                card    : card
+            } );
+        }
+    },
     computed   : {
         creatures() {
             return this.$store.getters.deckCreatures;

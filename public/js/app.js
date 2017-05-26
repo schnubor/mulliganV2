@@ -45867,14 +45867,39 @@ var _Tabs = __webpack_require__(314);
 
 var _Tabs2 = _interopRequireDefault(_Tabs);
 
+var _Cardmodal = __webpack_require__(247);
+
+var _Cardmodal2 = _interopRequireDefault(_Cardmodal);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     props: ['id'],
     components: {
         Spinner: _Spinner2.default,
         Deckinfo: _Deckinfo2.default,
-        Tabs: _Tabs2.default
+        Tabs: _Tabs2.default,
+        Cardmodal: _Cardmodal2.default
     },
     computed: {
         loading: function loading() {
@@ -45899,24 +45924,7 @@ exports.default = {
             id: this.id
         });
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 160 */
@@ -64277,7 +64285,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('section', {
+  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('section', {
     staticClass: "hero is-light"
   }, [_c('div', {
     staticClass: "hero-body"
@@ -65408,6 +65416,14 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
+    methods: {
+        showCardModal: function showCardModal(card) {
+            this.$store.dispatch({
+                type: 'showCardModal',
+                card: card
+            });
+        }
+    },
     computed: {
         creatures: function creatures() {
             return this.$store.getters.deckCreatures;
@@ -65482,7 +65498,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Creatures\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.creatures), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.sorceries.length) ? [_c('p', {
@@ -65490,7 +65512,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Sorceries\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.sorceries), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.instants.length) ? [_c('p', {
@@ -65498,7 +65526,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Instants\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.instants), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.enchantments.length) ? [_c('p', {
@@ -65506,7 +65540,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Enchantments\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.enchantments), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.artifacts.length) ? [_c('p', {
@@ -65514,7 +65554,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Artifacts\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.artifacts), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.planeswalker.length) ? [_c('p', {
@@ -65522,7 +65568,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Planeswalker\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.planeswalker), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), (_vm.lands.length) ? [_c('p', {
@@ -65530,7 +65582,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Lands\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.lands), function(item) {
-    return _c('li', [_c('a', [_c('span', {
+    return _c('li', [_c('a', {
+      on: {
+        "click": function($event) {
+          _vm.showCardModal(item.card)
+        }
+      }
+    }, [_c('span', {
       staticClass: "tag"
     }, [_vm._v(_vm._s(item.qty))]), _vm._v("\n                    " + _vm._s(item.card.name) + "\n                ")])])
   }))] : _vm._e(), _vm._v(" "), _c('p', {
@@ -65621,7 +65679,16 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
-    props: ['entry']
+    props: ['entry'],
+    methods: {
+        showCardModal: function showCardModal() {
+            var card = this.entry.card;
+            this.$store.dispatch({
+                type: 'showCardModal',
+                card: card
+            });
+        }
+    }
 };
 
 /***/ }),
@@ -65629,7 +65696,7 @@ exports.default = {
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)();
-exports.push([module.i, "\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 0;\n  bottom: .5rem;\n}\n", ""]);
+exports.push([module.i, "\n.cardContainer {\n  cursor: pointer;\n}\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 0;\n  bottom: .5rem;\n}\n", ""]);
 
 /***/ }),
 /* 332 */
@@ -65677,7 +65744,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "column is-one-quarter"
   }, [_c('div', {
-    staticClass: "cardContainer"
+    staticClass: "cardContainer",
+    on: {
+      "click": _vm.showCardModal
+    }
   }, [_c('img', {
     staticClass: "cardImg",
     attrs: {
