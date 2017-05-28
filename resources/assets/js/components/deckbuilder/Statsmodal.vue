@@ -8,12 +8,12 @@
             </header>
             <section class="modal-card-body">
                 <p class="title is-4">Mana Curve</p>
-                <Manacurve v-if="isVisible"></Manacurve>
+                <Manacurve :decklist="decklist" v-if="isVisible"></Manacurve>
                 <hr />
                 <div class="columns">
                     <div class="column is-5">
                         <p class="title is-4">Card Types</p>
-                        <Cardtypes v-if="isVisible"></Cardtypes>
+                        <Cardtypes :chartdata="cardTypeData" v-if="isVisible"></Cardtypes>
                     </div>
                     <div class="column is-5 is-offset-2">
                         <p class="title is-4">Mana Distribution</p>
@@ -42,6 +42,21 @@
         computed : {
             isVisible() {
                 return this.$store.getters.statsModal.visible;
+            },
+            cardTypeData() {
+                return [
+                    this.$store.getters.creatureCount,
+                    this.$store.getters.instantCount,
+                    this.$store.getters.sorceryCount,
+                    this.$store.getters.enchantmentCount,
+                    this.$store.getters.planeswalkerCount,
+                    this.$store.getters.artifactCount,
+                    this.$store.getters.landCount,
+                    this.$store.getters.basiclandCount
+                ];
+            },
+            decklist() {
+                return this.$store.getters.decklist;
             }
         },
         methods  : {

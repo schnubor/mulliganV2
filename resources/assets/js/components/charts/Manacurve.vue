@@ -6,14 +6,17 @@
     import Chart from 'chart.js';
 
     export default {
-        data() {
-            return {
-                data : {
+        props : [ 'decklist' ],
+        mounted() {
+            const ctx = document.getElementById( 'manacurve' );
+            new Chart( ctx, {
+                type    : 'bar',
+                data    : {
                     labels   : [ 'CMC 0', 'CMC 1', 'CMC 2', 'CMC 3', 'CMC 4', 'CMC 5+' ],
                     datasets : [
                         {
                             label                   : 'Creatures',
-                            data                    : [ 1, 4, 4, 5, 2, 1 ],
+                            data                    : this.creaturesData,
                             backgroundColor         : '#37a0e1',
                             hoverBackgroundColor    : '#2e86bd',
                             hoverBorderWidth        : 0,
@@ -53,7 +56,7 @@
                             stack                   : 1
                         },
                         {
-                            label                   : 'Artefacts',
+                            label                   : 'Artifacts',
                             data                    : [ 1, 2, 2, 1, 0, 1 ],
                             backgroundColor         : '#b2b2b2',
                             hoverBackgroundColor    : '#8a8a8a',
@@ -75,18 +78,13 @@
                         display : false
                     }
                 }
-            };
-        },
-        mounted() {
-            const data = this.data;
-            const options = this.options;
-
-            const ctx = document.getElementById( 'manacurve' );
-            new Chart( ctx, {
-                type    : 'bar',
-                data    : data,
-                options : options
             } );
+        },
+        computed : {
+            creaturesData() {
+                const chartData = [ 1, 4, 4, 5, 2, 1 ];
+                return chartData;
+            }
         }
     };
 </script>

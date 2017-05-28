@@ -1,6 +1,6 @@
 <template>
     <div>
-        <p class="menu-label">Total</p>
+        <p class="menu-label">Adding to</p>
         <span class="tag is-primary is-medium">{{ totalCards }} Main</span>
         <span class="tag is-light is-medium">{{ totalCards }} Sideboard</span>
         

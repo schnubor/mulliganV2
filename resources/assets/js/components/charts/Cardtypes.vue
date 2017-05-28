@@ -6,26 +6,13 @@
     import Chart from 'chart.js';
 
     export default {
+        props : [ 'chartdata' ],
         data() {
             return {
                 options : {
                     legend : { display : false }
                 }
             };
-        },
-        computed : {
-            chartData() {
-                return [
-                    this.$store.getters.creatureCount,
-                    this.$store.getters.instantCount,
-                    this.$store.getters.sorceryCount,
-                    this.$store.getters.enchantmentCount,
-                    this.$store.getters.planeswalkerCount,
-                    this.$store.getters.artifactCount,
-                    this.$store.getters.landCount,
-                    this.$store.getters.basiclandCount
-                ];
-            }
         },
         mounted() {
             const options = this.options;
@@ -46,7 +33,7 @@
                     ],
                     datasets : [
                         {
-                            data                    : this.chartData,
+                            data                    : this.chartdata,
                             backgroundColor         : [
                                 '#37a0e1',
                                 '#37e1c0',
