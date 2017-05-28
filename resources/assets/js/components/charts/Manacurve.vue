@@ -25,7 +25,7 @@
                         },
                         {
                             label                   : 'Instants',
-                            data                    : [ 0, 3, 2, 1, 0, 0 ],
+                            data                    : this.instantsData,
                             backgroundColor         : '#37e1c0',
                             hoverBackgroundColor    : '#2ebba0',
                             hoverBorderWidth        : 0,
@@ -33,7 +33,7 @@
                         },
                         {
                             label                   : 'Sorceries',
-                            data                    : [ 0, 0, 2, 1, 0, 0 ],
+                            data                    : this.sorceriesData,
                             backgroundColor         : '#4cff95',
                             hoverBackgroundColor    : '#49d984',
                             hoverBorderWidth        : 0,
@@ -41,7 +41,7 @@
                         },
                         {
                             label                   : 'Enchantments',
-                            data                    : [ 0, 0, 0, 1, 0, 0 ],
+                            data                    : this.enchantmentsData,
                             backgroundColor         : '#e1ba37',
                             hoverBackgroundColor    : '#b2932c',
                             hoverBorderWidth        : 0,
@@ -49,7 +49,7 @@
                         },
                         {
                             label                   : 'Planeswalker',
-                            data                    : [ 0, 2, 1, 0, 0, 0 ],
+                            data                    : this.planeswalkerData,
                             backgroundColor         : '#ff824c',
                             hoverBackgroundColor    : '#c9683e',
                             hoverBorderWidth        : 0,
@@ -57,7 +57,7 @@
                         },
                         {
                             label                   : 'Artifacts',
-                            data                    : [ 1, 2, 2, 1, 0, 1 ],
+                            data                    : this.artifactsData,
                             backgroundColor         : '#b2b2b2',
                             hoverBackgroundColor    : '#8a8a8a',
                             hoverBorderWidth        : 0,
@@ -82,16 +82,41 @@
         },
         computed : {
             creaturesData() {
-                const creatures = this.decklist.creatures;
+                const cmcs = this.createCmcs( this.decklist.creatures );
+                return cmcs;
+            },
+            instantsData() {
+                const cmcs = this.createCmcs( this.decklist.instants );
+                return cmcs;
+            },
+            sorceriesData() {
+                const cmcs = this.createCmcs( this.decklist.sorceries );
+                return cmcs;
+            },
+            enchantmentsData() {
+                const cmcs = this.createCmcs( this.decklist.enchantments );
+                return cmcs;
+            },
+            planeswalkerData() {
+                const cmcs = this.createCmcs( this.decklist.planeswalker );
+                return cmcs;
+            },
+            artifactsData() {
+                const cmcs = this.createCmcs( this.decklist.artifacts );
+                return cmcs;
+            }
+        },
+        methods : {
+            createCmcs( list ) {
                 const cmcs = [ 0, 0, 0, 0, 0, 0 ];
 
-                creatures.forEach( ( creature ) => {
-                    const cmc = creature.card.cmc;
+                list.forEach( ( entry ) => {
+                    const cmc = entry.card.cmc;
                     if ( cmc >= 5 ) {
-                        cmcs[ 5 ] = cmcs[ 5 ] + creature.qty;
+                        cmcs[ 5 ] = cmcs[ 5 ] + entry.qty;
                     }
                     else {
-                        cmcs[ cmc ] = cmcs[ cmc ] + creature.qty;
+                        cmcs[ cmc ] = cmcs[ cmc ] + entry.qty;
                     }
                 } );
 

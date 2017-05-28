@@ -45765,35 +45765,35 @@ exports.default = {
                     stack: 1
                 }, {
                     label: 'Instants',
-                    data: [0, 3, 2, 1, 0, 0],
+                    data: this.instantsData,
                     backgroundColor: '#37e1c0',
                     hoverBackgroundColor: '#2ebba0',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Sorceries',
-                    data: [0, 0, 2, 1, 0, 0],
+                    data: this.sorceriesData,
                     backgroundColor: '#4cff95',
                     hoverBackgroundColor: '#49d984',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Enchantments',
-                    data: [0, 0, 0, 1, 0, 0],
+                    data: this.enchantmentsData,
                     backgroundColor: '#e1ba37',
                     hoverBackgroundColor: '#b2932c',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Planeswalker',
-                    data: [0, 2, 1, 0, 0, 0],
+                    data: this.planeswalkerData,
                     backgroundColor: '#ff824c',
                     hoverBackgroundColor: '#c9683e',
                     hoverBorderWidth: 0,
                     stack: 1
                 }, {
                     label: 'Artifacts',
-                    data: [1, 2, 2, 1, 0, 1],
+                    data: this.artifactsData,
                     backgroundColor: '#b2b2b2',
                     hoverBackgroundColor: '#8a8a8a',
                     hoverBorderWidth: 0,
@@ -45818,15 +45818,40 @@ exports.default = {
 
     computed: {
         creaturesData: function creaturesData() {
-            var creatures = this.decklist.creatures;
+            var cmcs = this.createCmcs(this.decklist.creatures);
+            return cmcs;
+        },
+        instantsData: function instantsData() {
+            var cmcs = this.createCmcs(this.decklist.instants);
+            return cmcs;
+        },
+        sorceriesData: function sorceriesData() {
+            var cmcs = this.createCmcs(this.decklist.sorceries);
+            return cmcs;
+        },
+        enchantmentsData: function enchantmentsData() {
+            var cmcs = this.createCmcs(this.decklist.enchantments);
+            return cmcs;
+        },
+        planeswalkerData: function planeswalkerData() {
+            var cmcs = this.createCmcs(this.decklist.planeswalker);
+            return cmcs;
+        },
+        artifactsData: function artifactsData() {
+            var cmcs = this.createCmcs(this.decklist.artifacts);
+            return cmcs;
+        }
+    },
+    methods: {
+        createCmcs: function createCmcs(list) {
             var cmcs = [0, 0, 0, 0, 0, 0];
 
-            creatures.forEach(function (creature) {
-                var cmc = creature.card.cmc;
+            list.forEach(function (entry) {
+                var cmc = entry.card.cmc;
                 if (cmc >= 5) {
-                    cmcs[5] = cmcs[5] + creature.qty;
+                    cmcs[5] = cmcs[5] + entry.qty;
                 } else {
-                    cmcs[cmc] = cmcs[cmc] + creature.qty;
+                    cmcs[cmc] = cmcs[cmc] + entry.qty;
                 }
             });
 
