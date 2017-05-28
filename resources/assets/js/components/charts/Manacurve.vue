@@ -82,8 +82,20 @@
         },
         computed : {
             creaturesData() {
-                const chartData = [ 1, 4, 4, 5, 2, 1 ];
-                return chartData;
+                const creatures = this.decklist.creatures;
+                const cmcs = [ 0, 0, 0, 0, 0, 0 ];
+
+                creatures.forEach( ( creature ) => {
+                    const cmc = creature.card.cmc;
+                    if ( cmc >= 5 ) {
+                        cmcs[ 5 ] = cmcs[ 5 ] + creature.qty;
+                    }
+                    else {
+                        cmcs[ cmc ] = cmcs[ cmc ] + creature.qty;
+                    }
+                } );
+
+                return cmcs;
             }
         }
     };

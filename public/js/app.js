@@ -45718,8 +45718,8 @@ exports.default = {
                 labels: ['Creatures', 'Instants', 'Sorceries', 'Enchantments', 'Planeswalker', 'Artifacts', 'Lands', 'Basiclands'],
                 datasets: [{
                     data: this.chartdata,
-                    backgroundColor: ['#37a0e1', '#37e1c0', '#4cff95', '#e1ba37', '#ff824c', '#b2b2b2', '#7c6b64', '#473730'],
-                    hoverBackgroundColor: ['#2e86bd', '#2ebba0', '#49d984', '#b2932c', '#c9683e', '#8a8a8a', '#665953', '#33251f']
+                    backgroundColor: ['#37a0e1', '#37e1c0', '#4cff95', '#e1ba37', '#ff824c', '#b2b2b2', '#7c6b64', '#202020'],
+                    hoverBackgroundColor: ['#2e86bd', '#2ebba0', '#49d984', '#b2932c', '#c9683e', '#8a8a8a', '#665953', '#151515']
                 }]
             },
             options: options
@@ -45818,8 +45818,19 @@ exports.default = {
 
     computed: {
         creaturesData: function creaturesData() {
-            var chartData = [1, 4, 4, 5, 2, 1];
-            return chartData;
+            var creatures = this.decklist.creatures;
+            var cmcs = [0, 0, 0, 0, 0, 0];
+
+            creatures.forEach(function (creature) {
+                var cmc = creature.card.cmc;
+                if (cmc >= 5) {
+                    cmcs[5] = cmcs[5] + creature.qty;
+                } else {
+                    cmcs[cmc] = cmcs[cmc] + creature.qty;
+                }
+            });
+
+            return cmcs;
         }
     }
 }; //
