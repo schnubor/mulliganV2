@@ -10,6 +10,7 @@ use GuzzleHttp\Client;
 use Cocur\Slugify\Slugify;
 use App\Deck;
 use Helper;
+use App\Events\DeckViewed;
 
 class DeckController extends Controller
 {
@@ -34,6 +35,8 @@ class DeckController extends Controller
         $deckid = end( $slug );
 
         $deck = Deck::find( $deckid );
+        
+        event( new DeckViewed( $deck ) );
         
         return view( 'deck', [ 'deck' => $deck ] );
     }

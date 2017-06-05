@@ -23,7 +23,7 @@
             <p class="heading">Tags</p>
             <p v-if="tags.length">
                 <template v-for="tag in tags">
-                <span class="tag is-primary">{{ tag }}</span>
+                    <span class="tag is-primary" style="margin: 0 2px;">{{ tag }}</span>
                 </template>
             </p>
             <p class="title" v-else>
@@ -33,8 +33,8 @@
         </div>
         <div class="level-item has-text-centered">
             <div>
-                <p class="heading">Likes</p>
-                <p class="title">{{ likes }} <i class="fa fa-heart" style="color: red;"></i></p>
+                <p class="heading">Views</p>
+                <p class="title">{{ views }}</p>
             </div>
         </div>
     </nav>
@@ -42,7 +42,7 @@
 
 <script>
 export default {
-    props : [ 'colors', 'format', 'tags', 'likes' ]
+    props : [ 'colors', 'format', 'tags', 'views' ]
 };
 </script>
 

@@ -11,6 +11,7 @@ const state = {
         tags        : [],
         format      : '',
         likes       : 0,
+        views       : 0,
         decklist    : {
             cardsum         : 0,
             artifacts       : [],
@@ -42,6 +43,9 @@ const getters = {
     },
     deckLikes( state ) {
         return state.fetchedDeck.likes;
+    },
+    deckViews( state ) {
+        return state.fetchedDeck.views;
     },
     deckFormat( state ) {
         return state.fetchedDeck.format;
@@ -202,7 +206,8 @@ const mutations = {
         state.fetchedDeck.decklist = JSON.parse( payload.decklist );
         state.fetchedDeck.colors = JSON.parse( payload.colors );
         state.fetchedDeck.wip = JSON.parse( payload.wip );
-        state.fetchedDeck.likes = JSON.parse( payload.likes );
+        state.fetchedDeck.likes = payload.likes;
+        state.fetchedDeck.views = payload.views;
         state.fetchedDeck.tags = JSON.parse( payload.tags );
     },
     [types.FETCHING_DECK_UNSUCCESSFUL]( state ) {

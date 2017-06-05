@@ -8,7 +8,7 @@
                         <Spinner></Spinner>
                     </div>
                     <template v-if="!loading">
-                        <Deckinfo :colors="colors" :tags="tags" :likes="likes" :format="format"></Deckinfo>
+                        <Deckinfo :colors="colors" :tags="tags" :views="views" :format="format"></Deckinfo>
                     </template>
                 </div>
             </div>
@@ -43,6 +43,9 @@ export default {
         },
         likes() {
             return this.$store.getters.deckLikes;
+        },
+        views() {
+            return this.$store.getters.deckViews;
         },
         format() {
             return this.$store.getters.deckFormat;
