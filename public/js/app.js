@@ -22297,6 +22297,7 @@ var ADD_TO_DECKLIST = exports.ADD_TO_DECKLIST = 'ADD_TO_DECKLIST';
 var REMOVE_CARD_FROM_ENTRY = exports.REMOVE_CARD_FROM_ENTRY = 'REMOVE_CARD_FROM_ENTRY';
 var REMOVE_ENTRY = exports.REMOVE_ENTRY = 'REMOVE_ENTRY';
 var UPDATE_BASIC_LANDS = exports.UPDATE_BASIC_LANDS = 'UPDATE_BASIC_LANDS';
+var SWITCH_ACTIVE_LIST = exports.SWITCH_ACTIVE_LIST = 'SWITCH_ACTIVE_LIST';
 
 // Modals
 var SHOW_CARD_MODAL = exports.SHOW_CARD_MODAL = 'SHOW_CARD_MODAL';
@@ -47007,6 +47008,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 var _Spinner = __webpack_require__(9);
 
@@ -47030,9 +47035,15 @@ exports.default = {
             this.$store.dispatch({
                 type: 'showLandModal'
             });
+        },
+        switchActiveList: function switchActiveList(list) {
+            this.$store.dispatch({
+                type: 'switchActiveList',
+                list: list
+            });
         }
     },
-    computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards']))
+    computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards', 'totalCardsSideboard', 'activeList']))
 };
 
 /***/ }),
@@ -48840,6 +48851,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var state = {
     deckcolors: [],
+    activeList: 'main',
     decklist: {
         cardsum: 0,
         artifacts: [],
@@ -48856,12 +48868,19 @@ var state = {
             'islands': 0,
             'swamps': 0
         }
-    }
+    },
+    sideboard: []
 };
 
 var getters = {
     deckcolors: function deckcolors(state) {
         return _lodash2.default.uniq(state.deckcolors);
+    },
+    sideboard: function sideboard(state) {
+        return state.sideboard;
+    },
+    activeList: function activeList(state) {
+        return state.activeList;
     },
     decklist: function decklist(state) {
         return state.decklist;
@@ -48947,6 +48966,9 @@ var getters = {
         count += state.decklist.basiclands.forests;
         count += state.decklist.basiclands.swamps;
         return count;
+    },
+    totalCardsSideboard: function totalCardsSideboard(state) {
+        state.sideboard.length;
     },
     totalCards: function totalCards(state) {
         var artifactSum = 0;
@@ -49144,45 +49166,50 @@ var getters = {
 
 var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKLIST, function (state, payload) {
     var card = payload.card;
-    var list = null;
 
-    switch (card.types[0]) {
-        case 'Creature':
-            list = state.decklist.creatures;
-            break;
-        case 'Instant':
-            list = state.decklist.instants;
-            break;
-        case 'Sorcery':
-            list = state.decklist.sorceries;
-            break;
-        case 'Land':
-            list = state.decklist.lands;
-            break;
-        case 'Artifact':
-            list = state.decklist.artifacts;
-            break;
-        case 'Enchantment':
-            list = state.decklist.enchantments;
-            break;
-        case 'Planeswalker':
-            list = state.decklist.planeswalker;
-            break;
-        default:
-            break;
-    }
+    if (state.activeList === 'main') {
+        var list = null;
 
-    var existingCardIndex = _lodash2.default.findIndex(list, { 'id': card.id });
+        switch (card.types[0]) {
+            case 'Creature':
+                list = state.decklist.creatures;
+                break;
+            case 'Instant':
+                list = state.decklist.instants;
+                break;
+            case 'Sorcery':
+                list = state.decklist.sorceries;
+                break;
+            case 'Land':
+                list = state.decklist.lands;
+                break;
+            case 'Artifact':
+                list = state.decklist.artifacts;
+                break;
+            case 'Enchantment':
+                list = state.decklist.enchantments;
+                break;
+            case 'Planeswalker':
+                list = state.decklist.planeswalker;
+                break;
+            default:
+                break;
+        }
 
-    if (existingCardIndex > -1) {
-        list[existingCardIndex].qty++;
+        var existingCardIndex = _lodash2.default.findIndex(list, { 'id': card.id });
+
+        if (existingCardIndex > -1) {
+            list[existingCardIndex].qty++;
+        } else {
+            var newCard = {
+                'id': card.id,
+                'card': card,
+                'qty': 1
+            };
+            list.push(newCard);
+        }
     } else {
-        var newCard = {
-            'id': card.id,
-            'card': card,
-            'qty': 1
-        };
-        list.push(newCard);
+        state.sideboard.push(card);
     }
 
     // update Deck colors
@@ -49237,6 +49264,9 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
     state.decklist.basiclands.forests = payload.forests;
     state.decklist.basiclands.islands = payload.islands;
     state.decklist.basiclands.swamps = payload.swamps;
+}), _defineProperty(_mutations, types.SWITCH_ACTIVE_LIST, function (state, payload) {
+    console.warn(payload);
+    state.activeList = payload.list;
 }), _mutations);
 
 var actions = {
@@ -49259,6 +49289,11 @@ var actions = {
         var commit = _ref4.commit;
 
         commit(types.UPDATE_BASIC_LANDS, payload);
+    },
+    switchActiveList: function switchActiveList(_ref5, payload) {
+        var commit = _ref5.commit;
+
+        commit(types.SWITCH_ACTIVE_LIST, payload);
     }
 };
 
@@ -62114,7 +62149,7 @@ exports.push([module.i, "\n.overlay[data-v-13591a18] {\n  background-color: rgba
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.inline-icon {\n  padding-right: 10px;\n}\n.land-list li {\n  padding: 2px 0;\n}\n", ""]);
+exports.push([module.i, "\n.inline-icon {\n  padding-right: 10px;\n}\n.land-list li {\n  padding: 2px 0;\n}\n.deckswitch {\n  cursor: pointer;\n}\n", ""]);
 
 /***/ }),
 /* 241 */
@@ -62128,7 +62163,7 @@ exports.push([module.i, "\n.single-tag {\n  margin-right: 5px;\n}\n", ""]);
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(2)();
-exports.push([module.i, "\n.cardContainer {\n  cursor: pointer;\n}\n.cardImg {\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 0;\n  bottom: .5rem;\n}\n", ""]);
+exports.push([module.i, "\n.cardContainer {\n  cursor: pointer;\n  background-color: #dbdbdb;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n  border-radius: 10px;\n}\n.cardContainer:before {\n    display: block;\n    content: \"\";\n    width: 100%;\n    padding-top: 139.6825%;\n}\n.cardImg {\n  position: absolute;\n  left: 0;\n  top: 0;\n  width: 100%;\n}\n.cardQty {\n  position: absolute;\n  left: 0;\n  bottom: .5rem;\n}\n", ""]);
 
 /***/ }),
 /* 243 */
@@ -64112,10 +64147,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("Adding to")]), _vm._v(" "), _c('span', {
-    staticClass: "tag is-primary is-medium"
-  }, [_vm._v(_vm._s(_vm.totalCards) + " Main")]), _vm._v(" "), _c('span', {
-    staticClass: "tag is-light is-medium"
-  }, [_vm._v(_vm._s(_vm.totalCards) + " Sideboard")]), _vm._v(" "), _c('aside', {
+    staticClass: "tag is-medium deckswitch",
+    class: _vm.activeList === 'main' ? 'is-primary' : 'is-light',
+    on: {
+      "click": function($event) {
+        _vm.switchActiveList('main')
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.totalCards) + " Main\n    ")]), _vm._v(" "), _c('span', {
+    staticClass: "tag is-medium deckswitch",
+    class: _vm.activeList === 'sideboard' ? 'is-primary' : 'is-light',
+    on: {
+      "click": function($event) {
+        _vm.switchActiveList('sideboard')
+      }
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.totalCardsSideboard) + " Sideboard\n    ")]), _vm._v(" "), _c('aside', {
     staticClass: "menu",
     staticStyle: {
       "margin-top": "1.5em"
@@ -64124,8 +64171,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Creatures\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.creatures), function(creature) {
+  }, [_vm._l((_vm.creatures), function(creature, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": creature,
         "list": "creatures"
@@ -64135,8 +64183,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Planeswalker\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.planeswalker), function(planeswalker) {
+  }, [_vm._l((_vm.planeswalker), function(planeswalker, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": planeswalker,
         "list": "planeswalker"
@@ -64146,8 +64195,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Artifacts\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.artifacts), function(artifact) {
+  }, [_vm._l((_vm.artifacts), function(artifact, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": artifact,
         "list": "artifacts"
@@ -64157,8 +64207,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Instants\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.instants), function(instant) {
+  }, [_vm._l((_vm.instants), function(instant, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": instant,
         "list": "instants"
@@ -64168,8 +64219,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Sorceries\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.sorceries), function(sorcery) {
+  }, [_vm._l((_vm.sorceries), function(sorcery, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": sorcery,
         "list": "sorceries"
@@ -64179,8 +64231,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n                Enchantments\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.enchantments), function(enchantment) {
+  }, [_vm._l((_vm.enchantments), function(enchantment, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": enchantment,
         "list": "enchantments"
@@ -64190,8 +64243,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "menu-label"
   }, [_vm._v("\n            Lands\n        ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.lands), function(land) {
+  }, [_vm._l((_vm.lands), function(land, key) {
     return [_c('Decklistitem', {
+      key: key,
       attrs: {
         "entry": land,
         "list": "lands"

@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 const state = {
     deckcolors  : [],
+    activeList  : 'main',
     decklist    : {
         cardsum         : 0,
         artifacts       : [],
@@ -19,12 +20,19 @@ const state = {
             'islands'   : 0,
             'swamps'    : 0
         }
-    }
+    },
+    sideboard   : []
 };
 
 const getters = {
     deckcolors( state ) {
         return _.uniq( state.deckcolors );
+    },
+    sideboard( state ) {
+        return state.sideboard;
+    },
+    activeList( state ) {
+        return state.activeList;
     },
     decklist( state ) {
         return state.decklist;
@@ -111,6 +119,9 @@ const getters = {
         count += state.decklist.basiclands.swamps;
         return count;
     },
+    totalCardsSideboard( state ) {
+        state.sideboard.length;
+    },
     totalCards( state ) {
         let artifactSum = 0;
         let creatureSum = 0;
@@ -155,45 +166,51 @@ const getters = {
 const mutations = {
     [types.ADD_TO_DECKLIST]( state, payload ) {
         const card = payload.card;
-        let list = null;
 
-        switch ( card.types[ 0 ] ) {
-            case 'Creature' :
-                list = state.decklist.creatures;
-                break;
-            case 'Instant' :
-                list = state.decklist.instants;
-                break;
-            case 'Sorcery' :
-                list = state.decklist.sorceries;
-                break;
-            case 'Land' :
-                list = state.decklist.lands;
-                break;
-            case 'Artifact' :
-                list = state.decklist.artifacts;
-                break;
-            case 'Enchantment' :
-                list = state.decklist.enchantments;
-                break;
-            case 'Planeswalker' :
-                list = state.decklist.planeswalker;
-                break;
-            default: break;
-        }
+        if ( state.activeList === 'main' ) {
+            let list = null;
 
-        const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
+            switch ( card.types[ 0 ] ) {
+                case 'Creature' :
+                    list = state.decklist.creatures;
+                    break;
+                case 'Instant' :
+                    list = state.decklist.instants;
+                    break;
+                case 'Sorcery' :
+                    list = state.decklist.sorceries;
+                    break;
+                case 'Land' :
+                    list = state.decklist.lands;
+                    break;
+                case 'Artifact' :
+                    list = state.decklist.artifacts;
+                    break;
+                case 'Enchantment' :
+                    list = state.decklist.enchantments;
+                    break;
+                case 'Planeswalker' :
+                    list = state.decklist.planeswalker;
+                    break;
+                default: break;
+            }
 
-        if ( existingCardIndex > -1 ) {
-            list[ existingCardIndex ].qty++;
+            const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
+
+            if ( existingCardIndex > -1 ) {
+                list[ existingCardIndex ].qty++;
+            }
+            else {
+                const newCard = {
+                    'id'   : card.id,
+                    'card' : card,
+                    'qty'  : 1
+                };
+                list.push( newCard );
+            }
         }
         else {
-            const newCard = {
-                'id'   : card.id,
-                'card' : card,
-                'qty'  : 1
-            };
-            list.push( newCard );
+            state.sideboard.push( card );
         }
 
         // update Deck colors
@@ -252,6 +269,10 @@ const mutations = {
         state.decklist.basiclands.forests = payload.forests;
         state.decklist.basiclands.islands = payload.islands;
         state.decklist.basiclands.swamps = payload.swamps;
+    },
+    [types.SWITCH_ACTIVE_LIST]( state, payload ) {
+        console.warn( payload );
+        state.activeList = payload.list;
     }
 };
 
@@ -267,6 +288,9 @@ const actions = {
     },
     updateBasicLands( { commit }, payload ) {
         commit( types.UPDATE_BASIC_LANDS, payload );
+    },
+    switchActiveList( { commit }, payload ) {
+        commit( types.SWITCH_ACTIVE_LIST, payload );
     }
 };
 

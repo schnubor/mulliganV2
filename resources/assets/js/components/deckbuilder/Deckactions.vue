@@ -18,7 +18,7 @@
                 </a>
             </p>
         </div>
-        <hr/>
+        <hr></hr>
     </div>
 </template>
 

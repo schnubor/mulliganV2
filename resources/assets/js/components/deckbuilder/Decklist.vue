@@ -1,8 +1,12 @@
 <template>
     <div>
         <p class="menu-label">Adding to</p>
-        <span class="tag is-primary is-medium">{{ totalCards }} Main</span>
-        <span class="tag is-light is-medium">{{ totalCards }} Sideboard</span>
+        <span class="tag is-medium deckswitch" :class="activeList === 'main' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'main' )">
+            {{ totalCards }} Main
+        </span>
+        <span class="tag is-medium deckswitch" :class="activeList === 'sideboard' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'sideboard' )">
+            {{ totalCardsSideboard }} Sideboard
+        </span>
         
         <aside class="menu" style="margin-top: 1.5em;">
             <template v-if="creatures.length">
@@ -10,8 +14,8 @@
                     Creatures
                 </p>
                 <ul class="menu-list">
-                    <template v-for="creature in creatures">
-                        <Decklistitem :entry="creature" list="creatures"></Decklistitem>
+                    <template v-for="( creature, key ) in creatures">
+                        <Decklistitem :key="key" :entry="creature" list="creatures"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -21,8 +25,8 @@
                     Planeswalker
                 </p>
                 <ul class="menu-list">
-                    <template v-for="planeswalker in planeswalker">
-                        <Decklistitem :entry="planeswalker" list="planeswalker"></Decklistitem>
+                    <template v-for="( planeswalker, key ) in planeswalker">
+                        <Decklistitem :key="key" :entry="planeswalker" list="planeswalker"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -32,8 +36,8 @@
                     Artifacts
                 </p>
                 <ul class="menu-list">
-                    <template v-for="artifact in artifacts">
-                        <Decklistitem :entry="artifact" list="artifacts"></Decklistitem>
+                    <template v-for="( artifact, key ) in artifacts">
+                        <Decklistitem :key="key" :entry="artifact" list="artifacts"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -43,8 +47,8 @@
                     Instants
                 </p>
                 <ul class="menu-list">
-                    <template v-for="instant in instants">
-                        <Decklistitem :entry="instant" list="instants"></Decklistitem>
+                    <template v-for="( instant, key ) in instants">
+                        <Decklistitem :key="key" :entry="instant" list="instants"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -54,8 +58,8 @@
                     Sorceries
                 </p>
                 <ul class="menu-list">
-                    <template v-for="sorcery in sorceries">
-                        <Decklistitem :entry="sorcery" list="sorceries"></Decklistitem>
+                    <template v-for="( sorcery, key ) in sorceries">
+                        <Decklistitem :key="key" :entry="sorcery" list="sorceries"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -65,8 +69,8 @@
                     Enchantments
                 </p>
                 <ul class="menu-list">
-                    <template v-for="enchantment in enchantments">
-                        <Decklistitem :entry="enchantment" list="enchantments"></Decklistitem>
+                    <template v-for="( enchantment, key ) in enchantments">
+                        <Decklistitem :key="key" :entry="enchantment" list="enchantments"></Decklistitem>
                     </template>
                 </ul>
             </template>
@@ -75,8 +79,8 @@
                 Lands
             </p>
             <ul class="menu-list">
-                <template v-for="land in lands">
-                    <Decklistitem :entry="land" list="lands"></Decklistitem>
+                <template v-for="( land, key ) in lands">
+                    <Decklistitem :key="key" :entry="land" list="lands"></Decklistitem>
                 </template>
             </ul>
 
@@ -134,6 +138,12 @@
                 this.$store.dispatch( {
                     type    : 'showLandModal'
                 } );
+            },
+            switchActiveList( list ) {
+                this.$store.dispatch( {
+                    type    : 'switchActiveList',
+                    list    : list
+                } );
             }
         },
         computed : {
@@ -146,7 +156,9 @@
                 'planeswalker',
                 'enchantments',
                 'basiclands',
-                'totalCards'
+                'totalCards',
+                'totalCardsSideboard',
+                'activeList'
             ] )
         }
     };
@@ -159,5 +171,9 @@
 
     .land-list li {
         padding: 2px 0;
+    }
+
+    .deckswitch {
+        cursor: pointer;
     }
 </style>

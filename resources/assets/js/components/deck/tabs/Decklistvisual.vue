@@ -23,11 +23,28 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./../../../../sass/variables";
+
 .cardContainer {
     cursor: pointer;
+    background-color: $lightgrey;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+
+    &:before {
+        display: block;
+        content: "";
+        width: 100%;
+        padding-top: 139.6825%;
+    }
 }
 
 .cardImg {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
 }
 
