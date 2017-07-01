@@ -48968,7 +48968,7 @@ var getters = {
         return count;
     },
     totalCardsSideboard: function totalCardsSideboard(state) {
-        state.sideboard.length;
+        return state.sideboard.length;
     },
     totalCards: function totalCards(state) {
         var artifactSum = 0;

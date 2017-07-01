@@ -120,7 +120,7 @@ const getters = {
         return count;
     },
     totalCardsSideboard( state ) {
-        state.sideboard.length;
+        return state.sideboard.length;
     },
     totalCards( state ) {
         let artifactSum = 0;
