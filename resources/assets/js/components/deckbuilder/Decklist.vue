@@ -2,7 +2,7 @@
     <div>
         <p class="menu-label">Adding to</p>
         <span class="tag is-medium deckswitch" :class="activeList === 'main' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'main' )">
-            {{ totalCards }} Main
+            {{ totalCardsMain }} Main
         </span>
         <span class="tag is-medium deckswitch" :class="activeList === 'sideboard' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'sideboard' )">
             {{ totalCardsSideboard }} Sideboard
@@ -156,7 +156,7 @@
                 'planeswalker',
                 'enchantments',
                 'basiclands',
-                'totalCards',
+                'totalCardsMain',
                 'totalCardsSideboard',
                 'activeList'
             ] )

@@ -2,20 +2,20 @@
     <div>
         <div class="field has-addons">
             <p class="control">
-                <a class="button" :disabled="!hasCards" @click="showSaveModal">
+                <button type="button" class="button" :disabled="!hasCards" @click="showSaveModal">
                     <span class="icon is-small">
                         <i class="fa fa-save"></i>
                     </span>
                     <span>Save</span>
-                </a>
+                </button>
             </p>
             <p class="control">
-                <a class="button" :disabled="!hasCards" @click="showStatsModal">
+                <button type="button" class="button" :disabled="!hasCards" @click="showStatsModal">
                     <span class="icon is-small">
                         <i class="fa fa-bar-chart"></i>
                     </span>
                     <span>Stats</span>
-                </a>
+                </button>
             </p>
         </div>
         <hr></hr>
@@ -26,7 +26,7 @@
     export default {
         computed : {
             hasCards() {
-                return this.$store.getters.totalCards > 0;
+                return this.$store.getters.totalCardsMain > 0;
             }
         },
         methods : {

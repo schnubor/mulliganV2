@@ -120,9 +120,6 @@ const getters = {
         return count;
     },
     totalCardsSideboard( state ) {
-        return state.sideboard.length;
-    },
-    totalCards( state ) {
         let artifactSum = 0;
         let creatureSum = 0;
         let enchantmentSum = 0;
@@ -134,25 +131,92 @@ const getters = {
         let cardSum = 0;
 
         for ( const artifact of state.decklist.artifacts ) {
-            artifactSum += artifact.qty;
+            if ( artifact.list === 'sideboard' ) {
+                artifactSum += artifact.qty;
+            }
         }
         for ( const creature of state.decklist.creatures ) {
-            creatureSum += creature.qty;
+            if ( creature.list === 'sideboard' ) {
+                creatureSum += creature.qty;
+            }
         }
         for ( const enchantment of state.decklist.enchantments ) {
-            enchantmentSum += enchantment.qty;
+            if ( enchantment.list === 'sideboard' ) {
+                enchantmentSum += enchantment.qty;
+            }
         }
         for ( const instant of state.decklist.instants ) {
-            instantSum += instant.qty;
+            if ( instant.list === 'sideboard' ) {
+                instantSum += instant.qty;
+            }
         }
         for ( const sorcery of state.decklist.sorceries ) {
-            sorcerySum += sorcery.qty;
+            if ( sorcery.list === 'sideboard' ) {
+                sorcerySum += sorcery.qty;
+            }
         }
         for ( const planeswalker of state.decklist.planeswalker ) {
-            planeswalkerSum += planeswalker.qty;
+            if ( planeswalker.list === 'sideboard' ) {
+                planeswalkerSum += planeswalker.qty;
+            }
         }
         for ( const land of state.decklist.lands ) {
-            landSum += land.qty;
+            if ( land.list === 'sideboard' ) {
+                landSum += land.qty;
+            }
+        }
+
+        basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
+
+        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+
+        return cardSum;
+    },
+    totalCardsMain( state ) {
+        let artifactSum = 0;
+        let creatureSum = 0;
+        let enchantmentSum = 0;
+        let instantSum = 0;
+        let sorcerySum = 0;
+        let planeswalkerSum = 0;
+        let landSum = 0;
+        let basicLandSum = 0;
+        let cardSum = 0;
+
+        for ( const artifact of state.decklist.artifacts ) {
+            if ( artifact.list === 'main' ) {
+                artifactSum += artifact.qty;
+            }
+        }
+        for ( const creature of state.decklist.creatures ) {
+            if ( creature.list === 'main' ) {
+                creatureSum += creature.qty;
+            }
+        }
+        for ( const enchantment of state.decklist.enchantments ) {
+            if ( enchantment.list === 'main' ) {
+                enchantmentSum += enchantment.qty;
+            }
+        }
+        for ( const instant of state.decklist.instants ) {
+            if ( instant.list === 'main' ) {
+                instantSum += instant.qty;
+            }
+        }
+        for ( const sorcery of state.decklist.sorceries ) {
+            if ( sorcery.list === 'main' ) {
+                sorcerySum += sorcery.qty;
+            }
+        }
+        for ( const planeswalker of state.decklist.planeswalker ) {
+            if ( planeswalker.list === 'main' ) {
+                planeswalkerSum += planeswalker.qty;
+            }
+        }
+        for ( const land of state.decklist.lands ) {
+            if ( land.list === 'main' ) {
+                landSum += land.qty;
+            }
         }
 
         basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
@@ -167,50 +231,47 @@ const mutations = {
     [types.ADD_TO_DECKLIST]( state, payload ) {
         const card = payload.card;
 
-        if ( state.activeList === 'main' ) {
-            let list = null;
+        let list = null;
 
-            switch ( card.types[ 0 ] ) {
-                case 'Creature' :
-                    list = state.decklist.creatures;
-                    break;
-                case 'Instant' :
-                    list = state.decklist.instants;
-                    break;
-                case 'Sorcery' :
-                    list = state.decklist.sorceries;
-                    break;
-                case 'Land' :
-                    list = state.decklist.lands;
-                    break;
-                case 'Artifact' :
-                    list = state.decklist.artifacts;
-                    break;
-                case 'Enchantment' :
-                    list = state.decklist.enchantments;
-                    break;
-                case 'Planeswalker' :
-                    list = state.decklist.planeswalker;
-                    break;
-                default: break;
-            }
+        switch ( card.types[ 0 ] ) {
+            case 'Creature' :
+                list = state.decklist.creatures;
+                break;
+            case 'Instant' :
+                list = state.decklist.instants;
+                break;
+            case 'Sorcery' :
+                list = state.decklist.sorceries;
+                break;
+            case 'Land' :
+                list = state.decklist.lands;
+                break;
+            case 'Artifact' :
+                list = state.decklist.artifacts;
+                break;
+            case 'Enchantment' :
+                list = state.decklist.enchantments;
+                break;
+            case 'Planeswalker' :
+                list = state.decklist.planeswalker;
+                break;
+            default: break;
+        }
 
-            const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
+        // Add to existing list or create new
+        const existingCardIndex = _.findIndex( list, { 'id' : card.id } );
 
-            if ( existingCardIndex > -1 ) {
-                list[ existingCardIndex ].qty++;
-            }
-            else {
-                const newCard = {
-                    'id'   : card.id,
-                    'card' : card,
-                    'qty'  : 1
-                };
-                list.push( newCard );
-            }
+        if ( existingCardIndex > -1 ) {
+            list[ existingCardIndex ].qty++;
         }
         else {
-            state.sideboard.push( card );
+            const newCard = {
+                'id'   : card.id,
+                'card' : card,
+                'qty'  : 1,
+                'list' : state.activeList
+            };
+            list.push( newCard );
         }
 
         // update Deck colors

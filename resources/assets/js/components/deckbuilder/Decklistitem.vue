@@ -6,13 +6,15 @@
         </a>
         <ul v-show="showSubmenu">
             <li>
-                <a :href="cardUrl" target="_blank">Card Details</a>
+                <a :href="cardUrl" target="_blank">
+                    <i class="fa fa-fw fa-link"></i> Card Details
+                </a>
             </li>
             <li>
-                <a @click="removeCard">Remove one card</a>
+                <a @click="removeCard"><i class="fa fa-fw fa-minus"></i> Remove one</a>
             </li>
             <li>
-                <a @click="removeEntry">Remove all cards</a>
+                <a @click="removeEntry"><i class="fa fa-fw fa-trash-o"></i> Remove all</a>
             </li>
         </ul>
     </li>

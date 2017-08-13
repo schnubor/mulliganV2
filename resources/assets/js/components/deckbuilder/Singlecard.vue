@@ -1,5 +1,5 @@
 <template>
-    <div :key="card.id" class="card-container" @mouseover="isMouseover = true" @mouseleave="isMouseover = false">
+    <div class="card-container" @mouseover="isMouseover = true" @mouseleave="isMouseover = false">
         <div class="singlecard" :class="rarity">
             <div class="cardcontent">
                 <img :src="card.imageUrl" :alt="card.name" class="cardimage">
