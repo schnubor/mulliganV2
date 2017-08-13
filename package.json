@@ -1,4 +1,6 @@
 {
+  "name": "Mulligan",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "node node_modules/cross-env/dist/bin/cross-env.js NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -24,7 +26,7 @@
     "vue": "^2.1.10",
     "vuex": "^2.3.1",
     "axios": "^0.15.3",
-    "bulma": "^0.4.1",
+    "bulma": "^0.5.1",
     "chart.js": "^2.5.0",
     "font-awesome": "^4.7.0"
   }

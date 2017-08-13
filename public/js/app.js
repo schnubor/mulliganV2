@@ -47270,6 +47270,23 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 exports.default = {
     data: function data() {
@@ -47287,6 +47304,7 @@ exports.default = {
                 set: '',
                 mana: 'any',
                 name: '',
+                text: '',
                 rarity: '',
                 type: '',
                 colors: {
@@ -47322,19 +47340,12 @@ exports.default = {
             return this.$store.getters.searching;
         }
     },
-    watch: {
-        filters: {
-            handler: function handler() {
-                this.search();
-            },
-            deep: true
-        }
-    },
     methods: {
         fetchPage: function fetchPage(page, filters, colorsArray) {
             var params = {};
 
             if (filters.name) params.name = filters.name;
+            if (filters.text) params.text = filters.text;
             if (filters.set) params.set = filters.set;
             if (filters.type) params.types = filters.type;
             if (filters.rarity) params.rarity = filters.rarity;
@@ -64897,7 +64908,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._m(0)]) : [_c('div', {
     staticClass: "columns"
   }, [_c('div', {
-    staticClass: "column is-4"
+    staticClass: "column is-3"
   }, [_c('p', {
     staticClass: "control"
   }, [_c('input', {
@@ -64920,6 +64931,32 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.filters.name = $event.target.value
+      }
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "column is-3"
+  }, [_c('p', {
+    staticClass: "control"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.filters.text),
+      expression: "filters.text"
+    }],
+    staticClass: "input",
+    attrs: {
+      "type": "text",
+      "placeholder": "Card Text (e.g. flying, trample, etc.)",
+      "disabled": _vm.searching
+    },
+    domProps: {
+      "value": (_vm.filters.text)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.filters.text = $event.target.value
       }
     }
   })])]), _vm._v(" "), _c('div', {
@@ -65034,10 +65071,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Any Set")]), _vm._v(" "), _vm._l((_vm.setsReverted), function(set) {
     return _c('option', {
+      key: set.code,
       domProps: {
         "value": set.code
       }
-    }, [_vm._v(_vm._s(set.name))])
+    }, [_vm._v("\n                                            " + _vm._s(set.name) + "\n                                        ")])
   })], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "column is-2"
   }, [_c('p', {
@@ -65199,11 +65237,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": "Common"
     }
-  }, [_vm._v("Common")])])])])])])]], 2) : _vm._e()])])])
+  }, [_vm._v("Common")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "column is-2"
+  }, [_c('button', {
+    staticClass: "button is-primary",
+    on: {
+      "click": _vm.search
+    }
+  }, [_c('span', {
+    staticClass: "icon is-small"
+  }, [_c('i', {
+    staticClass: "fa fa-search"
+  })]), _vm._v(" "), _c('span', [_vm._v("Search")])])])])]], 2) : _vm._e()])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "message-body"
-  }, [_c('strong', [_vm._v("Whoops!")]), _c('br'), _vm._v(" "), _c('p', [_vm._v("Seems like the API ("), _c('a', {
+  }, [_c('strong', [_vm._v("Whoops!")]), _vm._v(" "), _c('br'), _vm._v(" "), _c('p', [_vm._v("Seems like the API (\n                            "), _c('a', {
     attrs: {
       "href": "http://magicthegathering.io/",
       "target": "_blank"
