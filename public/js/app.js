@@ -65143,7 +65143,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input",
     attrs: {
       "type": "text",
-      "placeholder": "Card name",
+      "placeholder": "Card name (optional)",
       "disabled": _vm.searching
     },
     domProps: {
@@ -65169,7 +65169,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "input",
     attrs: {
       "type": "text",
-      "placeholder": "Card Text (e.g. flying, trample, etc.)",
+      "placeholder": "Card Text (optional, e.g. flying)",
       "disabled": _vm.searching
     },
     domProps: {

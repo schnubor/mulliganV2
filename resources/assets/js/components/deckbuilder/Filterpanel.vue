@@ -19,12 +19,12 @@
                             <div class="columns">
                                 <div class="column is-3">
                                     <p class="control">
-                                        <input class="input" type="text" placeholder="Card name" v-model="filters.name" :disabled="searching">
+                                        <input class="input" type="text" placeholder="Card name (optional)" v-model="filters.name" :disabled="searching">
                                     </p>
                                 </div>
                                 <div class="column is-3">
                                     <p class="control">
-                                        <input class="input" type="text" placeholder="Card Text (e.g. flying, trample, etc.)" v-model="filters.text" :disabled="searching">
+                                        <input class="input" type="text" placeholder="Card Text (optional, e.g. flying)" v-model="filters.text" :disabled="searching">
                                     </p>
                                 </div>
                                 <div class="column">
