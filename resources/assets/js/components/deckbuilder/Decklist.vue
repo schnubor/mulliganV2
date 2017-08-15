@@ -2,10 +2,10 @@
     <div>
         <p class="menu-label">Adding to</p>
         <span class="tag is-medium deckswitch" :class="activeList === 'main' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'main' )">
-            {{ totalCardsMain }} Main
+            {{ totalCards.main }} Main
         </span>
         <span class="tag is-medium deckswitch" :class="activeList === 'sideboard' ? 'is-primary' : 'is-light'" @click="switchActiveList( 'sideboard' )">
-            {{ totalCardsSideboard }} Sideboard
+            {{ totalCards.sideboard }} Sideboard
         </span>
         
         <aside class="menu" style="margin-top: 1.5em;">
@@ -93,27 +93,27 @@
                     <ul class="land-list">
                         <li>
                             <span><i class="ms ms-r ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.mountains }}</span>
+                            <span class="tag">{{ this.basiclands.main.mountains }}</span>
                             Mountains
                         </li>
                         <li>
                             <span><i class="ms ms-w ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.plains }}</span>
+                            <span class="tag">{{ this.basiclands.main.plains }}</span>
                             Plains
                         </li>
                         <li>
                             <span><i class="ms ms-g ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.forests }}</span>
+                            <span class="tag">{{ this.basiclands.main.forests }}</span>
                             Forests
                         </li>
                         <li>
                             <span><i class="ms ms-u ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.islands }}</span>
+                            <span class="tag">{{ this.basiclands.main.islands }}</span>
                             Islands
                         </li>
                         <li>
                             <span><i class="ms ms-b ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.swamps }}</span>
+                            <span class="tag">{{ this.basiclands.main.swamps }}</span>
                             Swamps
                         </li>
                     </ul>
@@ -156,8 +156,7 @@
                 'planeswalker',
                 'enchantments',
                 'basiclands',
-                'totalCardsMain',
-                'totalCardsSideboard',
+                'totalCards',
                 'activeList'
             ] )
         }

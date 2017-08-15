@@ -146,19 +146,24 @@
         },
         computed : {
             totalMountains() {
-                return this.$store.getters.basiclands.mountains + this.mountains;
+                const basiclands = this.$store.getters.basiclands;
+                return basiclands.main.mountains + this.mountains;
             },
             totalPlains() {
-                return this.$store.getters.basiclands.plains + this.plains;
+                const basiclands = this.$store.getters.basiclands;
+                return basiclands.main.plains + this.plains;
             },
             totalForests() {
-                return this.$store.getters.basiclands.forests + this.forests;
+                const basiclands = this.$store.getters.basiclands;
+                return basiclands.main.forests + this.forests;
             },
             totalIslands() {
-                return this.$store.getters.basiclands.islands + this.islands;
+                const basiclands = this.$store.getters.basiclands;
+                return basiclands.main.islands + this.islands;
             },
             totalSwamps() {
-                return this.$store.getters.basiclands.swamps + this.swamps;
+                const basiclands = this.$store.getters.basiclands;
+                return basiclands.main.swamps + this.swamps;
             },
             isVisible() {
                 return this.$store.getters.landModal.visible;

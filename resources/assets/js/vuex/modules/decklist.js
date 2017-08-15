@@ -14,11 +14,20 @@ const state = {
         planeswalker    : [],
         enchantments    : [],
         basiclands      : {
-            'mountains' : 0,
-            'plains'    : 0,
-            'forests'   : 0,
-            'islands'   : 0,
-            'swamps'    : 0
+            main : {
+                'mountains' : 0,
+                'plains'    : 0,
+                'forests'   : 0,
+                'islands'   : 0,
+                'swamps'    : 0
+            },
+            sideboard : {
+                'mountains' : 0,
+                'plains'    : 0,
+                'forests'   : 0,
+                'islands'   : 0,
+                'swamps'    : 0
+            }
         }
     },
     sideboard   : []
@@ -111,119 +120,99 @@ const getters = {
         return state.decklist.basiclands;
     },
     basiclandCount( state ) {
-        let count = 0;
-        count += state.decklist.basiclands.mountains;
-        count += state.decklist.basiclands.plains;
-        count += state.decklist.basiclands.islands;
-        count += state.decklist.basiclands.forests;
-        count += state.decklist.basiclands.swamps;
-        return count;
+        let mainCount = 0;
+        let sideboardCount = 0;
+
+        mainCount += state.decklist.basiclands.main.mountains;
+        mainCount += state.decklist.basiclands.main.plains;
+        mainCount += state.decklist.basiclands.main.islands;
+        mainCount += state.decklist.basiclands.main.forests;
+        mainCount += state.decklist.basiclands.main.swamps;
+
+        sideboardCount += state.decklist.basiclands.sideboard.mountains;
+        sideboardCount += state.decklist.basiclands.sideboard.plains;
+        sideboardCount += state.decklist.basiclands.sideboard.islands;
+        sideboardCount += state.decklist.basiclands.sideboard.forests;
+        sideboardCount += state.decklist.basiclands.sideboard.swamps;
+
+        return {
+            main      : mainCount,
+            sideboard : sideboardCount
+        };
     },
-    totalCardsSideboard( state ) {
-        let artifactSum = 0;
-        let creatureSum = 0;
-        let enchantmentSum = 0;
-        let instantSum = 0;
-        let sorcerySum = 0;
-        let planeswalkerSum = 0;
-        let landSum = 0;
-        let basicLandSum = 0;
+    totalCards( state ) {
+        let mainBasicLandSum = 0;
+        let sideboardBasicLandSum = 0;
         let cardSum = 0;
+        let sideboardSum = 0;
 
         for ( const artifact of state.decklist.artifacts ) {
             if ( artifact.list === 'sideboard' ) {
-                artifactSum += artifact.qty;
+                sideboardSum += artifact.qty;
+            }
+            else {
+                cardSum += artifact.qty;
             }
         }
         for ( const creature of state.decklist.creatures ) {
             if ( creature.list === 'sideboard' ) {
-                creatureSum += creature.qty;
+                sideboardSum += creature.qty;
+            }
+            else {
+                cardSum += creature.qty;
             }
         }
         for ( const enchantment of state.decklist.enchantments ) {
             if ( enchantment.list === 'sideboard' ) {
-                enchantmentSum += enchantment.qty;
+                sideboardSum += enchantment.qty;
+            }
+            else {
+                cardSum += enchantment.qty;
             }
         }
         for ( const instant of state.decklist.instants ) {
             if ( instant.list === 'sideboard' ) {
-                instantSum += instant.qty;
+                sideboardSum += instant.qty;
+            }
+            else {
+                cardSum += instant.qty;
             }
         }
         for ( const sorcery of state.decklist.sorceries ) {
             if ( sorcery.list === 'sideboard' ) {
-                sorcerySum += sorcery.qty;
+                sideboardSum += sorcery.qty;
+            }
+            else {
+                cardSum += sorcery.qty;
             }
         }
         for ( const planeswalker of state.decklist.planeswalker ) {
             if ( planeswalker.list === 'sideboard' ) {
-                planeswalkerSum += planeswalker.qty;
+                sideboardSum += planeswalker.qty;
+            }
+            else {
+                cardSum += planeswalker.qty;
             }
         }
         for ( const land of state.decklist.lands ) {
             if ( land.list === 'sideboard' ) {
-                landSum += land.qty;
+                sideboardSum += land.qty;
+            }
+            else {
+                cardSum += land.qty;
             }
         }
 
-        basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
+        mainBasicLandSum = state.decklist.basiclands.main.mountains + state.decklist.basiclands.main.plains + state.decklist.basiclands.main.forests + state.decklist.basiclands.main.islands + state.decklist.basiclands.main.swamps;
+        sideboardBasicLandSum = state.decklist.basiclands.sideboard.mountains + state.decklist.basiclands.sideboard.plains + state.decklist.basiclands.sideboard.forests + state.decklist.basiclands.sideboard.islands + state.decklist.basiclands.sideboard.swamps;
 
-        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+        cardSum = cardSum + mainBasicLandSum;
+        sideboardSum = sideboardSum + sideboardBasicLandSum;
 
-        return cardSum;
-    },
-    totalCardsMain( state ) {
-        let artifactSum = 0;
-        let creatureSum = 0;
-        let enchantmentSum = 0;
-        let instantSum = 0;
-        let sorcerySum = 0;
-        let planeswalkerSum = 0;
-        let landSum = 0;
-        let basicLandSum = 0;
-        let cardSum = 0;
-
-        for ( const artifact of state.decklist.artifacts ) {
-            if ( artifact.list === 'main' ) {
-                artifactSum += artifact.qty;
-            }
-        }
-        for ( const creature of state.decklist.creatures ) {
-            if ( creature.list === 'main' ) {
-                creatureSum += creature.qty;
-            }
-        }
-        for ( const enchantment of state.decklist.enchantments ) {
-            if ( enchantment.list === 'main' ) {
-                enchantmentSum += enchantment.qty;
-            }
-        }
-        for ( const instant of state.decklist.instants ) {
-            if ( instant.list === 'main' ) {
-                instantSum += instant.qty;
-            }
-        }
-        for ( const sorcery of state.decklist.sorceries ) {
-            if ( sorcery.list === 'main' ) {
-                sorcerySum += sorcery.qty;
-            }
-        }
-        for ( const planeswalker of state.decklist.planeswalker ) {
-            if ( planeswalker.list === 'main' ) {
-                planeswalkerSum += planeswalker.qty;
-            }
-        }
-        for ( const land of state.decklist.lands ) {
-            if ( land.list === 'main' ) {
-                landSum += land.qty;
-            }
-        }
-
-        basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
-
-        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
-
-        return cardSum;
+        return {
+            main      : cardSum,
+            sideboard : sideboardSum
+        };
     }
 };
 
@@ -325,14 +314,13 @@ const mutations = {
         }
     },
     [types.UPDATE_BASIC_LANDS]( state, payload ) {
-        state.decklist.basiclands.mountains = payload.mountains;
-        state.decklist.basiclands.plains = payload.plains;
-        state.decklist.basiclands.forests = payload.forests;
-        state.decklist.basiclands.islands = payload.islands;
-        state.decklist.basiclands.swamps = payload.swamps;
+        state.decklist.basiclands.main.mountains = payload.mountains;
+        state.decklist.basiclands.main.plains = payload.plains;
+        state.decklist.basiclands.main.forests = payload.forests;
+        state.decklist.basiclands.main.islands = payload.islands;
+        state.decklist.basiclands.main.swamps = payload.swamps;
     },
     [types.SWITCH_ACTIVE_LIST]( state, payload ) {
-        console.warn( payload );
         state.activeList = payload.list;
     }
 };

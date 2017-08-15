@@ -47043,7 +47043,7 @@ exports.default = {
             });
         }
     },
-    computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCardsMain', 'totalCardsSideboard', 'activeList']))
+    computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards', 'activeList']))
 };
 
 /***/ }),
@@ -47662,19 +47662,24 @@ exports.default = {
 
     computed: {
         totalMountains: function totalMountains() {
-            return this.$store.getters.basiclands.mountains + this.mountains;
+            var basiclands = this.$store.getters.basiclands;
+            return basiclands.main.mountains + this.mountains;
         },
         totalPlains: function totalPlains() {
-            return this.$store.getters.basiclands.plains + this.plains;
+            var basiclands = this.$store.getters.basiclands;
+            return basiclands.main.plains + this.plains;
         },
         totalForests: function totalForests() {
-            return this.$store.getters.basiclands.forests + this.forests;
+            var basiclands = this.$store.getters.basiclands;
+            return basiclands.main.forests + this.forests;
         },
         totalIslands: function totalIslands() {
-            return this.$store.getters.basiclands.islands + this.islands;
+            var basiclands = this.$store.getters.basiclands;
+            return basiclands.main.islands + this.islands;
         },
         totalSwamps: function totalSwamps() {
-            return this.$store.getters.basiclands.swamps + this.swamps;
+            var basiclands = this.$store.getters.basiclands;
+            return basiclands.main.swamps + this.swamps;
         },
         isVisible: function isVisible() {
             return this.$store.getters.landModal.visible;
@@ -48877,11 +48882,20 @@ var state = {
         planeswalker: [],
         enchantments: [],
         basiclands: {
-            'mountains': 0,
-            'plains': 0,
-            'forests': 0,
-            'islands': 0,
-            'swamps': 0
+            main: {
+                'mountains': 0,
+                'plains': 0,
+                'forests': 0,
+                'islands': 0,
+                'swamps': 0
+            },
+            sideboard: {
+                'mountains': 0,
+                'plains': 0,
+                'forests': 0,
+                'islands': 0,
+                'swamps': 0
+            }
         }
     },
     sideboard: []
@@ -48974,24 +48988,31 @@ var getters = {
         return state.decklist.basiclands;
     },
     basiclandCount: function basiclandCount(state) {
-        var count = 0;
-        count += state.decklist.basiclands.mountains;
-        count += state.decklist.basiclands.plains;
-        count += state.decklist.basiclands.islands;
-        count += state.decklist.basiclands.forests;
-        count += state.decklist.basiclands.swamps;
-        return count;
+        var mainCount = 0;
+        var sideboardCount = 0;
+
+        mainCount += state.decklist.basiclands.main.mountains;
+        mainCount += state.decklist.basiclands.main.plains;
+        mainCount += state.decklist.basiclands.main.islands;
+        mainCount += state.decklist.basiclands.main.forests;
+        mainCount += state.decklist.basiclands.main.swamps;
+
+        sideboardCount += state.decklist.basiclands.sideboard.mountains;
+        sideboardCount += state.decklist.basiclands.sideboard.plains;
+        sideboardCount += state.decklist.basiclands.sideboard.islands;
+        sideboardCount += state.decklist.basiclands.sideboard.forests;
+        sideboardCount += state.decklist.basiclands.sideboard.swamps;
+
+        return {
+            main: mainCount,
+            sideboard: sideboardCount
+        };
     },
-    totalCardsSideboard: function totalCardsSideboard(state) {
-        var artifactSum = 0;
-        var creatureSum = 0;
-        var enchantmentSum = 0;
-        var instantSum = 0;
-        var sorcerySum = 0;
-        var planeswalkerSum = 0;
-        var landSum = 0;
-        var basicLandSum = 0;
+    totalCards: function totalCards(state) {
+        var mainBasicLandSum = 0;
+        var sideboardBasicLandSum = 0;
         var cardSum = 0;
+        var sideboardSum = 0;
 
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
@@ -49002,7 +49023,9 @@ var getters = {
                 var artifact = _step.value;
 
                 if (artifact.list === 'sideboard') {
-                    artifactSum += artifact.qty;
+                    sideboardSum += artifact.qty;
+                } else {
+                    cardSum += artifact.qty;
                 }
             }
         } catch (err) {
@@ -49029,7 +49052,9 @@ var getters = {
                 var creature = _step2.value;
 
                 if (creature.list === 'sideboard') {
-                    creatureSum += creature.qty;
+                    sideboardSum += creature.qty;
+                } else {
+                    cardSum += creature.qty;
                 }
             }
         } catch (err) {
@@ -49056,7 +49081,9 @@ var getters = {
                 var enchantment = _step3.value;
 
                 if (enchantment.list === 'sideboard') {
-                    enchantmentSum += enchantment.qty;
+                    sideboardSum += enchantment.qty;
+                } else {
+                    cardSum += enchantment.qty;
                 }
             }
         } catch (err) {
@@ -49083,7 +49110,9 @@ var getters = {
                 var instant = _step4.value;
 
                 if (instant.list === 'sideboard') {
-                    instantSum += instant.qty;
+                    sideboardSum += instant.qty;
+                } else {
+                    cardSum += instant.qty;
                 }
             }
         } catch (err) {
@@ -49110,7 +49139,9 @@ var getters = {
                 var sorcery = _step5.value;
 
                 if (sorcery.list === 'sideboard') {
-                    sorcerySum += sorcery.qty;
+                    sideboardSum += sorcery.qty;
+                } else {
+                    cardSum += sorcery.qty;
                 }
             }
         } catch (err) {
@@ -49137,7 +49168,9 @@ var getters = {
                 var planeswalker = _step6.value;
 
                 if (planeswalker.list === 'sideboard') {
-                    planeswalkerSum += planeswalker.qty;
+                    sideboardSum += planeswalker.qty;
+                } else {
+                    cardSum += planeswalker.qty;
                 }
             }
         } catch (err) {
@@ -49164,7 +49197,9 @@ var getters = {
                 var land = _step7.value;
 
                 if (land.list === 'sideboard') {
-                    landSum += land.qty;
+                    sideboardSum += land.qty;
+                } else {
+                    cardSum += land.qty;
                 }
             }
         } catch (err) {
@@ -49182,217 +49217,16 @@ var getters = {
             }
         }
 
-        basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
+        mainBasicLandSum = state.decklist.basiclands.main.mountains + state.decklist.basiclands.main.plains + state.decklist.basiclands.main.forests + state.decklist.basiclands.main.islands + state.decklist.basiclands.main.swamps;
+        sideboardBasicLandSum = state.decklist.basiclands.sideboard.mountains + state.decklist.basiclands.sideboard.plains + state.decklist.basiclands.sideboard.forests + state.decklist.basiclands.sideboard.islands + state.decklist.basiclands.sideboard.swamps;
 
-        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
+        cardSum = cardSum + mainBasicLandSum;
+        sideboardSum = sideboardSum + sideboardBasicLandSum;
 
-        return cardSum;
-    },
-    totalCardsMain: function totalCardsMain(state) {
-        var artifactSum = 0;
-        var creatureSum = 0;
-        var enchantmentSum = 0;
-        var instantSum = 0;
-        var sorcerySum = 0;
-        var planeswalkerSum = 0;
-        var landSum = 0;
-        var basicLandSum = 0;
-        var cardSum = 0;
-
-        var _iteratorNormalCompletion8 = true;
-        var _didIteratorError8 = false;
-        var _iteratorError8 = undefined;
-
-        try {
-            for (var _iterator8 = state.decklist.artifacts[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                var artifact = _step8.value;
-
-                if (artifact.list === 'main') {
-                    artifactSum += artifact.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError8 = true;
-            _iteratorError8 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion8 && _iterator8.return) {
-                    _iterator8.return();
-                }
-            } finally {
-                if (_didIteratorError8) {
-                    throw _iteratorError8;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion9 = true;
-        var _didIteratorError9 = false;
-        var _iteratorError9 = undefined;
-
-        try {
-            for (var _iterator9 = state.decklist.creatures[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                var creature = _step9.value;
-
-                if (creature.list === 'main') {
-                    creatureSum += creature.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError9 = true;
-            _iteratorError9 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion9 && _iterator9.return) {
-                    _iterator9.return();
-                }
-            } finally {
-                if (_didIteratorError9) {
-                    throw _iteratorError9;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion10 = true;
-        var _didIteratorError10 = false;
-        var _iteratorError10 = undefined;
-
-        try {
-            for (var _iterator10 = state.decklist.enchantments[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-                var enchantment = _step10.value;
-
-                if (enchantment.list === 'main') {
-                    enchantmentSum += enchantment.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError10 = true;
-            _iteratorError10 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion10 && _iterator10.return) {
-                    _iterator10.return();
-                }
-            } finally {
-                if (_didIteratorError10) {
-                    throw _iteratorError10;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion11 = true;
-        var _didIteratorError11 = false;
-        var _iteratorError11 = undefined;
-
-        try {
-            for (var _iterator11 = state.decklist.instants[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
-                var instant = _step11.value;
-
-                if (instant.list === 'main') {
-                    instantSum += instant.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError11 = true;
-            _iteratorError11 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion11 && _iterator11.return) {
-                    _iterator11.return();
-                }
-            } finally {
-                if (_didIteratorError11) {
-                    throw _iteratorError11;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion12 = true;
-        var _didIteratorError12 = false;
-        var _iteratorError12 = undefined;
-
-        try {
-            for (var _iterator12 = state.decklist.sorceries[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
-                var sorcery = _step12.value;
-
-                if (sorcery.list === 'main') {
-                    sorcerySum += sorcery.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError12 = true;
-            _iteratorError12 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion12 && _iterator12.return) {
-                    _iterator12.return();
-                }
-            } finally {
-                if (_didIteratorError12) {
-                    throw _iteratorError12;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion13 = true;
-        var _didIteratorError13 = false;
-        var _iteratorError13 = undefined;
-
-        try {
-            for (var _iterator13 = state.decklist.planeswalker[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
-                var planeswalker = _step13.value;
-
-                if (planeswalker.list === 'main') {
-                    planeswalkerSum += planeswalker.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError13 = true;
-            _iteratorError13 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion13 && _iterator13.return) {
-                    _iterator13.return();
-                }
-            } finally {
-                if (_didIteratorError13) {
-                    throw _iteratorError13;
-                }
-            }
-        }
-
-        var _iteratorNormalCompletion14 = true;
-        var _didIteratorError14 = false;
-        var _iteratorError14 = undefined;
-
-        try {
-            for (var _iterator14 = state.decklist.lands[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
-                var land = _step14.value;
-
-                if (land.list === 'main') {
-                    landSum += land.qty;
-                }
-            }
-        } catch (err) {
-            _didIteratorError14 = true;
-            _iteratorError14 = err;
-        } finally {
-            try {
-                if (!_iteratorNormalCompletion14 && _iterator14.return) {
-                    _iterator14.return();
-                }
-            } finally {
-                if (_didIteratorError14) {
-                    throw _iteratorError14;
-                }
-            }
-        }
-
-        basicLandSum = state.decklist.basiclands.mountains + state.decklist.basiclands.plains + state.decklist.basiclands.forests + state.decklist.basiclands.islands + state.decklist.basiclands.swamps;
-
-        cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
-
-        return cardSum;
+        return {
+            main: cardSum,
+            sideboard: sideboardSum
+        };
     }
 };
 
@@ -49489,13 +49323,12 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
         });
     }
 }), _defineProperty(_mutations, types.UPDATE_BASIC_LANDS, function (state, payload) {
-    state.decklist.basiclands.mountains = payload.mountains;
-    state.decklist.basiclands.plains = payload.plains;
-    state.decklist.basiclands.forests = payload.forests;
-    state.decklist.basiclands.islands = payload.islands;
-    state.decklist.basiclands.swamps = payload.swamps;
+    state.decklist.basiclands.main.mountains = payload.mountains;
+    state.decklist.basiclands.main.plains = payload.plains;
+    state.decklist.basiclands.main.forests = payload.forests;
+    state.decklist.basiclands.main.islands = payload.islands;
+    state.decklist.basiclands.main.swamps = payload.swamps;
 }), _defineProperty(_mutations, types.SWITCH_ACTIVE_LIST, function (state, payload) {
-    console.warn(payload);
     state.activeList = payload.list;
 }), _mutations);
 
@@ -64383,7 +64216,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.switchActiveList('main')
       }
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.totalCardsMain) + " Main\n    ")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("\n        " + _vm._s(_vm.totalCards.main) + " Main\n    ")]), _vm._v(" "), _c('span', {
     staticClass: "tag is-medium deckswitch",
     class: _vm.activeList === 'sideboard' ? 'is-primary' : 'is-light',
     on: {
@@ -64391,7 +64224,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.switchActiveList('sideboard')
       }
     }
-  }, [_vm._v("\n        " + _vm._s(_vm.totalCardsSideboard) + " Sideboard\n    ")]), _vm._v(" "), _c('aside', {
+  }, [_vm._v("\n        " + _vm._s(_vm.totalCards.sideboard) + " Sideboard\n    ")]), _vm._v(" "), _c('aside', {
     staticClass: "menu",
     staticStyle: {
       "margin-top": "1.5em"
@@ -64494,15 +64327,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "land-list"
   }, [_c('li', [_vm._m(0), _vm._v(" "), _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.mountains))]), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.mountains))]), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.plains))]), _vm._v("\n                        Plains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.plains))]), _vm._v("\n                        Plains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.forests))]), _vm._v("\n                        Forests\n                    ")]), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.forests))]), _vm._v("\n                        Forests\n                    ")]), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.islands))]), _vm._v("\n                        Islands\n                    ")]), _vm._v(" "), _c('li', [_vm._m(4), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.islands))]), _vm._v("\n                        Islands\n                    ")]), _vm._v(" "), _c('li', [_vm._m(4), _vm._v(" "), _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.swamps))]), _vm._v("\n                        Swamps\n                    ")])])])])], 2)])
+  }, [_vm._v(_vm._s(this.basiclands.main.swamps))]), _vm._v("\n                        Swamps\n                    ")])])])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', [_c('i', {
     staticClass: "ms ms-r ms-cost ms-fw"
