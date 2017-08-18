@@ -314,11 +314,11 @@ const mutations = {
         }
     },
     [types.UPDATE_BASIC_LANDS]( state, payload ) {
-        state.decklist.basiclands.main.mountains = payload.mountains;
-        state.decklist.basiclands.main.plains = payload.plains;
-        state.decklist.basiclands.main.forests = payload.forests;
-        state.decklist.basiclands.main.islands = payload.islands;
-        state.decklist.basiclands.main.swamps = payload.swamps;
+        state.decklist.basiclands[payload.list].mountains = payload.mountains;
+        state.decklist.basiclands[payload.list].plains = payload.plains;
+        state.decklist.basiclands[payload.list].forests = payload.forests;
+        state.decklist.basiclands[payload.list].islands = payload.islands;
+        state.decklist.basiclands[payload.list].swamps = payload.swamps;
     },
     [types.SWITCH_ACTIVE_LIST]( state, payload ) {
         state.activeList = payload.list;

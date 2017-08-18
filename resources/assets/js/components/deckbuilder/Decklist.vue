@@ -93,27 +93,32 @@
                     <ul class="land-list">
                         <li>
                             <span><i class="ms ms-r ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.main.mountains }}</span>
+                            <span v-if="activeList === 'main'" class="tag">{{ this.basiclands.main.mountains }}</span>
+                            <span v-if="activeList === 'sideboard'" class="tag">{{ this.basiclands.sideboard.mountains }}</span>
                             Mountains
                         </li>
                         <li>
                             <span><i class="ms ms-w ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.main.plains }}</span>
+                            <span v-if="activeList === 'main'" class="tag">{{ this.basiclands.main.plains }}</span>
+                            <span v-if="activeList === 'sideboard'" class="tag">{{ this.basiclands.sideboard.plains }}</span>
                             Plains
                         </li>
                         <li>
                             <span><i class="ms ms-g ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.main.forests }}</span>
+                            <span v-if="activeList === 'main'" class="tag">{{ this.basiclands.main.forests }}</span>
+                            <span v-if="activeList === 'sideboard'" class="tag">{{ this.basiclands.sideboard.forests }}</span>
                             Forests
                         </li>
                         <li>
                             <span><i class="ms ms-u ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.main.islands }}</span>
+                            <span v-if="activeList === 'main'" class="tag">{{ this.basiclands.main.islands }}</span>
+                            <span v-if="activeList === 'sideboard'" class="tag">{{ this.basiclands.sideboard.islands }}</span>
                             Islands
                         </li>
                         <li>
                             <span><i class="ms ms-b ms-cost ms-fw"></i></span>
-                            <span class="tag">{{ this.basiclands.main.swamps }}</span>
+                            <span v-if="activeList === 'main'" class="tag">{{ this.basiclands.main.swamps }}</span>
+                            <span v-if="activeList === 'sideboard'" class="tag">{{ this.basiclands.sideboard.swamps }}</span>
                             Swamps
                         </li>
                     </ul>

@@ -15,7 +15,7 @@
                         <div class="actions has-text-centered">
                             <button class="button is-small is-pulled-left"
                                     :disabled="totalMountains === 0"
-                                    @click="mountains--">
+                                    @click="decrease( 'mountains' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -23,7 +23,7 @@
 
                             <span class="subtitle has-text-centered">{{ totalMountains }}</span>
 
-                            <button class="button is-small is-pulled-right" @click="mountains++">
+                            <button class="button is-small is-pulled-right" @click="increase( 'mountains' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -38,7 +38,7 @@
                         <div class="actions has-text-centered">
                             <button class="button is-small is-pulled-left"
                                     :disabled="totalPlains === 0"
-                                    @click="plains--">
+                                    @click="decrease( 'plains' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -46,7 +46,7 @@
 
                             <span class="subtitle has-text-centered">{{ totalPlains }}</span>
 
-                            <button class="button is-small is-pulled-right" @click="plains++">
+                            <button class="button is-small is-pulled-right" @click="increase( 'plains' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -62,7 +62,7 @@
                         <div class="actions has-text-centered">
                             <button class="button is-small is-pulled-left"
                                     :disabled="totalForests === 0"
-                                    @click="forests--">
+                                    @click="decrease( 'forests' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -70,7 +70,7 @@
 
                             <span class="subtitle has-text-centered">{{ totalForests }}</span>
 
-                            <button class="button is-small is-pulled-right" @click="forests++">
+                            <button class="button is-small is-pulled-right" @click="increase( 'forests' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -85,7 +85,7 @@
                         <div class="actions has-text-centered">
                             <button class="button is-small is-pulled-left"
                                     :disabled="totalIslands === 0"
-                                    @click="islands--">
+                                    @click="decrease( 'islands' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -93,7 +93,7 @@
 
                             <span class="subtitle has-text-centered">{{ totalIslands }}</span>
 
-                            <button class="button is-small is-pulled-right" @click="islands++">
+                            <button class="button is-small is-pulled-right" @click="increase( 'islands' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -108,7 +108,7 @@
                         <div class="actions has-text-centered">
                             <button class="button is-small is-pulled-left"
                                     :disabled="totalSwamps === 0"
-                                    @click="swamps--">
+                                    @click="decrease( 'swamps' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-minus"></i>
                                 </span>
@@ -116,7 +116,7 @@
 
                             <span class="subtitle has-text-centered">{{ totalSwamps }}</span>
 
-                            <button class="button is-small is-pulled-right" @click="swamps++">
+                            <button class="button is-small is-pulled-right" @click="increase( 'swamps' )">
                                 <span class="icon is-small">
                                     <i class="fa fa-plus"></i>
                                 </span>
@@ -137,45 +137,89 @@
     export default {
         data() {
             return {
-                mountains   : 0,
-                plains      : 0,
-                forests     : 0,
-                islands     : 0,
-                swamps      : 0
+                main : {
+                    mountains   : 0,
+                    plains      : 0,
+                    forests     : 0,
+                    islands     : 0,
+                    swamps      : 0
+                },
+                sideboard : {
+                    mountains   : 0,
+                    plains      : 0,
+                    forests     : 0,
+                    islands     : 0,
+                    swamps      : 0
+                }
             };
         },
         computed : {
+            activeList() {
+                return this.$store.getters.activeList;
+            },
             totalMountains() {
                 const basiclands = this.$store.getters.basiclands;
-                return basiclands.main.mountains + this.mountains;
+
+                if ( this.activeList === 'sideboard' ) {
+                    return basiclands.sideboard.mountains + this.sideboard.mountains;
+                }
+                return basiclands.main.mountains + this.main.mountains;
             },
             totalPlains() {
                 const basiclands = this.$store.getters.basiclands;
-                return basiclands.main.plains + this.plains;
+
+                if ( this.activeList === 'sideboard' ) {
+                    return basiclands.sideboard.plains + this.sideboard.plains;
+                }
+                return basiclands.main.plains + this.main.plains;
             },
             totalForests() {
                 const basiclands = this.$store.getters.basiclands;
-                return basiclands.main.forests + this.forests;
+
+                if ( this.activeList === 'sideboard' ) {
+                    return basiclands.sideboard.forests + this.sideboard.forests;
+                }
+                return basiclands.main.forests + this.main.forests;
             },
             totalIslands() {
                 const basiclands = this.$store.getters.basiclands;
-                return basiclands.main.islands + this.islands;
+
+                if ( this.activeList === 'sideboard' ) {
+                    return basiclands.sideboard.islands + this.sideboard.islands;
+                }
+                return basiclands.main.islands + this.main.islands;
             },
             totalSwamps() {
                 const basiclands = this.$store.getters.basiclands;
-                return basiclands.main.swamps + this.swamps;
+
+                if ( this.activeList === 'sideboard' ) {
+                    return basiclands.sideboard.swamps + this.sideboard.swamps;
+                }
+                return basiclands.main.swamps + this.main.swamps;
             },
             isVisible() {
                 return this.$store.getters.landModal.visible;
             }
         },
         methods : {
+            increase( land ) {
+                this[this.activeList][land]++;
+            },
+            decrease( land ) {
+                this[this.activeList][land]--;
+            },
             reset() {
-                this.mountains = 0;
-                this.plains = 0;
-                this.forests = 0;
-                this.islands = 0;
-                this.swamps = 0;
+                this.main.mountains = 0;
+                this.main.plains = 0;
+                this.main.forests = 0;
+                this.main.islands = 0;
+                this.main.swamps = 0;
+
+                this.sideboard.mountains = 0;
+                this.sideboard.plains = 0;
+                this.sideboard.forests = 0;
+                this.sideboard.islands = 0;
+                this.sideboard.swamps = 0;
             },
             closeModal() {
                 this.reset();
@@ -186,6 +230,7 @@
             save() {
                 this.$store.dispatch( {
                     type        : 'updateBasicLands',
+                    list        : this.activeList,
                     mountains   : this.totalMountains,
                     plains      : this.totalPlains,
                     forests     : this.totalForests,

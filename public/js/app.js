@@ -47012,6 +47012,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
 
 var _Spinner = __webpack_require__(9);
 
@@ -47652,46 +47657,90 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     data: function data() {
         return {
-            mountains: 0,
-            plains: 0,
-            forests: 0,
-            islands: 0,
-            swamps: 0
+            main: {
+                mountains: 0,
+                plains: 0,
+                forests: 0,
+                islands: 0,
+                swamps: 0
+            },
+            sideboard: {
+                mountains: 0,
+                plains: 0,
+                forests: 0,
+                islands: 0,
+                swamps: 0
+            }
         };
     },
 
     computed: {
+        activeList: function activeList() {
+            return this.$store.getters.activeList;
+        },
         totalMountains: function totalMountains() {
             var basiclands = this.$store.getters.basiclands;
-            return basiclands.main.mountains + this.mountains;
+
+            if (this.activeList === 'sideboard') {
+                return basiclands.sideboard.mountains + this.sideboard.mountains;
+            }
+            return basiclands.main.mountains + this.main.mountains;
         },
         totalPlains: function totalPlains() {
             var basiclands = this.$store.getters.basiclands;
-            return basiclands.main.plains + this.plains;
+
+            if (this.activeList === 'sideboard') {
+                return basiclands.sideboard.plains + this.sideboard.plains;
+            }
+            return basiclands.main.plains + this.main.plains;
         },
         totalForests: function totalForests() {
             var basiclands = this.$store.getters.basiclands;
-            return basiclands.main.forests + this.forests;
+
+            if (this.activeList === 'sideboard') {
+                return basiclands.sideboard.forests + this.sideboard.forests;
+            }
+            return basiclands.main.forests + this.main.forests;
         },
         totalIslands: function totalIslands() {
             var basiclands = this.$store.getters.basiclands;
-            return basiclands.main.islands + this.islands;
+
+            if (this.activeList === 'sideboard') {
+                return basiclands.sideboard.islands + this.sideboard.islands;
+            }
+            return basiclands.main.islands + this.main.islands;
         },
         totalSwamps: function totalSwamps() {
             var basiclands = this.$store.getters.basiclands;
-            return basiclands.main.swamps + this.swamps;
+
+            if (this.activeList === 'sideboard') {
+                return basiclands.sideboard.swamps + this.sideboard.swamps;
+            }
+            return basiclands.main.swamps + this.main.swamps;
         },
         isVisible: function isVisible() {
             return this.$store.getters.landModal.visible;
         }
     },
     methods: {
+        increase: function increase(land) {
+            this[this.activeList][land]++;
+        },
+        decrease: function decrease(land) {
+            this[this.activeList][land]--;
+        },
         reset: function reset() {
-            this.mountains = 0;
-            this.plains = 0;
-            this.forests = 0;
-            this.islands = 0;
-            this.swamps = 0;
+            this.main.mountains = 0;
+            this.main.plains = 0;
+            this.main.forests = 0;
+            this.main.islands = 0;
+            this.main.swamps = 0;
+
+            this.sideboard.mountains = 0;
+            this.sideboard.plains = 0;
+            this.sideboard.forests = 0;
+            this.sideboard.islands = 0;
+            this.sideboard.swamps = 0;
         },
         closeModal: function closeModal() {
             this.reset();
@@ -47702,6 +47751,7 @@ exports.default = {
         save: function save() {
             this.$store.dispatch({
                 type: 'updateBasicLands',
+                list: this.activeList,
                 mountains: this.totalMountains,
                 plains: this.totalPlains,
                 forests: this.totalForests,
@@ -49323,11 +49373,11 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
         });
     }
 }), _defineProperty(_mutations, types.UPDATE_BASIC_LANDS, function (state, payload) {
-    state.decklist.basiclands.main.mountains = payload.mountains;
-    state.decklist.basiclands.main.plains = payload.plains;
-    state.decklist.basiclands.main.forests = payload.forests;
-    state.decklist.basiclands.main.islands = payload.islands;
-    state.decklist.basiclands.main.swamps = payload.swamps;
+    state.decklist.basiclands[payload.list].mountains = payload.mountains;
+    state.decklist.basiclands[payload.list].plains = payload.plains;
+    state.decklist.basiclands[payload.list].forests = payload.forests;
+    state.decklist.basiclands[payload.list].islands = payload.islands;
+    state.decklist.basiclands[payload.list].swamps = payload.swamps;
 }), _defineProperty(_mutations, types.SWITCH_ACTIVE_LIST, function (state, payload) {
     state.activeList = payload.list;
 }), _mutations);
@@ -63657,7 +63707,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.mountains--
+        _vm.decrease('mountains')
       }
     }
   }, [_vm._m(1)]), _vm._v(" "), _c('span', {
@@ -63666,7 +63716,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
-        _vm.mountains++
+        _vm.increase('mountains')
       }
     }
   }, [_vm._m(2)])])]), _vm._v(" "), _c('div', {
@@ -63680,7 +63730,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.plains--
+        _vm.decrease('plains')
       }
     }
   }, [_vm._m(4)]), _vm._v(" "), _c('span', {
@@ -63689,7 +63739,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
-        _vm.plains++
+        _vm.increase('plains')
       }
     }
   }, [_vm._m(5)])])]), _vm._v(" "), _c('div', {
@@ -63703,7 +63753,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.forests--
+        _vm.decrease('forests')
       }
     }
   }, [_vm._m(7)]), _vm._v(" "), _c('span', {
@@ -63712,7 +63762,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
-        _vm.forests++
+        _vm.increase('forests')
       }
     }
   }, [_vm._m(8)])])]), _vm._v(" "), _c('div', {
@@ -63726,7 +63776,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.islands--
+        _vm.decrease('islands')
       }
     }
   }, [_vm._m(10)]), _vm._v(" "), _c('span', {
@@ -63735,7 +63785,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
-        _vm.islands++
+        _vm.increase('islands')
       }
     }
   }, [_vm._m(11)])])]), _vm._v(" "), _c('div', {
@@ -63749,7 +63799,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        _vm.swamps--
+        _vm.decrease('swamps')
       }
     }
   }, [_vm._m(13)]), _vm._v(" "), _c('span', {
@@ -63758,7 +63808,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "button is-small is-pulled-right",
     on: {
       "click": function($event) {
-        _vm.swamps++
+        _vm.increase('swamps')
       }
     }
   }, [_vm._m(14)])])])])]), _vm._v(" "), _c('footer', {
@@ -64325,17 +64375,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "ms ms-land ms-fw inline-icon"
   }), _vm._v(" Manage Basic Lands")])]), _vm._v(" "), _c('li', [_c('ul', {
     staticClass: "land-list"
-  }, [_c('li', [_vm._m(0), _vm._v(" "), _c('span', {
+  }, [_c('li', [_vm._m(0), _vm._v(" "), (_vm.activeList === 'main') ? _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.main.mountains))]), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.mountains))]) : _vm._e(), _vm._v(" "), (_vm.activeList === 'sideboard') ? _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.main.plains))]), _vm._v("\n                        Plains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.sideboard.mountains))]) : _vm._e(), _vm._v("\n                        Mountains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(1), _vm._v(" "), (_vm.activeList === 'main') ? _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.main.forests))]), _vm._v("\n                        Forests\n                    ")]), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.main.plains))]) : _vm._e(), _vm._v(" "), (_vm.activeList === 'sideboard') ? _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.main.islands))]), _vm._v("\n                        Islands\n                    ")]), _vm._v(" "), _c('li', [_vm._m(4), _vm._v(" "), _c('span', {
+  }, [_vm._v(_vm._s(this.basiclands.sideboard.plains))]) : _vm._e(), _vm._v("\n                        Plains\n                    ")]), _vm._v(" "), _c('li', [_vm._m(2), _vm._v(" "), (_vm.activeList === 'main') ? _c('span', {
     staticClass: "tag"
-  }, [_vm._v(_vm._s(this.basiclands.main.swamps))]), _vm._v("\n                        Swamps\n                    ")])])])])], 2)])
+  }, [_vm._v(_vm._s(this.basiclands.main.forests))]) : _vm._e(), _vm._v(" "), (_vm.activeList === 'sideboard') ? _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.sideboard.forests))]) : _vm._e(), _vm._v("\n                        Forests\n                    ")]), _vm._v(" "), _c('li', [_vm._m(3), _vm._v(" "), (_vm.activeList === 'main') ? _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.main.islands))]) : _vm._e(), _vm._v(" "), (_vm.activeList === 'sideboard') ? _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.sideboard.islands))]) : _vm._e(), _vm._v("\n                        Islands\n                    ")]), _vm._v(" "), _c('li', [_vm._m(4), _vm._v(" "), (_vm.activeList === 'main') ? _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.main.swamps))]) : _vm._e(), _vm._v(" "), (_vm.activeList === 'sideboard') ? _c('span', {
+    staticClass: "tag"
+  }, [_vm._v(_vm._s(this.basiclands.sideboard.swamps))]) : _vm._e(), _vm._v("\n                        Swamps\n                    ")])])])])], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('span', [_c('i', {
     staticClass: "ms ms-r ms-cost ms-fw"
