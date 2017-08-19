@@ -46772,7 +46772,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     computed: {
         hasCards: function hasCards() {
-            return this.$store.getters.totalCardsMain > 0;
+            return this.$store.getters.totalCards.main > 0 || this.$store.getters.totalCards.sideboard > 0;
         }
     },
     methods: {
