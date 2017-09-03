@@ -9,77 +9,77 @@
         </span>
         
         <aside class="menu" style="margin-top: 1.5em;">
-            <template v-if="creatures.length">
+            <template v-if="creatures[activeList].length">
                 <p class="menu-label">
                     Creatures
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( creature, key ) in creatures">
+                    <template v-for="( creature, key ) in creatures[activeList]">
                         <Decklistitem :key="key" :entry="creature" list="creatures"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <template v-if="planeswalker.length">
+            <template v-if="planeswalker[activeList].length">
                 <p class="menu-label">
                     Planeswalker
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( planeswalker, key ) in planeswalker">
+                    <template v-for="( planeswalker, key ) in planeswalker[activeList]">
                         <Decklistitem :key="key" :entry="planeswalker" list="planeswalker"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <template v-if="artifacts.length">
+            <template v-if="artifacts[activeList].length">
                 <p class="menu-label">
                     Artifacts
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( artifact, key ) in artifacts">
+                    <template v-for="( artifact, key ) in artifacts[activeList]">
                         <Decklistitem :key="key" :entry="artifact" list="artifacts"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <template v-if="instants.length">
+            <template v-if="instants[activeList].length">
                 <p class="menu-label">
                     Instants
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( instant, key ) in instants">
+                    <template v-for="( instant, key ) in instants[activeList]">
                         <Decklistitem :key="key" :entry="instant" list="instants"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <template v-if="sorceries.length">
+            <template v-if="sorceries[activeList].length">
                 <p class="menu-label">
                     Sorceries
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( sorcery, key ) in sorceries">
+                    <template v-for="( sorcery, key ) in sorceries[activeList]">
                         <Decklistitem :key="key" :entry="sorcery" list="sorceries"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <template v-if="enchantments.length">
+            <template v-if="enchantments[activeList].length">
                 <p class="menu-label">
                     Enchantments
                 </p>
                 <ul class="menu-list">
-                    <template v-for="( enchantment, key ) in enchantments">
+                    <template v-for="( enchantment, key ) in enchantments[activeList]">
                         <Decklistitem :key="key" :entry="enchantment" list="enchantments"></Decklistitem>
                     </template>
                 </ul>
             </template>
 
-            <p class="menu-label" v-if="lands.length">
+            <p class="menu-label" v-if="lands[activeList].length">
                 Lands
             </p>
             <ul class="menu-list">
-                <template v-for="( land, key ) in lands">
+                <template v-for="( land, key ) in lands[activeList]">
                     <Decklistitem :key="key" :entry="land" list="lands"></Decklistitem>
                 </template>
             </ul>

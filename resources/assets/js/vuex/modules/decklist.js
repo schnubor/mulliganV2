@@ -6,13 +6,34 @@ const state = {
     activeList  : 'main',
     decklist    : {
         cardsum         : 0,
-        artifacts       : [],
-        lands           : [],
-        creatures       : [],
-        sorceries       : [],
-        instants        : [],
-        planeswalker    : [],
-        enchantments    : [],
+        artifacts       : {
+            main      : [],
+            sideboard : []
+        },
+        lands           : {
+            main      : [],
+            sideboard : []
+        },
+        creatures       : {
+            main      : [],
+            sideboard : []
+        },
+        sorceries       : {
+            main      : [],
+            sideboard : []
+        },
+        instants        : {
+            main      : [],
+            sideboard : []
+        },
+        planeswalker    : {
+            main      : [],
+            sideboard : []
+        },
+        enchantments    : {
+            main      : [],
+            sideboard : []
+        },
         basiclands      : {
             main : {
                 'mountains' : 0,
@@ -146,61 +167,60 @@ const getters = {
         let cardSum = 0;
         let sideboardSum = 0;
 
-        for ( const artifact of state.decklist.artifacts ) {
-            if ( artifact.list === 'sideboard' ) {
-                sideboardSum += artifact.qty;
-            }
-            else {
-                cardSum += artifact.qty;
-            }
+        // ARTIFACTS
+        for ( const artifact of state.decklist.artifacts.main ) {
+            cardSum += artifact.qty;
         }
-        for ( const creature of state.decklist.creatures ) {
-            if ( creature.list === 'sideboard' ) {
-                sideboardSum += creature.qty;
-            }
-            else {
-                cardSum += creature.qty;
-            }
+        for ( const artifact of state.decklist.artifacts.sideboard ) {
+            sideboardSum += artifact.qty;
         }
-        for ( const enchantment of state.decklist.enchantments ) {
-            if ( enchantment.list === 'sideboard' ) {
-                sideboardSum += enchantment.qty;
-            }
-            else {
-                cardSum += enchantment.qty;
-            }
+
+        // CREATURES
+        for ( const creature of state.decklist.creatures.main ) {
+            cardSum += creature.qty;
         }
-        for ( const instant of state.decklist.instants ) {
-            if ( instant.list === 'sideboard' ) {
-                sideboardSum += instant.qty;
-            }
-            else {
-                cardSum += instant.qty;
-            }
+        for ( const creature of state.decklist.creatures.sideboard ) {
+            sideboardSum += creature.qty;
         }
-        for ( const sorcery of state.decklist.sorceries ) {
-            if ( sorcery.list === 'sideboard' ) {
-                sideboardSum += sorcery.qty;
-            }
-            else {
-                cardSum += sorcery.qty;
-            }
+
+        // ENCHANTMENTS
+        for ( const enchantment of state.decklist.enchantments.main ) {
+            cardSum += enchantment.qty;
         }
-        for ( const planeswalker of state.decklist.planeswalker ) {
-            if ( planeswalker.list === 'sideboard' ) {
-                sideboardSum += planeswalker.qty;
-            }
-            else {
-                cardSum += planeswalker.qty;
-            }
+        for ( const enchantment of state.decklist.enchantments.sideboard ) {
+            sideboardSum += enchantment.qty;
         }
-        for ( const land of state.decklist.lands ) {
-            if ( land.list === 'sideboard' ) {
-                sideboardSum += land.qty;
-            }
-            else {
-                cardSum += land.qty;
-            }
+
+        // INSTANTS
+        for ( const instant of state.decklist.instants.main ) {
+            cardSum += instant.qty;
+        }
+        for ( const instant of state.decklist.instants.sideboard ) {
+            sideboardSum += instant.qty;
+        }
+
+        // SORCERIES
+        for ( const sorcery of state.decklist.sorceries.main ) {
+            cardSum += sorcery.qty;
+        }
+        for ( const sorcery of state.decklist.sorceries.sideboard ) {
+            sideboardSum += sorcery.qty;
+        }
+
+        // PLANESWALKER
+        for ( const planeswalker of state.decklist.planeswalker.main ) {
+            cardSum += planeswalker.qty;
+        }
+        for ( const planeswalker of state.decklist.planeswalker.sideboard ) {
+            sideboardSum += planeswalker.qty;
+        }
+
+        // LANDS
+        for ( const land of state.decklist.lands.main ) {
+            cardSum += land.qty;
+        }
+        for ( const land of state.decklist.lands.sideboard ) {
+            sideboardSum += land.qty;
         }
 
         mainBasicLandSum = state.decklist.basiclands.main.mountains + state.decklist.basiclands.main.plains + state.decklist.basiclands.main.forests + state.decklist.basiclands.main.islands + state.decklist.basiclands.main.swamps;
@@ -219,30 +239,31 @@ const getters = {
 const mutations = {
     [types.ADD_TO_DECKLIST]( state, payload ) {
         const card = payload.card;
+        console.log( state.activeList );
 
         let list = null;
 
         switch ( card.types[ 0 ] ) {
             case 'Creature' :
-                list = state.decklist.creatures;
+                list = state.decklist.creatures[ state.activeList ];
                 break;
             case 'Instant' :
-                list = state.decklist.instants;
+                list = state.decklist.instants[ state.activeList ];
                 break;
             case 'Sorcery' :
-                list = state.decklist.sorceries;
+                list = state.decklist.sorceries[ state.activeList ];
                 break;
             case 'Land' :
-                list = state.decklist.lands;
+                list = state.decklist.lands[ state.activeList ];
                 break;
             case 'Artifact' :
-                list = state.decklist.artifacts;
+                list = state.decklist.artifacts[ state.activeList ];
                 break;
             case 'Enchantment' :
-                list = state.decklist.enchantments;
+                list = state.decklist.enchantments[ state.activeList ];
                 break;
             case 'Planeswalker' :
-                list = state.decklist.planeswalker;
+                list = state.decklist.planeswalker[ state.activeList ];
                 break;
             default: break;
         }

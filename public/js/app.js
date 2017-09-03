@@ -48924,13 +48924,34 @@ var state = {
     activeList: 'main',
     decklist: {
         cardsum: 0,
-        artifacts: [],
-        lands: [],
-        creatures: [],
-        sorceries: [],
-        instants: [],
-        planeswalker: [],
-        enchantments: [],
+        artifacts: {
+            main: [],
+            sideboard: []
+        },
+        lands: {
+            main: [],
+            sideboard: []
+        },
+        creatures: {
+            main: [],
+            sideboard: []
+        },
+        sorceries: {
+            main: [],
+            sideboard: []
+        },
+        instants: {
+            main: [],
+            sideboard: []
+        },
+        planeswalker: {
+            main: [],
+            sideboard: []
+        },
+        enchantments: {
+            main: [],
+            sideboard: []
+        },
         basiclands: {
             main: {
                 'mountains': 0,
@@ -49064,19 +49085,16 @@ var getters = {
         var cardSum = 0;
         var sideboardSum = 0;
 
+        // ARTIFACTS
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
         var _iteratorError = undefined;
 
         try {
-            for (var _iterator = state.decklist.artifacts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            for (var _iterator = state.decklist.artifacts.main[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var artifact = _step.value;
 
-                if (artifact.list === 'sideboard') {
-                    sideboardSum += artifact.qty;
-                } else {
-                    cardSum += artifact.qty;
-                }
+                cardSum += artifact.qty;
             }
         } catch (err) {
             _didIteratorError = true;
@@ -49098,15 +49116,13 @@ var getters = {
         var _iteratorError2 = undefined;
 
         try {
-            for (var _iterator2 = state.decklist.creatures[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                var creature = _step2.value;
+            for (var _iterator2 = state.decklist.artifacts.sideboard[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var _artifact = _step2.value;
 
-                if (creature.list === 'sideboard') {
-                    sideboardSum += creature.qty;
-                } else {
-                    cardSum += creature.qty;
-                }
+                sideboardSum += _artifact.qty;
             }
+
+            // CREATURES
         } catch (err) {
             _didIteratorError2 = true;
             _iteratorError2 = err;
@@ -49127,14 +49143,10 @@ var getters = {
         var _iteratorError3 = undefined;
 
         try {
-            for (var _iterator3 = state.decklist.enchantments[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-                var enchantment = _step3.value;
+            for (var _iterator3 = state.decklist.creatures.main[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var creature = _step3.value;
 
-                if (enchantment.list === 'sideboard') {
-                    sideboardSum += enchantment.qty;
-                } else {
-                    cardSum += enchantment.qty;
-                }
+                cardSum += creature.qty;
             }
         } catch (err) {
             _didIteratorError3 = true;
@@ -49156,15 +49168,13 @@ var getters = {
         var _iteratorError4 = undefined;
 
         try {
-            for (var _iterator4 = state.decklist.instants[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-                var instant = _step4.value;
+            for (var _iterator4 = state.decklist.creatures.sideboard[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var _creature = _step4.value;
 
-                if (instant.list === 'sideboard') {
-                    sideboardSum += instant.qty;
-                } else {
-                    cardSum += instant.qty;
-                }
+                sideboardSum += _creature.qty;
             }
+
+            // ENCHANTMENTS
         } catch (err) {
             _didIteratorError4 = true;
             _iteratorError4 = err;
@@ -49185,14 +49195,10 @@ var getters = {
         var _iteratorError5 = undefined;
 
         try {
-            for (var _iterator5 = state.decklist.sorceries[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var sorcery = _step5.value;
+            for (var _iterator5 = state.decklist.enchantments.main[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var enchantment = _step5.value;
 
-                if (sorcery.list === 'sideboard') {
-                    sideboardSum += sorcery.qty;
-                } else {
-                    cardSum += sorcery.qty;
-                }
+                cardSum += enchantment.qty;
             }
         } catch (err) {
             _didIteratorError5 = true;
@@ -49214,15 +49220,13 @@ var getters = {
         var _iteratorError6 = undefined;
 
         try {
-            for (var _iterator6 = state.decklist.planeswalker[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                var planeswalker = _step6.value;
+            for (var _iterator6 = state.decklist.enchantments.sideboard[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+                var _enchantment = _step6.value;
 
-                if (planeswalker.list === 'sideboard') {
-                    sideboardSum += planeswalker.qty;
-                } else {
-                    cardSum += planeswalker.qty;
-                }
+                sideboardSum += _enchantment.qty;
             }
+
+            // INSTANTS
         } catch (err) {
             _didIteratorError6 = true;
             _iteratorError6 = err;
@@ -49243,14 +49247,10 @@ var getters = {
         var _iteratorError7 = undefined;
 
         try {
-            for (var _iterator7 = state.decklist.lands[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                var land = _step7.value;
+            for (var _iterator7 = state.decklist.instants.main[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                var instant = _step7.value;
 
-                if (land.list === 'sideboard') {
-                    sideboardSum += land.qty;
-                } else {
-                    cardSum += land.qty;
-                }
+                cardSum += instant.qty;
             }
         } catch (err) {
             _didIteratorError7 = true;
@@ -49263,6 +49263,187 @@ var getters = {
             } finally {
                 if (_didIteratorError7) {
                     throw _iteratorError7;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion8 = true;
+        var _didIteratorError8 = false;
+        var _iteratorError8 = undefined;
+
+        try {
+            for (var _iterator8 = state.decklist.instants.sideboard[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                var _instant = _step8.value;
+
+                sideboardSum += _instant.qty;
+            }
+
+            // SORCERIES
+        } catch (err) {
+            _didIteratorError8 = true;
+            _iteratorError8 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion8 && _iterator8.return) {
+                    _iterator8.return();
+                }
+            } finally {
+                if (_didIteratorError8) {
+                    throw _iteratorError8;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion9 = true;
+        var _didIteratorError9 = false;
+        var _iteratorError9 = undefined;
+
+        try {
+            for (var _iterator9 = state.decklist.sorceries.main[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                var sorcery = _step9.value;
+
+                cardSum += sorcery.qty;
+            }
+        } catch (err) {
+            _didIteratorError9 = true;
+            _iteratorError9 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion9 && _iterator9.return) {
+                    _iterator9.return();
+                }
+            } finally {
+                if (_didIteratorError9) {
+                    throw _iteratorError9;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion10 = true;
+        var _didIteratorError10 = false;
+        var _iteratorError10 = undefined;
+
+        try {
+            for (var _iterator10 = state.decklist.sorceries.sideboard[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                var _sorcery = _step10.value;
+
+                sideboardSum += _sorcery.qty;
+            }
+
+            // PLANESWALKER
+        } catch (err) {
+            _didIteratorError10 = true;
+            _iteratorError10 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion10 && _iterator10.return) {
+                    _iterator10.return();
+                }
+            } finally {
+                if (_didIteratorError10) {
+                    throw _iteratorError10;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion11 = true;
+        var _didIteratorError11 = false;
+        var _iteratorError11 = undefined;
+
+        try {
+            for (var _iterator11 = state.decklist.planeswalker.main[Symbol.iterator](), _step11; !(_iteratorNormalCompletion11 = (_step11 = _iterator11.next()).done); _iteratorNormalCompletion11 = true) {
+                var planeswalker = _step11.value;
+
+                cardSum += planeswalker.qty;
+            }
+        } catch (err) {
+            _didIteratorError11 = true;
+            _iteratorError11 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion11 && _iterator11.return) {
+                    _iterator11.return();
+                }
+            } finally {
+                if (_didIteratorError11) {
+                    throw _iteratorError11;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion12 = true;
+        var _didIteratorError12 = false;
+        var _iteratorError12 = undefined;
+
+        try {
+            for (var _iterator12 = state.decklist.planeswalker.sideboard[Symbol.iterator](), _step12; !(_iteratorNormalCompletion12 = (_step12 = _iterator12.next()).done); _iteratorNormalCompletion12 = true) {
+                var _planeswalker = _step12.value;
+
+                sideboardSum += _planeswalker.qty;
+            }
+
+            // LANDS
+        } catch (err) {
+            _didIteratorError12 = true;
+            _iteratorError12 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion12 && _iterator12.return) {
+                    _iterator12.return();
+                }
+            } finally {
+                if (_didIteratorError12) {
+                    throw _iteratorError12;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion13 = true;
+        var _didIteratorError13 = false;
+        var _iteratorError13 = undefined;
+
+        try {
+            for (var _iterator13 = state.decklist.lands.main[Symbol.iterator](), _step13; !(_iteratorNormalCompletion13 = (_step13 = _iterator13.next()).done); _iteratorNormalCompletion13 = true) {
+                var land = _step13.value;
+
+                cardSum += land.qty;
+            }
+        } catch (err) {
+            _didIteratorError13 = true;
+            _iteratorError13 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion13 && _iterator13.return) {
+                    _iterator13.return();
+                }
+            } finally {
+                if (_didIteratorError13) {
+                    throw _iteratorError13;
+                }
+            }
+        }
+
+        var _iteratorNormalCompletion14 = true;
+        var _didIteratorError14 = false;
+        var _iteratorError14 = undefined;
+
+        try {
+            for (var _iterator14 = state.decklist.lands.sideboard[Symbol.iterator](), _step14; !(_iteratorNormalCompletion14 = (_step14 = _iterator14.next()).done); _iteratorNormalCompletion14 = true) {
+                var _land = _step14.value;
+
+                sideboardSum += _land.qty;
+            }
+        } catch (err) {
+            _didIteratorError14 = true;
+            _iteratorError14 = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion14 && _iterator14.return) {
+                    _iterator14.return();
+                }
+            } finally {
+                if (_didIteratorError14) {
+                    throw _iteratorError14;
                 }
             }
         }
@@ -49282,30 +49463,31 @@ var getters = {
 
 var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKLIST, function (state, payload) {
     var card = payload.card;
+    console.log(state.activeList);
 
     var list = null;
 
     switch (card.types[0]) {
         case 'Creature':
-            list = state.decklist.creatures;
+            list = state.decklist.creatures[state.activeList];
             break;
         case 'Instant':
-            list = state.decklist.instants;
+            list = state.decklist.instants[state.activeList];
             break;
         case 'Sorcery':
-            list = state.decklist.sorceries;
+            list = state.decklist.sorceries[state.activeList];
             break;
         case 'Land':
-            list = state.decklist.lands;
+            list = state.decklist.lands[state.activeList];
             break;
         case 'Artifact':
-            list = state.decklist.artifacts;
+            list = state.decklist.artifacts[state.activeList];
             break;
         case 'Enchantment':
-            list = state.decklist.enchantments;
+            list = state.decklist.enchantments[state.activeList];
             break;
         case 'Planeswalker':
-            list = state.decklist.planeswalker;
+            list = state.decklist.planeswalker[state.activeList];
             break;
         default:
             break;
@@ -64279,11 +64461,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticStyle: {
       "margin-top": "1.5em"
     }
-  }, [(_vm.creatures.length) ? [_c('p', {
+  }, [(_vm.creatures[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Creatures\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.creatures), function(creature, key) {
+  }, [_vm._l((_vm.creatures[_vm.activeList]), function(creature, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64291,11 +64473,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "creatures"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.planeswalker.length) ? [_c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.planeswalker[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Planeswalker\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.planeswalker), function(planeswalker, key) {
+  }, [_vm._l((_vm.planeswalker[_vm.activeList]), function(planeswalker, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64303,11 +64485,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "planeswalker"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.artifacts.length) ? [_c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.artifacts[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Artifacts\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.artifacts), function(artifact, key) {
+  }, [_vm._l((_vm.artifacts[_vm.activeList]), function(artifact, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64315,11 +64497,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "artifacts"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.instants.length) ? [_c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.instants[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Instants\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.instants), function(instant, key) {
+  }, [_vm._l((_vm.instants[_vm.activeList]), function(instant, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64327,11 +64509,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "instants"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.sorceries.length) ? [_c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.sorceries[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Sorceries\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.sorceries), function(sorcery, key) {
+  }, [_vm._l((_vm.sorceries[_vm.activeList]), function(sorcery, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64339,11 +64521,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "sorceries"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.enchantments.length) ? [_c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.enchantments[_vm.activeList].length) ? [_c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n                Enchantments\n            ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.enchantments), function(enchantment, key) {
+  }, [_vm._l((_vm.enchantments[_vm.activeList]), function(enchantment, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64351,11 +64533,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "list": "enchantments"
       }
     })]
-  })], 2)] : _vm._e(), _vm._v(" "), (_vm.lands.length) ? _c('p', {
+  })], 2)] : _vm._e(), _vm._v(" "), (_vm.lands[_vm.activeList].length) ? _c('p', {
     staticClass: "menu-label"
   }, [_vm._v("\n            Lands\n        ")]) : _vm._e(), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
-  }, [_vm._l((_vm.lands), function(land, key) {
+  }, [_vm._l((_vm.lands[_vm.activeList]), function(land, key) {
     return [_c('Decklistitem', {
       key: key,
       attrs: {
@@ -64642,6 +64824,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Choose a format (required)")]), _vm._v(" "), _vm._l((_vm.formats), function(format) {
     return _c('option', {
+      key: format,
       domProps: {
         "value": format
       }
@@ -64686,6 +64869,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "field"
   }, _vm._l((_vm.tags), function(tag, index) {
     return _c('span', {
+      key: tag,
       staticClass: "tag is-primary single-tag"
     }, [_vm._v("\n                        " + _vm._s(tag) + "\n                        "), _c('button', {
       staticClass: "delete is-small",

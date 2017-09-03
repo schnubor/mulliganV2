@@ -51,7 +51,7 @@
                             <div class="select is-fullwidth">
                                 <select v-model="format" required>
                                     <option value="">Choose a format (required)</option>
-                                    <option :value="format" v-for="format in formats">{{ format }}</option>
+                                    <option :value="format" v-for="format in formats" :key="format">{{ format }}</option>
                                 </select>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                         </p>
                     </div>
                     <div class="field">
-                        <span class="tag is-primary single-tag" v-for="tag, index in tags">
+                        <span class="tag is-primary single-tag" v-for="tag, index in tags" :key="tag">
                             {{ tag }}
                             <button class="delete is-small" @click="removeTag( index )"></button>
                         </span>
