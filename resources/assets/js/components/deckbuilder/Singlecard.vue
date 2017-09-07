@@ -109,6 +109,7 @@
         width: 100%;
         overflow: hidden;
         border-radius: 10px;
+        transition: .4s all ease;
 
         .cardimage {
             width: 100%;
@@ -119,6 +120,11 @@
             content: "";
             width: 100%;
             padding-top: 139.6825%;
+        }
+
+        &:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 16px 2px rgba(0,0,0,.4);
         }
 
         & > .cardcontent {

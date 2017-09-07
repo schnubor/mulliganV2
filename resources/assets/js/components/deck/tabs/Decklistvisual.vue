@@ -32,12 +32,20 @@ export default {
     position: relative;
     width: 100%;
     border-radius: 10px;
+    transition: .4s all ease;
+    box-shadow: 0;
+    transform: translateY(0);
 
     &:before {
         display: block;
         content: "";
         width: 100%;
-        padding-top: 139.6825%;
+        padding-top: 139.6025%;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0,0,0,.4);
     }
 }
 
@@ -52,5 +60,6 @@ export default {
     position: absolute;
     left: 0;
     bottom: .5rem;
+    border-top-right-radius: 10px;
 }
 </style>
