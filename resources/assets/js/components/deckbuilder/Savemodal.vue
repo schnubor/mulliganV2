@@ -1,5 +1,5 @@
 <template>
-    <div class="modal" :class="{ 'is-active' : isVisible }">
+    <div class="modal" :class="{ 'is-active' : saveModal.visible }">
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
@@ -8,11 +8,11 @@
             </header>
             <section class="modal-card-body">
                 <!-- Error Message -->
-                <div class="notification is-danger" v-if="error">
+                <div class="notification is-danger" v-if="saveModal.error">
                     Something went wrong while saving the Deck. Please try again.
                 </div>
                 <!-- Success Message -->
-                <template v-if="saved">
+                <template v-if="saveModal.saved">
                     <div class="notification is-success">
                         Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.
                     </div>
@@ -25,17 +25,17 @@
                             </a>
                         </p>
                         <p class="control is-expanded">
-                            <input class="input is-medium" type="text" readonly="readonly" v-model="decklink" onclick="this.select()">
+                            <input class="input is-medium" type="text" readonly="readonly" v-model="saveModal.decklink" onclick="this.select()">
                         </p>
                         <p class="control">
-                            <a class="button is-medium is-primary" :href="decklink">
+                            <a class="button is-medium is-primary" :href="saveModal.decklink">
                                 View
                             </a>
                         </p>
                     </div>
                 </template>
                 <!--Save Form -->
-                <template v-if="!saved">
+                <template v-if="!saveModal.saved">
                     <div class="field">
                         <p class="control">
                             <input class="input" type="text" placeholder="Name (required, 140 chars)" v-model="title" required>
@@ -51,7 +51,7 @@
                             <div class="select is-fullwidth">
                                 <select v-model="format" required>
                                     <option value="">Choose a format (required)</option>
-                                    <option :value="format" v-for="format in formats" :key="format">{{ format }}</option>
+                                    <option :value="format" v-for="format in saveModal.formats" :key="format">{{ format }}</option>
                                 </select>
                             </div>
                         </div>
@@ -82,9 +82,9 @@
                 </template>
             </section>
             <footer class="modal-card-foot">
-                <a class="button is-primary" @click="closeModal" v-if="saved">Close</a>
-                <a class="button is-primary" :class="{ 'is-loading' : saving }" @click="save" v-if="!saved" :disabled="!isValid">Save Deck</a>
-                <a class="button" @click="closeModal" v-if="!saved">Cancel</a>
+                <a class="button is-primary" @click="closeModal" v-if="saveModal.saved">Close</a>
+                <a class="button is-primary" :class="{ 'is-loading' : saveModal.saving }" @click="save" v-if="!saveModal.saved" :disabled="!isValid">Save Deck</a>
+                <a class="button" @click="closeModal" v-if="!saveModal.saved">Cancel</a>
             </footer>
         </div>
     </div>
@@ -100,11 +100,7 @@ export default {
             description : '',
             tag         : '',
             tags        : [],
-            format      : '',
-            decklink    : '',
-            saving      : false,
-            saved       : false,
-            error       : false
+            format      : ''
         };
     },
     computed : {
@@ -114,23 +110,14 @@ export default {
             }
             return false;
         },
-        isVisible() {
-            return this.$store.getters.saveModal.visible;
-        },
-        formats() {
-            return this.$store.getters.saveModal.formats;
-        },
-        isLoading() {
-            return this.$store.getters.saveModal.loading;
-        },
-        fetchError() {
-            return this.$store.getters.saveModal.error;
+        saveModal() {
+            return this.$store.getters.saveModal;
         },
         wip() {
-            return this.$store.getters.totalCards < 60;
+            return this.$store.getters.totalCards.main < 60;
         },
         cardCount() {
-            return this.$store.getters.totalCards;
+            return this.$store.getters.totalCards.main;
         }
     },
     mounted() {
@@ -149,26 +136,11 @@ export default {
             this.tags.splice( index, 1 );
         },
         closeModal() {
-            if ( this.saved ) {
-                this.reset();
-            }
             this.$store.dispatch( {
                 type : 'hideSaveModal'
             } );
         },
-        reset() {
-            this.saved = false;
-            this.error = false;
-            this.saving = false;
-            this.title = '';
-            this.description = '';
-            this.tags = [];
-        },
         save() {
-            this.saved = false;
-            this.error = false;
-            this.saving = true;
-
             const self = this;
             const data = {
                 title           : this.title,
@@ -182,19 +154,10 @@ export default {
                 ownerId         : null
             };
 
-            axios.post( '/api/decks', data )
-                .then( function( response ) {
-                    self.saving = false;
-                    self.saved = true;
-                    self.error = false;
-                    self.decklink = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
-                } )
-                .catch( function( error ) {
-                    console.warn( error );
-                    self.saving = false;
-                    self.saved = false;
-                    self.error = true;
-                } );
+            this.$store.dispatch( {
+                type : 'saveDeck',
+                data : data
+            } );
         }
     }
 };

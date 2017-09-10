@@ -22312,6 +22312,10 @@ var BEGIN_FETCHING_FORMATS = exports.BEGIN_FETCHING_FORMATS = 'BEGIN_FETCHING_FO
 var FETCHED_FORMATS_SUCCESSFUL = exports.FETCHED_FORMATS_SUCCESSFUL = 'FETCHED_FORMATS_SUCCESSFUL';
 var FETCHED_FORMATS_UNSUCCESSFUL = exports.FETCHED_FORMATS_UNSUCCESSFUL = 'FETCHED_FORMATS_UNSUCCESSFUL';
 
+var BEGIN_DECK_SAVING = exports.BEGIN_DECK_SAVING = 'BEGIN_DECK_SAVING';
+var DECK_SAVING_SUCCESSFUL = exports.DECK_SAVING_SUCCESSFUL = 'DECK_SAVING_SUCCESSFUL';
+var DECK_SAVING_FAILED = exports.DECK_SAVING_FAILED = 'DECK_SAVING_FAILED';
+
 var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
 var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
 
@@ -47851,11 +47855,7 @@ exports.default = {
             description: '',
             tag: '',
             tags: [],
-            format: '',
-            decklink: '',
-            saving: false,
-            saved: false,
-            error: false
+            format: ''
         };
     },
 
@@ -47866,23 +47866,14 @@ exports.default = {
             }
             return false;
         },
-        isVisible: function isVisible() {
-            return this.$store.getters.saveModal.visible;
-        },
-        formats: function formats() {
-            return this.$store.getters.saveModal.formats;
-        },
-        isLoading: function isLoading() {
-            return this.$store.getters.saveModal.loading;
-        },
-        fetchError: function fetchError() {
-            return this.$store.getters.saveModal.error;
+        saveModal: function saveModal() {
+            return this.$store.getters.saveModal;
         },
         wip: function wip() {
-            return this.$store.getters.totalCards < 60;
+            return this.$store.getters.totalCards.main < 60;
         },
         cardCount: function cardCount() {
-            return this.$store.getters.totalCards;
+            return this.$store.getters.totalCards.main;
         }
     },
     mounted: function mounted() {
@@ -47902,26 +47893,11 @@ exports.default = {
             this.tags.splice(index, 1);
         },
         closeModal: function closeModal() {
-            if (this.saved) {
-                this.reset();
-            }
             this.$store.dispatch({
                 type: 'hideSaveModal'
             });
         },
-        reset: function reset() {
-            this.saved = false;
-            this.error = false;
-            this.saving = false;
-            this.title = '';
-            this.description = '';
-            this.tags = [];
-        },
         save: function save() {
-            this.saved = false;
-            this.error = false;
-            this.saving = true;
-
             var self = this;
             var data = {
                 title: this.title,
@@ -47935,16 +47911,9 @@ exports.default = {
                 ownerId: null
             };
 
-            _axios2.default.post('/api/decks', data).then(function (response) {
-                self.saving = false;
-                self.saved = true;
-                self.error = false;
-                self.decklink = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
-            }).catch(function (error) {
-                console.warn(error);
-                self.saving = false;
-                self.saved = false;
-                self.error = true;
+            this.$store.dispatch({
+                type: 'saveDeck',
+                data: data
             });
         }
     }
@@ -48968,16 +48937,12 @@ var state = {
                 'swamps': 0
             }
         }
-    },
-    sideboard: []
+    }
 };
 
 var getters = {
     deckcolors: function deckcolors(state) {
         return _lodash2.default.uniq(state.deckcolors);
-    },
-    sideboard: function sideboard(state) {
-        return state.sideboard;
     },
     activeList: function activeList(state) {
         return state.activeList;
@@ -48990,7 +48955,7 @@ var getters = {
     },
     artifactCount: function artifactCount(state) {
         var count = 0;
-        state.decklist.artifacts.forEach(function (artifact) {
+        state.decklist.artifacts.main.forEach(function (artifact) {
             count += artifact.qty;
         });
         return count;
@@ -49000,7 +48965,7 @@ var getters = {
     },
     landCount: function landCount(state) {
         var count = 0;
-        state.decklist.lands.forEach(function (land) {
+        state.decklist.lands.main.forEach(function (land) {
             count += land.qty;
         });
         return count;
@@ -49010,7 +48975,7 @@ var getters = {
     },
     creatureCount: function creatureCount(state) {
         var count = 0;
-        state.decklist.creatures.forEach(function (creature) {
+        state.decklist.creatures.main.forEach(function (creature) {
             count += creature.qty;
         });
         return count;
@@ -49020,7 +48985,7 @@ var getters = {
     },
     sorceryCount: function sorceryCount(state) {
         var count = 0;
-        state.decklist.sorceries.forEach(function (sorcery) {
+        state.decklist.sorceries.main.forEach(function (sorcery) {
             count += sorcery.qty;
         });
         return count;
@@ -49030,7 +48995,7 @@ var getters = {
     },
     instantCount: function instantCount(state) {
         var count = 0;
-        state.decklist.instants.forEach(function (instant) {
+        state.decklist.instants.main.forEach(function (instant) {
             count += instant.qty;
         });
         return count;
@@ -49040,7 +49005,7 @@ var getters = {
     },
     planeswalkerCount: function planeswalkerCount(state) {
         var count = 0;
-        state.decklist.planeswalker.forEach(function (planeswalker) {
+        state.decklist.planeswalker.main.forEach(function (planeswalker) {
             count += planeswalker.qty;
         });
         return count;
@@ -49050,7 +49015,7 @@ var getters = {
     },
     enchantmentCount: function enchantmentCount(state) {
         var count = 0;
-        state.decklist.enchantments.forEach(function (enchantment) {
+        state.decklist.enchantments.main.forEach(function (enchantment) {
             count += enchantment.qty;
         });
         return count;
@@ -49638,7 +49603,10 @@ var state = {
         visible: false,
         loading: false,
         error: false,
-        formats: []
+        formats: [],
+        saving: false,
+        saved: false,
+        decklink: ''
     },
     statsModal: {
         visible: false
@@ -49688,6 +49656,19 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
     state.statsModal.visible = true;
 }), _defineProperty(_mutations, types.HIDE_STATS_MODAL, function (state) {
     state.statsModal.visible = false;
+}), _defineProperty(_mutations, types.BEGIN_DECK_SAVING, function (state) {
+    state.saveModal.saving = true;
+    state.saveModal.saved = false;
+    state.saveModal.error = false;
+}), _defineProperty(_mutations, types.DECK_SAVING_SUCCESSFUL, function (state, link) {
+    state.saveModal.saved = true;
+    state.saveModal.saving = false;
+    state.saveModal.error = false;
+    state.saveModal.decklink = link;
+}), _defineProperty(_mutations, types.DECK_SAVING_FAILED, function (state) {
+    state.saveModal.saved = false;
+    state.saveModal.saving = false;
+    state.saveModal.error = true;
 }), _mutations);
 
 var actions = {
@@ -49733,7 +49714,7 @@ var actions = {
             console.warn(error);
         });
     },
-    showStatsModal: function showStatsModal(_ref8, card) {
+    showStatsModal: function showStatsModal(_ref8) {
         var commit = _ref8.commit;
 
         commit(types.SHOW_STATS_MODAL);
@@ -49742,6 +49723,18 @@ var actions = {
         var commit = _ref9.commit;
 
         commit(types.HIDE_STATS_MODAL);
+    },
+    saveDeck: function saveDeck(_ref10, payload) {
+        var commit = _ref10.commit;
+
+        commit(types.BEGIN_DECK_SAVING);
+        _axios2.default.post('/api/decks', payload.data).then(function (response) {
+            var link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
+            commit(types.DECK_SAVING_SUCCESSFUL, link);
+        }).catch(function (error) {
+            commit(types.DECK_SAVING_FAILED);
+            console.warn(error);
+        });
     }
 };
 
@@ -64687,7 +64680,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal",
     class: {
-      'is-active': _vm.isVisible
+      'is-active': _vm.saveModal.visible
     }
   }, [_c('div', {
     staticClass: "modal-background"
@@ -64704,9 +64697,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('section', {
     staticClass: "modal-card-body"
-  }, [(_vm.error) ? _c('div', {
+  }, [(_vm.saveModal.error) ? _c('div', {
     staticClass: "notification is-danger"
-  }, [_vm._v("\n                Something went wrong while saving the Deck. Please try again.\n            ")]) : _vm._e(), _vm._v(" "), (_vm.saved) ? [_c('div', {
+  }, [_vm._v("\n                Something went wrong while saving the Deck. Please try again.\n            ")]) : _vm._e(), _vm._v(" "), (_vm.saveModal.saved) ? [_c('div', {
     staticClass: "notification is-success"
   }, [_vm._v("\n                    Success! The Deck has been sleeved, sorted and stored successfully and can be viewed using the link below.\n                ")]), _vm._v(" "), _c('div', {
     staticClass: "field has-addons"
@@ -64716,8 +64709,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.decklink),
-      expression: "decklink"
+      value: (_vm.saveModal.decklink),
+      expression: "saveModal.decklink"
     }],
     staticClass: "input is-medium",
     attrs: {
@@ -64726,12 +64719,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "onclick": "this.select()"
     },
     domProps: {
-      "value": (_vm.decklink)
+      "value": (_vm.saveModal.decklink)
     },
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.decklink = $event.target.value
+        _vm.saveModal.decklink = $event.target.value
       }
     }
   })]), _vm._v(" "), _c('p', {
@@ -64739,9 +64732,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('a', {
     staticClass: "button is-medium is-primary",
     attrs: {
-      "href": _vm.decklink
+      "href": _vm.saveModal.decklink
     }
-  }, [_vm._v("\n                            View\n                        ")])])])] : _vm._e(), _vm._v(" "), (!_vm.saved) ? [_c('div', {
+  }, [_vm._v("\n                            View\n                        ")])])])] : _vm._e(), _vm._v(" "), (!_vm.saveModal.saved) ? [_c('div', {
     staticClass: "field"
   }, [_c('p', {
     staticClass: "control"
@@ -64822,7 +64815,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "value": ""
     }
-  }, [_vm._v("Choose a format (required)")]), _vm._v(" "), _vm._l((_vm.formats), function(format) {
+  }, [_vm._v("Choose a format (required)")]), _vm._v(" "), _vm._l((_vm.saveModal.formats), function(format) {
     return _c('option', {
       key: format,
       domProps: {
@@ -64918,15 +64911,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" Work in Progress\n                        ")])])])] : _vm._e()], 2), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
-  }, [(_vm.saved) ? _c('a', {
+  }, [(_vm.saveModal.saved) ? _c('a', {
     staticClass: "button is-primary",
     on: {
       "click": _vm.closeModal
     }
-  }, [_vm._v("Close")]) : _vm._e(), _vm._v(" "), (!_vm.saved) ? _c('a', {
+  }, [_vm._v("Close")]) : _vm._e(), _vm._v(" "), (!_vm.saveModal.saved) ? _c('a', {
     staticClass: "button is-primary",
     class: {
-      'is-loading': _vm.saving
+      'is-loading': _vm.saveModal.saving
     },
     attrs: {
       "disabled": !_vm.isValid
@@ -64934,7 +64927,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.save
     }
-  }, [_vm._v("Save Deck")]) : _vm._e(), _vm._v(" "), (!_vm.saved) ? _c('a', {
+  }, [_vm._v("Save Deck")]) : _vm._e(), _vm._v(" "), (!_vm.saveModal.saved) ? _c('a', {
     staticClass: "button",
     on: {
       "click": _vm.closeModal

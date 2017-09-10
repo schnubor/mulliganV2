@@ -50,16 +50,12 @@ const state = {
                 'swamps'    : 0
             }
         }
-    },
-    sideboard   : []
+    }
 };
 
 const getters = {
     deckcolors( state ) {
         return _.uniq( state.deckcolors );
-    },
-    sideboard( state ) {
-        return state.sideboard;
     },
     activeList( state ) {
         return state.activeList;
@@ -72,7 +68,7 @@ const getters = {
     },
     artifactCount( state ) {
         let count = 0;
-        state.decklist.artifacts.forEach( ( artifact ) => {
+        state.decklist.artifacts.main.forEach( ( artifact ) => {
             count += artifact.qty;
         } );
         return count;
@@ -82,7 +78,7 @@ const getters = {
     },
     landCount( state ) {
         let count = 0;
-        state.decklist.lands.forEach( ( land ) => {
+        state.decklist.lands.main.forEach( ( land ) => {
             count += land.qty;
         } );
         return count;
@@ -92,7 +88,7 @@ const getters = {
     },
     creatureCount( state ) {
         let count = 0;
-        state.decklist.creatures.forEach( ( creature ) => {
+        state.decklist.creatures.main.forEach( ( creature ) => {
             count += creature.qty;
         } );
         return count;
@@ -102,7 +98,7 @@ const getters = {
     },
     sorceryCount( state ) {
         let count = 0;
-        state.decklist.sorceries.forEach( ( sorcery ) => {
+        state.decklist.sorceries.main.forEach( ( sorcery ) => {
             count += sorcery.qty;
         } );
         return count;
@@ -112,7 +108,7 @@ const getters = {
     },
     instantCount( state ) {
         let count = 0;
-        state.decklist.instants.forEach( ( instant ) => {
+        state.decklist.instants.main.forEach( ( instant ) => {
             count += instant.qty;
         } );
         return count;
@@ -122,7 +118,7 @@ const getters = {
     },
     planeswalkerCount( state ) {
         let count = 0;
-        state.decklist.planeswalker.forEach( ( planeswalker ) => {
+        state.decklist.planeswalker.main.forEach( ( planeswalker ) => {
             count += planeswalker.qty;
         } );
         return count;
@@ -132,7 +128,7 @@ const getters = {
     },
     enchantmentCount( state ) {
         let count = 0;
-        state.decklist.enchantments.forEach( ( enchantment ) => {
+        state.decklist.enchantments.main.forEach( ( enchantment ) => {
             count += enchantment.qty;
         } );
         return count;

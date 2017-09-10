@@ -10,10 +10,13 @@ const state = {
         visible : false
     },
     saveModal : {
-        visible : false,
-        loading : false,
-        error   : false,
-        formats : []
+        visible  : false,
+        loading  : false,
+        error    : false,
+        formats  : [],
+        saving   : false,
+        saved    : false,
+        decklink : ''
     },
     statsModal : {
         visible : false
@@ -74,6 +77,22 @@ const mutations = {
     },
     [types.HIDE_STATS_MODAL]( state ) {
         state.statsModal.visible = false;
+    },
+    [types.BEGIN_DECK_SAVING]( state ) {
+        state.saveModal.saving = true;
+        state.saveModal.saved = false;
+        state.saveModal.error = false;
+    },
+    [types.DECK_SAVING_SUCCESSFUL]( state, link ) {
+        state.saveModal.saved = true;
+        state.saveModal.saving = false;
+        state.saveModal.error = false;
+        state.saveModal.decklink = link;
+    },
+    [types.DECK_SAVING_FAILED]( state ) {
+        state.saveModal.saved = false;
+        state.saveModal.saving = false;
+        state.saveModal.error = true;
     }
 };
 
@@ -107,11 +126,23 @@ const actions = {
             console.warn( error );
         } );
     },
-    showStatsModal( { commit }, card ) {
+    showStatsModal( { commit } ) {
         commit( types.SHOW_STATS_MODAL );
     },
     hideStatsModal( { commit } ) {
         commit( types.HIDE_STATS_MODAL );
+    },
+    saveDeck( { commit }, payload ) {
+        commit( types.BEGIN_DECK_SAVING );
+        axios.post( '/api/decks', payload.data )
+        .then( function( response ) {
+            const link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
+            commit( types.DECK_SAVING_SUCCESSFUL, link );
+        } )
+        .catch( function( error ) {
+            commit( types.DECK_SAVING_FAILED );
+            console.warn( error );
+        } );
     }
 };
 
