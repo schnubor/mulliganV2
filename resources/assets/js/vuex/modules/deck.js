@@ -14,19 +14,49 @@ const state = {
         views       : 0,
         decklist    : {
             cardsum         : 0,
-            artifacts       : [],
-            lands           : [],
-            creatures       : [],
-            sorceries       : [],
-            instants        : [],
-            planeswalker    : [],
-            enchantments    : [],
+            artifacts       : {
+                main        : [],
+                sideboard   : []
+            },
+            lands           : {
+                main        : [],
+                sideboard   : []
+            },
+            creatures       : {
+                main        : [],
+                sideboard   : []
+            },
+            sorceries       : {
+                main        : [],
+                sideboard   : []
+            },
+            instants        : {
+                main        : [],
+                sideboard   : []
+            },
+            planeswalker    : {
+                main        : [],
+                sideboard   : []
+            },
+            enchantments    : {
+                main        : [],
+                sideboard   : []
+            },
             basiclands      : {
-                'mountains' : 0,
-                'plains'    : 0,
-                'forests'   : 0,
-                'islands'   : 0,
-                'swamps'    : 0
+                main : {
+                    'mountains' : 0,
+                    'plains'    : 0,
+                    'forests'   : 0,
+                    'islands'   : 0,
+                    'swamps'    : 0
+                },
+                sideboard : {
+                    'mountains' : 0,
+                    'plains'    : 0,
+                    'forests'   : 0,
+                    'islands'   : 0,
+                    'swamps'    : 0
+                }
             }
         }
     },
@@ -73,7 +103,7 @@ const getters = {
     },
     deckArtifactCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.artifacts.forEach( ( artifact ) => {
+        state.fetchedDeck.decklist.artifacts.main.forEach( ( artifact ) => {
             count += artifact.qty;
         } );
         return count;
@@ -83,7 +113,7 @@ const getters = {
     },
     deckLandCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.lands.forEach( ( land ) => {
+        state.fetchedDeck.decklist.lands.main.forEach( ( land ) => {
             count += land.qty;
         } );
         return count;
@@ -93,7 +123,7 @@ const getters = {
     },
     deckCreatureCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.creatures.forEach( ( creature ) => {
+        state.fetchedDeck.decklist.creatures.main.forEach( ( creature ) => {
             count += creature.qty;
         } );
         return count;
@@ -103,7 +133,7 @@ const getters = {
     },
     deckSorceryCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.sorceries.forEach( ( sorcery ) => {
+        state.fetchedDeck.decklist.sorceries.main.forEach( ( sorcery ) => {
             count += sorcery.qty;
         } );
         return count;
@@ -113,7 +143,7 @@ const getters = {
     },
     deckInstantCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.instants.forEach( ( instant ) => {
+        state.fetchedDeck.decklist.instants.main.forEach( ( instant ) => {
             count += instant.qty;
         } );
         return count;
@@ -123,7 +153,7 @@ const getters = {
     },
     deckPlaneswalkerCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.planeswalker.forEach( ( planeswalker ) => {
+        state.fetchedDeck.decklist.planeswalker.main.forEach( ( planeswalker ) => {
             count += planeswalker.qty;
         } );
         return count;
@@ -133,7 +163,7 @@ const getters = {
     },
     deckEnchantmentCount( state ) {
         let count = 0;
-        state.fetchedDeck.decklist.enchantments.forEach( ( enchantment ) => {
+        state.fetchedDeck.decklist.enchantments.main.forEach( ( enchantment ) => {
             count += enchantment.qty;
         } );
         return count;
@@ -143,11 +173,11 @@ const getters = {
     },
     deckBasiclandCount( state ) {
         let count = 0;
-        count += state.fetchedDeck.decklist.basiclands.mountains;
-        count += state.fetchedDeck.decklist.basiclands.plains;
-        count += state.fetchedDeck.decklist.basiclands.islands;
-        count += state.fetchedDeck.decklist.basiclands.forests;
-        count += state.fetchedDeck.decklist.basiclands.swamps;
+        count += state.fetchedDeck.decklist.basiclands.main.mountains;
+        count += state.fetchedDeck.decklist.basiclands.main.plains;
+        count += state.fetchedDeck.decklist.basiclands.main.islands;
+        count += state.fetchedDeck.decklist.basiclands.main.forests;
+        count += state.fetchedDeck.decklist.basiclands.main.swamps;
         return count;
     },
     deckTotalCards( state ) {
@@ -161,29 +191,29 @@ const getters = {
         let basicLandSum = 0;
         let cardSum = 0;
 
-        for ( const artifact of state.fetchedDeck.decklist.artifacts ) {
+        for ( const artifact of state.fetchedDeck.decklist.artifacts.main ) {
             artifactSum += artifact.qty;
         }
-        for ( const creature of state.fetchedDeck.decklist.creatures ) {
+        for ( const creature of state.fetchedDeck.decklist.creatures.main ) {
             creatureSum += creature.qty;
         }
-        for ( const enchantment of state.fetchedDeck.decklist.enchantments ) {
+        for ( const enchantment of state.fetchedDeck.decklist.enchantments.main ) {
             enchantmentSum += enchantment.qty;
         }
-        for ( const instant of state.fetchedDeck.decklist.instants ) {
+        for ( const instant of state.fetchedDeck.decklist.instants.main ) {
             instantSum += instant.qty;
         }
-        for ( const sorcery of state.fetchedDeck.decklist.sorceries ) {
+        for ( const sorcery of state.fetchedDeck.decklist.sorceries.main ) {
             sorcerySum += sorcery.qty;
         }
-        for ( const planeswalker of state.fetchedDeck.decklist.planeswalker ) {
+        for ( const planeswalker of state.fetchedDeck.decklist.planeswalker.main ) {
             planeswalkerSum += planeswalker.qty;
         }
-        for ( const land of state.fetchedDeck.decklist.lands ) {
+        for ( const land of state.fetchedDeck.decklist.lands.main ) {
             landSum += land.qty;
         }
 
-        basicLandSum = state.fetchedDeck.decklist.basiclands.mountains + state.fetchedDeck.decklist.basiclands.plains + state.fetchedDeck.decklist.basiclands.forests + state.fetchedDeck.decklist.basiclands.islands + state.fetchedDeck.decklist.basiclands.swamps;
+        basicLandSum = state.fetchedDeck.decklist.basiclands.main.mountains + state.fetchedDeck.decklist.basiclands.main.plains + state.fetchedDeck.decklist.basiclands.main.forests + state.fetchedDeck.decklist.basiclands.main.islands + state.fetchedDeck.decklist.basiclands.main.swamps;
 
         cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
 

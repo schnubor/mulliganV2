@@ -5,7 +5,7 @@
             <p class="heading">Colors</p>
             <p class="title">
                 <template v-for="color in colors">
-                    <span class="ms ms-cost ms-fw manaicon" :class="`ms-${color.toLowerCase()}`"></span> 
+                    <span :key="color" class="ms ms-cost ms-fw manaicon" :class="`ms-${color.toLowerCase()}`"></span> 
                 </template>
             </p>
             </div>
@@ -23,7 +23,7 @@
             <p class="heading">Tags</p>
             <p v-if="tags.length">
                 <template v-for="tag in tags">
-                    <span class="tag is-primary" style="margin: 0 2px;">{{ tag }}</span>
+                    <span :key="tag" class="tag is-primary" style="margin: 0 2px;">{{ tag }}</span>
                 </template>
             </p>
             <p class="title" v-else>

@@ -6,7 +6,7 @@
                 Creatures
             </p>
             <ul class="menu-list">
-                <li v-for="item in creatures">
+                <li v-for="item in creatures" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -20,7 +20,7 @@
                 Sorceries
             </p>
             <ul class="menu-list">
-                <li v-for="item in sorceries">
+                <li v-for="item in sorceries" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -34,7 +34,7 @@
                 Instants
             </p>
             <ul class="menu-list">
-                <li v-for="item in instants">
+                <li v-for="item in instants" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -48,7 +48,7 @@
                 Enchantments
             </p>
             <ul class="menu-list">
-                <li v-for="item in enchantments">
+                <li v-for="item in enchantments" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -62,7 +62,7 @@
                 Artifacts
             </p>
             <ul class="menu-list">
-                <li v-for="item in artifacts">
+                <li v-for="item in artifacts" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -76,7 +76,7 @@
                 Planeswalker
             </p>
             <ul class="menu-list">
-                <li v-for="item in planeswalker">
+                <li v-for="item in planeswalker" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -90,7 +90,7 @@
                 Lands
             </p>
             <ul class="menu-list">
-                <li v-for="item in lands">
+                <li v-for="item in lands" :key="item.card.name">
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
@@ -149,28 +149,28 @@ export default {
     },
     computed   : {
         creatures() {
-            return this.$store.getters.deckCreatures;
+            return this.$store.getters.deckCreatures.main;
         },
         sorceries() {
-            return this.$store.getters.deckSorceries;
+            return this.$store.getters.deckSorceries.main;
         },
         instants() {
-            return this.$store.getters.deckInstants;
+            return this.$store.getters.deckInstants.main;
         },
         enchantments() {
-            return this.$store.getters.deckEnchantments;
+            return this.$store.getters.deckEnchantments.main;
         },
         artifacts() {
-            return this.$store.getters.deckArtifacts;
+            return this.$store.getters.deckArtifacts.main;
         },
         planeswalker() {
-            return this.$store.getters.deckPlaneswalker;
+            return this.$store.getters.deckPlaneswalker.main;
         },
         lands() {
-            return this.$store.getters.deckLands;
+            return this.$store.getters.deckLands.main;
         },
         basiclands() {
-            return this.$store.getters.deckBasiclands;
+            return this.$store.getters.deckBasiclands.main;
         }
     }
 };

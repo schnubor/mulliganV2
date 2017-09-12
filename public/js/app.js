@@ -46432,28 +46432,28 @@ exports.default = {
     },
     computed: {
         creatures: function creatures() {
-            return this.$store.getters.deckCreatures;
+            return this.$store.getters.deckCreatures.main;
         },
         sorceries: function sorceries() {
-            return this.$store.getters.deckSorceries;
+            return this.$store.getters.deckSorceries.main;
         },
         instants: function instants() {
-            return this.$store.getters.deckInstants;
+            return this.$store.getters.deckInstants.main;
         },
         enchantments: function enchantments() {
-            return this.$store.getters.deckEnchantments;
+            return this.$store.getters.deckEnchantments.main;
         },
         artifacts: function artifacts() {
-            return this.$store.getters.deckArtifacts;
+            return this.$store.getters.deckArtifacts.main;
         },
         planeswalker: function planeswalker() {
-            return this.$store.getters.deckPlaneswalker;
+            return this.$store.getters.deckPlaneswalker.main;
         },
         lands: function lands() {
-            return this.$store.getters.deckLands;
+            return this.$store.getters.deckLands.main;
         },
         basiclands: function basiclands() {
-            return this.$store.getters.deckBasiclands;
+            return this.$store.getters.deckBasiclands.main;
         }
     }
 };
@@ -48488,19 +48488,49 @@ var state = {
         views: 0,
         decklist: {
             cardsum: 0,
-            artifacts: [],
-            lands: [],
-            creatures: [],
-            sorceries: [],
-            instants: [],
-            planeswalker: [],
-            enchantments: [],
+            artifacts: {
+                main: [],
+                sideboard: []
+            },
+            lands: {
+                main: [],
+                sideboard: []
+            },
+            creatures: {
+                main: [],
+                sideboard: []
+            },
+            sorceries: {
+                main: [],
+                sideboard: []
+            },
+            instants: {
+                main: [],
+                sideboard: []
+            },
+            planeswalker: {
+                main: [],
+                sideboard: []
+            },
+            enchantments: {
+                main: [],
+                sideboard: []
+            },
             basiclands: {
-                'mountains': 0,
-                'plains': 0,
-                'forests': 0,
-                'islands': 0,
-                'swamps': 0
+                main: {
+                    'mountains': 0,
+                    'plains': 0,
+                    'forests': 0,
+                    'islands': 0,
+                    'swamps': 0
+                },
+                sideboard: {
+                    'mountains': 0,
+                    'plains': 0,
+                    'forests': 0,
+                    'islands': 0,
+                    'swamps': 0
+                }
             }
         }
     },
@@ -48547,7 +48577,7 @@ var getters = {
     },
     deckArtifactCount: function deckArtifactCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.artifacts.forEach(function (artifact) {
+        state.fetchedDeck.decklist.artifacts.main.forEach(function (artifact) {
             count += artifact.qty;
         });
         return count;
@@ -48557,7 +48587,7 @@ var getters = {
     },
     deckLandCount: function deckLandCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.lands.forEach(function (land) {
+        state.fetchedDeck.decklist.lands.main.forEach(function (land) {
             count += land.qty;
         });
         return count;
@@ -48567,7 +48597,7 @@ var getters = {
     },
     deckCreatureCount: function deckCreatureCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.creatures.forEach(function (creature) {
+        state.fetchedDeck.decklist.creatures.main.forEach(function (creature) {
             count += creature.qty;
         });
         return count;
@@ -48577,7 +48607,7 @@ var getters = {
     },
     deckSorceryCount: function deckSorceryCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.sorceries.forEach(function (sorcery) {
+        state.fetchedDeck.decklist.sorceries.main.forEach(function (sorcery) {
             count += sorcery.qty;
         });
         return count;
@@ -48587,7 +48617,7 @@ var getters = {
     },
     deckInstantCount: function deckInstantCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.instants.forEach(function (instant) {
+        state.fetchedDeck.decklist.instants.main.forEach(function (instant) {
             count += instant.qty;
         });
         return count;
@@ -48597,7 +48627,7 @@ var getters = {
     },
     deckPlaneswalkerCount: function deckPlaneswalkerCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.planeswalker.forEach(function (planeswalker) {
+        state.fetchedDeck.decklist.planeswalker.main.forEach(function (planeswalker) {
             count += planeswalker.qty;
         });
         return count;
@@ -48607,7 +48637,7 @@ var getters = {
     },
     deckEnchantmentCount: function deckEnchantmentCount(state) {
         var count = 0;
-        state.fetchedDeck.decklist.enchantments.forEach(function (enchantment) {
+        state.fetchedDeck.decklist.enchantments.main.forEach(function (enchantment) {
             count += enchantment.qty;
         });
         return count;
@@ -48617,11 +48647,11 @@ var getters = {
     },
     deckBasiclandCount: function deckBasiclandCount(state) {
         var count = 0;
-        count += state.fetchedDeck.decklist.basiclands.mountains;
-        count += state.fetchedDeck.decklist.basiclands.plains;
-        count += state.fetchedDeck.decklist.basiclands.islands;
-        count += state.fetchedDeck.decklist.basiclands.forests;
-        count += state.fetchedDeck.decklist.basiclands.swamps;
+        count += state.fetchedDeck.decklist.basiclands.main.mountains;
+        count += state.fetchedDeck.decklist.basiclands.main.plains;
+        count += state.fetchedDeck.decklist.basiclands.main.islands;
+        count += state.fetchedDeck.decklist.basiclands.main.forests;
+        count += state.fetchedDeck.decklist.basiclands.main.swamps;
         return count;
     },
     deckTotalCards: function deckTotalCards(state) {
@@ -48640,7 +48670,7 @@ var getters = {
         var _iteratorError = undefined;
 
         try {
-            for (var _iterator = state.fetchedDeck.decklist.artifacts[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            for (var _iterator = state.fetchedDeck.decklist.artifacts.main[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var artifact = _step.value;
 
                 artifactSum += artifact.qty;
@@ -48665,7 +48695,7 @@ var getters = {
         var _iteratorError2 = undefined;
 
         try {
-            for (var _iterator2 = state.fetchedDeck.decklist.creatures[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            for (var _iterator2 = state.fetchedDeck.decklist.creatures.main[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
                 var creature = _step2.value;
 
                 creatureSum += creature.qty;
@@ -48690,7 +48720,7 @@ var getters = {
         var _iteratorError3 = undefined;
 
         try {
-            for (var _iterator3 = state.fetchedDeck.decklist.enchantments[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+            for (var _iterator3 = state.fetchedDeck.decklist.enchantments.main[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
                 var enchantment = _step3.value;
 
                 enchantmentSum += enchantment.qty;
@@ -48715,7 +48745,7 @@ var getters = {
         var _iteratorError4 = undefined;
 
         try {
-            for (var _iterator4 = state.fetchedDeck.decklist.instants[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+            for (var _iterator4 = state.fetchedDeck.decklist.instants.main[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
                 var instant = _step4.value;
 
                 instantSum += instant.qty;
@@ -48740,7 +48770,7 @@ var getters = {
         var _iteratorError5 = undefined;
 
         try {
-            for (var _iterator5 = state.fetchedDeck.decklist.sorceries[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+            for (var _iterator5 = state.fetchedDeck.decklist.sorceries.main[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
                 var sorcery = _step5.value;
 
                 sorcerySum += sorcery.qty;
@@ -48765,7 +48795,7 @@ var getters = {
         var _iteratorError6 = undefined;
 
         try {
-            for (var _iterator6 = state.fetchedDeck.decklist.planeswalker[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+            for (var _iterator6 = state.fetchedDeck.decklist.planeswalker.main[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
                 var planeswalker = _step6.value;
 
                 planeswalkerSum += planeswalker.qty;
@@ -48790,7 +48820,7 @@ var getters = {
         var _iteratorError7 = undefined;
 
         try {
-            for (var _iterator7 = state.fetchedDeck.decklist.lands[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            for (var _iterator7 = state.fetchedDeck.decklist.lands.main[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
                 var land = _step7.value;
 
                 landSum += land.qty;
@@ -48810,7 +48840,7 @@ var getters = {
             }
         }
 
-        basicLandSum = state.fetchedDeck.decklist.basiclands.mountains + state.fetchedDeck.decklist.basiclands.plains + state.fetchedDeck.decklist.basiclands.forests + state.fetchedDeck.decklist.basiclands.islands + state.fetchedDeck.decklist.basiclands.swamps;
+        basicLandSum = state.fetchedDeck.decklist.basiclands.main.mountains + state.fetchedDeck.decklist.basiclands.main.plains + state.fetchedDeck.decklist.basiclands.main.forests + state.fetchedDeck.decklist.basiclands.main.islands + state.fetchedDeck.decklist.basiclands.main.swamps;
 
         cardSum = artifactSum + creatureSum + enchantmentSum + instantSum + sorcerySum + planeswalkerSum + landSum + basicLandSum;
 
@@ -64615,6 +64645,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title"
   }, [_vm._l((_vm.colors), function(color) {
     return [_c('span', {
+      key: color,
       staticClass: "ms ms-cost ms-fw manaicon",
       class: ("ms-" + (color.toLowerCase()))
     })]
@@ -64630,6 +64661,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "heading"
   }, [_vm._v("Tags")]), _vm._v(" "), (_vm.tags.length) ? _c('p', [_vm._l((_vm.tags), function(tag) {
     return [_c('span', {
+      key: tag,
       staticClass: "tag is-primary",
       staticStyle: {
         "margin": "0 2px"
@@ -65652,7 +65684,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Creatures\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.creatures), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65666,7 +65700,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Sorceries\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.sorceries), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65680,7 +65716,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Instants\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.instants), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65694,7 +65732,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Enchantments\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.enchantments), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65708,7 +65748,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Artifacts\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.artifacts), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65722,7 +65764,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Planeswalker\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.planeswalker), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65736,7 +65780,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n            Lands\n        ")]), _vm._v(" "), _c('ul', {
     staticClass: "menu-list"
   }, _vm._l((_vm.lands), function(item) {
-    return _c('li', [_c('a', {
+    return _c('li', {
+      key: item.card.name
+    }, [_c('a', {
       on: {
         "click": function($event) {
           _vm.showCardModal(item.card)
@@ -65918,44 +65964,51 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_c('div', {
     staticClass: "columns is-multiline"
-  }, [_vm._l((_vm.decklist.creatures), function(creature) {
+  }, [_vm._l((_vm.decklist.creatures.main), function(creature) {
     return _c('Decklistvisual', {
+      key: creature.name,
       attrs: {
         "entry": creature
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.instants), function(instant) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.instants.main), function(instant) {
     return _c('Decklistvisual', {
+      key: instant.name,
       attrs: {
         "entry": instant
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.sorceries), function(sorcery) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.sorceries.main), function(sorcery) {
     return _c('Decklistvisual', {
+      key: sorcery.name,
       attrs: {
         "entry": sorcery
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.enchantments), function(enchantment) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.enchantments.main), function(enchantment) {
     return _c('Decklistvisual', {
+      key: enchantment.name,
       attrs: {
         "entry": enchantment
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.artifacts), function(artifact) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.artifacts.main), function(artifact) {
     return _c('Decklistvisual', {
+      key: artifact.name,
       attrs: {
         "entry": artifact
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.planeswalker), function(planeswalker) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.planeswalker.main), function(planeswalker) {
     return _c('Decklistvisual', {
+      key: planeswalker.name,
       attrs: {
         "entry": planeswalker
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.lands), function(land) {
+  }), _vm._v(" "), _vm._l((_vm.decklist.lands.main), function(land) {
     return _c('Decklistvisual', {
+      key: land.name,
       attrs: {
         "entry": land
       }
