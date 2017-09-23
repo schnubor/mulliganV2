@@ -47917,13 +47917,31 @@ var _axios2 = _interopRequireDefault(_axios);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    props: {
+        initialTitle: {
+            type: String,
+            default: ''
+        },
+        initialDescription: {
+            type: String,
+            default: ''
+        },
+        initialTags: {
+            type: Array,
+            default: []
+        },
+        initialFormat: {
+            type: String,
+            default: ''
+        }
+    },
     data: function data() {
         return {
-            title: '',
-            description: '',
+            title: this.initialTitle,
+            description: this.initialDescription,
             tag: '',
-            tags: [],
-            format: ''
+            tags: this.initialTags,
+            format: this.initialFormat
         };
     },
 

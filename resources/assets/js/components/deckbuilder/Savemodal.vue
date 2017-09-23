@@ -94,13 +94,31 @@
 import axios from 'axios';
 
 export default {
+    props: {
+        initialTitle : {
+            type: String,
+            default: ''
+        },
+        initialDescription : {
+            type: String,
+            default:  ''
+        },
+        initialTags : {
+            type : Array,
+            default : []
+        },
+        initialFormat : {
+            type : String,
+            default : ''
+        }
+    },
     data() {
         return {
-            title       : '',
-            description : '',
+            title       : this.initialTitle,
+            description : this.initialDescription,
             tag         : '',
-            tags        : [],
-            format      : ''
+            tags        : this.initialTags,
+            format      : this.initialFormat
         };
     },
     computed : {
