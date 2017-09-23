@@ -1,7 +1,9 @@
 import * as types from './../types.js';
 import _ from 'lodash';
+import axios from 'axios';
 
 const state = {
+    fetching    : false,
     deckcolors  : [],
     activeList  : 'main',
     decklist    : {
@@ -54,6 +56,9 @@ const state = {
 };
 
 const getters = {
+    fetching( state ) {
+        return state.fetching;
+    },
     deckcolors( state ) {
         return _.uniq( state.deckcolors );
     },
@@ -339,10 +344,34 @@ const mutations = {
     },
     [types.SWITCH_ACTIVE_LIST]( state, payload ) {
         state.activeList = payload.list;
+    },
+    [types.BEGIN_DECK_FETCHING]( state ) {
+        state.fetching = true;
+        state.error = false;
+    },
+    [types.DECK_FETCHING_SUCCESSFUL]( state, deck ) {
+        state.fetching = false;
+        state.error = false;
+        state.decklist = JSON.parse( deck.decklist );
+    },
+    [types.DECK_FETCHING_FAILED]( state ) {
+        state.fetching = false;
+        state.error = true;
     }
 };
 
 const actions = {
+    fetchDeckById( { commit }, payload ) {
+        commit( types.BEGIN_DECK_FETCHING );
+        axios.get( `/api/decks/${payload.id}`, { timeout : 10000 } )
+        .then( function( response ) {
+            const deck = response.data;
+            commit( types.DECK_FETCHING_SUCCESSFUL, deck );
+        } ).catch( ( error ) => {
+            commit( types.DECK_FETCHING_FAILED );
+            console.warn( error );
+        } );
+    },
     addToDecklist( { commit }, card ) {
         commit( types.ADD_TO_DECKLIST, card );
     },

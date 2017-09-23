@@ -134,9 +134,18 @@
     import { mapGetters } from 'vuex';
 
     export default {
+        props: [ 'deckid' ],
         components : {
             Spinner,
             Decklistitem
+        },
+        mounted() {
+            if( this.deckid ) {
+                this.$store.dispatch( {
+                    type : 'fetchDeckById',
+                    id   : this.deckid
+                } );
+            }
         },
         methods : {
             showLandModal() {
@@ -153,6 +162,7 @@
         },
         computed : {
             ...mapGetters( [
+                'fetching',
                 'lands',
                 'artifacts',
                 'creatures',

@@ -12,7 +12,7 @@
                     <div class="column is-3">
                         <Deckactions>
                         </Deckactions>
-                        <Decklist></Decklist>
+                        <Decklist :deckid="deckid"></Decklist>
                     </div>
                     <Cardresults></Cardresults>
                 </div>
@@ -32,6 +32,7 @@
     import Statsmodal from './Statsmodal.vue';
 
     export default {
+        props: [ 'deckid' ],
         computed : {
             apiError() {
                 return this.$store.getters.apiError;

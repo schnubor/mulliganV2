@@ -42,6 +42,22 @@ class DeckController extends Controller
     }
 
     /**
+     * Show the form for editing the specified deck.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit( $id )
+    {
+        $slug = explode( "-", $id );
+        $deckid = end( $slug );
+
+        $deck = Deck::find( $deckid );
+
+        return view( 'deckedit', [ 'id' => $deckid, 'title' => $deck->title] );
+    }
+
+    /**
      * Create a new deck instance.
      *
      * @param  Request  $request

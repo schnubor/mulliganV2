@@ -40,7 +40,7 @@
                 return '';
             },
             cardUrl() {
-                return '/card/' + slug( this.entry.card.name ) + '-' + this.entry.card.multiverseid;
+                return '/cards/' + slug( this.entry.card.name ) + '-' + this.entry.card.multiverseid;
             },
             errorClass() {
                 if ( this.entry.qty > 4 &&

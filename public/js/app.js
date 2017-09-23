@@ -22299,6 +22299,11 @@ var REMOVE_ENTRY = exports.REMOVE_ENTRY = 'REMOVE_ENTRY';
 var UPDATE_BASIC_LANDS = exports.UPDATE_BASIC_LANDS = 'UPDATE_BASIC_LANDS';
 var SWITCH_ACTIVE_LIST = exports.SWITCH_ACTIVE_LIST = 'SWITCH_ACTIVE_LIST';
 
+// Deck
+var BEGIN_DECK_FETCHING = exports.BEGIN_DECK_FETCHING = 'BEGIN_DECK_FETCHING';
+var DECK_FETCHING_SUCCESSFUL = exports.DECK_FETCHING_SUCCESSFUL = 'DECK_FETCHING_SUCCESSFUL';
+var DECK_FETCHING_FAILED = exports.DECK_FETCHING_FAILED = 'DECK_FETCHING_FAILED';
+
 // Modals
 var SHOW_CARD_MODAL = exports.SHOW_CARD_MODAL = 'SHOW_CARD_MODAL';
 var HIDE_CARD_MODAL = exports.HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
@@ -46165,6 +46170,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 //
 //
+//
+//
 
 exports.default = {
     components: {
@@ -46227,11 +46234,61 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 exports.default = {
+    props: ['isSideboard'],
     components: {
         Deckmenu: _Menu2.default,
         Decklistvisual: _Decklistvisual2.default
     },
     computed: {
+        creatures: function creatures() {
+            if (this.isSideboard) {
+                return this.decklist.creatures.sideboard;
+            } else {
+                return this.decklist.creatures.main;
+            }
+        },
+        instants: function instants() {
+            if (this.isSideboard) {
+                return this.decklist.instants.sideboard;
+            } else {
+                return this.decklist.instants.main;
+            }
+        },
+        sorceries: function sorceries() {
+            if (this.isSideboard) {
+                return this.decklist.sorceries.sideboard;
+            } else {
+                return this.decklist.sorceries.main;
+            }
+        },
+        enchantments: function enchantments() {
+            if (this.isSideboard) {
+                return this.decklist.enchantments.sideboard;
+            } else {
+                return this.decklist.enchantments.main;
+            }
+        },
+        artifacts: function artifacts() {
+            if (this.isSideboard) {
+                return this.decklist.artifacts.sideboard;
+            } else {
+                return this.decklist.artifacts.main;
+            }
+        },
+        planeswalker: function planeswalker() {
+            if (this.isSideboard) {
+                return this.decklist.planeswalker.sideboard;
+            } else {
+                return this.decklist.planeswalker.main;
+            }
+        },
+        lands: function lands() {
+            if (this.isSideboard) {
+                return this.decklist.lands.sideboard;
+            } else {
+                return this.decklist.lands.main;
+            }
+        },
         decklist: function decklist() {
             return this.$store.getters.deckDecklist;
         }
@@ -46863,6 +46920,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 exports.default = {
+    props: ['deckid'],
     computed: {
         apiError: function apiError() {
             return this.$store.getters.apiError;
@@ -47035,10 +47093,20 @@ var _vuex = __webpack_require__(137);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
+    props: ['deckid'],
     components: {
         Spinner: _Spinner2.default,
         Decklistitem: _Decklistitem2.default
     },
+    mounted: function mounted() {
+        if (this.deckid) {
+            this.$store.dispatch({
+                type: 'fetchDeckById',
+                id: this.deckid
+            });
+        }
+    },
+
     methods: {
         showLandModal: function showLandModal() {
             this.$store.dispatch({
@@ -47052,7 +47120,7 @@ exports.default = {
             });
         }
     },
-    computed: _extends({}, (0, _vuex.mapGetters)(['lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards', 'activeList']))
+    computed: _extends({}, (0, _vuex.mapGetters)(['fetching', 'lands', 'artifacts', 'creatures', 'instants', 'sorceries', 'planeswalker', 'enchantments', 'basiclands', 'totalCards', 'activeList']))
 };
 
 /***/ }),
@@ -47115,7 +47183,7 @@ exports.default = {
             return '';
         },
         cardUrl: function cardUrl() {
-            return '/card/' + (0, _slug2.default)(this.entry.card.name) + '-' + this.entry.card.multiverseid;
+            return '/cards/' + (0, _slug2.default)(this.entry.card.name) + '-' + this.entry.card.multiverseid;
         },
         errorClass: function errorClass() {
             if (this.entry.qty > 4 && _lodash2.default.get(this.entry.card, 'supertypes[0]') !== 'Basic') {
@@ -48912,6 +48980,10 @@ var _lodash = __webpack_require__(5);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
+var _axios = __webpack_require__(6);
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
@@ -48919,6 +48991,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var state = {
+    fetching: false,
     deckcolors: [],
     activeList: 'main',
     decklist: {
@@ -48971,6 +49044,9 @@ var state = {
 };
 
 var getters = {
+    fetching: function fetching(state) {
+        return state.fetching;
+    },
     deckcolors: function deckcolors(state) {
         return _lodash2.default.uniq(state.deckcolors);
     },
@@ -49557,31 +49633,53 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
     state.decklist.basiclands[payload.list].swamps = payload.swamps;
 }), _defineProperty(_mutations, types.SWITCH_ACTIVE_LIST, function (state, payload) {
     state.activeList = payload.list;
+}), _defineProperty(_mutations, types.BEGIN_DECK_FETCHING, function (state) {
+    state.fetching = true;
+    state.error = false;
+}), _defineProperty(_mutations, types.DECK_FETCHING_SUCCESSFUL, function (state, deck) {
+    state.fetching = false;
+    state.error = false;
+    state.decklist = JSON.parse(deck.decklist);
+}), _defineProperty(_mutations, types.DECK_FETCHING_FAILED, function (state) {
+    state.fetching = false;
+    state.error = true;
 }), _mutations);
 
 var actions = {
-    addToDecklist: function addToDecklist(_ref, card) {
+    fetchDeckById: function fetchDeckById(_ref, payload) {
         var commit = _ref.commit;
+
+        commit(types.BEGIN_DECK_FETCHING);
+        _axios2.default.get('/api/decks/' + payload.id, { timeout: 10000 }).then(function (response) {
+            var deck = response.data;
+            commit(types.DECK_FETCHING_SUCCESSFUL, deck);
+        }).catch(function (error) {
+            commit(types.DECK_FETCHING_FAILED);
+            console.warn(error);
+        });
+    },
+    addToDecklist: function addToDecklist(_ref2, card) {
+        var commit = _ref2.commit;
 
         commit(types.ADD_TO_DECKLIST, card);
     },
-    removeCard: function removeCard(_ref2, payload) {
-        var commit = _ref2.commit;
+    removeCard: function removeCard(_ref3, payload) {
+        var commit = _ref3.commit;
 
         commit(types.REMOVE_CARD_FROM_ENTRY, payload);
     },
-    removeEntry: function removeEntry(_ref3, payload) {
-        var commit = _ref3.commit;
+    removeEntry: function removeEntry(_ref4, payload) {
+        var commit = _ref4.commit;
 
         commit(types.REMOVE_ENTRY, payload);
     },
-    updateBasicLands: function updateBasicLands(_ref4, payload) {
-        var commit = _ref4.commit;
+    updateBasicLands: function updateBasicLands(_ref5, payload) {
+        var commit = _ref5.commit;
 
         commit(types.UPDATE_BASIC_LANDS, payload);
     },
-    switchActiveList: function switchActiveList(_ref5, payload) {
-        var commit = _ref5.commit;
+    switchActiveList: function switchActiveList(_ref6, payload) {
+        var commit = _ref6.commit;
 
         commit(types.SWITCH_ACTIVE_LIST, payload);
     }
@@ -64446,7 +64544,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "columns"
   }, [_c('div', {
     staticClass: "column is-3"
-  }, [_c('Deckactions'), _vm._v(" "), _c('Decklist')], 1), _vm._v(" "), _c('Cardresults')], 1)])]) : _vm._e()], 1)
+  }, [_c('Deckactions'), _vm._v(" "), _c('Decklist', {
+    attrs: {
+      "deckid": _vm.deckid
+    }
+  })], 1), _vm._v(" "), _c('Cardresults')], 1)])]) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65121,7 +65223,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeTab('decklist')
       }
     }
-  }, [_vm._v("Decklist")])]), _vm._v(" "), _c('li', {
+  }, [_vm._v("Main Deck")])]), _vm._v(" "), _c('li', {
+    class: {
+      'is-active': _vm.activeTab === 'sideboard'
+    }
+  }, [_c('a', {
+    on: {
+      "click": function($event) {
+        _vm.changeTab('sideboard')
+      }
+    }
+  }, [_vm._v("Sideboard")])]), _vm._v(" "), _c('li', {
     class: {
       'is-active': _vm.activeTab === 'stats'
     }
@@ -65141,7 +65253,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.changeTab('hand')
       }
     }
-  }, [_vm._v("Start Hand")])])])]), _vm._v(" "), (_vm.activeTab === 'decklist') ? _c('Decklist') : _vm._e(), _vm._v(" "), (_vm.activeTab === 'stats') ? _c('Stats') : _vm._e()], 1)])
+  }, [_vm._v("Start Hand")])])])]), _vm._v(" "), (_vm.activeTab === 'decklist') ? _c('Decklist') : _vm._e(), _vm._v(" "), (_vm.activeTab === 'sideboard') ? _c('Decklist', {
+    attrs: {
+      "isSideboard": "true"
+    }
+  }) : _vm._e(), _vm._v(" "), (_vm.activeTab === 'stats') ? _c('Stats') : _vm._e()], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -65964,49 +66080,49 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "column"
   }, [_c('div', {
     staticClass: "columns is-multiline"
-  }, [_vm._l((_vm.decklist.creatures.main), function(creature) {
+  }, [_vm._l((_vm.creatures), function(creature) {
     return _c('Decklistvisual', {
       key: creature.name,
       attrs: {
         "entry": creature
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.instants.main), function(instant) {
+  }), _vm._v(" "), _vm._l((_vm.instants), function(instant) {
     return _c('Decklistvisual', {
       key: instant.name,
       attrs: {
         "entry": instant
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.sorceries.main), function(sorcery) {
+  }), _vm._v(" "), _vm._l((_vm.sorceries), function(sorcery) {
     return _c('Decklistvisual', {
       key: sorcery.name,
       attrs: {
         "entry": sorcery
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.enchantments.main), function(enchantment) {
+  }), _vm._v(" "), _vm._l((_vm.enchantments), function(enchantment) {
     return _c('Decklistvisual', {
       key: enchantment.name,
       attrs: {
         "entry": enchantment
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.artifacts.main), function(artifact) {
+  }), _vm._v(" "), _vm._l((_vm.artifacts), function(artifact) {
     return _c('Decklistvisual', {
       key: artifact.name,
       attrs: {
         "entry": artifact
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.planeswalker.main), function(planeswalker) {
+  }), _vm._v(" "), _vm._l((_vm.planeswalker), function(planeswalker) {
     return _c('Decklistvisual', {
       key: planeswalker.name,
       attrs: {
         "entry": planeswalker
       }
     })
-  }), _vm._v(" "), _vm._l((_vm.decklist.lands.main), function(land) {
+  }), _vm._v(" "), _vm._l((_vm.lands), function(land) {
     return _c('Decklistvisual', {
       key: land.name,
       attrs: {
