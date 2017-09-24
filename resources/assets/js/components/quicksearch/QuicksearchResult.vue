@@ -8,7 +8,7 @@
         </td>
         <td>
             <template v-for="manaCost in manaCosts">
-                <i class="ms ms-cost" :class="manaCost"></i>
+                <i class="ms ms-cost" :class="manaCost" :key="manaCost"></i>
             </template>
         </td>
     </tr>

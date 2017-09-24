@@ -14,10 +14,10 @@
                 </div>
                 <div class="box" v-if="showBox">
                     <p v-if="results.length == 0">No results.</p>
-                    <table class="table is-marginless" v-if="results.length">
+                    <table class="table is-marginless is-fullwidth" v-if="results.length">
                         <tbody>
                             <template v-for="(result, index) in results">
-                                <QuicksearchResult :result="result"></QuicksearchResult>
+                                <QuicksearchResult :result="result" :key="result.id"></QuicksearchResult>
                             </template>
                         </tbody>
                     </table>
