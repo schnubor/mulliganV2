@@ -366,6 +366,17 @@ const actions = {
         axios.get( `/api/decks/${payload.id}`, { timeout : 10000 } )
         .then( function( response ) {
             const deck = response.data;
+
+            // Fill Save Modal Form
+            const saveModalFormData = {};
+            saveModalFormData.title = deck.title;
+            saveModalFormData.description = deck.description;
+            saveModalFormData.format = deck.format;
+            saveModalFormData.wip = deck.wip === 1;
+            saveModalFormData.tags = JSON.parse( deck.tags );
+
+            commit( types.UPDATE_SAVE_MODAL, saveModalFormData );
+
             commit( types.DECK_FETCHING_SUCCESSFUL, deck );
         } ).catch( ( error ) => {
             commit( types.DECK_FETCHING_FAILED );

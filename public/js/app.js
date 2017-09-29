@@ -22489,6 +22489,9 @@ var BEGIN_DECK_SAVING = exports.BEGIN_DECK_SAVING = 'BEGIN_DECK_SAVING';
 var DECK_SAVING_SUCCESSFUL = exports.DECK_SAVING_SUCCESSFUL = 'DECK_SAVING_SUCCESSFUL';
 var DECK_SAVING_FAILED = exports.DECK_SAVING_FAILED = 'DECK_SAVING_FAILED';
 
+var UPDATE_SAVE_MODAL = exports.UPDATE_SAVE_MODAL = 'UPDATE_SAVE_MODAL';
+var UPDATE_SAVE_MODAL_TITLE = exports.UPDATE_SAVE_MODAL_TITLE = 'UPDATE_SAVE_MODAL_TITLE';
+
 var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
 var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
 
@@ -50189,36 +50192,110 @@ var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 exports.default = {
-    props: {
-        initialTitle: {
-            type: String,
-            default: ''
-        },
-        initialDescription: {
-            type: String,
-            default: ''
-        },
-        initialTags: {
-            type: Array,
-            default: []
-        },
-        initialFormat: {
-            type: String,
-            default: ''
-        }
-    },
     data: function data() {
         return {
-            title: this.initialTitle,
-            description: this.initialDescription,
-            tag: '',
-            tags: this.initialTags,
-            format: this.initialFormat
+            tag: ''
         };
     },
 
-    computed: {
+    computed: _defineProperty({
         isValid: function isValid() {
             if (this.title.length > 1 && this.title.length <= 140 && this.format !== '') {
                 return true;
@@ -50233,8 +50310,22 @@ exports.default = {
         },
         cardCount: function cardCount() {
             return this.$store.getters.totalCards.main;
+        },
+        title: function title() {
+            return this.$store.getters.saveModalForm.title;
+        },
+        description: function description() {
+            return this.$store.getters.saveModalForm.description;
+        },
+        deckFormat: function deckFormat() {
+            return this.$store.getters.saveModalForm.format;
+        },
+        tags: function tags() {
+            return this.$store.getters.saveModalForm.tags;
         }
-    },
+    }, 'wip', function wip() {
+        return this.$store.getters.saveModalForm.wip;
+    }),
     mounted: function mounted() {
         this.$store.dispatch({
             type: 'fetchFormats'
@@ -50242,6 +50333,12 @@ exports.default = {
     },
 
     methods: {
+        updateTitle: function updateTitle(e) {
+            this.$store.dispatch({
+                type: 'updateSaveModalTitle',
+                title: e.target.value
+            });
+        },
         addTag: function addTag() {
             if (this.tag !== '') {
                 this.tags.push(this.tag);
@@ -50276,98 +50373,7 @@ exports.default = {
             });
         }
     }
-}; //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+};
 
 /***/ }),
 /* 188 */
@@ -51943,6 +51949,17 @@ var actions = {
         commit(types.BEGIN_DECK_FETCHING);
         _axios2.default.get('/api/decks/' + payload.id, { timeout: 10000 }).then(function (response) {
             var deck = response.data;
+
+            // Fill Save Modal Form
+            var saveModalFormData = {};
+            saveModalFormData.title = deck.title;
+            saveModalFormData.description = deck.description;
+            saveModalFormData.format = deck.format;
+            saveModalFormData.wip = deck.wip === 1;
+            saveModalFormData.tags = JSON.parse(deck.tags);
+
+            commit(types.UPDATE_SAVE_MODAL, saveModalFormData);
+
             commit(types.DECK_FETCHING_SUCCESSFUL, deck);
         }).catch(function (error) {
             commit(types.DECK_FETCHING_FAILED);
@@ -52019,10 +52036,17 @@ var state = {
         visible: false
     },
     saveModal: {
+        form: {
+            title: '',
+            description: '',
+            formats: [],
+            format: '',
+            tags: [],
+            wip: true
+        },
         visible: false,
         loading: false,
         error: false,
-        formats: [],
         saving: false,
         saved: false,
         decklink: ''
@@ -52044,6 +52068,9 @@ var getters = {
     },
     statsModal: function statsModal(state) {
         return state.statsModal;
+    },
+    saveModalForm: function saveModalForm(state) {
+        return state.saveModal.form;
     }
 };
 
@@ -52088,6 +52115,11 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
     state.saveModal.saved = false;
     state.saveModal.saving = false;
     state.saveModal.error = true;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL, function (state, formData) {
+    console.log('formData', formData);
+    state.saveModal.form = formData;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_TITLE, function (state, payload) {
+    state.saveModal.form.title = payload.title;
 }), _mutations);
 
 var actions = {
@@ -52154,6 +52186,16 @@ var actions = {
             commit(types.DECK_SAVING_FAILED);
             console.warn(error);
         });
+    },
+    updateFormData: function updateFormData(_ref11, payload) {
+        var commit = _ref11.commit;
+
+        commit(types.UPDATE_SAVE_MODAL, payload);
+    },
+    updateSaveModalTitle: function updateSaveModalTitle(_ref12, payload) {
+        var commit = _ref12.commit;
+
+        commit(types.UPDATE_SAVE_MODAL_TITLE, payload);
     }
 };
 
@@ -67351,12 +67393,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('p', {
     staticClass: "control"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.title),
-      expression: "title"
-    }],
     staticClass: "input",
     attrs: {
       "type": "text",
@@ -67364,37 +67400,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "required": ""
     },
     domProps: {
-      "value": (_vm.title)
+      "value": _vm.title
     },
     on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.title = $event.target.value
-      }
+      "input": _vm.updateTitle
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "field"
   }, [_c('p', {
     staticClass: "control"
   }, [_c('textarea', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.description),
-      expression: "description"
-    }],
     staticClass: "textarea",
     attrs: {
       "placeholder": "Description (optional)"
     },
     domProps: {
-      "value": (_vm.description)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.description = $event.target.value
-      }
+      "value": _vm.description
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "field is-narrow"
@@ -67403,25 +67424,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "select is-fullwidth"
   }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.format),
-      expression: "format"
-    }],
     attrs: {
       "required": ""
-    },
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.format = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
     }
   }, [_c('option', {
     attrs: {
@@ -67431,7 +67435,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('option', {
       key: format,
       domProps: {
-        "value": format
+        "value": format,
+        "selected": format === _vm.deckFormat ? 'selected' : ''
       }
     }, [_vm._v(_vm._s(format))])
   })], 2)])])]), _vm._v(" "), _c('div', {
@@ -67491,35 +67496,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('label', {
     staticClass: "checkbox"
   }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.wip),
-      expression: "wip"
-    }],
     attrs: {
       "type": "checkbox"
     },
     domProps: {
-      "checked": Array.isArray(_vm.wip) ? _vm._i(_vm.wip, null) > -1 : (_vm.wip)
-    },
-    on: {
-      "__c": function($event) {
-        var $$a = _vm.wip,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.wip = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.wip = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.wip = $$c
-        }
-      }
+      "checked": _vm.wip
     }
   }), _vm._v(" Work in Progress\n                        ")])])])] : _vm._e()], 2), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"

@@ -38,20 +38,23 @@
                 <template v-if="!saveModal.saved">
                     <div class="field">
                         <p class="control">
-                            <input class="input" type="text" placeholder="Name (required, 140 chars)" v-model="title" required>
+                            <input class="input" @input="updateTitle" type="text" placeholder="Name (required, 140 chars)" :value="title" required>
                         </p>
                     </div>
                     <div class="field">
                         <p class="control">
-                            <textarea class="textarea" placeholder="Description (optional)" v-model="description"></textarea>
+                            <textarea class="textarea" placeholder="Description (optional)" :value="description"></textarea>
                         </p>
                     </div>
                     <div class="field is-narrow">
                         <div class="control">
                             <div class="select is-fullwidth">
-                                <select v-model="format" required>
+                                <select required>
                                     <option value="">Choose a format (required)</option>
-                                    <option :value="format" v-for="format in saveModal.formats" :key="format">{{ format }}</option>
+                                    <option v-for="format in saveModal.formats"
+                                            :key="format"
+                                            :value="format"
+                                            :selected="format === deckFormat ? 'selected' : ''">{{ format }}</option>
                                 </select>
                             </div>
                         </div>
@@ -75,7 +78,7 @@
                     <div class="field">
                         <p class="control">
                             <label class="checkbox">
-                                <input type="checkbox" v-model="wip"> Work in Progress
+                                <input type="checkbox" :checked="wip"> Work in Progress
                             </label>
                         </p>
                     </div>
@@ -94,31 +97,9 @@
 import axios from 'axios';
 
 export default {
-    props: {
-        initialTitle : {
-            type: String,
-            default: ''
-        },
-        initialDescription : {
-            type: String,
-            default:  ''
-        },
-        initialTags : {
-            type : Array,
-            default : []
-        },
-        initialFormat : {
-            type : String,
-            default : ''
-        }
-    },
     data() {
         return {
-            title       : this.initialTitle,
-            description : this.initialDescription,
-            tag         : '',
-            tags        : this.initialTags,
-            format      : this.initialFormat
+            tag         : ''
         };
     },
     computed : {
@@ -136,6 +117,21 @@ export default {
         },
         cardCount() {
             return this.$store.getters.totalCards.main;
+        },
+        title() {
+            return this.$store.getters.saveModalForm.title;
+        },
+        description() {
+            return this.$store.getters.saveModalForm.description;
+        },
+        deckFormat() {
+            return this.$store.getters.saveModalForm.format;
+        },
+        tags() {
+            return this.$store.getters.saveModalForm.tags;
+        },
+        wip() {
+            return this.$store.getters.saveModalForm.wip;
         }
     },
     mounted() {
@@ -144,6 +140,12 @@ export default {
         } );
     },
     methods : {
+        updateTitle( e ) {
+            this.$store.dispatch( {
+                type    : 'updateSaveModalTitle',
+                title   : e.target.value
+            } )
+        },
         addTag() {
             if ( this.tag !== '' ) {
                 this.tags.push( this.tag );

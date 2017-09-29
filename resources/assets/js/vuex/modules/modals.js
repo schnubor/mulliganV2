@@ -10,13 +10,20 @@ const state = {
         visible : false
     },
     saveModal : {
-        visible  : false,
-        loading  : false,
-        error    : false,
-        formats  : [],
-        saving   : false,
-        saved    : false,
-        decklink : ''
+        form : {
+            title       : '',
+            description : '',
+            formats     : [],
+            format      : '',
+            tags        : [],
+            wip         : true
+        },
+        visible     : false,
+        loading     : false,
+        error       : false,
+        saving      : false,
+        saved       : false,
+        decklink    : ''
     },
     statsModal : {
         visible : false
@@ -35,6 +42,9 @@ const getters = {
     },
     statsModal( state ) {
         return state.statsModal;
+    },
+    saveModalForm( state ) {
+        return state.saveModal.form;
     }
 };
 
@@ -93,6 +103,13 @@ const mutations = {
         state.saveModal.saved = false;
         state.saveModal.saving = false;
         state.saveModal.error = true;
+    },
+    [types.UPDATE_SAVE_MODAL]( state, formData ) {
+        console.log( 'formData', formData );
+        state.saveModal.form = formData;
+    },
+    [types.UPDATE_SAVE_MODAL_TITLE]( state, payload ) {
+        state.saveModal.form.title = payload.title;
     }
 };
 
@@ -143,6 +160,12 @@ const actions = {
             commit( types.DECK_SAVING_FAILED );
             console.warn( error );
         } );
+    },
+    updateFormData( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL, payload );
+    },
+    updateSaveModalTitle( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL_TITLE, payload );
     }
 };
 
