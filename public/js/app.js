@@ -50305,6 +50305,9 @@ exports.default = {
             }
             return false;
         },
+        deckId: function deckId() {
+            return this.$store.getters.deckId;
+        },
         saveModal: function saveModal() {
             return this.$store.getters.saveModal;
         },
@@ -51317,6 +51320,7 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var state = {
+    deckId: undefined,
     fetching: false,
     deckcolors: [],
     activeList: 'main',
@@ -51370,6 +51374,9 @@ var state = {
 };
 
 var getters = {
+    deckId: function deckId(state) {
+        return state.deckId;
+    },
     fetching: function fetching(state) {
         return state.fetching;
     },
@@ -51965,6 +51972,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
 }), _defineProperty(_mutations, types.DECK_FETCHING_SUCCESSFUL, function (state, deck) {
     state.fetching = false;
     state.error = false;
+    state.deckId = deck.id;
     state.deckcolors = JSON.parse(deck.colors);
     state.decklist = JSON.parse(deck.decklist);
 }), _defineProperty(_mutations, types.DECK_FETCHING_FAILED, function (state) {

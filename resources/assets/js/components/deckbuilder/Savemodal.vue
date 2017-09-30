@@ -97,7 +97,7 @@
 export default {
     data() {
         return {
-            tag         : ''
+            tag : ''
         };
     },
     computed : {
@@ -106,6 +106,9 @@ export default {
                 return true;
             }
             return false;
+        },
+        deckId() {
+            return this.$store.getters.deckId;  
         },
         saveModal() {
             return this.$store.getters.saveModal;

@@ -3,6 +3,7 @@ import _ from 'lodash';
 import axios from 'axios';
 
 const state = {
+    deckId      : undefined,
     fetching    : false,
     deckcolors  : [],
     activeList  : 'main',
@@ -56,6 +57,9 @@ const state = {
 };
 
 const getters = {
+    deckId( state ) {
+        return state.deckId;
+    },
     fetching( state ) {
         return state.fetching;
     },
@@ -352,6 +356,7 @@ const mutations = {
     [types.DECK_FETCHING_SUCCESSFUL]( state, deck ) {
         state.fetching = false;
         state.error = false;
+        state.deckId = deck.id;
         state.deckcolors = JSON.parse( deck.colors );
         state.decklist = JSON.parse( deck.decklist );
     },
