@@ -43,13 +43,13 @@
                     </div>
                     <div class="field">
                         <p class="control">
-                            <textarea class="textarea" placeholder="Description (optional)" :value="description"></textarea>
+                            <textarea class="textarea" @input="updateDescription" placeholder="Description (optional)" :value="description"></textarea>
                         </p>
                     </div>
                     <div class="field is-narrow">
                         <div class="control">
                             <div class="select is-fullwidth">
-                                <select required>
+                                <select required @change="updateFormat">
                                     <option value="">Choose a format (required)</option>
                                     <option v-for="format in saveModal.formats"
                                             :key="format"
@@ -78,7 +78,7 @@
                     <div class="field">
                         <p class="control">
                             <label class="checkbox">
-                                <input type="checkbox" :checked="wip"> Work in Progress
+                                <input type="checkbox" @change="updateWip" :checked="wip"> Work in Progress
                             </label>
                         </p>
                     </div>
@@ -94,8 +94,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -111,9 +109,6 @@ export default {
         },
         saveModal() {
             return this.$store.getters.saveModal;
-        },
-        wip() {
-            return this.$store.getters.totalCards.main < 60;
         },
         cardCount() {
             return this.$store.getters.totalCards.main;
@@ -146,14 +141,43 @@ export default {
                 title   : e.target.value
             } )
         },
+        updateDescription( e ) {
+            this.$store.dispatch( {
+                type        : 'updateSaveModalDescription',
+                description : e.target.value
+            } )
+        },
+        updateFormat( e ) {
+            this.$store.dispatch( {
+                type    : 'updateSaveModalFormat',
+                format  : e.target.value
+            } )
+        },
+        updateWip( e ) {
+            console.log( e.target.checked );
+            this.$store.dispatch( {
+                type    : 'updateSaveModalWip',
+                wip     : e.target.checked
+            } )
+        },
         addTag() {
+            const newTags = this.tags;
             if ( this.tag !== '' ) {
-                this.tags.push( this.tag );
+                newTags.push( this.tag );
+                this.$store.dispatch( {
+                    type : 'updateSaveModalTags',
+                    tags : newTags
+                } )
             }
             this.tag = '';
         },
         removeTag( index ) {
-            this.tags.splice( index, 1 );
+            const newTags = this.tags;
+            newTags.splice( index, 1 );
+            this.$store.dispatch( {
+                type : 'updateSaveModalTags',
+                tags : newTags
+            } )
         },
         closeModal() {
             this.$store.dispatch( {
@@ -161,14 +185,13 @@ export default {
             } );
         },
         save() {
-            const self = this;
             const data = {
                 title           : this.title,
                 description     : this.description,
                 decklist        : JSON.stringify( this.$store.getters.decklist ),
                 colors          : JSON.stringify( this.$store.getters.deckcolors ),
                 tags            : JSON.stringify( this.tags ),
-                format          : this.format,
+                format          : this.deckFormat,
                 wip             : this.wip,
                 cardcount       : this.cardCount,
                 ownerId         : null

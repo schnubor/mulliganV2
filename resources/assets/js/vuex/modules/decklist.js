@@ -352,6 +352,7 @@ const mutations = {
     [types.DECK_FETCHING_SUCCESSFUL]( state, deck ) {
         state.fetching = false;
         state.error = false;
+        state.deckcolors = JSON.parse( deck.colors );
         state.decklist = JSON.parse( deck.decklist );
     },
     [types.DECK_FETCHING_FAILED]( state ) {

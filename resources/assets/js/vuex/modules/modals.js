@@ -13,11 +13,11 @@ const state = {
         form : {
             title       : '',
             description : '',
-            formats     : [],
             format      : '',
             tags        : [],
             wip         : true
         },
+        formats     : [],
         visible     : false,
         loading     : false,
         error       : false,
@@ -105,11 +105,22 @@ const mutations = {
         state.saveModal.error = true;
     },
     [types.UPDATE_SAVE_MODAL]( state, formData ) {
-        console.log( 'formData', formData );
         state.saveModal.form = formData;
     },
     [types.UPDATE_SAVE_MODAL_TITLE]( state, payload ) {
         state.saveModal.form.title = payload.title;
+    },
+    [types.UPDATE_SAVE_MODAL_DESCRIPTION]( state, payload ) {
+        state.saveModal.form.description = payload.description;
+    },
+    [types.UPDATE_SAVE_MODAL_FORMAT]( state, payload ) {
+        state.saveModal.form.format = payload.format;
+    },
+    [types.UPDATE_SAVE_MODAL_TAGS]( state, payload ) {
+        state.saveModal.form.tags = payload.tags;
+    },
+    [types.UPDATE_SAVE_MODAL_WIP]( state, payload ) {
+        state.saveModal.form.wip = payload.wip;
     }
 };
 
@@ -166,6 +177,18 @@ const actions = {
     },
     updateSaveModalTitle( { commit }, payload ) {
         commit( types.UPDATE_SAVE_MODAL_TITLE, payload );
+    },
+    updateSaveModalDescription( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL_DESCRIPTION, payload );
+    },
+    updateSaveModalFormat( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL_FORMAT, payload );
+    },
+    updateSaveModalTags( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL_TAGS, payload );
+    },
+    updateSaveModalWip( { commit }, payload ) {
+        commit( types.UPDATE_SAVE_MODAL_WIP, payload );
     }
 };
 

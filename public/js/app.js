@@ -22473,12 +22473,16 @@ var DECK_FETCHING_SUCCESSFUL = exports.DECK_FETCHING_SUCCESSFUL = 'DECK_FETCHING
 var DECK_FETCHING_FAILED = exports.DECK_FETCHING_FAILED = 'DECK_FETCHING_FAILED';
 
 // Modals
+
+// Card Modal
 var SHOW_CARD_MODAL = exports.SHOW_CARD_MODAL = 'SHOW_CARD_MODAL';
 var HIDE_CARD_MODAL = exports.HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
 
+// Basiclands Modal
 var SHOW_LAND_MODAL = exports.SHOW_LAND_MODAL = 'SHOW_LAND_MODAL';
 var HIDE_LAND_MODAL = exports.HIDE_LAND_MODAL = 'HIDE_LAND_MODAL';
 
+// Save Modal
 var SHOW_SAVE_MODAL = exports.SHOW_SAVE_MODAL = 'SHOW_SAVE_MODAL';
 var HIDE_SAVE_MODAL = exports.HIDE_SAVE_MODAL = 'HIDE_SAVE_MODAL';
 var BEGIN_FETCHING_FORMATS = exports.BEGIN_FETCHING_FORMATS = 'BEGIN_FETCHING_FORMATS';
@@ -22489,9 +22493,15 @@ var BEGIN_DECK_SAVING = exports.BEGIN_DECK_SAVING = 'BEGIN_DECK_SAVING';
 var DECK_SAVING_SUCCESSFUL = exports.DECK_SAVING_SUCCESSFUL = 'DECK_SAVING_SUCCESSFUL';
 var DECK_SAVING_FAILED = exports.DECK_SAVING_FAILED = 'DECK_SAVING_FAILED';
 
+// Save Modal Form
 var UPDATE_SAVE_MODAL = exports.UPDATE_SAVE_MODAL = 'UPDATE_SAVE_MODAL';
 var UPDATE_SAVE_MODAL_TITLE = exports.UPDATE_SAVE_MODAL_TITLE = 'UPDATE_SAVE_MODAL_TITLE';
+var UPDATE_SAVE_MODAL_DESCRIPTION = exports.UPDATE_SAVE_MODAL_DESCRIPTION = 'UPDATE_SAVE_MODAL_DESCRIPTION';
+var UPDATE_SAVE_MODAL_FORMAT = exports.UPDATE_SAVE_MODAL_FORMAT = 'UPDATE_SAVE_MODAL_FORMAT';
+var UPDATE_SAVE_MODAL_TAGS = exports.UPDATE_SAVE_MODAL_TAGS = 'UPDATE_SAVE_MODAL_TAGS';
+var UPDATE_SAVE_MODAL_WIP = exports.UPDATE_SAVE_MODAL_WIP = 'UPDATE_SAVE_MODAL_WIP';
 
+// Stats Modal
 var SHOW_STATS_MODAL = exports.SHOW_STATS_MODAL = 'SHOW_STATS_MODAL';
 var HIDE_STATS_MODAL = exports.HIDE_STATS_MODAL = 'HIDE_STATS_MODAL';
 
@@ -50185,14 +50195,7 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _axios = __webpack_require__(9);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; } //
+//
 //
 //
 //
@@ -50295,7 +50298,7 @@ exports.default = {
         };
     },
 
-    computed: _defineProperty({
+    computed: {
         isValid: function isValid() {
             if (this.title.length > 1 && this.title.length <= 140 && this.format !== '') {
                 return true;
@@ -50304,9 +50307,6 @@ exports.default = {
         },
         saveModal: function saveModal() {
             return this.$store.getters.saveModal;
-        },
-        wip: function wip() {
-            return this.$store.getters.totalCards.main < 60;
         },
         cardCount: function cardCount() {
             return this.$store.getters.totalCards.main;
@@ -50322,10 +50322,11 @@ exports.default = {
         },
         tags: function tags() {
             return this.$store.getters.saveModalForm.tags;
+        },
+        wip: function wip() {
+            return this.$store.getters.saveModalForm.wip;
         }
-    }, 'wip', function wip() {
-        return this.$store.getters.saveModalForm.wip;
-    }),
+    },
     mounted: function mounted() {
         this.$store.dispatch({
             type: 'fetchFormats'
@@ -50339,14 +50340,43 @@ exports.default = {
                 title: e.target.value
             });
         },
+        updateDescription: function updateDescription(e) {
+            this.$store.dispatch({
+                type: 'updateSaveModalDescription',
+                description: e.target.value
+            });
+        },
+        updateFormat: function updateFormat(e) {
+            this.$store.dispatch({
+                type: 'updateSaveModalFormat',
+                format: e.target.value
+            });
+        },
+        updateWip: function updateWip(e) {
+            console.log(e.target.checked);
+            this.$store.dispatch({
+                type: 'updateSaveModalWip',
+                wip: e.target.checked
+            });
+        },
         addTag: function addTag() {
+            var newTags = this.tags;
             if (this.tag !== '') {
-                this.tags.push(this.tag);
+                newTags.push(this.tag);
+                this.$store.dispatch({
+                    type: 'updateSaveModalTags',
+                    tags: newTags
+                });
             }
             this.tag = '';
         },
         removeTag: function removeTag(index) {
-            this.tags.splice(index, 1);
+            var newTags = this.tags;
+            newTags.splice(index, 1);
+            this.$store.dispatch({
+                type: 'updateSaveModalTags',
+                tags: newTags
+            });
         },
         closeModal: function closeModal() {
             this.$store.dispatch({
@@ -50354,14 +50384,13 @@ exports.default = {
             });
         },
         save: function save() {
-            var self = this;
             var data = {
                 title: this.title,
                 description: this.description,
                 decklist: JSON.stringify(this.$store.getters.decklist),
                 colors: JSON.stringify(this.$store.getters.deckcolors),
                 tags: JSON.stringify(this.tags),
-                format: this.format,
+                format: this.deckFormat,
                 wip: this.wip,
                 cardcount: this.cardCount,
                 ownerId: null
@@ -51936,6 +51965,7 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.ADD_TO_DECKL
 }), _defineProperty(_mutations, types.DECK_FETCHING_SUCCESSFUL, function (state, deck) {
     state.fetching = false;
     state.error = false;
+    state.deckcolors = JSON.parse(deck.colors);
     state.decklist = JSON.parse(deck.decklist);
 }), _defineProperty(_mutations, types.DECK_FETCHING_FAILED, function (state) {
     state.fetching = false;
@@ -52039,11 +52069,11 @@ var state = {
         form: {
             title: '',
             description: '',
-            formats: [],
             format: '',
             tags: [],
             wip: true
         },
+        formats: [],
         visible: false,
         loading: false,
         error: false,
@@ -52116,10 +52146,17 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
     state.saveModal.saving = false;
     state.saveModal.error = true;
 }), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL, function (state, formData) {
-    console.log('formData', formData);
     state.saveModal.form = formData;
 }), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_TITLE, function (state, payload) {
     state.saveModal.form.title = payload.title;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_DESCRIPTION, function (state, payload) {
+    state.saveModal.form.description = payload.description;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_FORMAT, function (state, payload) {
+    state.saveModal.form.format = payload.format;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_TAGS, function (state, payload) {
+    state.saveModal.form.tags = payload.tags;
+}), _defineProperty(_mutations, types.UPDATE_SAVE_MODAL_WIP, function (state, payload) {
+    state.saveModal.form.wip = payload.wip;
 }), _mutations);
 
 var actions = {
@@ -52196,6 +52233,26 @@ var actions = {
         var commit = _ref12.commit;
 
         commit(types.UPDATE_SAVE_MODAL_TITLE, payload);
+    },
+    updateSaveModalDescription: function updateSaveModalDescription(_ref13, payload) {
+        var commit = _ref13.commit;
+
+        commit(types.UPDATE_SAVE_MODAL_DESCRIPTION, payload);
+    },
+    updateSaveModalFormat: function updateSaveModalFormat(_ref14, payload) {
+        var commit = _ref14.commit;
+
+        commit(types.UPDATE_SAVE_MODAL_FORMAT, payload);
+    },
+    updateSaveModalTags: function updateSaveModalTags(_ref15, payload) {
+        var commit = _ref15.commit;
+
+        commit(types.UPDATE_SAVE_MODAL_TAGS, payload);
+    },
+    updateSaveModalWip: function updateSaveModalWip(_ref16, payload) {
+        var commit = _ref16.commit;
+
+        commit(types.UPDATE_SAVE_MODAL_WIP, payload);
     }
 };
 
@@ -67416,6 +67473,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     domProps: {
       "value": _vm.description
+    },
+    on: {
+      "input": _vm.updateDescription
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "field is-narrow"
@@ -67426,6 +67486,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('select', {
     attrs: {
       "required": ""
+    },
+    on: {
+      "change": _vm.updateFormat
     }
   }, [_c('option', {
     attrs: {
@@ -67501,6 +67564,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     domProps: {
       "checked": _vm.wip
+    },
+    on: {
+      "change": _vm.updateWip
     }
   }), _vm._v(" Work in Progress\n                        ")])])])] : _vm._e()], 2), _vm._v(" "), _c('footer', {
     staticClass: "modal-card-foot"
