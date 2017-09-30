@@ -172,6 +172,18 @@ const actions = {
             console.warn( error );
         } );
     },
+    updateDeck( { commit }, payload ) {
+        commit( types.BEGIN_DECK_SAVING );
+        axios.patch( '/api/decks', payload.data )
+        .then( function( response ) {
+            const link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
+            commit( types.DECK_SAVING_SUCCESSFUL, link );
+        } )
+        .catch( function( error ) {
+            commit( types.DECK_SAVING_FAILED );
+            console.warn( error );
+        } );
+    },
     updateFormData( { commit }, payload ) {
         commit( types.UPDATE_SAVE_MODAL, payload );
     },

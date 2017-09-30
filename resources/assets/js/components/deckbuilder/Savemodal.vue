@@ -3,7 +3,7 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <p class="modal-card-title">Save Deck</p>
+                <p class="modal-card-title">{{ modalTitle }}</p>
                 <button class="delete" @click="closeModal"></button>
             </header>
             <section class="modal-card-body">
@@ -86,7 +86,9 @@
             </section>
             <footer class="modal-card-foot">
                 <a class="button is-primary" @click="closeModal" v-if="saveModal.saved">Close</a>
-                <a class="button is-primary" :class="{ 'is-loading' : saveModal.saving }" @click="save" v-if="!saveModal.saved" :disabled="!isValid">Save Deck</a>
+                <a class="button is-primary" :class="{ 'is-loading' : saveModal.saving }" @click="save" v-if="!saveModal.saved" :disabled="!isValid">
+                    {{ buttonText }}
+                </a>
                 <a class="button" @click="closeModal" v-if="!saveModal.saved">Cancel</a>
             </footer>
         </div>
@@ -130,6 +132,12 @@ export default {
         },
         wip() {
             return this.$store.getters.saveModalForm.wip;
+        },
+        modalTitle() {
+            return this.deckId ? 'Update Deck' : 'Save Deck';
+        },
+        buttonText() {
+            return this.deckId ? 'Update' : 'Save';
         }
     },
     mounted() {
@@ -200,10 +208,17 @@ export default {
                 ownerId         : null
             };
 
-            this.$store.dispatch( {
-                type : 'saveDeck',
-                data : data
-            } );
+            if( this.deckId ) {
+                this.$store.dispatch( {
+                    type : 'updateDeck',
+                    data : data
+                } );
+            } else {
+                this.$store.dispatch( {
+                    type : 'saveDeck',
+                    data : data
+                } );
+            }
         }
     }
 };

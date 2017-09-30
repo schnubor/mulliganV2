@@ -50290,6 +50290,8 @@ Object.defineProperty(exports, "__esModule", {
 //
 //
 //
+//
+//
 
 exports.default = {
     data: function data() {
@@ -50328,6 +50330,12 @@ exports.default = {
         },
         wip: function wip() {
             return this.$store.getters.saveModalForm.wip;
+        },
+        modalTitle: function modalTitle() {
+            return this.deckId ? 'Update Deck' : 'Save Deck';
+        },
+        buttonText: function buttonText() {
+            return this.deckId ? 'Update' : 'Save';
         }
     },
     mounted: function mounted() {
@@ -50399,10 +50407,17 @@ exports.default = {
                 ownerId: null
             };
 
-            this.$store.dispatch({
-                type: 'saveDeck',
-                data: data
-            });
+            if (this.deckId) {
+                this.$store.dispatch({
+                    type: 'updateDeck',
+                    data: data
+                });
+            } else {
+                this.$store.dispatch({
+                    type: 'saveDeck',
+                    data: data
+                });
+            }
         }
     }
 };
@@ -52232,33 +52247,45 @@ var actions = {
             console.warn(error);
         });
     },
-    updateFormData: function updateFormData(_ref11, payload) {
+    updateDeck: function updateDeck(_ref11, payload) {
         var commit = _ref11.commit;
+
+        commit(types.BEGIN_DECK_SAVING);
+        _axios2.default.patch('/api/decks', payload.data).then(function (response) {
+            var link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
+            commit(types.DECK_SAVING_SUCCESSFUL, link);
+        }).catch(function (error) {
+            commit(types.DECK_SAVING_FAILED);
+            console.warn(error);
+        });
+    },
+    updateFormData: function updateFormData(_ref12, payload) {
+        var commit = _ref12.commit;
 
         commit(types.UPDATE_SAVE_MODAL, payload);
     },
-    updateSaveModalTitle: function updateSaveModalTitle(_ref12, payload) {
-        var commit = _ref12.commit;
+    updateSaveModalTitle: function updateSaveModalTitle(_ref13, payload) {
+        var commit = _ref13.commit;
 
         commit(types.UPDATE_SAVE_MODAL_TITLE, payload);
     },
-    updateSaveModalDescription: function updateSaveModalDescription(_ref13, payload) {
-        var commit = _ref13.commit;
+    updateSaveModalDescription: function updateSaveModalDescription(_ref14, payload) {
+        var commit = _ref14.commit;
 
         commit(types.UPDATE_SAVE_MODAL_DESCRIPTION, payload);
     },
-    updateSaveModalFormat: function updateSaveModalFormat(_ref14, payload) {
-        var commit = _ref14.commit;
+    updateSaveModalFormat: function updateSaveModalFormat(_ref15, payload) {
+        var commit = _ref15.commit;
 
         commit(types.UPDATE_SAVE_MODAL_FORMAT, payload);
     },
-    updateSaveModalTags: function updateSaveModalTags(_ref15, payload) {
-        var commit = _ref15.commit;
+    updateSaveModalTags: function updateSaveModalTags(_ref16, payload) {
+        var commit = _ref16.commit;
 
         commit(types.UPDATE_SAVE_MODAL_TAGS, payload);
     },
-    updateSaveModalWip: function updateSaveModalWip(_ref16, payload) {
-        var commit = _ref16.commit;
+    updateSaveModalWip: function updateSaveModalWip(_ref17, payload) {
+        var commit = _ref17.commit;
 
         commit(types.UPDATE_SAVE_MODAL_WIP, payload);
     }
@@ -67409,7 +67436,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-card-head"
   }, [_c('p', {
     staticClass: "modal-card-title"
-  }, [_vm._v("Save Deck")]), _vm._v(" "), _c('button', {
+  }, [_vm._v(_vm._s(_vm.modalTitle))]), _vm._v(" "), _c('button', {
     staticClass: "delete",
     on: {
       "click": _vm.closeModal
@@ -67594,7 +67621,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.save
     }
-  }, [_vm._v("Save Deck")]) : _vm._e(), _vm._v(" "), (!_vm.saveModal.saved) ? _c('a', {
+  }, [_vm._v("\n                " + _vm._s(_vm.buttonText) + "\n            ")]) : _vm._e(), _vm._v(" "), (!_vm.saveModal.saved) ? _c('a', {
     staticClass: "button",
     on: {
       "click": _vm.closeModal
