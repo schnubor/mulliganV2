@@ -82,27 +82,27 @@
         },
         computed : {
             creaturesData() {
-                const cmcs = this.createCmcs( this.decklist.creatures );
+                const cmcs = this.createCmcs( this.decklist.creatures.main );
                 return cmcs;
             },
             instantsData() {
-                const cmcs = this.createCmcs( this.decklist.instants );
+                const cmcs = this.createCmcs( this.decklist.instants.main );
                 return cmcs;
             },
             sorceriesData() {
-                const cmcs = this.createCmcs( this.decklist.sorceries );
+                const cmcs = this.createCmcs( this.decklist.sorceries.main );
                 return cmcs;
             },
             enchantmentsData() {
-                const cmcs = this.createCmcs( this.decklist.enchantments );
+                const cmcs = this.createCmcs( this.decklist.enchantments.main );
                 return cmcs;
             },
             planeswalkerData() {
-                const cmcs = this.createCmcs( this.decklist.planeswalker );
+                const cmcs = this.createCmcs( this.decklist.planeswalker.main );
                 return cmcs;
             },
             artifactsData() {
-                const cmcs = this.createCmcs( this.decklist.artifacts );
+                const cmcs = this.createCmcs( this.decklist.artifacts.main );
                 return cmcs;
             }
         },

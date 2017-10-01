@@ -55,7 +55,7 @@
         <section class="section">
             <div class="container">
                 <h3 class="title">Latest Decks</h3>
-                <table class="table">
+                <table class="table is-fullwidth">
                     <thead>
                         <tr>
                             <th>Colors</th>

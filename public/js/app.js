@@ -48182,27 +48182,27 @@ exports.default = {
 
     computed: {
         creaturesData: function creaturesData() {
-            var cmcs = this.createCmcs(this.decklist.creatures);
+            var cmcs = this.createCmcs(this.decklist.creatures.main);
             return cmcs;
         },
         instantsData: function instantsData() {
-            var cmcs = this.createCmcs(this.decklist.instants);
+            var cmcs = this.createCmcs(this.decklist.instants.main);
             return cmcs;
         },
         sorceriesData: function sorceriesData() {
-            var cmcs = this.createCmcs(this.decklist.sorceries);
+            var cmcs = this.createCmcs(this.decklist.sorceries.main);
             return cmcs;
         },
         enchantmentsData: function enchantmentsData() {
-            var cmcs = this.createCmcs(this.decklist.enchantments);
+            var cmcs = this.createCmcs(this.decklist.enchantments.main);
             return cmcs;
         },
         planeswalkerData: function planeswalkerData() {
-            var cmcs = this.createCmcs(this.decklist.planeswalker);
+            var cmcs = this.createCmcs(this.decklist.planeswalker.main);
             return cmcs;
         },
         artifactsData: function artifactsData() {
-            var cmcs = this.createCmcs(this.decklist.artifacts);
+            var cmcs = this.createCmcs(this.decklist.artifacts.main);
             return cmcs;
         }
     },
@@ -66975,7 +66975,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), _c('p', [_c('small', {
     staticClass: "has-text-left"
   }, [_vm._v("Artist: " + _vm._s(_vm.card.artist))])])]), _vm._v(" "), _c('div', {
-    staticClass: "column content"
+    staticClass: "column is-two-thirds content"
   }, [(_vm.card.manaCost) ? _c('p', {
     domProps: {
       "innerHTML": _vm._s(_vm.manaCosts)
@@ -66995,6 +66995,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title is-4"
   }, [_vm._v("Legalities")]), _vm._v(" "), _vm._l((_vm.card.legalities), function(legality) {
     return [_c('span', {
+      key: legality.legality,
       staticClass: "tag legality",
       class: {
         'is-success': legality.legality === 'Legal',

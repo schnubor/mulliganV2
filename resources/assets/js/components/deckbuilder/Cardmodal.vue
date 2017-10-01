@@ -22,7 +22,7 @@
                             <small class="has-text-left">Artist: {{ card.artist }}</small>
                         </p>
                     </div>
-                    <div class="column content">
+                    <div class="column is-two-thirds content">
                         <p v-if="card.manaCost" v-html="manaCosts"></p>
                         <hr>
                         <p v-if="card.text" v-html="rawText"></p>
@@ -52,7 +52,7 @@
                         <template v-if="card.legalities">
                             <p class="title is-4">Legalities</p>
                             <template v-for="legality in card.legalities">
-                                <span class="tag legality" :class="{ 
+                                <span class="tag legality" :key="legality.legality" :class="{ 
                                     'is-success' : legality.legality === 'Legal',
                                     'is-warning' : legality.legality === 'Restricted',
                                     'is-danger' : legality.legality === 'Banned'
