@@ -124,4 +124,59 @@ class DeckController extends Controller
 
         return $deck;
     }
+
+    /**
+     * Update Deck Information via API
+     * 
+     * @param  request Data $request
+     * @param  deck ID $id
+     * @return Response
+     */
+     public function apiedit( Request $request, $id ) {
+        // Validation
+        $validator = Validator::make($request->all(), [
+            'title'         => 'required|max:140',
+            'description'   => 'string|nullable',
+            'decklist'      => 'required|json',
+            'tags'          => 'json',
+            'format'        => 'required|string',
+            'wip'           => 'required|boolean',
+            'cardcount'     => 'numeric',
+            'ownerId'       => 'required|numeric|nullable'
+        ]);
+
+        // Return validation errors as JSON
+        if ( $validator->fails() ) {
+            return response()->json( $validator->messages(), 400 );
+        }
+
+        // Store the Deck
+        $deck = Deck::findOrFail( $id );
+
+        $deck->title = $request->title;
+        $deck->description = $request->description;
+        $deck->format = $request->format;
+        $deck->decklist = $request->decklist;
+        $deck->colors = $request->colors;
+        $deck->tags = $request->tags;
+        $deck->owner_id = $request->ownerId;
+        $deck->wip = $request->wip;
+        $deck->cardcount = $request->cardcount;
+
+        $deck->save();
+
+        // return success response
+        $slugify = new Slugify();
+        if ( $deck ) {
+            return response()->json([ 
+                'message' => 'SUCCESS',
+                'deckname' => $slugify->slugify( $deck->title ) . '-' . $deck->id
+            ], 200);
+        }
+
+        // return error if something went wrong
+        return response()->json([ 
+            'message' => 'ERROR'
+        ], 500);
+    }
 }

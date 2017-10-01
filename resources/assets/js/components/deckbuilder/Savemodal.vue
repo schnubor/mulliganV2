@@ -205,7 +205,8 @@ export default {
                 format          : this.deckFormat,
                 wip             : this.wip,
                 cardcount       : this.cardCount,
-                ownerId         : null
+                ownerId         : null,
+                deckId          : this.deckId
             };
 
             if( this.deckId ) {

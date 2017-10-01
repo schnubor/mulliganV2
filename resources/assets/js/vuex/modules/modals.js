@@ -174,7 +174,7 @@ const actions = {
     },
     updateDeck( { commit }, payload ) {
         commit( types.BEGIN_DECK_SAVING );
-        axios.patch( '/api/decks', payload.data )
+        axios.patch( `/api/decks/${payload.data.deckId}`, payload.data )
         .then( function( response ) {
             const link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
             commit( types.DECK_SAVING_SUCCESSFUL, link );

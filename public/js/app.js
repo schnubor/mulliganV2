@@ -50404,7 +50404,8 @@ exports.default = {
                 format: this.deckFormat,
                 wip: this.wip,
                 cardcount: this.cardCount,
-                ownerId: null
+                ownerId: null,
+                deckId: this.deckId
             };
 
             if (this.deckId) {
@@ -52251,7 +52252,7 @@ var actions = {
         var commit = _ref11.commit;
 
         commit(types.BEGIN_DECK_SAVING);
-        _axios2.default.patch('/api/decks', payload.data).then(function (response) {
+        _axios2.default.patch('/api/decks/' + payload.data.deckId, payload.data).then(function (response) {
             var link = window.location.protocol + '//' + window.location.host + '/decks/' + response.data.deckname;
             commit(types.DECK_SAVING_SUCCESSFUL, link);
         }).catch(function (error) {
