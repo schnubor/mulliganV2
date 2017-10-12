@@ -65,7 +65,7 @@
                         <template v-if="card.rulings">
                             <p class="title is-4">Rulings</p>
                             <template v-for="ruling in card.rulings">
-                                <div class="box">
+                                <div class="box" :key="ruling.text">
                                     <div class="content">
                                         <p>
                                             {{ ruling.text }}

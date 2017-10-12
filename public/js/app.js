@@ -5344,12 +5344,6 @@ module.exports.Rectangle = __webpack_require__(226);
 /* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(151);
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
  * @license
  * Lodash <https://lodash.com/>
@@ -22437,6 +22431,12 @@ module.exports = __webpack_require__(151);
 }.call(this));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(147), __webpack_require__(148)(module)))
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(151);
 
 /***/ }),
 /* 11 */
@@ -48998,7 +48998,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -49420,7 +49420,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
@@ -49515,11 +49515,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(9);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -50602,11 +50602,11 @@ var _QuicksearchResult = __webpack_require__(284);
 
 var _QuicksearchResult2 = _interopRequireDefault(_QuicksearchResult);
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(9);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -50875,11 +50875,11 @@ var _types = __webpack_require__(11);
 
 var types = _interopRequireWildcard(_types);
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(9);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -51321,11 +51321,11 @@ var _types = __webpack_require__(11);
 
 var types = _interopRequireWildcard(_types);
 
-var _lodash = __webpack_require__(10);
+var _lodash = __webpack_require__(9);
 
 var _lodash2 = _interopRequireDefault(_lodash);
 
-var _axios = __webpack_require__(9);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -52071,7 +52071,7 @@ var _types = __webpack_require__(11);
 
 var types = _interopRequireWildcard(_types);
 
-var _axios = __webpack_require__(9);
+var _axios = __webpack_require__(10);
 
 var _axios2 = _interopRequireDefault(_axios);
 
@@ -67007,6 +67007,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title is-4"
   }, [_vm._v("Rulings")]), _vm._v(" "), _vm._l((_vm.card.rulings), function(ruling) {
     return [_c('div', {
+      key: ruling.text,
       staticClass: "box"
     }, [_c('div', {
       staticClass: "content"
