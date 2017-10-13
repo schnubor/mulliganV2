@@ -11,7 +11,7 @@
             <span></span>
         </span>
         <div class="nav-right nav-menu">
-            <a href="{{ route('welcome') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'welcome') === 0 ? 'is-active' : '' }}">
+            <a href="{{ route('home') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'home') === 0 ? 'is-active' : '' }}">
                 Home
             </a>
             <a href="{{ route('deckbuilder') }}" class="nav-item {{ strpos(Route::currentRouteName(), 'deckbuilder') === 0 ? 'is-active' : '' }}">

@@ -11,15 +11,14 @@
 |
 */
 
-Route::get('/', 'HomeController@show')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/cards/{id}', 'CardController@show')->name('card');
 
 Route::get('/deckbuilder', 'DeckController@deckbuilder')->name('deckbuilder');
 Route::get('/decks/{id}', 'DeckController@show')->name('deck');
 Route::get('/decks/{id}/edit', 'DeckController@edit')->name('deckedit');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index');
+Auth::routes();
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');

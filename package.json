@@ -15,19 +15,19 @@
     "eslint": "^3.17.1",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-html": "^2.0.1",
-    "eslint-plugin-vue": "^3.5.0",
+    "eslint-plugin-vue": "^3.13.1",
     "laravel-mix": "^0.8.1"
   },
   "dependencies": {
-    "query-string": "^4.3.2",
+    "axios": "^0.15.3",
+    "bulma": "^0.6.0",
+    "chart.js": "^2.5.0",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "mana-font": "^1.2.0",
+    "query-string": "^4.3.2",
     "slug": "^0.9.1",
-    "vue": "^2.1.10",
-    "vuex": "^2.3.1",
-    "axios": "^0.15.3",
-    "bulma": "^0.5.3",
-    "chart.js": "^2.5.0",
-    "font-awesome": "^4.7.0"
+    "vue": "^2.5.1",
+    "vuex": "^2.5.0"
   }
 }
