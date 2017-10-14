@@ -1,46 +1,57 @@
 @extends('layout.app')
 
+@section('title', 'Reset Password')
+
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
-                <div class="panel-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
+<section class="hero is-fullheight is-medium is-primary is-bold">
+    @include('partials.navigation')
+    <div class="hero-body">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-one-third is-offset-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h1 class="title has-text-grey-light has-text-centered">                
+                                <i class="fa fa-paper-plane-o"></i>
+                            </h1>
+
+                            @if (session('status'))
+                                <article class="message is-success">
+                                    <div class="message-body">
+                                        {{ session('status') }}
+                                    </div>
+                                </article>
+                            @endif
+
+                            <form role="form" method="POST" action="{{ route('password.email') }}">
+                                {{ csrf_field() }}
+
+                                <div class="field">
+                                    <div class="control has-icons-left">
+                                        <input id="email" class="input{{ $errors->has('email') ? ' is-danger' : '' }}" type="email" placeholder="Your Email address" class="form-control" name="email" value="{{ old('email') }}" required>
+                                        <span class="icon is-small is-left">
+                                            <i class="fa fa-envelope"></i>
+                                        </span>
+                                        
+                                        @if ($errors->has('email'))
+                                            <p class="help is-danger">{{ $errors->first('email') }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
+                                        <button type="submit" class="button is-primary">
+                                            Send Password Reset Link
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                    @endif
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('password.email') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 @endsection
