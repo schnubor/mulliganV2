@@ -67392,6 +67392,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "title is-4"
   }, [_vm._v("Rulings")]), _vm._v(" "), _vm._l((_vm.card.rulings), function(ruling) {
     return [_c('div', {
+      key: ruling.text,
       staticClass: "box"
     }, [_c('div', {
       staticClass: "content"
