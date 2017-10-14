@@ -49591,7 +49591,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 //
 
 exports.default = {
-    props: ['deckid'],
+    props: ['deckid', 'user'],
     computed: {
         apiError: function apiError() {
             return this.$store.getters.apiError;
@@ -50679,6 +50679,7 @@ Object.defineProperty(exports, "__esModule", {
 //
 
 exports.default = {
+    props: ['user'],
     data: function data() {
         return {
             tag: ''
@@ -50780,6 +50781,7 @@ exports.default = {
             });
         },
         save: function save() {
+            var user = JSON.parse(this.user);
             var data = {
                 title: this.title,
                 description: this.description,
@@ -50789,7 +50791,7 @@ exports.default = {
                 format: this.deckFormat,
                 wip: this.wip,
                 cardcount: this.cardCount,
-                ownerId: null,
+                ownerId: user.id,
                 deckId: this.deckId
             };
 
@@ -67536,7 +67538,11 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal'), _vm._v(" "), _c('Savemodal'), _vm._v(" "), _c('Statsmodal'), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), (!_vm.apiError) ? _c('section', {
+  return _c('div', [_c('Cardmodal'), _vm._v(" "), _c('Landmodal'), _vm._v(" "), _c('Savemodal', {
+    attrs: {
+      "user": _vm.user
+    }
+  }), _vm._v(" "), _c('Statsmodal'), _vm._v(" "), _c('Filterpanel'), _vm._v(" "), (!_vm.apiError) ? _c('section', {
     staticClass: "section"
   }, [_c('div', {
     staticClass: "container"

@@ -2,7 +2,7 @@
     <div>
         <Cardmodal></Cardmodal>
         <Landmodal></Landmodal>
-        <Savemodal></Savemodal>
+        <Savemodal :user="user"></Savemodal>
         <Statsmodal></Statsmodal>
 
         <Filterpanel></Filterpanel>
@@ -32,7 +32,7 @@
     import Statsmodal from './Statsmodal.vue';
 
     export default {
-        props: [ 'deckid' ],
+        props: [ 'deckid', 'user' ],
         computed : {
             apiError() {
                 return this.$store.getters.apiError;

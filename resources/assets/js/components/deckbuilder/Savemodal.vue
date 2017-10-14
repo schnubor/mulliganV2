@@ -97,6 +97,7 @@
 
 <script>
 export default {
+    props: [ 'user' ],
     data() {
         return {
             tag : ''
@@ -196,6 +197,7 @@ export default {
             } );
         },
         save() {
+            const user = JSON.parse( this.user );
             const data = {
                 title           : this.title,
                 description     : this.description,
@@ -205,7 +207,7 @@ export default {
                 format          : this.deckFormat,
                 wip             : this.wip,
                 cardcount       : this.cardCount,
-                ownerId         : null,
+                ownerId         : user.id,
                 deckId          : this.deckId
             };
 

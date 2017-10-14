@@ -23,7 +23,7 @@
     </section>
 
     <div id="app">
-        <Deckbuilder></Deckbuilder>
+        <Deckbuilder user="{{ Auth::user() }}"></Deckbuilder>
     </div>
 
     @include('partials.footer')
