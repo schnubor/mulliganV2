@@ -24,7 +24,7 @@
     </section>
 
     <div id="app">
-        <Deckbuilder :deckid="{{ json_encode($id) }}"></Deckbuilder>
+        <Deckbuilder user="{{ Auth::user() }}" :deckid="{{ json_encode($id) }}"></Deckbuilder>
     </div>
 
     @include('partials.footer')

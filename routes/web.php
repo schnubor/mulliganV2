@@ -11,14 +11,13 @@
 |
 */
 
+// PUBLIC
 Route::get('/', 'HomeController@index')->name('home');
-
 Route::get('/cards/{id}', 'CardController@show')->name('card');
-
-Route::get('/deckbuilder',  'DeckController@deckbuilder')->name('deckbuilder')->middleware('auth');
 Route::get('/decks/{id}', 'DeckController@show')->name('deck');
-Route::get('/decks/{id}/edit', 'DeckController@edit')->name('deckedit');
-
+Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Auth::routes();
 
-Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+// PROTECTED
+Route::get('/deckbuilder',  'DeckController@deckbuilder')->name('deckbuilder')->middleware('auth');
+Route::get('/decks/{id}/edit', 'DeckController@edit')->name('deckedit')->middleware('auth');

@@ -43,6 +43,12 @@
 
                                 <div class="field">
                                     <div class="control">
+                                        <a href="{{ route('password.request') }}" class="is-size-7 has-text-grey-light">Forgot Your Password?</a>
+                                    </div>
+                                </div>
+
+                                <div class="field">
+                                    <div class="control">
                                         <label class="checkbox">
                                             <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                             Remember me
@@ -51,19 +57,25 @@
                                 </div>
 
                                 <div class="field">
-                                    <div class="control">
-                                        <button class="button is-primary is-medium" type="submit">
-                                            Login
-                                        </button>
-                                    </div>
+                                    <button class="button is-primary is-medium" type="submit">
+                                        <span class="icon">
+                                            <i class="fa fa-sign-in"></i>
+                                        </span>
+                                        <span>Login</span>
+                                    </button>
                                 </div>
 
 
-                                <div class="control">
-                                    <a href="{{ route('password.request') }}" class="is-size-7 has-text-grey-light">Forgot Your Password?</a>
-                                </div>
+                                
                             </form>
                         </div>
+                        <footer class="card-footer">
+                            <p class="card-footer-item">
+                                <span>
+                                    <a href="/register">Not a member yet? Sign up here.</a>
+                                </span>
+                            </p>
+                        </footer>
                     </div>
                 </div>
             </div>

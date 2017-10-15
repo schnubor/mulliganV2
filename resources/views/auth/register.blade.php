@@ -63,14 +63,22 @@
                                 </div>
 
                                 <div class="field">
-                                    <div class="control">
-                                        <button class="button is-primary is-medium" type="submit">
-                                            Register
-                                        </button>
-                                    </div>
+                                    <button class="button is-primary is-medium" type="submit">
+                                        <span class="icon">
+                                            <i class="fa fa-edit"></i>
+                                        </span>
+                                        <span>Register</span>
+                                    </button>
                                 </div>
                             </form>
                         </div>
+                        <footer class="card-footer">
+                            <p class="card-footer-item">
+                                <span>
+                                    <a href="/login">Already signed up? Log in here.</a>
+                                </span>
+                            </p>
+                        </footer>
                     </div>
                 </div>
             </div>
