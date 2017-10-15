@@ -75,7 +75,7 @@
                         <footer class="card-footer">
                             <p class="card-footer-item">
                                 <span>
-                                    <a href="/login">Already signed up? Log in here.</a>
+                                    <a href="{{ route('login') }}">Already signed up? Log in here.</a>
                                 </span>
                             </p>
                         </footer>

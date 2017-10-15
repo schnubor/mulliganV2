@@ -64,15 +64,12 @@
                                         <span>Login</span>
                                     </button>
                                 </div>
-
-
-                                
                             </form>
                         </div>
                         <footer class="card-footer">
                             <p class="card-footer-item">
                                 <span>
-                                    <a href="/register">Not a member yet? Sign up here.</a>
+                                    <a href="{{ route('register') }}">Not a member yet? Sign up here.</a>
                                 </span>
                             </p>
                         </footer>

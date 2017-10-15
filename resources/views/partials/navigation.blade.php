@@ -11,12 +11,14 @@
             <span></span>
         </span>
         <div class="navbar-end nav-menu">
-            <a href="{{ route('home') }}" class="navbar-item {{ strpos(Route::currentRouteName(), 'home') === 0 ? 'is-active' : '' }}">
-                Home
-            </a>
             <a href="{{ route('deckbuilder') }}" class="navbar-item {{ strpos(Route::currentRouteName(), 'deckbuilder') === 0 ? 'is-active' : '' }}">
                 Deckbuilder
             </a>
+            @unless( Auth::check() )
+                <a href="{{ route('register') }}" class="navbar-item {{ strpos(Route::currentRouteName(), 'deckbuilder') === 0 ? 'is-active' : '' }}">
+                    Sign up
+                </a>
+            @endif
             <span class="navbar-item">
                 @if( Auth::check() )
                     <a class="button is-primary" href="<?php echo e(route('logout')); ?>"

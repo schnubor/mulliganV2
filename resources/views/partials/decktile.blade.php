@@ -12,15 +12,15 @@
             </span>
         </header>
         <div class="card-content">
-            <div class="content is-small">
+            <div class="content">
                 by 
-                @if(isset( $deck->owner_id ))
-                    {{ $deck->owner_id }}
+                @if(isset( $deck->user ))
+                    {{ $deck->user->name }}
                 @else
                     Anonymous
                 @endif
                 <br/>
-                <small>last updated {{ $deck->updated_at->diffForHumans() }}</small>
+                <small>last sleeved {{ $deck->updated_at->diffForHumans() }}</small>
                 <br/><br/>
                 <div class="field">
                     @foreach( json_decode( $deck->tags ) as $tag )
