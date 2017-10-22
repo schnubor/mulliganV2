@@ -23,5 +23,7 @@ DB_PASSWORD=
 ```
 
 - start your local mysql server and create new DB called mulligan
+- `php artisan migrate`
 - `php artisan serve`
 - `npm run watch`
+- `php artisan queue:work` in separat terminal (send emails)
