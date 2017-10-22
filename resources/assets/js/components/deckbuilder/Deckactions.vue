@@ -26,7 +26,7 @@
     export default {
         computed : {
             hasCards() {
-                return this.$store.getters.totalCards.main > 0 || this.$store.getters.totalCards.sideboard > 0;
+                return this.$store.getters.totalCards.withoutLands;
             }
         },
         methods : {

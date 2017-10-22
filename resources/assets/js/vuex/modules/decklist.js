@@ -228,6 +228,8 @@ const getters = {
             sideboardSum += land.qty;
         }
 
+        const cardSumWithoutLands = cardSum;
+
         mainBasicLandSum = state.decklist.basiclands.main.mountains + state.decklist.basiclands.main.plains + state.decklist.basiclands.main.forests + state.decklist.basiclands.main.islands + state.decklist.basiclands.main.swamps;
         sideboardBasicLandSum = state.decklist.basiclands.sideboard.mountains + state.decklist.basiclands.sideboard.plains + state.decklist.basiclands.sideboard.forests + state.decklist.basiclands.sideboard.islands + state.decklist.basiclands.sideboard.swamps;
 
@@ -235,8 +237,9 @@ const getters = {
         sideboardSum = sideboardSum + sideboardBasicLandSum;
 
         return {
-            main      : cardSum,
-            sideboard : sideboardSum
+            main         : cardSum,
+            sideboard    : sideboardSum,
+            withoutLands : cardSumWithoutLands
         };
     }
 };

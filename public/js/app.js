@@ -34652,7 +34652,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mapActions", function() { return mapActions; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createNamespacedHelpers", function() { return createNamespacedHelpers; });
 /**
- * vuex v2.5.0
+ * vuex v3.0.0
  * (c) 2017 Evan You
  * @license MIT
  */
@@ -35572,7 +35572,7 @@ function getModuleByNamespace (store, helper, namespace) {
 var index_esm = {
   Store: Store,
   install: install,
-  version: '2.5.0',
+  version: '3.0.0',
   mapState: mapState,
   mapMutations: mapMutations,
   mapGetters: mapGetters,
@@ -52718,7 +52718,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
     computed: {
         hasCards: function hasCards() {
-            return this.$store.getters.totalCards.main > 0 || this.$store.getters.totalCards.sideboard > 0;
+            return this.$store.getters.totalCards.withoutLands;
         }
     },
     methods: {
@@ -70650,6 +70650,8 @@ var getters = {
             }
         }
 
+        var cardSumWithoutLands = cardSum;
+
         mainBasicLandSum = state.decklist.basiclands.main.mountains + state.decklist.basiclands.main.plains + state.decklist.basiclands.main.forests + state.decklist.basiclands.main.islands + state.decklist.basiclands.main.swamps;
         sideboardBasicLandSum = state.decklist.basiclands.sideboard.mountains + state.decklist.basiclands.sideboard.plains + state.decklist.basiclands.sideboard.forests + state.decklist.basiclands.sideboard.islands + state.decklist.basiclands.sideboard.swamps;
 
@@ -70658,7 +70660,8 @@ var getters = {
 
         return {
             main: cardSum,
-            sideboard: sideboardSum
+            sideboard: sideboardSum,
+            withoutLands: cardSumWithoutLands
         };
     }
 };
