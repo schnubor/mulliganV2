@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-    <section class="hero is-primary is-bold is-medium home-header">
+    <section class="hero is-primary imaged is-medium home-header">
         <!-- Hero header: will stick at the top -->
         <div class="hero-head">
             @include('partials.navigation')

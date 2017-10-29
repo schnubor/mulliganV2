@@ -21,5 +21,6 @@
         @yield('content')
 
         <script src="/js/app.js" type="text/javascript"></script>
+        <script async defer src="https://buttons.github.io/buttons.js"></script>
     </body>
 </html>
