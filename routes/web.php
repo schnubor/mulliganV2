@@ -15,6 +15,7 @@
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/cards/{id}', 'CardController@show')->name('card');
 Route::get('/decks/{id}', 'DeckController@show')->name('deck');
+Route::get('/users/{id}', 'UserController@show')->name('user');
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Auth::routes();
 

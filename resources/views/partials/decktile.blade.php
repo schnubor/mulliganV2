@@ -1,5 +1,5 @@
 <div class="column is-3">
-    <div class="card" style="border-radius: 8px;">
+    <div class="card" style="border-radius: 4px;">
         <header class="card-header">
             <p class="card-header-title">
                 <a href="{{ $deck->link }}">{{ $deck->title }}</a>

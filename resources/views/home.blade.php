@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-    <section class="hero is-primary imaged is-medium home-header">
+    <section class="hero is-primary is-bold is-medium home-header">
         <!-- Hero header: will stick at the top -->
         <div class="hero-head">
             @include('partials.navigation')
@@ -26,10 +26,10 @@
             <nav class="tabs">
                 <div class="container">
                     <ul>
-                        <li class="is-active"><a>Quick search</a></li>
-                        <li><a>Players</a></li>
-                        <li><a>Latest</a></li>
-                        <li><a>Popular</a></li>
+                        <li><a href="#quicksearch">Quick search</a></li>
+                        <li><a href="#players">Players</a></li>
+                        <li><a href="#latest">Latest</a></li>
+                        <li><a href="#popular">Popular</a></li>
                     </ul>
                 </div>
             </nav>
@@ -40,7 +40,7 @@
         <section id="quicksearch" class="section has-text-centered">
             <Quicksearch></Quicksearch>
         </section>
-        <section class="hero is-light">
+        <section class="hero is-light" id="#popular">
             <div class="hero-body">
                 <div class="container">
                     <h3 class="title">Popular Decks</h3>
@@ -52,7 +52,7 @@
                 </div>
             </div>
         </section>
-        <section class="section">
+        <section class="section" id="#latest">
             <div class="container">
                 <h3 class="title">Latest Decks</h3>
                 <table class="table is-fullwidth">

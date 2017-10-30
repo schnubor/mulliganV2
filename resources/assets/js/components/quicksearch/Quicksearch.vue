@@ -36,7 +36,7 @@
         props : {
             placeholdertext : {
                 type    : String,
-                default : 'Find a card'
+                default : 'Quicksearch'
             }
         },
         data() {

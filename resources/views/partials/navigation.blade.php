@@ -1,8 +1,8 @@
 <header class="navbar is-transparent">
     <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="https://bulma.io">
-                <img src="https://imgur.com/uuFIBgs.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
+            <a class="navbar-item" href="{{ route('home') }}">
+                <img src="https://imgur.com/s8MADhd.png" alt="Bulma: a modern CSS framework based on Flexbox" width="112" height="28">
             </a>
 
             <div class="navbar-burger burger" data-target="navMenuTarget">
@@ -27,16 +27,16 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item" href="/user/{{ Auth::user()->name }}/decks">
+                            <a class="navbar-item has-text-black" href="/user/{{ Auth::user()->name }}/decks">
                                 Your decks
                             </a>
-                            <a class="navbar-item" href="/settings">
+                            <a class="navbar-item has-text-black" href="/settings">
                                 Settings
                             </a>
                             
                             <hr class="navbar-divider">
                             
-                            <a class="navbar-item" href="<?php echo e(route('logout')); ?>"
+                            <a class="navbar-item has-text-black" href="<?php echo e(route('logout')); ?>"
                                 onclick="event.preventDefault();
                                             document.getElementById('logout-form').submit();">
                                 <span>Logout</span>
