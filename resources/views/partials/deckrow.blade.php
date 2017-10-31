@@ -8,7 +8,9 @@
     <td>{{ $deck->format }}</td>
     <td>
         @if(isset( $deck->user ))
-            {{ $deck->user->name }}
+            <a href="{{ route( 'user', $deck->user->name) }}">
+                {{ $deck->user->name }}
+            </a>
         @else
             Anonymous
         @endif

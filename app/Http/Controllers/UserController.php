@@ -18,6 +18,8 @@ class UserController extends Controller
     {
         $user = User::where( 'name', $name ) -> first();
 
-        return view( 'user', [ 'user' => $user ] );
+        $decks = $user->decks;
+
+        return view( 'user', [ 'user' => $user, 'decks' => $decks ] );
     }
 }

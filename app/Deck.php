@@ -17,4 +17,9 @@ class Deck extends Model
     protected $fillable = [
         'title', 'description', 'format', 'decklist', 'user_id', 'views', 'likes', 'tags', 'colors', 'wip', 'cardcount'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

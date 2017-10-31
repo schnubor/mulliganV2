@@ -26,7 +26,16 @@
     </section>
 
     <div id="app">
-        Deck list
+        <section class="section">
+            <div class="container">
+                <h3 class="title">Decks</h3>
+                <div class="columns">
+                    @foreach($decks as $deck)
+                        @include('partials.decktile', [ 'deck' => $deck ])
+                    @endforeach
+                </div>
+            </div>
+        </section>
     </div>
 
     @include('partials.footer')
