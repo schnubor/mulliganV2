@@ -33,7 +33,7 @@ class HomeController extends Controller
 
         // Create deck links for latestDecks
         foreach ($latestDecks as $index => $deck) {
-            $user = User::find( $deck->owner_id );
+            $user = User::find( $deck->user_id );
 
             $latestDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
             $latestDecks[ $index ]->user = $user;
@@ -41,7 +41,7 @@ class HomeController extends Controller
 
         // Create deck links for popularDecks
         foreach ($popularDecks as $index => $deck) {
-            $user = User::find( $deck->owner_id );
+            $user = User::find( $deck->user_id );
 
             $popularDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
             $popularDecks[ $index ]->user = $user;

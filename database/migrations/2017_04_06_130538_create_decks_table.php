@@ -22,11 +22,14 @@ class CreateDecksTable extends Migration
             $table->boolean('wip')->default( false );
             $table->string('colors')->nullable();
             $table->longText('decklist')->nullable();
-            $table->integer('owner_id')->nullable();
+            $table->integer('user_id')->unsigned();
             $table->integer('cardcount')->nullable();
             $table->integer('views')->nullable();
             $table->integer('likes')->nullable();
             $table->timestamps();
+
+            // add foreign keys
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

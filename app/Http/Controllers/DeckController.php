@@ -90,7 +90,7 @@ class DeckController extends Controller
         $deck->decklist = $request->decklist;
         $deck->colors = $request->colors;
         $deck->tags = $request->tags;
-        $deck->owner_id = $request->ownerId;
+        $deck->user_id = $request->ownerId;
         $deck->wip = $request->wip;
         $deck->cardcount = $request->cardcount;
         $deck->views = 0;
@@ -159,7 +159,7 @@ class DeckController extends Controller
         $deck->decklist = $request->decklist;
         $deck->colors = $request->colors;
         $deck->tags = $request->tags;
-        $deck->owner_id = $request->ownerId;
+        $deck->user_id = $request->ownerId;
         $deck->wip = $request->wip;
         $deck->cardcount = $request->cardcount;
 
