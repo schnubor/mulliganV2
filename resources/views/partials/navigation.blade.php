@@ -27,7 +27,7 @@
                             {{ Auth::user()->name }}
                         </a>
                         <div class="navbar-dropdown is-boxed">
-                            <a class="navbar-item has-text-black" href="/user/{{ Auth::user()->name }}/decks">
+                            <a class="navbar-item has-text-black" href="{{ route('user', Auth::user()->name) }}">
                                 Your decks
                             </a>
                             <a class="navbar-item has-text-black" href="/settings">
