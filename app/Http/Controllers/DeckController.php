@@ -12,6 +12,7 @@ use App\Deck;
 use Helper;
 use App\Events\DeckViewed;
 
+
 class DeckController extends Controller
 {
     /**
@@ -178,5 +179,22 @@ class DeckController extends Controller
         return response()->json([ 
             'message' => 'ERROR'
         ], 500);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        // delete
+        $deck = Deck::find($id);
+        $deck->delete();
+
+        // redirect
+        // Session::flash('message', 'Successfully deleted the nerd!');
+        return redirect()->route('user', $deck->user->name);
     }
 }

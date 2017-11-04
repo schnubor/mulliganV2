@@ -28,12 +28,36 @@
     <div id="app">
         <section class="section">
             <div class="container">
-                <h3 class="title">Decks</h3>
-                <div class="columns">
-                    @foreach($decks as $deck)
-                        @include('partials.decktile', [ 'deck' => $deck ])
-                    @endforeach
-                </div>
+                @if (count($decks) > 0)
+                    <h3 class="title">Decks</h3>
+                    <div class="columns">
+                        @foreach($decks as $deck)
+                            @include('partials.decktile', [ 'deck' => $deck ])
+                        @endforeach
+                    </div>
+                @else
+                    @if(Auth::user()->id == $user->id)
+                        <article class="message">
+                            <div class="message-body">
+                                You don't have any decks yet.
+                            </div>
+                        </article>
+                        <div>
+                            <a href="{{route('deckbuilder')}}" class="button is-primary">
+                                <span class="icon">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <span>Add a deck</span>
+                            </a>
+                        </div>
+                    @else
+                        <article class="message">
+                            <div class="message-body">
+                                This user has not submitted any decks yet.
+                            </div>
+                        </article>
+                    @endif
+                @endif
             </div>
         </section>
     </div>

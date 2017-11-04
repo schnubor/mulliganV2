@@ -38,7 +38,7 @@
                             
                             <a class="navbar-item has-text-black" href="<?php echo e(route('logout')); ?>"
                                 onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
+                                         document.getElementById('logout-form').submit();">
                                 <span>Logout</span>
                             </a>
                             <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
