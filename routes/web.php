@@ -19,6 +19,10 @@ Route::get('/users/{id}', 'UserController@show')->name('user');
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Auth::routes();
 
+Route::get('/test', function () {
+    return view('emailconfirm');
+});
+
 // PROTECTED
 Route::get('/deckbuilder',  'DeckController@deckbuilder')->name('deckbuilder')->middleware('auth');
 Route::get('/decks/{id}/edit', 'DeckController@edit')->name('deckedit')->middleware('auth');
