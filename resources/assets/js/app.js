@@ -1,10 +1,15 @@
 import Vue from 'vue';
+import VTooltip from 'v-tooltip';
+
+// Views
 import Quicksearch from './components/quicksearch/Quicksearch.vue';
 import Deckbuilder from './components/deckbuilder/Deckbuilder.vue';
 import Deck from './components/deck/Singledeck.vue';
 import Deckactions from './components/deck/Deckactions.vue';
 
 import { store } from './vuex/store.js';
+
+Vue.use( VTooltip );
 
 new Vue( {
     el          : '#app',

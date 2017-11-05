@@ -1,9 +1,14 @@
 <template>
     <li>
-        <a @click="showSubmenu = !showSubmenu">
-            <span class="tag" :class="[fullClass, errorClass]">{{ entry.qty }}</span>
-            {{ entry.card.name }}
-        </a>
+        <v-popover offset="16" trigger="hover" placement="right"> 
+            <a @click="showSubmenu = !showSubmenu">
+                <span class="tag" :class="[fullClass, errorClass]">{{ entry.qty }}</span>
+                {{ entry.card.name }}
+            </a>
+            <template slot="popover">
+                <img :src="entry.card.imageUrl" :alt="entry.card.name">
+            </template>
+        </v-popover>
         <ul v-show="showSubmenu">
             <li>
                 <a :href="cardUrl" target="_blank">
@@ -76,3 +81,33 @@
         }
     };
 </script>
+
+<style lang="scss">
+    .v-popover {
+        .trigger {
+            display: inline !important;
+        }
+    }
+
+    .tooltip {
+        &.popover {
+            $color: whitesmoke;
+
+            .popover-inner {
+                background: $color;
+                color: black;
+                padding: 24px;
+                border-radius: 5px;
+                box-shadow: 0 5px 30px rgba(black, .1);
+            }
+
+            .popover-arrow {
+                border-color: $color;
+            }
+        }
+    }
+
+    .tooltip-arrow {
+        z-index: 1;
+    }
+</style>
