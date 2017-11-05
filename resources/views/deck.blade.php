@@ -30,34 +30,13 @@
 
     <div id="app">
         <Deck id="{{ $deck->id }}"></Deck>
+        @if (Auth::user()->id == $deck->user->id)
+            <Deckactions id="{{ $deck->id }}"
+                         editroute="{{ e(route('deckedit', $deck->id)) }}"
+                         deleteroute="{{ e(route('deckdelete', $deck->id)) }}"
+                         csrf="{{ csrf_token() }}"><Deckactions>
+        @endif
     </div>
-
-    <section class="section">
-        <div class="container">
-            <hr/>
-            <div class="buttons is-pulled-right">
-                <a href="{{ route('deckedit', $deck->id) }}" class="button is-primary">
-                    <span class="icon">
-                        <i class="fa fa-edit"></i>
-                    </span>
-                    <span>Edit Deck</span>
-                </a>
-                <a href="{{ route('deckdelete', $deck->id) }}" class="button is-danger"
-                    onclick="event.preventDefault();
-                             document.getElementById('deck-delete-form').submit();">
-                    <span class="icon">
-                        <i class="fa fa-trash-o"></i>
-                    </span>
-                    <span>Delete</span>
-                </a>
-                <form id="deck-delete-form" action="<?php echo e(route('deckdelete', $deck->id)); ?>" method="POST" style="display: none;">
-                    {{ method_field('DELETE') }}
-                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                </form>
-            </div>
-            <div class="is-clearfix"></div>
-        </div>
-    </section>
 
     @include('partials.footer')
 @endsection

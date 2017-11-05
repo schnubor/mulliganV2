@@ -22772,6 +22772,10 @@ var HIDE_CARD_MODAL = exports.HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
 var SHOW_LAND_MODAL = exports.SHOW_LAND_MODAL = 'SHOW_LAND_MODAL';
 var HIDE_LAND_MODAL = exports.HIDE_LAND_MODAL = 'HIDE_LAND_MODAL';
 
+// Deck Delete Modal
+var SHOW_DELETE_MODAL = exports.SHOW_DELETE_MODAL = 'SHOW_DELETE_MODAL';
+var HIDE_DELETE_MODAL = exports.HIDE_DELETE_MODAL = 'HIDE_DELETE_MODAL';
+
 // Save Modal
 var SHOW_SAVE_MODAL = exports.SHOW_SAVE_MODAL = 'SHOW_SAVE_MODAL';
 var HIDE_SAVE_MODAL = exports.HIDE_SAVE_MODAL = 'HIDE_SAVE_MODAL';
@@ -47752,6 +47756,10 @@ var _Singledeck = __webpack_require__(294);
 
 var _Singledeck2 = _interopRequireDefault(_Singledeck);
 
+var _Deckactions = __webpack_require__(344);
+
+var _Deckactions2 = _interopRequireDefault(_Deckactions);
+
 var _store = __webpack_require__(321);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -47762,10 +47770,12 @@ new _vue2.default({
     components: {
         Quicksearch: _Quicksearch2.default,
         Deckbuilder: _Deckbuilder2.default,
-        Deck: _Singledeck2.default
+        Deck: _Singledeck2.default,
+        Deckactions: _Deckactions2.default
     }
 });
 
+// Mobile Navigation
 document.addEventListener('DOMContentLoaded', function () {
     // Get all "navbar-burger" elements
     var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
@@ -70987,6 +70997,9 @@ var state = {
     },
     statsModal: {
         visible: false
+    },
+    deleteModal: {
+        visible: false
     }
 };
 
@@ -71005,6 +71018,9 @@ var getters = {
     },
     saveModalForm: function saveModalForm(state) {
         return state.saveModal.form;
+    },
+    deleteModal: function deleteModal(state) {
+        return state.deleteModal;
     }
 };
 
@@ -71014,6 +71030,10 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, types.SHOW_CARD_MO
 }), _defineProperty(_mutations, types.HIDE_CARD_MODAL, function (state) {
     state.cardModal.card = {};
     state.cardModal.visible = false;
+}), _defineProperty(_mutations, types.SHOW_DELETE_MODAL, function (state) {
+    state.deleteModal.visible = true;
+}), _defineProperty(_mutations, types.HIDE_DELETE_MODAL, function (state) {
+    state.deleteModal.visible = false;
 }), _defineProperty(_mutations, types.SHOW_LAND_MODAL, function (state) {
     state.landModal.visible = true;
 }), _defineProperty(_mutations, types.HIDE_LAND_MODAL, function (state) {
@@ -71074,28 +71094,38 @@ var actions = {
 
         commit(types.HIDE_CARD_MODAL);
     },
-    showLandModal: function showLandModal(_ref3, card) {
+    showDeleteModal: function showDeleteModal(_ref3) {
         var commit = _ref3.commit;
+
+        commit(types.SHOW_DELETE_MODAL);
+    },
+    hideDeleteModal: function hideDeleteModal(_ref4) {
+        var commit = _ref4.commit;
+
+        commit(types.HIDE_DELETE_MODAL);
+    },
+    showLandModal: function showLandModal(_ref5) {
+        var commit = _ref5.commit;
 
         commit(types.SHOW_LAND_MODAL);
     },
-    hideLandModal: function hideLandModal(_ref4) {
-        var commit = _ref4.commit;
+    hideLandModal: function hideLandModal(_ref6) {
+        var commit = _ref6.commit;
 
         commit(types.HIDE_LAND_MODAL);
     },
-    showSaveModal: function showSaveModal(_ref5, card) {
-        var commit = _ref5.commit;
+    showSaveModal: function showSaveModal(_ref7, card) {
+        var commit = _ref7.commit;
 
         commit(types.SHOW_SAVE_MODAL);
     },
-    hideSaveModal: function hideSaveModal(_ref6) {
-        var commit = _ref6.commit;
+    hideSaveModal: function hideSaveModal(_ref8) {
+        var commit = _ref8.commit;
 
         commit(types.HIDE_SAVE_MODAL);
     },
-    fetchFormats: function fetchFormats(_ref7) {
-        var commit = _ref7.commit;
+    fetchFormats: function fetchFormats(_ref9) {
+        var commit = _ref9.commit;
 
         commit(types.BEGIN_FETCHING_FORMATS);
         _axios2.default.get('https://api.magicthegathering.io/v1/formats', { timeout: 10000 }).then(function (response) {
@@ -71106,18 +71136,18 @@ var actions = {
             console.warn(error);
         });
     },
-    showStatsModal: function showStatsModal(_ref8) {
-        var commit = _ref8.commit;
+    showStatsModal: function showStatsModal(_ref10) {
+        var commit = _ref10.commit;
 
         commit(types.SHOW_STATS_MODAL);
     },
-    hideStatsModal: function hideStatsModal(_ref9) {
-        var commit = _ref9.commit;
+    hideStatsModal: function hideStatsModal(_ref11) {
+        var commit = _ref11.commit;
 
         commit(types.HIDE_STATS_MODAL);
     },
-    saveDeck: function saveDeck(_ref10, payload) {
-        var commit = _ref10.commit;
+    saveDeck: function saveDeck(_ref12, payload) {
+        var commit = _ref12.commit;
 
         commit(types.BEGIN_DECK_SAVING);
         _axios2.default.post('/api/decks', payload.data).then(function (response) {
@@ -71128,8 +71158,8 @@ var actions = {
             console.warn(error);
         });
     },
-    updateDeck: function updateDeck(_ref11, payload) {
-        var commit = _ref11.commit;
+    updateDeck: function updateDeck(_ref13, payload) {
+        var commit = _ref13.commit;
 
         commit(types.BEGIN_DECK_SAVING);
         _axios2.default.patch('/api/decks/' + payload.data.deckId, payload.data).then(function (response) {
@@ -71140,33 +71170,33 @@ var actions = {
             console.warn(error);
         });
     },
-    updateFormData: function updateFormData(_ref12, payload) {
-        var commit = _ref12.commit;
+    updateFormData: function updateFormData(_ref14, payload) {
+        var commit = _ref14.commit;
 
         commit(types.UPDATE_SAVE_MODAL, payload);
     },
-    updateSaveModalTitle: function updateSaveModalTitle(_ref13, payload) {
-        var commit = _ref13.commit;
+    updateSaveModalTitle: function updateSaveModalTitle(_ref15, payload) {
+        var commit = _ref15.commit;
 
         commit(types.UPDATE_SAVE_MODAL_TITLE, payload);
     },
-    updateSaveModalDescription: function updateSaveModalDescription(_ref14, payload) {
-        var commit = _ref14.commit;
+    updateSaveModalDescription: function updateSaveModalDescription(_ref16, payload) {
+        var commit = _ref16.commit;
 
         commit(types.UPDATE_SAVE_MODAL_DESCRIPTION, payload);
     },
-    updateSaveModalFormat: function updateSaveModalFormat(_ref15, payload) {
-        var commit = _ref15.commit;
+    updateSaveModalFormat: function updateSaveModalFormat(_ref17, payload) {
+        var commit = _ref17.commit;
 
         commit(types.UPDATE_SAVE_MODAL_FORMAT, payload);
     },
-    updateSaveModalTags: function updateSaveModalTags(_ref16, payload) {
-        var commit = _ref16.commit;
+    updateSaveModalTags: function updateSaveModalTags(_ref18, payload) {
+        var commit = _ref18.commit;
 
         commit(types.UPDATE_SAVE_MODAL_TAGS, payload);
     },
-    updateSaveModalWip: function updateSaveModalWip(_ref17, payload) {
-        var commit = _ref17.commit;
+    updateSaveModalWip: function updateSaveModalWip(_ref19, payload) {
+        var commit = _ref19.commit;
 
         commit(types.UPDATE_SAVE_MODAL_WIP, payload);
     }
@@ -71630,6 +71660,464 @@ exports.default = {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(345)
+/* template */
+var __vue_template__ = __webpack_require__(349)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/deck/Deckactions.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1a26ca9e", Component.options)
+  } else {
+    hotAPI.reload("data-v-1a26ca9e", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 345 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _Deletemodal = __webpack_require__(346);
+
+var _Deletemodal2 = _interopRequireDefault(_Deletemodal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    props: ['id', 'editroute', 'deleteroute', 'csrf'],
+    components: {
+        DeleteModal: _Deletemodal2.default
+    },
+    mounted: function mounted() {
+        console.log('editRoute', this.editRoute);
+    },
+
+    methods: {
+        showDeleteModal: function showDeleteModal() {
+            this.$store.dispatch({
+                type: 'showDeleteModal'
+            });
+        }
+    }
+}; //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/***/ }),
+/* 346 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(3)
+/* script */
+var __vue_script__ = __webpack_require__(347)
+/* template */
+var __vue_template__ = __webpack_require__(348)
+/* template functional */
+  var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/deck/Deletemodal.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {  return key !== "default" && key.substr(0, 2) !== "__"})) {  console.error("named exports are not supported in *.vue files.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-21dbef5f", Component.options)
+  } else {
+    hotAPI.reload("data-v-21dbef5f", Component.options)
+' + '  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 347 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+    props: ['csrf', 'deleteRoute'],
+    data: function data() {
+        return {
+            confirm: ''
+        };
+    },
+
+    computed: {
+        enabled: function enabled() {
+            return this.confirm === 'DELETE';
+        },
+        isVisible: function isVisible() {
+            return this.$store.getters.deleteModal.visible;
+        }
+    },
+    methods: {
+        closeModal: function closeModal() {
+            this.$store.dispatch({
+                type: 'hideDeleteModal'
+            });
+        }
+    }
+};
+
+/***/ }),
+/* 348 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "modal", class: { "is-active": _vm.isVisible } },
+    [
+      _c("div", { staticClass: "modal-background" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "modal-card" }, [
+        _c("header", { staticClass: "modal-card-head" }, [
+          _c("p", { staticClass: "modal-card-title" }, [
+            _vm._v("Confirm Delete")
+          ]),
+          _vm._v(" "),
+          _c("button", { staticClass: "delete", on: { click: _vm.closeModal } })
+        ]),
+        _vm._v(" "),
+        _c("section", { staticClass: "modal-card-body" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("div", { staticClass: "control" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.confirm,
+                    expression: "confirm"
+                  }
+                ],
+                staticClass: "input is-medium",
+                attrs: { type: "text", autofocus: "" },
+                domProps: { value: _vm.confirm },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.confirm = $event.target.value
+                  }
+                }
+              })
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "footer",
+          {
+            staticClass: "modal-card-foot",
+            staticStyle: { "justify-content": "flex-end" }
+          },
+          [
+            _c("div", { staticClass: "buttons" }, [
+              _c(
+                "a",
+                { staticClass: "button", on: { click: _vm.closeModal } },
+                [_vm._v("Cancel")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "button is-danger",
+                  attrs: {
+                    disabled: !_vm.enabled,
+                    onclick:
+                      "event.preventDefault();\n                            document.getElementById('deck-delete-form').submit();"
+                  }
+                },
+                [_vm._m(1), _vm._v(" "), _c("span", [_vm._v("Delete")])]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "form",
+              {
+                staticStyle: { display: "none" },
+                attrs: {
+                  id: "deck-delete-form",
+                  action: _vm.deleteRoute,
+                  method: "POST"
+                }
+              },
+              [
+                _c("input", {
+                  attrs: { name: "_method", type: "hidden", value: "DELETE" }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  attrs: { type: "hidden", name: "_token" },
+                  domProps: { value: _vm.csrf }
+                })
+              ]
+            )
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content" }, [
+      _c("p", [
+        _vm._v(
+          '\n                    Please type "DELETE" (without quotes) below to confirm.\n                '
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-trash-o" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-21dbef5f", module.exports)
+  }
+}
+
+/***/ }),
+/* 349 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "section",
+    { staticClass: "section" },
+    [
+      _c("DeleteModal", {
+        attrs: { csrf: _vm.csrf, deleteRoute: _vm.deleteroute }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "container" }, [
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "buttons is-pulled-right" }, [
+          _c(
+            "a",
+            {
+              staticClass: "button is-primary",
+              attrs: { href: _vm.editroute }
+            },
+            [_vm._m(0), _vm._v(" "), _c("span", [_vm._v("Edit Deck")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "button is-danger",
+              on: { click: _vm.showDeleteModal }
+            },
+            [_vm._m(1), _vm._v(" "), _c("span", [_vm._v("Delete")])]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "is-clearfix" })
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-edit" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon" }, [
+      _c("i", { staticClass: "fa fa-trash-o" })
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1a26ca9e", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Quicksearch from './components/quicksearch/Quicksearch.vue';
 import Deckbuilder from './components/deckbuilder/Deckbuilder.vue';
 import Deck from './components/deck/Singledeck.vue';
+import Deckactions from './components/deck/Deckactions.vue';
 
 import { store } from './vuex/store.js';
 
@@ -11,10 +12,12 @@ new Vue( {
     components  : {
         Quicksearch,
         Deckbuilder,
-        Deck
+        Deck,
+        Deckactions
     }
 } );
 
+// Mobile Navigation
 document.addEventListener( 'DOMContentLoaded', function() {
     // Get all "navbar-burger" elements
     var $navbarBurgers = Array.prototype.slice.call( document.querySelectorAll( '.navbar-burger' ), 0 );

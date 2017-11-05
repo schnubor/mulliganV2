@@ -27,6 +27,9 @@ const state = {
     },
     statsModal : {
         visible : false
+    },
+    deleteModal : {
+        visible : false
     }
 };
 
@@ -45,6 +48,9 @@ const getters = {
     },
     saveModalForm( state ) {
         return state.saveModal.form;
+    },
+    deleteModal( state ) {
+        return state.deleteModal;
     }
 };
 
@@ -56,6 +62,12 @@ const mutations = {
     [types.HIDE_CARD_MODAL]( state ) {
         state.cardModal.card = {};
         state.cardModal.visible = false;
+    },
+    [types.SHOW_DELETE_MODAL]( state ) {
+        state.deleteModal.visible = true;
+    },
+    [types.HIDE_DELETE_MODAL]( state ) {
+        state.deleteModal.visible = false;
     },
     [types.SHOW_LAND_MODAL]( state ) {
         state.landModal.visible = true;
@@ -131,7 +143,13 @@ const actions = {
     hideCardModal( { commit } ) {
         commit( types.HIDE_CARD_MODAL );
     },
-    showLandModal( { commit }, card ) {
+    showDeleteModal( { commit } ) {
+        commit( types.SHOW_DELETE_MODAL );
+    },
+    hideDeleteModal( { commit } ) {
+        commit( types.HIDE_DELETE_MODAL );
+    },
+    showLandModal( { commit } ) {
         commit( types.SHOW_LAND_MODAL );
     },
     hideLandModal( { commit } ) {

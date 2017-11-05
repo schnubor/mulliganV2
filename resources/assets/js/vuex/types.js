@@ -32,6 +32,10 @@ export const HIDE_CARD_MODAL = 'HIDE_CARD_MODAL';
 export const SHOW_LAND_MODAL = 'SHOW_LAND_MODAL';
 export const HIDE_LAND_MODAL = 'HIDE_LAND_MODAL';
 
+// Deck Delete Modal
+export const SHOW_DELETE_MODAL = 'SHOW_DELETE_MODAL';
+export const HIDE_DELETE_MODAL = 'HIDE_DELETE_MODAL';
+
 // Save Modal
 export const SHOW_SAVE_MODAL = 'SHOW_SAVE_MODAL';
 export const HIDE_SAVE_MODAL = 'HIDE_SAVE_MODAL';
