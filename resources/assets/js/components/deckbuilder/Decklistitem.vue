@@ -91,18 +91,30 @@
 
     .tooltip {
         &.popover {
-            $color: whitesmoke;
-
+            $color: #363636;
+            
             .popover-inner {
-                background: $color;
-                color: black;
-                padding: 24px;
-                border-radius: 5px;
-                box-shadow: 0 5px 30px rgba(black, .1);
+                border-radius: 10px;
+                box-shadow: 0 0px 30px rgba(black, .2);
             }
 
             .popover-arrow {
                 border-color: $color;
+            }
+        }
+
+        &[x-placement^="left"] {
+            margin-right: 5px;
+
+            .tooltip-arrow {
+            border-width: 5px 0 5px 5px;
+            border-top-color: transparent !important;
+            border-right-color: transparent !important;
+            border-bottom-color: transparent !important;
+            right: -5px;
+            top: calc(50% - 5px);
+            margin-left: 0;
+            margin-right: 0;
             }
         }
     }
