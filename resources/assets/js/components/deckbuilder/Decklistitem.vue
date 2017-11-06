@@ -92,14 +92,15 @@
     .tooltip {
         &.popover {
             $color: #363636;
-            
+
             .popover-inner {
                 border-radius: 10px;
                 box-shadow: 0 0px 30px rgba(black, .2);
+                font-size: 0;
             }
 
             .popover-arrow {
-                border-color: $color;
+                display: none;
             }
         }
 
@@ -107,14 +108,14 @@
             margin-right: 5px;
 
             .tooltip-arrow {
-            border-width: 5px 0 5px 5px;
-            border-top-color: transparent !important;
-            border-right-color: transparent !important;
-            border-bottom-color: transparent !important;
-            right: -5px;
-            top: calc(50% - 5px);
-            margin-left: 0;
-            margin-right: 0;
+                border-width: 5px 0 5px 5px;
+                border-top-color: transparent !important;
+                border-right-color: transparent !important;
+                border-bottom-color: transparent !important;
+                right: -5px;
+                top: calc(50% - 5px);
+                margin-left: 0;
+                margin-right: 0;
             }
         }
     }
