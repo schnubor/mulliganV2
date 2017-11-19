@@ -31,22 +31,6 @@ class HomeController extends Controller
         $latestDecks = Deck::latest()->take(4)->get();
         $popularDecks = Deck::orderBy('likes', 'DESC')->take(4)->get();
 
-        // Create deck links for latestDecks
-        foreach ($latestDecks as $index => $deck) {
-            $user = User::find( $deck->user_id );
-
-            $latestDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
-            $latestDecks[ $index ]->user = $user;
-        }
-
-        // Create deck links for popularDecks
-        foreach ($popularDecks as $index => $deck) {
-            $user = User::find( $deck->user_id );
-
-            $popularDecks[ $index ]->link = '/decks/' . $slugify->slugify( $deck->title ) . '-' . $deck->id;
-            $popularDecks[ $index ]->user = $user;
-        }
-
         return view( 'home', [ 'latestDecks' => $latestDecks, 'popularDecks' => $popularDecks ] );
     }
 }
