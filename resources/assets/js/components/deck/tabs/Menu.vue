@@ -139,6 +139,7 @@
 
 <script>
 export default {
+    props: [ 'isSideboard' ],
     methods : {
         showCardModal( card ) {
             this.$store.dispatch( {
@@ -149,28 +150,63 @@ export default {
     },
     computed   : {
         creatures() {
-            return this.$store.getters.deckCreatures.main;
-        },
-        sorceries() {
-            return this.$store.getters.deckSorceries.main;
+            if ( this.isSideboard ) {
+                return this.decklist.creatures.sideboard;
+            } else {
+                return this.decklist.creatures.main;
+            }
         },
         instants() {
-            return this.$store.getters.deckInstants.main;
+            if ( this.isSideboard ) {
+                return this.decklist.instants.sideboard;
+            } else {
+                return this.decklist.instants.main;
+            }
+        },
+        sorceries() {
+            if ( this.isSideboard ) {
+                return this.decklist.sorceries.sideboard;
+            } else {
+                return this.decklist.sorceries.main;
+            }
         },
         enchantments() {
-            return this.$store.getters.deckEnchantments.main;
+            if ( this.isSideboard ) {
+                return this.decklist.enchantments.sideboard;
+            } else {
+                return this.decklist.enchantments.main;
+            }
         },
         artifacts() {
-            return this.$store.getters.deckArtifacts.main;
+            if ( this.isSideboard ) {
+                return this.decklist.artifacts.sideboard;
+            } else {
+                return this.decklist.artifacts.main;
+            }
         },
         planeswalker() {
-            return this.$store.getters.deckPlaneswalker.main;
+            if ( this.isSideboard ) {
+                return this.decklist.planeswalker.sideboard;
+            } else {
+                return this.decklist.planeswalker.main;
+            }
         },
         lands() {
-            return this.$store.getters.deckLands.main;
+            if ( this.isSideboard ) {
+                return this.decklist.lands.sideboard;
+            } else {
+                return this.decklist.lands.main;
+            }
         },
         basiclands() {
-            return this.$store.getters.deckBasiclands.main;
+            if ( this.isSideboard ) {
+                return this.decklist.basiclands.sideboard;
+            } else {
+                return this.decklist.basiclands.main;
+            }
+        },
+        decklist() {
+            return this.$store.getters.deckDecklist;
         }
     }
 };

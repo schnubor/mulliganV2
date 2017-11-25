@@ -1,7 +1,7 @@
 <template>
     <div class="columns">
         <div class="column is-one-quarter">
-            <Deckmenu></Deckmenu>
+            <Deckmenu :isSideboard="isSideboard"></Deckmenu>
         </div>
         <div class="column">
             <div class="columns is-multiline">
