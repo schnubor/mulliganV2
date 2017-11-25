@@ -1,143 +1,64 @@
 <template>
     <aside class="menu">
+        
         <!-- Creatures -->
-        <template v-if="creatures.length">
-            <p class="menu-label">
-                Creatures
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in creatures" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="creatures.length" headline="Creatures" :cards="creatures"></Menuitem>
         <!-- Sorceries -->
-        <template v-if="sorceries.length">
-            <p class="menu-label">
-                Sorceries
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in sorceries" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="sorceries.length" headline="Sorceries" :cards="sorceries"></Menuitem>
         <!-- Instants -->
-        <template v-if="instants.length">
-            <p class="menu-label">
-                Instants
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in instants" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="instants.length" headline="Instants" :cards="instants"></Menuitem>
         <!-- Enchantments -->
-        <template v-if="enchantments.length">
-            <p class="menu-label">
-                Enchantments
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in enchantments" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="enchantments.length" headline="Enchantments" :cards="enchantments"></Menuitem>
         <!-- Artifacts -->
-        <template v-if="artifacts.length">
-            <p class="menu-label">
-                Artifacts
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in artifacts" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="artifacts.length" headline="Artifacts" :cards="artifacts"></Menuitem>
         <!-- Planeswalker -->
-        <template v-if="planeswalker.length">
-            <p class="menu-label">
-                Planeswalker
-            </p>
-            <ul class="menu-list">
-                <li v-for="item in planeswalker" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
-                    </a>
-                </li>
-            </ul>
-        </template>
+        <Menuitem v-if="planeswalker.length" headline="Planeswalker" :cards="planeswalker"></Menuitem>
         <!-- Lands -->
-        <template v-if="lands.length">
+        <Menuitem v-if="lands.length" headline="Lands" :cards="lands"></Menuitem>
+        <!-- Basic Lands -->
+        <template v-if="hasBasicLands">
             <p class="menu-label">
-                Lands
+                Basiclands
             </p>
             <ul class="menu-list">
-                <li v-for="item in lands" :key="item.card.name">
-                    <a @click="showCardModal(item.card)">
-                        <span class="tag">{{ item.qty }}</span>
-                        {{ item.card.name }}
+                <li v-if="basiclands.mountains">
+                    <a>
+                        <span class="tag">{{ basiclands.mountains }}</span>
+                        <i class="ms ms-r ms-cost"></i> Mountains
+                    </a>
+                </li>
+                <li v-if="basiclands.plains">
+                    <a>
+                        <span class="tag">{{ basiclands.plains }}</span>
+                        <i class="ms ms-w ms-cost"></i> Plains
+                    </a>
+                </li>
+                <li v-if="basiclands.forests">
+                    <a>
+                        <span class="tag">{{ basiclands.forests }}</span>
+                        <i class="ms ms-g ms-cost"></i> Forests
+                    </a>
+                </li>
+                <li v-if="basiclands.islands">
+                    <a>
+                        <span class="tag">{{ basiclands.islands }}</span>
+                        <i class="ms ms-u ms-cost"></i> Islands
+                    </a>
+                </li>
+                <li v-if="basiclands.swamps">
+                    <a>
+                        <span class="tag">{{ basiclands.swamps }}</span>
+                        <i class="ms ms-b ms-cost"></i> Swamps
                     </a>
                 </li>
             </ul>
         </template>
-        <!-- Basic Lands -->
-        <p class="menu-label">
-            Basiclands
-        </p>
-        <ul class="menu-list">
-            <li v-if="basiclands.mountains">
-                <a>
-                    <span class="tag">{{ basiclands.mountains }}</span>
-                    <i class="ms ms-r ms-cost"></i> Mountains
-                </a>
-            </li>
-            <li v-if="basiclands.plains">
-                <a>
-                    <span class="tag">{{ basiclands.plains }}</span>
-                    <i class="ms ms-w ms-cost"></i> Plains
-                </a>
-            </li>
-            <li v-if="basiclands.forests">
-                <a>
-                    <span class="tag">{{ basiclands.forests }}</span>
-                    <i class="ms ms-g ms-cost"></i> Forests
-                </a>
-            </li>
-            <li v-if="basiclands.islands">
-                <a>
-                    <span class="tag">{{ basiclands.islands }}</span>
-                    <i class="ms ms-u ms-cost"></i> Islands
-                </a>
-            </li>
-            <li v-if="basiclands.swamps">
-                <a>
-                    <span class="tag">{{ basiclands.swamps }}</span>
-                    <i class="ms ms-b ms-cost"></i> Swamps
-                </a>
-            </li>
-        </ul>
     </aside>
 </template>
 
 <script>
+import Menuitem from './Menuitem.vue';
+
 export default {
     props: [ 'isSideboard' ],
     methods : {
@@ -147,6 +68,9 @@ export default {
                 card    : card
             } );
         }
+    },
+    components : {
+        Menuitem
     },
     computed   : {
         creatures() {
@@ -207,6 +131,13 @@ export default {
         },
         decklist() {
             return this.$store.getters.deckDecklist;
+        },
+        hasBasicLands() {
+            return this.basiclands.mountains ||
+                   this.basiclands.forests ||
+                   this.basiclands.plains ||
+                   this.basiclands.islands ||
+                   this.basiclands.swamps;
         }
     }
 };
