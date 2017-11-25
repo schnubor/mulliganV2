@@ -2,19 +2,19 @@
     <aside class="menu">
         
         <!-- Creatures -->
-        <Menuitem v-if="creatures.length" headline="Creatures" :cards="creatures"></Menuitem>
+        <DecklistMenuitem v-if="creatures.length" headline="Creatures" :cards="creatures"></DecklistMenuitem>
         <!-- Sorceries -->
-        <Menuitem v-if="sorceries.length" headline="Sorceries" :cards="sorceries"></Menuitem>
+        <DecklistMenuitem v-if="sorceries.length" headline="Sorceries" :cards="sorceries"></DecklistMenuitem>
         <!-- Instants -->
-        <Menuitem v-if="instants.length" headline="Instants" :cards="instants"></Menuitem>
+        <DecklistMenuitem v-if="instants.length" headline="Instants" :cards="instants"></DecklistMenuitem>
         <!-- Enchantments -->
-        <Menuitem v-if="enchantments.length" headline="Enchantments" :cards="enchantments"></Menuitem>
+        <DecklistMenuitem v-if="enchantments.length" headline="Enchantments" :cards="enchantments"></DecklistMenuitem>
         <!-- Artifacts -->
-        <Menuitem v-if="artifacts.length" headline="Artifacts" :cards="artifacts"></Menuitem>
+        <DecklistMenuitem v-if="artifacts.length" headline="Artifacts" :cards="artifacts"></DecklistMenuitem>
         <!-- Planeswalker -->
-        <Menuitem v-if="planeswalker.length" headline="Planeswalker" :cards="planeswalker"></Menuitem>
+        <DecklistMenuitem v-if="planeswalker.length" headline="Planeswalker" :cards="planeswalker"></DecklistMenuitem>
         <!-- Lands -->
-        <Menuitem v-if="lands.length" headline="Lands" :cards="lands"></Menuitem>
+        <DecklistMenuitem v-if="lands.length" headline="Lands" :cards="lands"></DecklistMenuitem>
         <!-- Basic Lands -->
         <template v-if="hasBasicLands">
             <p class="menu-label">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import Menuitem from './Menuitem.vue';
+import DecklistMenuitem from './Menuitem.vue';
 
 export default {
     props: [ 'isSideboard' ],
@@ -70,7 +70,7 @@ export default {
         }
     },
     components : {
-        Menuitem
+        DecklistMenuitem
     },
     computed   : {
         creatures() {

@@ -180,6 +180,70 @@ const getters = {
         count += state.fetchedDeck.decklist.basiclands.main.swamps;
         return count;
     },
+    deckStarthand( state ) {
+        const allCards = [];
+
+        const artifacts = getters.deckArtifacts( state );
+        const creatures = getters.deckCreatures( state );
+        const sorceries = getters.deckSorceries( state );
+        const instants = getters.deckInstants( state );
+        const planeswalker = getters.deckPlaneswalker( state );
+        const enchantments = getters.deckEnchantments( state );
+        const lands = getters.deckLands( state );
+
+        artifacts.main.forEach( ( artifact ) => {
+            for ( let i = 0; i < artifact.qty; i++ ) {
+                allCards.push( artifact );
+            }
+        } );
+
+        creatures.main.forEach( ( creature ) => {
+            for ( let i = 0; i < creature.qty; i++ ) {
+                allCards.push( creature );
+            }
+        } );
+
+        sorceries.main.forEach( ( sorcery ) => {
+            for ( let i = 0; i < sorcery.qty; i++ ) {
+                allCards.push( sorcery );
+            }
+        } );
+
+        instants.main.forEach( ( instant ) => {
+            for ( let i = 0; i < instant.qty; i++ ) {
+                allCards.push( instant );
+            }
+        } );
+
+        planeswalker.main.forEach( ( planeswalker ) => {
+            for ( let i = 0; i < planeswalker.qty; i++ ) {
+                allCards.push( planeswalker );
+            }
+        } );
+
+        enchantments.main.forEach( ( enchantment ) => {
+            for ( let i = 0; i < enchantment.qty; i++ ) {
+                allCards.push( enchantment );
+            }
+        } );
+
+        lands.main.forEach( ( land ) => {
+            for ( let i = 0; i < land.qty; i++ ) {
+                allCards.push( land );
+            }
+        } );
+
+        // shuffle cards
+        allCards.sort( function() {
+            return 0.5 - Math.random();
+        } );
+
+        const randomCards = allCards.slice( 0, 7 );
+
+        console.log( randomCards );
+
+        return randomCards;
+    },
     deckTotalCards( state ) {
         let artifactSum = 0;
         let creatureSum = 0;

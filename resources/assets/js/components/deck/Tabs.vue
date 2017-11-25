@@ -13,6 +13,7 @@
             <Decklist v-if="activeTab === 'decklist'"></Decklist>
             <Decklist v-if="activeTab === 'sideboard'" isSideboard="true"></Decklist>
             <Stats v-if="activeTab === 'stats'"></Stats>
+            <Starthand v-if="activeTab === 'hand'"></Starthand>
         </div>
     </section>
 </template>
@@ -20,11 +21,13 @@
 <script>
 import Decklist from './tabs/Decklist.vue';
 import Stats from './tabs/Stats.vue';
+import Starthand from './tabs/Starthand.vue';
 
 export default {
     components : {
         Decklist,
-        Stats
+        Stats,
+        Starthand
     },
     data() {
         return {

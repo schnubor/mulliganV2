@@ -30,9 +30,6 @@ export default {
     components : {
         DeleteModal
     },
-    mounted() {
-        console.log('editRoute', this.editRoute);
-    },
     methods: {
         showDeleteModal() {
             this.$store.dispatch( {
