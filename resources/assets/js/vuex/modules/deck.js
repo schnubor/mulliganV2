@@ -233,6 +233,8 @@ const getters = {
             }
         } );
 
+        // TODO: include basic lands in allCards
+
         // shuffle cards
         allCards.sort( function() {
             return 0.5 - Math.random();

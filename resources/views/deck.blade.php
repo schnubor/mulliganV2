@@ -30,11 +30,13 @@
 
     <div id="app">
         <Deck id="{{ $deck->id }}"></Deck>
-        @if (Auth::user()->id == $deck->user->id)
-            <Deckactions id="{{ $deck->id }}"
-                         editroute="{{ e(route('deckedit', $deck->id)) }}"
-                         deleteroute="{{ e(route('deckdelete', $deck->id)) }}"
-                         csrf="{{ csrf_token() }}"><Deckactions>
+        @if(Auth::check())
+            @if (Auth::user()->id == $deck->user->id)
+                <Deckactions id="{{ $deck->id }}"
+                            editroute="{{ e(route('deckedit', $deck->id)) }}"
+                            deleteroute="{{ e(route('deckdelete', $deck->id)) }}"
+                            csrf="{{ csrf_token() }}"><Deckactions>
+            @endif
         @endif
     </div>
 
