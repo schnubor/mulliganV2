@@ -182,7 +182,7 @@ const getters = {
         count += state.fetchedDeck.decklist.basiclands.main.swamps;
         return count;
     },
-    deckStarthand( state ) {
+    deckAllCards( state ) {
         const allCards = [];
 
         const artifacts = getters.deckArtifacts( state );
@@ -257,16 +257,7 @@ const getters = {
             allCards.push( basiclandCards.forest );
         }
 
-        // shuffle cards
-        allCards.sort( function() {
-            return 0.5 - Math.random();
-        } );
-
-        const randomCards = allCards.slice( 0, 7 );
-
-        console.log( randomCards );
-
-        return randomCards;
+        return allCards;
     },
     deckTotalCards( state ) {
         let artifactSum = 0;
