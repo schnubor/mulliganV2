@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <StarthandItem v-for="card in starthand" :card="card" :key="card.id"></StarthandItem>
+    <div class="columns is-multiline">
+        <StarthandItem v-for="(card, index) in starthand" :card="card" :index="index" :key="card.id"></StarthandItem>
     </div>
 </template>
 

@@ -2,6 +2,8 @@ import * as types from './../types.js';
 import _ from 'lodash';
 import axios from 'axios';
 
+import { basiclandCards } from './../../utils.js';
+
 const state = {
     fetchedDeck : {
         title       : '',
@@ -190,6 +192,7 @@ const getters = {
         const planeswalker = getters.deckPlaneswalker( state );
         const enchantments = getters.deckEnchantments( state );
         const lands = getters.deckLands( state );
+        const basiclands = getters.deckBasiclands( state );
 
         artifacts.main.forEach( ( artifact ) => {
             for ( let i = 0; i < artifact.qty; i++ ) {
@@ -234,6 +237,25 @@ const getters = {
         } );
 
         // TODO: include basic lands in allCards
+        for ( let i = 0; i < basiclands.main.mountains; i++ ) {
+            allCards.push( basiclandCards.mountain );
+        }
+
+        for ( let i = 0; i < basiclands.main.plains; i++ ) {
+            allCards.push( basiclandCards.plains );
+        }
+
+        for ( let i = 0; i < basiclands.main.swamps; i++ ) {
+            allCards.push( basiclandCards.swamp );
+        }
+
+        for ( let i = 0; i < basiclands.main.islands; i++ ) {
+            allCards.push( basiclandCards.island );
+        }
+
+        for ( let i = 0; i < basiclands.main.forests; i++ ) {
+            allCards.push( basiclandCards.forest );
+        }
 
         // shuffle cards
         allCards.sort( function() {
