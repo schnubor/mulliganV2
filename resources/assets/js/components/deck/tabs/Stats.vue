@@ -1,9 +1,11 @@
 <template>
     <div class="columns">
         <div class="column is-half">
+            <p class="title">Mana Curve</p>
             <Manacurve :decklist="decklist"></Manacurve>
         </div>
-        <div class="column is-one-quarter">
+        <div class="column is-one-third">
+            <p class="title">Card Types</p>
             <Cardtypes :chartdata="cardTypeData"></Cardtypes>
         </div>
     </div>

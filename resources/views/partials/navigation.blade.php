@@ -30,7 +30,7 @@
                             <a class="navbar-item has-text-black" href="{{ route('user', Auth::user()->name) }}">
                                 Your decks
                             </a>
-                            <a class="navbar-item has-text-black" href="/settings">
+                            <a class="navbar-item has-text-black" href="{{ route('usersettings', Auth::user()->name) }}">
                                 Settings
                             </a>
                             
