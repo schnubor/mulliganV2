@@ -36,10 +36,11 @@ class DeckController extends Controller
         $deckid = end( $slug );
 
         $deck = Deck::find( $deckid );
+        $user = $deck->user;
         
         event( new DeckViewed( $deck ) );
         
-        return view( 'deck', [ 'deck' => $deck ] );
+        return view( 'deck', [ 'deck' => $deck, 'user' => $user ] );
     }
 
     /**

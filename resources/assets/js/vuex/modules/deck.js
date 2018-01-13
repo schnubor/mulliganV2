@@ -318,6 +318,7 @@ const mutations = {
         state.fetchedDeck.likes = payload.likes;
         state.fetchedDeck.views = payload.views;
         state.fetchedDeck.tags = JSON.parse( payload.tags );
+        console.log( payload );
     },
     [types.FETCHING_DECK_UNSUCCESSFUL]( state ) {
         state.deckLoading = false;

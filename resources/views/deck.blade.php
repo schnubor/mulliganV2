@@ -19,7 +19,9 @@
                     <span style="opacity: .5;">#{{ $deck->id }}</span>
                 </h1>
                 <p class="subtitle">
-                    Last sleeved {{ $deck->updated_at->diffForHumans() }}.
+                    Sleeved {{ $deck->created_at->diffForHumans() }} by
+                    <a href="{{ route( 'user', $deck->user->name) }}">
+                        {{ $deck->user->name }}</a>.
                     @if($deck->wip === 1)
                         <span class="tag is-warning">WIP</span>
                     @endif
@@ -33,9 +35,9 @@
         @if(Auth::check())
             @if (Auth::user()->id == $deck->user->id)
                 <Deckactions id="{{ $deck->id }}"
-                            editroute="{{ e(route('deckedit', $deck->id)) }}"
-                            deleteroute="{{ e(route('deckdelete', $deck->id)) }}"
-                            csrf="{{ csrf_token() }}"><Deckactions>
+                             editroute="{{ e(route('deckedit', $deck->id)) }}"
+                             deleteroute="{{ e(route('deckdelete', $deck->id)) }}"
+                             csrf="{{ csrf_token() }}"><Deckactions>
             @endif
         @endif
     </div>

@@ -2,6 +2,14 @@
     <nav class="level">
         <div class="level-item has-text-centered">
             <div>
+            <p class="heading">Format</p>
+            <p>
+                <span class="tag is-success is-medium">{{ format }}</span>
+            </p>
+            </div>
+        </div>
+        <div class="level-item has-text-centered">
+            <div>
             <p class="heading">Colors</p>
             <p class="title">
                 <template v-for="color in colors">
@@ -18,6 +26,7 @@
             </p>
             </div>
         </div>
+        <!--
         <div class="level-item has-text-centered">
             <div>
             <p class="heading">Tags</p>
@@ -31,6 +40,7 @@
             </p>
             </div>
         </div>
+        -->
         <div class="level-item has-text-centered">
             <div>
                 <p class="heading">Views</p>
