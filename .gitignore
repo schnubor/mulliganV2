@@ -9,4 +9,6 @@ Homestead.yaml
 npm-debug.log
 .DS_Store
 .env
+package-lock.json
+yarn.lock
 

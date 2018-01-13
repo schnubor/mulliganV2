@@ -7,8 +7,8 @@
             <a :href="'/cards/' + cardTitle + '-' + result.multiverseid">{{ result.name }}</a>
         </td>
         <td>
-            <template v-for="manaCost in manaCosts">
-                <i class="ms ms-cost" :class="manaCost" :key="manaCost"></i>
+            <template v-for="(manaCost, index) in manaCosts">
+                <i class="ms ms-cost" :class="manaCost" :key="manaCost + '-' + index"></i>
             </template>
         </td>
     </tr>
@@ -33,8 +33,16 @@
 
                 // Build class strings from splits
                 for ( const split of splits ) {
-                    const manaCostLetter = split.slice( 1, -1 ).toLowerCase();
-                    const classString = `ms-${manaCostLetter}`;
+                    let manaCostLetter = split.slice( 1, -1 ).toLowerCase();
+                    let splitClass = '';
+
+                    // create custom class for split mana, e.g. R/W
+                    if( manaCostLetter.indexOf('/') > -1) {
+                        manaCostLetter = manaCostLetter.replace(/\//g, '');
+                        splitClass = 'ms-split';
+                    }
+
+                    const classString = `${splitClass} ms-${manaCostLetter}`;
                     manaCosts.push( classString );
                 }
 
