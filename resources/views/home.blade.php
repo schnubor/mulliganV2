@@ -63,6 +63,7 @@
                             <th>Format</th>
                             <th>Author</th>
                             <th>Sleeved</th>
+                            <th>Views</th>
                         </tr>
                     </thead>
                     <tbody>

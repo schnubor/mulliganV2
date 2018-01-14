@@ -5,15 +5,15 @@
         </p>
         <ul class="menu-list">
             <li v-for="item in cards" :key="item.card.name">
-                <v-popover offset="16" trigger="hover" placement="right">
+                <!-- <v-popover offset="16" trigger="hover" placement="right"> -->
                     <a @click="showCardModal(item.card)">
                         <span class="tag">{{ item.qty }}</span>
                         {{ item.card.name }}
                     </a>
-                    <template slot="popover">
+                    <!-- <template slot="popover">
                         <img :src="item.card.imageUrl" :alt="item.card.name">
-                    </template>
-                </v-popover>
+                    </template> -->
+                <!-- </v-popover> -->
             </li>
         </ul>
     </div>
@@ -21,7 +21,15 @@
 
 <script>
 export default {
-    props: [ 'headline', 'cards' ]
+    props: [ 'headline', 'cards' ],
+    methods : {
+        showCardModal( card ) {
+            this.$store.dispatch( {
+                type    : 'showCardModal',
+                card    : card
+            } );
+        }
+    }
 }
 </script>
 

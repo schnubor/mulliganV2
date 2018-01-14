@@ -5,9 +5,9 @@
                 <a href="{{ $deck->link }}">{{ $deck->title }}</a>
             </p>
             <span class="card-header-icon">
-                {{ $deck->likes }}
+                {{ $deck->views }}
                 <span class="icon is-small" style="margin-left: 5px;">
-                    <i class="fa fa-fw fa-heart" style="color: red;"></i>
+                    <i class="fa fa-fw fa-eye"></i>
                 </span>
             </span>
         </header>
