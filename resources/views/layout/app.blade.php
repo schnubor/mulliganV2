@@ -9,7 +9,7 @@
         <meta name="description" content="@yield('description')">
 
         {{-- Social --}}
-        <meta property="og:image" content="@yield('ogimage', 'https://mulligan.com/images/fb_image.jpg')">
+        <meta property="og:image" content="@yield('ogimage', 'http://mulligan.chko.org/images/headerbg.jpg')">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Mulligan | @yield('title')">
         <meta property="og:description" content="@yield('description', 'Find cards and build decks for Magic the Gathering.')">

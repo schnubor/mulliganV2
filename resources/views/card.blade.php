@@ -2,7 +2,9 @@
 
 @section('title', $card->name)
 
-@section('description', 'Details and rulings for the MTG card ' . $card->name)
+@section('description', 'Details and rulings for \'' . $card->name . '\'')
+
+@section('ogimage', $card->imageUrl)
 
 @section('content')
     <section class="hero is-primary is-bold">
