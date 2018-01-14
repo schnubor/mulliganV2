@@ -31,7 +31,7 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        $url = url('/verifyemail/'.$this->user->email_token);
+        $url = 'http://mulligan.chko.org//verifyemail/'.$this->user->email_token;
 
         $message = (new MailMessage)
             ->greeting('Hey, '.$this->user->name.'!')
