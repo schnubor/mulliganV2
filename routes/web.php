@@ -29,3 +29,4 @@ Route::get('/deckbuilder',  'DeckController@deckbuilder')->name('deckbuilder')->
 Route::get('/decks/{id}/edit', 'DeckController@edit')->name('deckedit')->middleware('auth');
 Route::delete('/decks/{id}/delete', 'DeckController@destroy')->name('deckdelete')->middleware('auth');
 Route::get('/users/{id}/settings', 'UserController@settings')->name('usersettings')->middleware('auth');
+Route::post('/password/edit', 'UserController@editPassword')->name('editpassword')->middleware('auth');

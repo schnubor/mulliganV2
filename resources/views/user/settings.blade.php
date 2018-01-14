@@ -31,13 +31,26 @@
                 <div class="columns">
                     <div class="column is-one-third is-offset-one-third">
                         <div class="box is-centered">
-                            <section class="section">
+                            {{--  <section class="section">
                                 <figure class="image is-128x128" style="border-radius: 50%; overflow: hidden; margin: 0 auto;">
                                     <img src="http://share.moltendorf.net/Pictures/Avatar/Doge/Doge-Lovers.png" alt="{{ $user->name }}">
                                 </figure>
-                            </section>
-                            {!! Form::model(Auth::user(), ['route' => 'deckbuilder', 'files' => true, 'class' => 'form']) !!}
-                                <div class="field">
+                            </section>  --}}
+                            @if(Session::has('password_edit_success'))
+                                <div class="notification is-success">
+                                    {{ Session::get('password_edit_success') }}
+                                </div>
+                            @elseif(Session::has('password_edit_error'))
+                                <div class="notification is-danger">
+                                    {{ Session::get('password_edit_error') }}
+                                </div>
+                            @elseif(Session::has('password_edit_db_error'))
+                                <div class="notification is-danger">
+                                    {{ Session::get('password_edit_db_error') }}
+                                </div>
+                            @endif
+                            {!! Form::model(Auth::user(), ['route' => 'editpassword', 'files' => true, 'class' => 'form']) !!}
+                                {{--  <div class="field">
                                     <p class="has-text-centered">
                                         <strong>Change Avatar</strong>
                                     </p>
@@ -58,7 +71,7 @@
                                         </span>
                                     </label>
                                 </div>
-                                <hr>
+                                <hr>  --}}
                                 <div class="field">
                                     <p class="has-text-centered">
                                         <strong>Change Password</strong>

@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $slugify = new Slugify;
         $latestDecks = Deck::latest()->take(4)->get();
-        $popularDecks = Deck::orderBy('likes', 'DESC')->take(4)->get();
+        $popularDecks = Deck::orderBy('views', 'DESC')->take(4)->get();
 
         return view( 'home', [ 'latestDecks' => $latestDecks, 'popularDecks' => $popularDecks ] );
     }
