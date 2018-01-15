@@ -247,7 +247,6 @@ const getters = {
 const mutations = {
     [types.ADD_TO_DECKLIST]( state, payload ) {
         const card = payload.card;
-        console.log( state.activeList );
 
         let list = null;
 
@@ -301,15 +300,15 @@ const mutations = {
         const list = payload.list;
         const id = payload.id;
 
-        const index = _.findIndex( state.decklist[ list ], { id : id } );
-        const entry = state.decklist[ list ][ index ];
+        const index = _.findIndex( state.decklist[ list ][ state.activeList ], { id : id } );
+        const entry = state.decklist[ list ][ state.activeList ][ index ];
 
         if ( entry.qty > 1 ) {
             entry.qty--;
         }
         else {
             entry.qty--;
-            _.remove( state.decklist[ list ], { id : id } );
+            _.remove( state.decklist[ list ][ state.activeList ], { id : id } );
         }
 
         // update Deck colors
@@ -326,11 +325,11 @@ const mutations = {
         const list = payload.list;
         const id = payload.id;
 
-        const index = _.findIndex( state.decklist[ list ], { id : id } );
-        const entry = state.decklist[ list ][ index ];
+        const index = _.findIndex( state.decklist[ list ][ state.activeList ], { id : id } );
+        const entry = state.decklist[ list ][ state.activeList ][ index ];
 
         entry.qty = 0;
-        _.remove( state.decklist[ list ], { id : id } );
+        _.remove( state.decklist[ list ][ state.activeList ], { id : id } );
 
         // update Deck colors
         if ( entry.card.colorIdentity ) {
