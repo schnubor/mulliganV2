@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="columns is-multiline">
-            <StarthandItem v-for="(card, index) in starthand" :card="card" :index="index" :key="card.id"></StarthandItem>
+            <StarthandItem v-for="(card, index) in starthand" :card="card" :index="index" :key="card.id + '-' + index"></StarthandItem>
         </div>
     </div>
 </template>
