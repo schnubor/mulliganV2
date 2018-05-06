@@ -1,6 +1,6 @@
 <template>
     <div class="modal" :class="{ 'is-active' : saveModal.visible }">
-        <div class="modal-background"></div>
+        <div class="modal-background" @click="closeModal"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">{{ modalTitle }}</p>

@@ -1,6 +1,6 @@
 <template>
     <div class="modal" :class="{ 'is-active' : isVisible }">
-        <div class="modal-background"></div>
+        <div class="modal-background" @click="closeModal"></div>
         <div class="modal-card">
             <header class="modal-card-head">
                 <p class="modal-card-title">
