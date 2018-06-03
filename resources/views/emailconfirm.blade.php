@@ -1,5 +1,7 @@
 @extends('layout.app')
 
+@section('title', 'Verification')
+
 @section('content')
 <section class="hero is-fullheight is-medium is-primary is-bold">
     @include('partials.navigation')
