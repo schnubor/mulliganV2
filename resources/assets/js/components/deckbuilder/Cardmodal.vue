@@ -74,7 +74,14 @@
                                     </div>
                                 </div>
                             </template>
+                            <hr>
                         </template>
+                        <a :href="`https://www.magiccardmarket.eu/Products/Singles/${card.setName}/${card.name}`" class="button is-large is-primary is-outlined" target="_blank">
+                            <span class="icon is-medium">
+                                <i class="fa fa-shopping-cart"></i>
+                            </span>
+                            <span>Buy Card</span>
+                        </a>
                     </div>
                 </div>
 
