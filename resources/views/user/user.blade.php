@@ -30,7 +30,7 @@
             <div class="container">
                 @if (count($decks) > 0)
                     <h3 class="title">Decks</h3>
-                    <div class="columns">
+                    <div class="columns is-multiline">
                         @foreach($decks as $deck)
                             @include('partials.decktile', [ 'deck' => $deck ])
                         @endforeach
